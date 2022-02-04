@@ -1,0 +1,1945 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>변수,자료형,기본 함수, 작업공간 | INTROr</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="변수,자료형,기본 함수, 작업공간" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="An easy to use blogging platform with support for Jupyter Notebooks." />
+<meta property="og:description" content="An easy to use blogging platform with support for Jupyter Notebooks." />
+<link rel="canonical" href="https://rhkrehtjd.github.io/INTROr/2022/02/04/R.html" />
+<meta property="og:url" content="https://rhkrehtjd.github.io/INTROr/2022/02/04/R.html" />
+<meta property="og:site_name" content="INTROr" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-02-04T00:00:00-06:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="변수,자료형,기본 함수, 작업공간" />
+<script type="application/ld+json">
+{"url":"https://rhkrehtjd.github.io/INTROr/2022/02/04/R.html","@type":"BlogPosting","headline":"변수,자료형,기본 함수, 작업공간","dateModified":"2022-02-04T00:00:00-06:00","datePublished":"2022-02-04T00:00:00-06:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://rhkrehtjd.github.io/INTROr/2022/02/04/R.html"},"description":"An easy to use blogging platform with support for Jupyter Notebooks.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/INTROr/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://rhkrehtjd.github.io/INTROr/feed.xml" title="INTROr" /><link rel="shortcut icon" type="image/x-icon" href="/INTROr/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.css" integrity="sha512-h7nl+xz8wgDlNM4NqKEM4F1NkIRS17M9+uJwIGwuo8vGqIl4BhuCKdxjWEINm+xyrUjNCnK5dCrhM0sj+wTIXw==" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.js" integrity="sha512-/CMIhXiDA3m2c9kzRyd97MTb3MC6OVnx4TElQ7fkkoRghwDf6gi41gaT1PwF270W6+J60uTmwgeRpNpJdRV6sg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/contrib/auto-render.min.js" integrity="sha512-Do7uJAaHZm5OLrIv/yN4w0iG1dbu01kzdMNnFfu/mAqgUk6Nniv2JYHcwH+cNwjqgLcqcuBBk+JRvprLVI8azg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha512-0doc9hKxR3PYwso42RD1p5ySZpzzuDiOwMrdCEh2WdJZCjcmFKc/wEnL+z8fBQrnHoiNWbo+3fiGkOYXBdQp4A==" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/INTROr/">INTROr</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/INTROr/about/">About Me</a><a class="page-link" href="/INTROr/search/">Search</a><a class="page-link" href="/INTROr/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">변수,자료형,기본 함수, 작업공간</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2022-02-04T00:00:00-06:00" itemprop="datePublished">
+        Feb 4, 2022
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      6 min read
+    
+</span></p>
+
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-justify-center">
+          <div class="px-2">
+
+    <a href="https://github.com/rhkrehtjd/INTROr/tree/master/_notebooks/2022-02-04-R.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/INTROr/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://mybinder.org/v2/gh/rhkrehtjd/INTROr/master?filepath=_notebooks%2F2022-02-04-R.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/INTROr/assets/badges/binder.svg" alt="Open In Binder"/>
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://colab.research.google.com/github/rhkrehtjd/INTROr/blob/master/_notebooks/2022-02-04-R.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/INTROr/assets/badges/colab.svg" alt="Open In Colab"/>
+    </a>
+</div>
+          <div class="px-2">
+  <a href="https://deepnote.com/launch?url=https%3A%2F%2Fgithub.com%2Frhkrehtjd%2FINTROr%2Fblob%2Fmaster%2F_notebooks%2F2022-02-04-R.ipynb" target="_blank">
+      <img class="notebook-badge-image" src="/INTROr/assets/badges/deepnote.svg" alt="Launch in Deepnote"/>
+  </a>
+</div>
+
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2022-02-04-R.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>변수는 분석에 필요한 자료를 일시적으로 저장하거나 처리결과를 담을 수 있는 기억장소를 지정해주는 역할을 한다. 즉 변수의 이름은 값을 저장하는 메모리 영역의 이름으로 할당된다. 또한 R은 모든 변수가 객체(object) 형태로 생성되기 때문에 하나의 변수에 자료와 함수 그리고 차트와 같은 이미지까지 모든 형식을 저장할 수 있다. <ul>
+<li>변수 이름 작성 규칙<ul>
+<li>첫 자는 영문자로 시작</li>
+<li>두 번째 단어는 숫자와 밑줄 문자 그리고 점(.)을 이용할 수 있다.</li>
+<li>대문자와 소문자는 서로 다른 변수로 인식한다. </li>
+<li>변수 이름은 의미를 파악할 수 있는 이름으로 지정하는 것이 좋다.</li>
+<li>두 단어를 포함하여 변수 이름을 지정할 경우 두 번째 단어의 첫 자는 대문자로 표기한다. </li>
+<li>한 번 정의된 변수는 재사용이 가능하고 가장 최근에 할당된 값으로 수정된다.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">var1</span> <span class="o">&lt;-</span> <span class="m">0</span>
+<span class="n">var1</span> <span class="o">=</span> <span class="m">9</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">var1</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+9
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li><code>=</code> 나 <code>&lt;-</code> 둘 다 사용가능하다</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr />
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>스칼라 변수 : 한 개의 값만 갖는 변수를 의미한다.</li>
+<li>벡터 변수 :  두 개 이상의 값을 갖는 변수를 의미한다.<ul>
+<li>여러 개의 자료를 저장할 수 있는 1차원의 선형 자료구조이다. </li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">age</span><span class="o">&lt;-</span><span class="m">35</span> <span class="c1"># 정수</span>
+<span class="n">name</span><span class="o">&lt;-</span><span class="s">&#39;홍길동&#39;</span> <span class="c1"># 문자열</span>
+<span class="n">age</span><span class="p">;</span><span class="n">name</span>
+<span class="n">name</span><span class="o">&lt;-</span><span class="nf">c</span><span class="p">(</span><span class="s">&#39;홍길동&#39;</span><span class="p">,</span><span class="s">&#39;이순신&#39;</span><span class="p">,</span><span class="s">&#39;곽도성&#39;</span><span class="p">)</span>
+<span class="c1"># 이건 두 개 이상의 값을 갖는 변수, 여러 개의 자료를 저장할 수 있는 1차원의 선형 자료구조</span>
+<span class="c1"># 즉 벡터변수</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+35
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+'홍길동'
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr />
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>R은 변수를 선언할 때 별도의 자료형(type)을 선언하지 않는다. 즉 변수에 저장하는 자료의 유형에 의해서 변수의 타입이 결정된다!<ul>
+<li>숫자형 : 정수, 실수</li>
+<li>문자형 : 문자, 문자열</li>
+<li>논리형 : 참, 거짓</li>
+<li>결측 데이터 : 결측치, 비숫자(NA,NaN)</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">int</span><span class="o">&lt;-</span><span class="m">20</span>
+<span class="n">string</span><span class="o">&lt;-</span><span class="s">&#39;홍길동&#39;</span>
+<span class="n">boolean</span><span class="o">&lt;-</span><span class="kc">TRUE</span> <span class="c1"># True파이썬에서는 이렇게 작성해야 함</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">sum</span><span class="p">(</span><span class="m">10</span><span class="p">,</span><span class="m">20</span><span class="p">,</span><span class="m">30</span><span class="p">)</span>
+<span class="c1"># 3개의 숫자형 값의 합계 연산</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+60
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">sum</span><span class="p">(</span><span class="m">10</span><span class="p">,</span><span class="m">20</span><span class="p">,</span><span class="m">30</span><span class="p">,</span><span class="kc">NA</span><span class="p">)</span>
+<span class="c1"># sum 안 됨</span>
+<span class="nf">sum</span><span class="p">(</span><span class="m">10</span><span class="p">,</span><span class="m">20</span><span class="p">,</span><span class="m">30</span><span class="p">,</span><span class="kc">NA</span><span class="p">,</span><span class="n">na.rm</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span>
+<span class="c1"># na.rm=TRUE를 통해 NA 결측치 제거 후 합계 연산</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+&lt;NA&gt;
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+60
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">ls</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>'age'</li><li>'boolean'</li><li>'int'</li><li>'name'</li><li>'string'</li><li>'var1'</li>&lt;/ol&gt;
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr />
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>자료형 확인<ul>
+<li>변수에 저장된 자료형을 확인하는 함수를 이용하여 반환되는 TRUE 또는 FALSE의 결과를 통해서 해당 변수의 자료형을 확인할 수 있다.</li>
+<li>is.numeric(x) - 수치형 여부</li>
+<li>is.logical(x)</li>
+<li>is.character(x) - 문자형 여부</li>
+<li>is.data.frame(x) - 데이터프레임 여부</li>
+<li>is.na(x)</li>
+<li>is.integer(x) - 정수형 여부</li>
+<li>is.double(x) - 실수형 여부</li>
+<li>is.complex(x)</li>
+<li>is.factor(x) - 범주형 여부</li>
+<li>is.nan(x)</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">is.character</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+TRUE
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr />
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>자료형 변환<ul>
+<li>변수에 저장된 자료형을 다른 자료형으로 변환하자<ul>
+<li>as.numeric(x) - 수치형 변환</li>
+<li>as.logical(x)</li>
+<li>as.character(x) - 문자형 변환</li>
+<li>as.data.frame(x) - 데이터프레임 변환</li>
+<li>as.list(x) - 리스트형 변환</li>
+<li>as.array(x) - 다차원 배열 변환</li>
+<li>as.integer(x) - 정수형 변환</li>
+<li>as.double(x) - 실수형 변환</li>
+<li>as.complex(x)</li>
+<li>as.factor(x) - 요인형 변환</li>
+<li>as.Data(x) - 날짜형 변환</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">x</span><span class="o">&lt;-</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="s">&#39;3&#39;</span><span class="p">)</span> <span class="c1"># 3개의 원소를 갖는 벡터 생성</span>
+<span class="c1"># x*3</span>
+<span class="c1"># 이렇게 작성하면 이항연산자에 수치가 아닌 인수가 있다는 error가 발생하게 됨</span>
+<span class="n">result</span><span class="o">&lt;-</span><span class="nf">as.numeric</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">*</span><span class="m">3</span>
+<span class="n">result2</span><span class="o">&lt;-</span><span class="nf">as.integer</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">*</span><span class="m">3</span>
+<span class="n">result</span>
+<span class="n">result2</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>3</li><li>6</li><li>9</li>&lt;/ol&gt;
+
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>3</li><li>6</li><li>9</li>&lt;/ol&gt;
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>c() 함수를 이용하여 벡터를 생성할 경우 원소 중 한 개라도 문자이면 모든 원소를 문자로 하여 객체가 생성된다. 따라서 이항연산자에 수치가 아닌 인수가 있다는 error가 발생하게 된다. </li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr />
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>복소수</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">z</span><span class="o">&lt;-</span><span class="m">5.3-3i</span>
+<span class="nf">Re</span><span class="p">(</span><span class="n">z</span><span class="p">)</span> <span class="c1"># 실수</span>
+<span class="nf">Im</span><span class="p">(</span><span class="n">z</span><span class="p">)</span> <span class="c1"># 허수</span>
+<span class="nf">is.complex</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+5.3
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+-3
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+TRUE
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">as.complex</span><span class="p">(</span><span class="m">123</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+123+0i
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr />
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>자료형과 자료구조 보기<ul>
+<li>자료형은 변수에 저장된 자료의 성격(숫자형, 문자형, 논리형)을 의미하고, 자료구조는 변수에 저장된 자료의 메모리 구조(배열, 리스트, 테이블)를 의미한다. 메모리 구조는 객체가 생성될 때 만들어지기 때문에 자료구조를 객체형(Object Type)이라고도 한다. R에서는 mode()를 이용하여 자료형을 확인할 수 있고, class()를 이용하여 자료 구조, 즉 메모리 구조를 확인할 수 있다. </li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">int</span><span class="o">&lt;-</span><span class="m">3</span>
+<span class="nf">mode</span><span class="p">(</span><span class="n">int</span><span class="p">)</span> <span class="c1"># 자료의 성격을 알려준다. </span>
+<span class="nf">class</span><span class="p">(</span><span class="n">int</span><span class="p">)</span> <span class="c1"># 자료구조의 성격을 알려준다.</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+'numeric'
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+'numeric'
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>이처럼 벡터 변수가 아닌 스칼라 변수일 땐 자료의 성격을 알려주는 mode()와 자료 구조의 성격을 알려주는 class() 함수의 결과는 같은 유형으로 나타난다.</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr />
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>요인(Factor)형 변환<ul>
+<li>요인(Factor)은 같은 성격인 값의 목록을 범주로 갖는 벡터 자료를 의미한다. 범주는 변수가 가질 수 있는 값의 범위로 예를 들면 성별 변수의 범주는 남자와 여자가 되낟. 요인형은 순서에 의미가 없는 Nominal 유형과 순서에 의미가 있는 Ordinal 유형으로 구분된다. <ul>
+<li>Nominal : 범주의 순서는 알파벳 순서로 정렬</li>
+<li>Ordinal : 범주의 순서는 사용자가 지정한 순서대로 정렬</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">gender</span><span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#39;man&#39;</span><span class="p">,</span><span class="s">&#39;woman&#39;</span><span class="p">,</span><span class="s">&#39;woman&#39;</span><span class="p">,</span><span class="s">&#39;man&#39;</span><span class="p">,</span><span class="s">&#39;man&#39;</span><span class="p">)</span>
+<span class="c1"># plot(gender)</span>
+<span class="c1"># error 발생, 차트는 수치 데이터만 가능하다.</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Factor Nominal : 벡터 원소를 요인형으로 변환한 경우 범주의 순서가 알파벳 순서로 정렬되는 요인형의 기본 유형이다. </li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">Ngender</span><span class="o">&lt;-</span><span class="nf">as.factor</span><span class="p">(</span><span class="n">gender</span><span class="p">)</span> <span class="c1"># Factor형 변환</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">Ngender</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>man</li><li>woman</li><li>woman</li><li>man</li><li>man</li>&lt;/ol&gt;
+
+<details>
+	&lt;summary style=display:list-item;cursor:pointer&gt;
+		<strong>Levels</strong>:
+	&lt;/summary&gt;
+	<style>
+	.list-inline {list-style: none; margin:0; padding: 0}
+	.list-inline>li {display: inline-block}
+	.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+	</style>
+	&lt;ol class=list-inline&gt;<li>'man'</li><li>'woman'</li>&lt;/ol&gt;
+</details>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>여기서 Levels가 의미하는 것이 범주이다. 여기서 범주의 수준(Levels)은 값의 목록을 알파벳 순서로 정렬한다. </li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">table</span><span class="p">(</span><span class="n">Ngender</span><span class="p">)</span>
+<span class="c1"># 빈도수 구하기</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea ">
+<pre>Ngender
+  man woman 
+    3     2 </pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>gender 원소 중에서 같은 값의 수량을 수치화한 빈도수를 확인할 수 있다. 여기서 man과 woman은 범주가 된다. 범주가 된다는 의미는 gender 변수가 값을 가질 수 잇는 범위를 의미한다. 또한 빈도수는 해당 범주의 발생 수를 의미한다. </li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">plot</span><span class="p">(</span><span class="n">Ngender</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+AABJRU5ErkJggg==" width="420" height="420" />
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">mode</span><span class="p">(</span><span class="n">Ngender</span><span class="p">)</span>
+<span class="nf">class</span><span class="p">(</span><span class="n">Ngender</span><span class="p">)</span>
+<span class="nf">is.factor</span><span class="p">(</span><span class="n">Ngender</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+'numeric'
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+'factor'
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+TRUE
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr />
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="--Factor-Ordinal-:-&#48276;&#51452;&#51032;-&#49692;&#49436;&#47484;-&#49324;&#50857;&#51088;&#44032;-&#51648;&#51221;&#54620;-&#49692;&#49436;&#45824;&#47196;-&#51221;&#47148;&#54616;&#45716;-&#44592;&#45733;&#51004;&#47196;-factor()-&#54632;&#49688;&#51032;-&#54805;&#49885;&#51008;-&#45796;&#51020;&#44284;-&#44057;&#45796;.">- Factor Ordinal : &#48276;&#51452;&#51032; &#49692;&#49436;&#47484; &#49324;&#50857;&#51088;&#44032; &#51648;&#51221;&#54620; &#49692;&#49436;&#45824;&#47196; &#51221;&#47148;&#54616;&#45716; &#44592;&#45733;&#51004;&#47196; factor() &#54632;&#49688;&#51032; &#54805;&#49885;&#51008; &#45796;&#51020;&#44284; &#44057;&#45796;.<a class="anchor-link" href="#--Factor-Ordinal-:-&#48276;&#51452;&#51032;-&#49692;&#49436;&#47484;-&#49324;&#50857;&#51088;&#44032;-&#51648;&#51221;&#54620;-&#49692;&#49436;&#45824;&#47196;-&#51221;&#47148;&#54616;&#45716;-&#44592;&#45733;&#51004;&#47196;-factor()-&#54632;&#49688;&#51032;-&#54805;&#49885;&#51008;-&#45796;&#51020;&#44284;-&#44057;&#45796;."> </a></h2><div class="highlight"><pre><span></span><span class="nf">factor</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">levels</span><span class="p">,</span><span class="n">ordered</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">args</span><span class="p">(</span><span class="n">factor</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+&lt;pre class=language-r&gt;<code>function (x = character(), levels, labels = levels, exclude = NA, 
+&lt;span style=white-space:pre-wrap&gt;    ordered = is.ordered(x), nmax = NA) &lt;/span&gt;
+NULL</code>&lt;/pre&gt;
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">Ogender</span><span class="o">&lt;-</span><span class="nf">factor</span><span class="p">(</span><span class="n">gender</span><span class="p">,</span><span class="n">levels</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s">&#39;woman&#39;</span><span class="p">,</span><span class="s">&#39;man&#39;</span><span class="p">),</span><span class="n">ordered</span> <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+<span class="n">Ogender</span>
+<span class="c1"># factor 함수에서 사용할 수 있는 매개변수를 확인하고, 해당 변수를 이용하여 순서 잇는 요인형으로 변환한 후 Levels:에서 범주의 순서를 확인할 수 있다. </span>
+<span class="c1"># 전에는 man이 먼저 나왔는데 이번엔 woman이 먼저 나온 것을 확인할 수 있다.</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>man</li><li>woman</li><li>woman</li><li>man</li><li>man</li>&lt;/ol&gt;
+
+<details>
+	&lt;summary style=display:list-item;cursor:pointer&gt;
+		<strong>Levels</strong>:
+	&lt;/summary&gt;
+	<style>
+	.list-inline {list-style: none; margin:0; padding: 0}
+	.list-inline>li {display: inline-block}
+	.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+	</style>
+	&lt;ol class=list-inline&gt;<li>'woman'</li><li>'man'</li>&lt;/ol&gt;
+</details>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">par</span><span class="p">(</span><span class="n">mfrow</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">2</span><span class="p">))</span> 
+<span class="c1"># 두 개의 그래프를 Plots 영역에 나타낼 수 있다.</span>
+<span class="c1"># (2,2)라고 바꿔주면 4개의 그래프를 그릴 수 있다.</span>
+<span class="nf">plot</span><span class="p">(</span><span class="n">Ngender</span><span class="p">)</span>
+<span class="nf">plot</span><span class="p">(</span><span class="n">Ogender</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA0gAAANICAMAAADKOT/pAAAAM1BMVEUAAABNTU1oaGh8fHyM
+jIyampqnp6eysrK9vb2+vr7Hx8fQ0NDZ2dnh4eHp6enw8PD////ojgWfAAAACXBIWXMAABJ0
+AAASdAHeZh94AAAgAElEQVR4nO2di3Iay7JEm4cQ1wjo///aK5AfOttOeaq7CnIca0UcG2vH
+aNbJ7LQlIezWAWCa9mwBgH8BhgSQAEMCSIAhASTAkAASYEgACTAkgAQYEkACDAkgAYYEkABD
+AkiAIQEkwJAAEmBIAAkwJIAEGBJAAgwJIAGGBJAAQwJIgCEBJMCQABJgSAAJMCSABBgSQAIM
+CSABhgSQAEMCSIAhASTAkAASYEgACTAkgAQYEkACDAkgAYYEkABDAkiAIQEkwJAAEmBIAAkw
+JIAEGBJAAgwJIAGGBJAAQwJIgCEBJMCQABJgSAAJMCSABBgSQAIMCSABhgSQAEMCSIAhASTA
+kAASYEgACTAkgAQYEkACDAkgAYYEkABDAkiAIQEkwJAAEmBIAAkwJIAEGBJAAgwJIAGGBJAA
+QwJIgCEBJMCQABJgSAAJMCSABBgSQAIMCSABhgSQAEMCSIAhASTAkAASYEgACTAkgAQYEkAC
+DAkgAYYEkABDAkiAIQEkMD6kt9d9u7E/vCX6QCZ09DBGh3Tdtl/sUpUgCTp6IKNDOrTNt/P9
+0eW0aYc8IUiDjh7I6JA27fzz8bltcmQgFTp6IKNDak39AlygowfCn0j/LnT0QCY+Rzpd7o/4
++NsVOnogw3/g7z59RWh7zVSCLOjocUw8j3S4P0ex2b/yHIUrdPQw+BQUIAGGBJAAQwJIIGVI
+PEfhDx3VUjSk9pk/v/UxZPzf+ydY2pENKzssD0jw05D+79EYHhBLDHNa2WFhSNAZ0vxhYUjQ
+GdL8YZlN8Lhp2+PSW6wsm3+FUEc2rOywDF983rfNsb/eP0n7+kVjDOlZjHRkw8oOy+jF53s7
+h/Zy7Zd9+/L3O4b0JIY6smFlh2X04pfbdxMfPr43/9q2y26xsmzWzlBHNqzssMy9sK/tP/3i
+77dYWTZrZ6gjG1Z2WOaG9O3j44WvXzTGkJ7EUEc2rOywjH9o9/LjBS7Xl69fNMaQnsRQRzas
+7LAM/3Vcm58fK7S/vIqZIT2JoY5sWNlhGb/48KOazV9exMyQnsZARzas7LDwnQ3QGdL8YWFI
+0BnS/GFhSNAZ0vxhYUjQGdL8YWFI0BnS/GFhSNAZ0vxhYUjQGdL8YWFI0BnS/GFhSNAZ0vxh
+YUjQGdL8YWFI0BnS/GFhSNAZ0vxhYUjQGdL8YWFI0BnS/GFhSNAZ0vxhYUjQGdL8YWFI0BnS
+/GFhSNAZ0vxhYUjQGdL8YWFI0BnS/GFhSNAZ0vxhYUjQGdL8YWFI0BnS/GFhSNAZ0vxhYUjQ
+GdL8YWFI0BnS/GFhSNAZ0vxhYUjQGdL8YWFI0BnS/GFhSNAZ0vxhYUjQGdL8YWFI0BnS/GFh
+SNAZ0vxhYUjQGdL8YWFI0BnS/GFhSNAZ0vxhYUjQGdL8YWFI0BnS/GFhSNAZ0vxhYUjQGdL8
+YWFI0BnS/GFhSNAZ0vxhYUjQGdL8YWFI0BnS/GFhSNAZ0vxhYUjQGdL8YWFI0BnS/GFhSNAZ
+0vxhYUjQGdL8YWFI0BnS/GFhSNAZ0vxhYUjQGdL8YWFI0BnS/GFhSNAZ0vxhYUjQGdL8YWFI
+0BnS/GFhSNAZ0vxhYUjQGdL8YWFI0BnS/GFhSNAZ0vxhYUjQGdL8YWFI0BnS/GFhSNAZ0vxh
+YUjQGdL8YWFI0BnS/GFhSNAZ0vxhYUjQGdL8YWFI0BnS/GFhSNAZ0vxhYUjQGdL8YWFI0BnS
+/GFhSNAZ0vxhYUjQGdL8YWFI0BnS/GFhSNAZ0vxhYUjQGdL8YZlM8LhtbX9aeouVZfOPEOvI
+hpUdltGL2/3CXbtzWHiLlWWzdoY6smFlh2VqSId2uPZ+ObTjslusLJu1M9SRDSs7LFND2rTr
+7fG1bZfdYmXZrJ2hjmxY2WGZGlJrn36x4BYry2btDHVkw8oOy9SQXn6UtFl2i5Vls3aGOrJh
+ZYdlfEj71+OpfXt/eD18/ZksQ3oSQx3ZsLLDMj6kD+4PN9dlt1hZNmtnqCMbVnZYhi8+n4/H
+/f7+6ezhy44Y0tMY6ciGlR0WvrMBOkOaPywMCTpDmj8sDAk6Q5o/LCkJ8jySPzyPVHtYiobU
+PvPrrevK5p9iaUc2rOyw8KEddP5Emj8sDAk6Q5o/LAwJOkOaPyzDF19fWtt9f7kYX2zwZKQj
+G1Z2WEYvvm7un6PuP94JQ3JkqCMbVnZYRi++v1Dsetzs7u+EITky1JENKzssoxdvPi68bLYX
+hmTKUEc2rOywTL0e6Z3rbseQTBnqyIaVHZbRi7ftx7cTb3cMyZOhjmxY2WEZvfjYXr4/urQd
+Q7JkqCMbVnZYhi8+/Gzm9JfvMGFIz2KkIxtWdljGLz7vfzy6vDAkTwY6smFlh4XvbIDOkOYP
+C0OCzpDmDwtDgs6Q5g8LQ4LOkOYPC0OCzpDmDwtDgs6Q5g8LQ4LOkOYPC0OCzpDmDwtDgs6Q
+5g8LQ4LOkOYPC0OCzpDmDwtDgs6Q5g8LQ4LOkOYPC0OCzpDmDwtDgs6Q5g8LQ4LOkOYPC0OC
+zpDmDwtDgs6Q5g8LQ4LOkOYPC0OCzpDmDwtDgs6Q5g8LQ4LOkOYPC0OCzpDmDwtDgs6Q5g8L
+Q4LOkOYPC0OCzpDmDwtDgs6Q5g8LQ4LOkOYPC0OCzpDmDwtDgs6Q5g8LQ4LOkOYPC0OCzpDm
+DwtDgs6Q5g8LQ4LOkOYPC0OCzpDmDwtDgs6Q5g8LQ4LOkOYPC0OCzpDmDwtDgs6Q5g8LQ4LO
+kOYPC0OCzpDmDwtDgs6Q5g8LQ4LOkOYPC0OCzpDmDwtDgs6Q5g8LQ4LOkOYPC0OCzpDmDwtD
+gs6Q5g8LQ4LOkOYPC0OCzpDmDwtDgs6Q5g8LQ4LOkOYPC0OCzpDmDwtDgs6Q5g8LQ4LOkOYP
+C0OCzpDmDwtDgs6Q5g8LQ4LOkOYPC0OCzpDmDwtDgs6Q5g8LQ4LOkOYPC0OCzpDmDwtDgs6Q
+5g8LQ4LOkOYPC0OCzpDmDwtDgs6Q5g8LQ4LOkOYPC0OCzpDmDwtDgs6Q5g8LQ4LOkOYPC0OC
+zpDmDwtDgs6Q5g8LQ4LOkOYPC0OCzpDmDwtDgs6Q5g8LQ4LOkOYPy/jFb6/7dmN/eFt6i5Vl
+s34GOrJhZYdl9OLrtv1it/AWK8tm7Qx1ZMPKDsvoxYe2+Xa+P7qcNu2w7BYry2btDHVkw8oO
+y+jFm3b++fjcNstusbJs1s5QRzas7LCMXtya+sUXt1hZNmtnqCMbVnZY+BPp34U/kR54WCY+
+Rzpd7o/4HMmVoY5sWNlhGb549+krQtvrslusLJvVM9KRDSs7LBPPIx3uz1Fs9q88j+TKQEc2
+rOyw8J0N0BnS/GFhSNAZ0vxhYUjQGdL8YUlJkOeR/OF5pNrDUjSk9plfb3XJpj2ejJxnWNyR
+SzQ2h2VhvjMXR29hk42NiAt0pEWiCZZBSVrEBTrSItEEy6AkLeICHWmRaIJBri+t7U7f38na
+vthgI1ILHWWILGP4hX2b++eJ+493QkmDIqXQUYrIMsa/afX43tRxc3/hJSWNipRCRykiyxh/
+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
++eq0PNDKAs9oXGpxLP+/2by07fF0eVA2bfv2/pnqoV23778Bf3VaHmplgWU0LrU4lv/fbO6P
+HrpbmLUAAAG6SURBVJXNob28f/B/ev/x9uXeH58I7J9sZYFlNC61OJb/ezZv/fyoD3vf3j8s
+uP9+ez8n//OlqSdaWWAZjUstjuX/N5vD939P+O0h2WzvXy/d3b/M+79PljzTygLHaFxqcSz/
+t88fX977evvtg4giXu9P5n38+M5x8+vp+ydaWeAYjUst/3z5AI+AIQEkwJAAEmBIAAkwJIAE
+GBJAAgwJIAGGBJAAQwJIgCEBJMCQABJgSAAJMCSABBgSQAIMCSABhgSQAEMCSIAhASTAkAAS
+YEgACTAkgAQYEkACDAkgAYYEkABDAkiAIQEkwJAAEmBIAAkwJIAEGBJAAgwJIAGGBJAAQwJI
+gCEBJMCQABJgSAAJMCSABBgSQAIMCSABhgSQAEMCSIAhASTAkAASYEgACTAkgAQYEkACDAkg
+AYYEkABDAkiAIQEkwJAAEmBIAAkwJIAEGBJAAgwJIAGGBJAAQwJIgCEBJMCQABJgSAAJMCSA
+BBgSQAIMCSABhgSQAEMCSIAhASTAkAASYEgACTAkgAQYEkACDAkgAYYEkABDAkiAIQEkwJAA
+EmBIAAkwJIAEGBJAAgwJIIH/B+5mdiRszhr9AAAAAElFTkSuQmCC" width="420" height="420" />
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr />
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>날짜형 변환 : 인터넷 또는 로컬 파일로부터 가져온 자료 중에서 날짜형 칼럼은 요인형 또는 문자형으로 인식되기 때문에 정확한 날짜형으로 변환할 필요가 있다.</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">a</span><span class="o">=</span><span class="nf">as.Date</span><span class="p">(</span><span class="s">&#39;20/02/28&#39;</span><span class="p">,</span><span class="s">&#39;%y/%m/%d&#39;</span><span class="p">)</span>
+<span class="n">a</span>
+<span class="nf">class</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<time datetime="2020-02-28">2020-02-28</time>
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+'Date'
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">dates</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s">&#39;15/02/24&#39;</span><span class="p">,</span><span class="s">&#39;10/02/2&#39;</span><span class="p">,</span><span class="s">&#39;16/08/14&#39;</span><span class="p">)</span>
+<span class="nf">as.Date</span><span class="p">(</span><span class="n">dates</span><span class="p">,</span><span class="s">&#39;%y/%m/%d&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li><time datetime="2015-02-24">2015-02-24</time></li><li><time datetime="2010-02-02">2010-02-02</time></li><li><time datetime="2016-08-14">2016-08-14</time></li>&lt;/ol&gt;
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">dates</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s">&#39;15/22/24&#39;</span><span class="p">,</span><span class="s">&#39;98/02/2&#39;</span><span class="p">,</span><span class="s">&#39;16/08/14&#39;</span><span class="p">)</span>
+<span class="nf">as.Date</span><span class="p">(</span><span class="n">dates</span><span class="p">,</span><span class="s">&#39;%y/%m/%d&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li><time datetime="&lt;NA&gt;">&lt;NA&gt;</time></li><li><time datetime="1998-02-02">1998-02-02</time></li><li><time datetime="2016-08-14">2016-08-14</time></li>&lt;/ol&gt;
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>22월이라는 날짜는 없으므로 NA처리 되었다. </li>
+<li>년도 4자리로 작성 : %Y</li>
+<li>년도 2자리로 작성 : %y</li>
+<li>24시간 : %H</li>
+<li>12시간 : %I</li>
+<li>분 : %M</li>
+<li>초 : %S</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr />
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>현재 날짜와 시간 확인</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">a</span><span class="o">=</span><span class="nf">Sys.time</span><span class="p">()</span>
+<span class="nf">mode</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="nf">class</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+'numeric'
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>'POSIXct'</li><li>'POSIXt'</li>&lt;/ol&gt;
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>strptime()를 이용한 날짜형 변환</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">sdate</span><span class="o">&lt;-</span><span class="s">&#39;2019-11-11 12:17:6&#39;</span>
+<span class="nf">class</span><span class="p">(</span><span class="n">sdate</span><span class="p">)</span>
+<span class="n">today</span><span class="o">&lt;-</span><span class="nf">strptime</span><span class="p">(</span><span class="n">sdate</span><span class="p">,</span><span class="n">format</span><span class="o">=</span><span class="s">&#39;%Y-%m-%d %H:%M:%S&#39;</span><span class="p">)</span>
+<span class="n">today</span>
+<span class="nf">class</span><span class="p">(</span><span class="n">today</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+'character'
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea ">
+<pre>[1] &#34;2019-11-11 12:17:06 KST&#34;</pre>
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>'POSIXlt'</li><li>'POSIXt'</li>&lt;/ol&gt;
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>반면 as.Date()는 날짜 자료만 형 변환이 가능하다. </li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr />
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>기본 함수와 작업공간<ul>
+<li>R 패키지에서 제공되는 수많은 함수 사용법을 머릿속에 기억하기는 불가능한 일이다. 따라서 해당 함수의 사용법을 제공하는 도움말 기능을 이용할 수 있어야 한다.</li>
+<li>'help(함수명)' 또는 '?함수명'형식으로 볼 수 있다.</li>
+<li>파이썬에서는 '함수명?'이다.</li>
+<li>google에서는 '함수명() in r' 형식으로 검색한 뒤 확인할 수 있다.</li>
+</ul>
+</li>
+<li>arg(함수명) : 특정 함수를 대상으로 사용 가능한 함수 파라미터를 보여준다. <ul>
+<li>예를 들어보자</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">args</span><span class="p">(</span><span class="n">max</span><span class="p">)</span>
+<span class="c1"># na.rm은 FALSE가 default이다.</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+&lt;pre class=language-r&gt;<code>function (..., na.rm = FALSE) 
+NULL</code>&lt;/pre&gt;
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>example() 함수는 R에서 제공되는 기본 함수들을 사용하는 예제를 제공해준다.</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">example</span><span class="p">(</span><span class="n">seq</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+seq&gt; seq(0, 1, length.out = 11)
+ [1] 0.0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1.0
+
+seq&gt; seq(stats::rnorm(20)) # effectively &#39;along&#39;
+ [1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20
+
+seq&gt; seq(1, 9, by = 2)     # matches &#39;end&#39;
+[1] 1 3 5 7 9
+
+seq&gt; seq(1, 9, by = pi)    # stays below &#39;end&#39;
+[1] 1.000000 4.141593 7.283185
+
+seq&gt; seq(1, 6, by = 3)
+[1] 1 4
+
+seq&gt; seq(1.575, 5.125, by = 0.05)
+ [1] 1.575 1.625 1.675 1.725 1.775 1.825 1.875 1.925 1.975 2.025 2.075 2.125
+[13] 2.175 2.225 2.275 2.325 2.375 2.425 2.475 2.525 2.575 2.625 2.675 2.725
+[25] 2.775 2.825 2.875 2.925 2.975 3.025 3.075 3.125 3.175 3.225 3.275 3.325
+[37] 3.375 3.425 3.475 3.525 3.575 3.625 3.675 3.725 3.775 3.825 3.875 3.925
+[49] 3.975 4.025 4.075 4.125 4.175 4.225 4.275 4.325 4.375 4.425 4.475 4.525
+[61] 4.575 4.625 4.675 4.725 4.775 4.825 4.875 4.925 4.975 5.025 5.075 5.125
+
+seq&gt; seq(17) # same as 1:17, or even better seq_len(17)
+ [1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>seq() 함수를 사용하는 예로 다양한 방법으로 벡터 원소를 생성하는 과정을 보여준다. </li>
+<li>mean의 예제도 알아보자</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">example</span><span class="p">(</span><span class="n">mean</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+mean&gt; x &lt;- c(0:10, 50)
+
+mean&gt; xm &lt;- mean(x)
+
+mean&gt; c(xm, mean(x, trim = 0.10))
+[1] 8.75 5.50
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+</div>
+
+
+
+  </div><a class="u-url" href="/INTROr/2022/02/04/R.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/INTROr/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/INTROr/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/INTROr/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>An easy to use blogging platform with support for Jupyter Notebooks.</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/rhkrehtjd" target="_blank" title="rhkrehtjd"><svg class="svg-icon grey"><use xlink:href="/INTROr/assets/minima-social-icons.svg#github"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
