@@ -1,0 +1,2805 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Vector &amp; Matrix &amp; Array 자료구조 | INTROr</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Vector &amp; Matrix &amp; Array 자료구조" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="An easy to use blogging platform with support for Jupyter Notebooks." />
+<meta property="og:description" content="An easy to use blogging platform with support for Jupyter Notebooks." />
+<link rel="canonical" href="https://rhkrehtjd.github.io/INTROr/2022/02/05/r.html" />
+<meta property="og:url" content="https://rhkrehtjd.github.io/INTROr/2022/02/05/r.html" />
+<meta property="og:site_name" content="INTROr" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-02-05T00:00:00-06:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Vector &amp; Matrix &amp; Array 자료구조" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2022-02-05T00:00:00-06:00","datePublished":"2022-02-05T00:00:00-06:00","description":"An easy to use blogging platform with support for Jupyter Notebooks.","headline":"Vector &amp; Matrix &amp; Array 자료구조","mainEntityOfPage":{"@type":"WebPage","@id":"https://rhkrehtjd.github.io/INTROr/2022/02/05/r.html"},"url":"https://rhkrehtjd.github.io/INTROr/2022/02/05/r.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/INTROr/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://rhkrehtjd.github.io/INTROr/feed.xml" title="INTROr" /><link rel="shortcut icon" type="image/x-icon" href="/INTROr/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.css" integrity="sha512-h7nl+xz8wgDlNM4NqKEM4F1NkIRS17M9+uJwIGwuo8vGqIl4BhuCKdxjWEINm+xyrUjNCnK5dCrhM0sj+wTIXw==" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.js" integrity="sha512-/CMIhXiDA3m2c9kzRyd97MTb3MC6OVnx4TElQ7fkkoRghwDf6gi41gaT1PwF270W6+J60uTmwgeRpNpJdRV6sg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/contrib/auto-render.min.js" integrity="sha512-Do7uJAaHZm5OLrIv/yN4w0iG1dbu01kzdMNnFfu/mAqgUk6Nniv2JYHcwH+cNwjqgLcqcuBBk+JRvprLVI8azg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha512-0doc9hKxR3PYwso42RD1p5ySZpzzuDiOwMrdCEh2WdJZCjcmFKc/wEnL+z8fBQrnHoiNWbo+3fiGkOYXBdQp4A==" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/INTROr/">INTROr</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/INTROr/about/">About Me</a><a class="page-link" href="/INTROr/search/">Search</a><a class="page-link" href="/INTROr/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Vector &amp; Matrix &amp; Array 자료구조</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2022-02-05T00:00:00-06:00" itemprop="datePublished">
+        Feb 5, 2022
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      6 min read
+    
+</span></p>
+
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-justify-center">
+          <div class="px-2">
+
+    <a href="https://github.com/rhkrehtjd/INTROr/tree/master/_notebooks/2022-02-05-r.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/INTROr/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://mybinder.org/v2/gh/rhkrehtjd/INTROr/master?filepath=_notebooks%2F2022-02-05-r.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/INTROr/assets/badges/binder.svg" alt="Open In Binder"/>
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://colab.research.google.com/github/rhkrehtjd/INTROr/blob/master/_notebooks/2022-02-05-r.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/INTROr/assets/badges/colab.svg" alt="Open In Colab"/>
+    </a>
+</div>
+          <div class="px-2">
+  <a href="https://deepnote.com/launch?url=https%3A%2F%2Fgithub.com%2Frhkrehtjd%2FINTROr%2Fblob%2Fmaster%2F_notebooks%2F2022-02-05-r.ipynb" target="_blank">
+      <img class="notebook-badge-image" src="/INTROr/assets/badges/deepnote.svg" alt="Launch in Deepnote"/>
+  </a>
+</div>
+
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2022-02-05-r.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>연속된 1차원의 선형구조의 형태로 만들어짐</li>
+<li>같은 자료형의 데이터만 저장할 수 있다.</li>
+<li>첫 번째 셀에서 정수와 문자를 혼합하여 저장했지만 반환되는 건 모두 문자로 변환되어 반환된다.</li>
+<li>첫 번째 셀과 두 번째 셀을 비교해보자</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">df</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="s">&#39;ㅁㄴㅇ&#39;</span><span class="p">)</span>
+<span class="n">df</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>'1'</li><li>'2'</li><li>'ㅁㄴㅇ'</li>&lt;/ol&gt;
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">df_</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="m">3</span><span class="p">)</span>
+<span class="n">df_</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>1</li><li>2</li><li>3</li>&lt;/ol&gt;
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>벡터 생성 함수 : c(), seq(), rep()</li>
+<li>벡터 자료 처리 함수 : union(), setdiff(), intersect()</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">10</span><span class="p">)</span>
+<span class="m">1</span><span class="o">:</span><span class="m">10</span>
+<span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="m">3</span><span class="p">,</span><span class="m">4</span><span class="p">,</span><span class="m">5</span><span class="p">,</span><span class="m">6</span><span class="p">,</span><span class="m">7</span><span class="p">,</span><span class="m">8</span><span class="p">,</span><span class="m">9</span><span class="p">,</span><span class="m">10</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>1</li><li>2</li><li>3</li><li>4</li><li>5</li><li>6</li><li>7</li><li>8</li><li>9</li><li>10</li>&lt;/ol&gt;
+
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>1</li><li>2</li><li>3</li><li>4</li><li>5</li><li>6</li><li>7</li><li>8</li><li>9</li><li>10</li>&lt;/ol&gt;
+
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>1</li><li>2</li><li>3</li><li>4</li><li>5</li><li>6</li><li>7</li><li>8</li><li>9</li><li>10</li>&lt;/ol&gt;
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">seq</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">10</span><span class="p">,</span><span class="m">3</span><span class="p">)</span>
+<span class="c1"># 1부터 10까지 3씩 증가</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>1</li><li>4</li><li>7</li><li>10</li>&lt;/ol&gt;
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">rep</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">3</span><span class="p">,</span><span class="m">3</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>1</li><li>2</li><li>3</li><li>1</li><li>2</li><li>3</li><li>1</li><li>2</li><li>3</li>&lt;/ol&gt;
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">rep</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">3</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>1</li><li>1</li><li>1</li>&lt;/ol&gt;
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">rep</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">3</span><span class="p">,</span><span class="n">each</span><span class="o">=</span><span class="m">2</span><span class="p">)</span>
+<span class="c1"># 각 자료가 반복</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>1</li><li>1</li><li>2</li><li>2</li><li>3</li><li>3</li>&lt;/ol&gt;
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>벡터 자료 처리</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">x</span><span class="o">&lt;-</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="m">3</span><span class="p">,</span><span class="m">4</span><span class="p">)</span>
+<span class="n">y</span><span class="o">&lt;-</span><span class="nf">c</span><span class="p">(</span><span class="m">2</span><span class="p">,</span><span class="m">3</span><span class="p">)</span>
+<span class="nf">union</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span> <span class="c1"># 합집합</span>
+<span class="nf">setdiff</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span> <span class="c1"># x-y</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>1</li><li>2</li><li>3</li><li>4</li>&lt;/ol&gt;
+
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>1</li><li>4</li>&lt;/ol&gt;
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">setdiff</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">x</span><span class="p">)</span> <span class="c1"># y-x는 남는 게 없음</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">intersect</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span> <span class="c1"># 교집합</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>2</li><li>3</li>&lt;/ol&gt;
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>변수에 다양한 형식의 벡터 자료를 저장할 수 있다. 하지만 벡터 자료는 같은 유형의 자료만 하나의 변수에 저장할 수 있다.</li>
+<li>만약 숫자형과 문자형 또는 논리형이 혼합되는 경우에는 데이터 유형이 변경될 수 있다.</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">v</span><span class="o">&lt;-</span><span class="nf">c</span><span class="p">(</span><span class="bp">T</span><span class="p">,</span><span class="kc">TRUE</span><span class="p">,</span><span class="bp">F</span><span class="p">,</span><span class="kc">FALSE</span><span class="p">)</span>
+<span class="n">v</span>
+<span class="n">v</span><span class="o">&lt;-</span><span class="nf">c</span><span class="p">(</span><span class="bp">T</span><span class="p">,</span><span class="kc">TRUE</span><span class="p">,</span><span class="bp">F</span><span class="p">,</span><span class="kc">FALSE</span><span class="p">,</span><span class="m">1</span><span class="p">)</span>
+<span class="n">v</span>
+<span class="n">v</span><span class="o">&lt;-</span><span class="nf">c</span><span class="p">(</span><span class="bp">T</span><span class="p">,</span><span class="kc">TRUE</span><span class="p">,</span><span class="bp">F</span><span class="p">,</span><span class="kc">FALSE</span><span class="p">,</span><span class="m">1</span><span class="p">,</span><span class="s">&#39;1&#39;</span><span class="p">)</span>
+<span class="n">v</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>TRUE</li><li>TRUE</li><li>FALSE</li><li>FALSE</li>&lt;/ol&gt;
+
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>1</li><li>1</li><li>0</li><li>0</li><li>1</li>&lt;/ol&gt;
+
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>'TRUE'</li><li>'TRUE'</li><li>'FALSE'</li><li>'FALSE'</li><li>'1'</li><li>'1'</li>&lt;/ol&gt;
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>character &lt;- numeric &lt;- logical 순으로 우선순위를 두고 변경 됨</li>
+<li>R에서는 세미콜론(;)을 구분자로하여 한 줄에 여러 개의 R 스크립트 명령문을 사용할 수 있음</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">age</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">30</span><span class="p">,</span><span class="m">40</span><span class="p">,</span><span class="m">50</span><span class="p">)</span>
+<span class="n">age</span>
+<span class="nf">names</span><span class="p">(</span><span class="n">age</span><span class="p">)</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s">&#39;곽도성의 나이&#39;</span><span class="p">,</span><span class="s">&#39;곽도성2의 나이&#39;</span><span class="p">,</span><span class="s">&#39;곽도성3의 나이&#39;</span><span class="p">)</span>
+<span class="n">age</span>
+<span class="n">age</span><span class="o">&lt;-</span><span class="kc">NULL</span> <span class="c1"># NaN은 되긴 하지만 NULL과 의미가 다른가?</span>
+<span class="n">age</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>30</li><li>40</li><li>50</li>&lt;/ol&gt;
+
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<style>
+.dl-inline {width: auto; margin:0; padding: 0}
+.dl-inline>dt, .dl-inline>dd {float: none; width: auto; display: inline-block}
+.dl-inline>dt::after {content: ":\0020"; padding-right: .5ex}
+.dl-inline>dt:not(:first-of-type) {padding-left: .5ex}
+</style>&lt;dl class=dl-inline&gt;<dt>곽도성의 나이</dt><dd>30</dd><dt>곽도성2의 나이</dt><dd>40</dd><dt>곽도성3의 나이</dt><dd>50</dd>&lt;/dl&gt;
+
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea ">
+<pre>NULL</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>위 셀처럼 벡터 객체의 값에 칼럼명 지정</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">a</span><span class="o">&lt;-</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">12</span><span class="p">)</span>
+<span class="n">a</span><span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">5</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>1</li><li>2</li><li>3</li><li>4</li><li>5</li>&lt;/ol&gt;
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>파이썬은 index 0번이 첫 번째 원소를 뜻하지만 R에서는 index 1이 첫 번째 원소를 뜻한다.</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">length</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+12
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>벡터 객체에서 첨자를 이용하여 원소를 조회할 경우 c() 함수의 인수에 콤마를 사용할 수 있다. 이때 콤마는 1차원 자료구조에서 하나의 원소를 지정하는 역할을 한다. </li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">c1</span><span class="o">&lt;-</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="m">3</span><span class="p">,</span><span class="m">4</span><span class="p">,</span><span class="m">2</span><span class="o">:</span><span class="m">5</span><span class="p">)</span>
+<span class="n">c1</span>
+<span class="n">c1</span><span class="p">[</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">3</span><span class="p">)]</span>
+<span class="n">c1</span><span class="p">[</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">3</span><span class="p">)]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>1</li><li>2</li><li>3</li><li>4</li><li>2</li><li>3</li><li>4</li><li>5</li>&lt;/ol&gt;
+
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>1</li><li>3</li>&lt;/ol&gt;
+
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>1</li><li>2</li><li>3</li>&lt;/ol&gt;
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>위 셀처럼 벡터 객체의 원소를 참조하기 위해서 c() 함수의 인수로 콤마와 콜론(:)을 이용할 수 있다. 콤마는 개별 원소 하나씩 지정하며 콜론은 원소의 범위를 지정하는 역할을 한다. </li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">c1</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>1</li><li>2</li><li>3</li><li>4</li><li>2</li><li>3</li><li>4</li><li>5</li>&lt;/ol&gt;
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">c1</span><span class="p">[</span><span class="m">-1</span><span class="p">]</span>
+<span class="n">c1</span><span class="p">[</span><span class="o">-</span><span class="nf">c</span><span class="p">(</span><span class="m">2</span><span class="p">,</span><span class="m">4</span><span class="p">)]</span>
+<span class="n">c1</span><span class="p">[</span><span class="nf">c</span><span class="p">(</span><span class="m">-2</span><span class="p">,</span><span class="m">-4</span><span class="p">)]</span>
+<span class="n">c1</span><span class="p">[</span><span class="nf">c</span><span class="p">(</span><span class="m">-2</span><span class="o">:</span><span class="m">-4</span><span class="p">)]</span>
+<span class="n">c1</span><span class="p">[</span><span class="nf">c</span><span class="p">(</span><span class="m">-4</span><span class="o">:</span><span class="m">-1</span><span class="p">)]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>2</li><li>3</li><li>4</li><li>2</li><li>3</li><li>4</li><li>5</li>&lt;/ol&gt;
+
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>1</li><li>3</li><li>2</li><li>3</li><li>4</li><li>5</li>&lt;/ol&gt;
+
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>1</li><li>3</li><li>2</li><li>3</li><li>4</li><li>5</li>&lt;/ol&gt;
+
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>1</li><li>2</li><li>3</li><li>4</li><li>5</li>&lt;/ol&gt;
+
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>2</li><li>3</li><li>4</li><li>5</li>&lt;/ol&gt;
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>index를 음수값으로 지정하는 경우에는 여집합의 개념으로 해당 첨자가 제외된다. 벡터 객체를 대상으로 위 셀처럼 c1[-1]을 지정할 경우 1번째만 제외하고 나머지 모든 벡터 자료가 반환된다. </li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr />
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Matrix : 동일한 자료형을 갖는 2차원의 배열구조를 갖는다. </li>
+<li>행과 열의 2차원 배열구조의 객체를 생성한다.</li>
+<li>동일한 타입의 데이터만 저장할 수 있다.</li>
+<li>행렬 생성 함수 : matrix(),rbind(),cbind()</li>
+<li>행렬 자료 처리 함수 :apply()</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">m</span><span class="o">=</span><span class="nf">matrix</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">5</span><span class="p">))</span>
+<span class="n">m</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A matrix: 5 × 1 of type int</caption>
+<tbody>
+	<tr><td>1</td></tr>
+	<tr><td>2</td></tr>
+	<tr><td>3</td></tr>
+	<tr><td>4</td></tr>
+	<tr><td>5</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>위 셀처럼 matrix() 함수에서 c() 함수를 인수로 지정하여 matrix 객체를 생성할 수 있다. c() 함수는 <code>기본적으로 열을 기준</code>으로 객체를 만들어준다. </li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">m</span><span class="o">=</span><span class="nf">matrix</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">10</span><span class="p">,</span><span class="n">nrow</span><span class="o">=</span><span class="m">2</span><span class="p">)</span>
+<span class="n">m</span>
+<span class="n">m</span><span class="o">=</span><span class="nf">matrix</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">10</span><span class="p">),</span><span class="n">nrow</span><span class="o">=</span><span class="m">2</span><span class="p">)</span>
+<span class="n">m</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A matrix: 2 × 5 of type int</caption>
+<tbody>
+	<tr><td>1</td><td>3</td><td>5</td><td>7</td><td> 9</td></tr>
+	<tr><td>2</td><td>4</td><td>6</td><td>8</td><td>10</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A matrix: 2 × 5 of type int</caption>
+<tbody>
+	<tr><td>1</td><td>3</td><td>5</td><td>7</td><td> 9</td></tr>
+	<tr><td>2</td><td>4</td><td>6</td><td>8</td><td>10</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>이렇게 일단 열 기준임!</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">m</span><span class="o">=</span><span class="nf">matrix</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">11</span><span class="p">),</span><span class="n">nrow</span><span class="o">=</span><span class="m">3</span><span class="p">)</span>
+<span class="n">m</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>Warning message in matrix(c(1:11), nrow = 3):
+&#34;데이터의 길이[11]가 행의 개수[3]의 배수가 되지 않습니다&#34;
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A matrix: 3 × 4 of type int</caption>
+<tbody>
+	<tr><td>1</td><td>4</td><td>7</td><td>10</td></tr>
+	<tr><td>2</td><td>5</td><td>8</td><td>11</td></tr>
+	<tr><td>3</td><td>6</td><td>9</td><td> 1</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>자료의 개수와 행과 열이 맞아 떨어지지 않으면 알아서 broadcast하여 채워 넣음</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>벡터 데이터를 대상으로 행렬 객체를 생성하면 기본적으로 열 우선으로 데이터가 생성된다.</li>
+<li>행 우선으로 데이터를 생성해보자</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">m</span><span class="o">=</span><span class="nf">matrix</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">10</span><span class="p">,</span><span class="n">nrow</span><span class="o">=</span><span class="m">2</span><span class="p">,</span><span class="n">byrow</span> <span class="o">=</span> <span class="bp">T</span><span class="p">)</span>
+<span class="n">m</span>
+<span class="n">m</span><span class="o">=</span><span class="nf">matrix</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">10</span><span class="p">,</span><span class="n">nrow</span><span class="o">=</span><span class="m">2</span><span class="p">,</span><span class="n">byrow</span> <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+<span class="n">m</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A matrix: 2 × 5 of type int</caption>
+<tbody>
+	<tr><td>1</td><td>2</td><td>3</td><td>4</td><td> 5</td></tr>
+	<tr><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A matrix: 2 × 5 of type int</caption>
+<tbody>
+	<tr><td>1</td><td>2</td><td>3</td><td>4</td><td> 5</td></tr>
+	<tr><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>행 또는 열 묶음으로 행렬 객체 생성해보자</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">x1</span><span class="o">&lt;-</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="m">3</span><span class="p">,</span><span class="m">6</span><span class="o">:</span><span class="m">10</span><span class="p">)</span>
+<span class="n">x2</span><span class="o">&lt;-</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="m">3</span><span class="p">,</span><span class="m">5</span><span class="o">:</span><span class="m">1</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">bond</span><span class="o">&lt;-</span><span class="nf">rbind</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="n">x2</span><span class="p">)</span>
+<span class="n">bond</span>
+<span class="n">bond</span><span class="o">&lt;-</span><span class="nf">cbind</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="n">x2</span><span class="p">)</span>
+<span class="n">bond</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A matrix: 2 × 8 of type dbl</caption>
+<tbody>
+	<tr><th scope="row">x1</th><td>1</td><td>2</td><td>3</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td></tr>
+	<tr><th scope="row">x2</th><td>1</td><td>2</td><td>3</td><td>5</td><td>4</td><td>3</td><td>2</td><td> 1</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A matrix: 8 × 2 of type dbl</caption>
+<thead>
+	<tr><th scope="col">x1</th><th scope="col">x2</th></tr>
+</thead>
+<tbody>
+	<tr><td> 1</td><td>1</td></tr>
+	<tr><td> 2</td><td>2</td></tr>
+	<tr><td> 3</td><td>3</td></tr>
+	<tr><td> 6</td><td>5</td></tr>
+	<tr><td> 7</td><td>4</td></tr>
+	<tr><td> 8</td><td>3</td></tr>
+	<tr><td> 9</td><td>2</td></tr>
+	<tr><td>10</td><td>1</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>각각 8개로 개수가 맞아서 rbind가 잘 됐음</li>
+<li>개수 안 맞으면 bind 안 됨</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr />
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>matrix() 함수에 직접 인수를 적용하여 행렬 객체를 생성할 수 있다. </li>
+<li>matrix() 함수의 형식은 다음과 같다.<div class="highlight"><pre><span></span><span class="nf">matrix</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="kc">NA</span><span class="p">,</span><span class="n">nrow</span> <span class="o">=</span><span class="m">1</span><span class="p">,</span> <span class="n">ncol</span><span class="o">=</span><span class="m">1</span><span class="p">,</span> <span class="n">byrow</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">,</span><span class="n">dimnames</span><span class="o">=</span><span class="kc">NULL</span><span class="p">)</span>
+</pre></div>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">m3</span><span class="o">=</span><span class="nf">matrix</span><span class="p">(</span><span class="m">10</span><span class="o">:</span><span class="m">19</span><span class="p">,</span><span class="m">2</span><span class="p">)</span>
+<span class="n">m3</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A matrix: 2 × 5 of type int</caption>
+<tbody>
+	<tr><td>10</td><td>12</td><td>14</td><td>16</td><td>18</td></tr>
+	<tr><td>11</td><td>13</td><td>15</td><td>17</td><td>19</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">mode</span><span class="p">(</span><span class="n">m3</span><span class="p">)</span>
+<span class="nf">class</span><span class="p">(</span><span class="n">m3</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+'numeric'
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>'matrix'</li><li>'array'</li>&lt;/ol&gt;
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>index를 이용하여 행렬 객체에 접근하기</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">m3</span><span class="p">[</span><span class="m">1</span><span class="p">,]</span> <span class="c1"># 1행</span>
+<span class="n">m3</span><span class="p">[,</span><span class="m">3</span><span class="p">]</span> <span class="c1"># 3열</span>
+<span class="n">m3</span><span class="p">[</span><span class="m">1</span><span class="p">,</span><span class="m">3</span><span class="p">]</span> <span class="c1"># 1행 3열</span>
+<span class="n">m3</span><span class="p">[</span><span class="m">1</span><span class="p">,</span><span class="m">2</span><span class="o">:</span><span class="m">4</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>10</li><li>12</li><li>14</li><li>16</li><li>18</li>&lt;/ol&gt;
+
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>14</li><li>15</li>&lt;/ol&gt;
+
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+14
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>12</li><li>14</li><li>16</li>&lt;/ol&gt;
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">matrix</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">9</span><span class="p">,</span><span class="n">nrow</span><span class="o">=</span><span class="m">3</span><span class="p">,</span><span class="n">byrow</span><span class="o">=</span><span class="bp">T</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A matrix: 3 × 3 of type int</caption>
+<tbody>
+	<tr><td>1</td><td>2</td><td>3</td></tr>
+	<tr><td>4</td><td>5</td><td>6</td></tr>
+	<tr><td>7</td><td>8</td><td>9</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>행렬 객체 자료 처리 함수</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">length</span><span class="p">(</span><span class="n">m3</span><span class="p">)</span>
+<span class="c1"># 원소 개수</span>
+<span class="nf">ncol</span><span class="p">(</span><span class="n">m3</span><span class="p">)</span>
+<span class="c1"># 열 개수</span>
+<span class="nf">nrow</span><span class="p">(</span><span class="n">m3</span><span class="p">)</span>
+<span class="c1"># 행 개수</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+10
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+5
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+2
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>apply() 함수는 행렬 구조의 자료를 처리하는 데 유용한 함수이다.</li>
+<li>함수 사용법 : apply(행렬객체, 1:행 or 2:열, 행렬 자료에 적용할 함수)</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">m3</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A matrix: 2 × 5 of type int</caption>
+<tbody>
+	<tr><td>10</td><td>12</td><td>14</td><td>16</td><td>18</td></tr>
+	<tr><td>11</td><td>13</td><td>15</td><td>17</td><td>19</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">apply</span><span class="p">(</span><span class="n">m3</span><span class="p">,</span><span class="m">1</span><span class="p">,</span><span class="n">max</span><span class="p">)</span>
+<span class="nf">apply</span><span class="p">(</span><span class="n">m3</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="n">max</span><span class="p">)</span>
+<span class="nf">apply</span><span class="p">(</span><span class="n">m3</span><span class="p">,</span><span class="m">1</span><span class="p">,</span><span class="n">mean</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>18</li><li>19</li>&lt;/ol&gt;
+
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>11</li><li>13</li><li>15</li><li>17</li><li>19</li>&lt;/ol&gt;
+
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>14</li><li>15</li>&lt;/ol&gt;
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>당연히 사용자 정의 함수도 apply()에 사용할 수 있을 것이다.</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>이건 파이썬에서 함수 정의하는 방법이고<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+  <span class="k">return</span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</li>
+<li>이건 R에서 함수 정의하는 방법<div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">&lt;-</span> <span class="nf">function</span><span class="p">(</span><span class="n">x</span><span class="p">){</span>
+  <span class="n">x</span><span class="o">*</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="m">3</span><span class="p">)}</span>
+</pre></div>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">f</span> <span class="o">&lt;-</span> <span class="nf">function</span><span class="p">(</span><span class="n">x</span><span class="p">){</span>
+    <span class="n">x</span><span class="o">*</span><span class="m">3</span><span class="p">}</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">m3</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A matrix: 2 × 5 of type int</caption>
+<tbody>
+	<tr><td>10</td><td>12</td><td>14</td><td>16</td><td>18</td></tr>
+	<tr><td>11</td><td>13</td><td>15</td><td>17</td><td>19</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">apply</span><span class="p">(</span><span class="n">m3</span><span class="p">,</span><span class="m">1</span><span class="p">,</span><span class="n">f</span><span class="p">)</span>
+<span class="c1"># 행 우선 순위로 f함수 적용</span>
+<span class="c1"># 벡터 데이터 연산할 때 열 단위로 결과 출력</span>
+<span class="c1"># 벡터 자료와 연산하면 기본적으로 열 우선 순서로 출력된다.</span>
+<span class="c1"># 이러한 행렬 구조를 전치행렬이라고 한다.</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A matrix: 5 × 2 of type dbl</caption>
+<tbody>
+	<tr><td>30</td><td>33</td></tr>
+	<tr><td>36</td><td>39</td></tr>
+	<tr><td>42</td><td>45</td></tr>
+	<tr><td>48</td><td>51</td></tr>
+	<tr><td>54</td><td>57</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">apply</span><span class="p">(</span><span class="n">m3</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="n">f</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A matrix: 2 × 5 of type dbl</caption>
+<tbody>
+	<tr><td>30</td><td>36</td><td>42</td><td>48</td><td>54</td></tr>
+	<tr><td>33</td><td>39</td><td>45</td><td>51</td><td>57</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr />
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>벡터 객체 에서 이름 지정하기</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">age</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">30</span><span class="p">,</span><span class="m">40</span><span class="p">,</span><span class="m">50</span><span class="p">)</span>
+<span class="n">age</span>
+<span class="nf">names</span><span class="p">(</span><span class="n">age</span><span class="p">)</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s">&#39;곽도성의 나이&#39;</span><span class="p">,</span><span class="s">&#39;곽도성2의 나이&#39;</span><span class="p">,</span><span class="s">&#39;곽도성3의 나이&#39;</span><span class="p">)</span>
+<span class="n">age</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>30</li><li>40</li><li>50</li>&lt;/ol&gt;
+
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<style>
+.dl-inline {width: auto; margin:0; padding: 0}
+.dl-inline>dt, .dl-inline>dd {float: none; width: auto; display: inline-block}
+.dl-inline>dt::after {content: ":\0020"; padding-right: .5ex}
+.dl-inline>dt:not(:first-of-type) {padding-left: .5ex}
+</style>&lt;dl class=dl-inline&gt;<dt>곽도성의 나이</dt><dd>30</dd><dt>곽도성2의 나이</dt><dd>40</dd><dt>곽도성3의 나이</dt><dd>50</dd>&lt;/dl&gt;
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>행렬 객체에서 이름 지정하기</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">m3</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A matrix: 2 × 5 of type int</caption>
+<tbody>
+	<tr><td>10</td><td>12</td><td>14</td><td>16</td><td>18</td></tr>
+	<tr><td>11</td><td>13</td><td>15</td><td>17</td><td>19</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">colnames</span><span class="p">(</span><span class="n">m3</span><span class="p">)</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">12</span><span class="p">,</span><span class="m">3</span><span class="p">,</span><span class="m">4</span><span class="p">,</span><span class="m">5</span><span class="p">,</span><span class="m">5</span><span class="p">)</span>
+<span class="n">m3</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A matrix: 2 × 5 of type int</caption>
+<thead>
+	<tr><th scope="col">12</th><th scope="col">3</th><th scope="col">4</th><th scope="col">5</th><th scope="col">5</th></tr>
+</thead>
+<tbody>
+	<tr><td>10</td><td>12</td><td>14</td><td>16</td><td>18</td></tr>
+	<tr><td>11</td><td>13</td><td>15</td><td>17</td><td>19</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr />
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Array 자료구조 : 같은 자료형을 갖는 다차원 배열구조를 갖는다.</li>
+<li>행, 열, 면의 3차원 배열 형태의 객체를 생성한다.</li>
+<li>다른 자료구조에 비해서 상대적으로 활용도가 낮다.</li>
+<li>배열 생성 함수 : array()                &lt;*apply()와 혼동 주의&gt;</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">vec</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">12</span><span class="p">)</span>
+<span class="n">arr</span> <span class="o">&lt;-</span> <span class="nf">array</span><span class="p">(</span><span class="n">vec</span><span class="p">,</span><span class="nf">c</span><span class="p">(</span><span class="m">3</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="m">2</span><span class="p">))</span>
+<span class="n">arr</span>
+<span class="c1"># 3행 2열 2면 생성</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>1</li><li>2</li><li>3</li><li>4</li><li>5</li><li>6</li><li>7</li><li>8</li><li>9</li><li>10</li><li>11</li><li>12</li>&lt;/ol&gt;
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">arr</span><span class="p">[,,</span><span class="m">1</span><span class="p">]</span>
+<span class="c1"># 1면 조회</span>
+<span class="n">arr</span><span class="p">[,,</span><span class="m">2</span><span class="p">]</span>
+<span class="c1"># 2먼 조회</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A matrix: 3 × 2 of type int</caption>
+<tbody>
+	<tr><td>1</td><td>4</td></tr>
+	<tr><td>2</td><td>5</td></tr>
+	<tr><td>3</td><td>6</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A matrix: 3 × 2 of type int</caption>
+<tbody>
+	<tr><td>7</td><td>10</td></tr>
+	<tr><td>8</td><td>11</td></tr>
+	<tr><td>9</td><td>12</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">mode</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+<span class="nf">class</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+'numeric'
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+'array'
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr />
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>DataFrame 자료구조 : R에서 가장 많이 활용<ul>
+<li>데이터 베이스의 테이블 구조와 유사하다.</li>
+<li><code>칼럼 단위로 서로 다른 데이터의 저장이 가능</code></li>
+<li>리스트와 벡터의 혼합형으로 칼럼은 리스트, 칼럼 내의 데이터는 벡터 자료 구조를 갖는다.</li>
+<li>데이터프레임 생성함수 : data.frame(),read.table(), read.csv()</li>
+<li>데이터프레임 자료 처리 함수 : str(), ncol(), nrow(), apply(), summary(), subset()</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>데이터 프레임은 열 단위로 서로 다른 자료형을 포함할 수 있어서 벡터와 행렬을 이용하여 데이터 프레임 객체를 생성할 수 있다.</li>
+<li>기존의 데이터 파일을 불러와서 데이터 프레임 객체를 생성할 수도 있다.</li>
+<li>사용법 : data.frame(칼럼1=자료, 칼럼2=자료, ...)</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<blockquote><p>벡터를 이용한 데이터 프레임 객체 생성</p>
+</blockquote>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">no</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">3</span><span class="p">)</span>
+<span class="n">name</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#39;k&#39;</span><span class="p">,</span><span class="s">&#39;b&#39;</span><span class="p">,</span><span class="s">&#39;s&#39;</span><span class="p">)</span>
+<span class="n">pay</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="m">150</span><span class="p">,</span> <span class="m">200</span><span class="p">,</span> <span class="m">300</span><span class="p">)</span>
+<span class="n">vemp</span> <span class="o">&lt;-</span> <span class="nf">data.frame</span><span class="p">(</span>칼럼<span class="m">1</span> <span class="o">=</span> <span class="n">no</span><span class="p">,</span> 칼럼<span class="m">2</span> <span class="o">=</span> <span class="n">name</span><span class="p">,</span> 칼럼<span class="m">3</span> <span class="o">=</span> <span class="n">pay</span><span class="p">)</span>
+<span class="n">vemp</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A data.frame: 3 × 3</caption>
+<thead>
+	<tr><th scope="col">칼럼1</th><th scope="col">칼럼2</th><th scope="col">칼럼3</th></tr>
+	<tr><th scope="col">&lt;int&gt;</th><th scope="col">&lt;chr&gt;</th><th scope="col">&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><td>1</td><td>k</td><td>150</td></tr>
+	<tr><td>2</td><td>b</td><td>200</td></tr>
+	<tr><td>3</td><td>s</td><td>300</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">vemp</span><span class="p">[</span><span class="m">1</span><span class="p">,</span><span class="m">1</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+1
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>여러 개의 벡터 객체를 이용하여 데이터 프레임을 생성할 수 있다.</li>
+<li>이때 각 벡터 객체의 칼럼 길이는 동일해야한다. </li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<blockquote><p>매트릭스를 이용한 데이터프레임 객체 생성</p>
+</blockquote>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">m</span><span class="o">=</span><span class="nf">matrix</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="s">&quot;k&quot;</span><span class="p">,</span><span class="m">150</span><span class="p">,</span>
+           <span class="m">2</span><span class="p">,</span><span class="s">&#39;b&#39;</span><span class="p">,</span><span class="m">200</span><span class="p">,</span>
+           <span class="m">3</span><span class="p">,</span><span class="s">&#39;s&#39;</span><span class="p">,</span><span class="m">250</span><span class="p">)</span>
+           <span class="p">,</span><span class="m">3</span><span class="p">,</span><span class="n">by</span><span class="o">=</span><span class="bp">T</span><span class="p">)</span>
+<span class="n">memp</span><span class="o">=</span><span class="nf">data.frame</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+<span class="n">memp</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A data.frame: 3 × 3</caption>
+<thead>
+	<tr><th scope="col">X1</th><th scope="col">X2</th><th scope="col">X3</th></tr>
+	<tr><th scope="col">&lt;chr&gt;</th><th scope="col">&lt;chr&gt;</th><th scope="col">&lt;chr&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><td>1</td><td>k</td><td>150</td></tr>
+	<tr><td>2</td><td>b</td><td>200</td></tr>
+	<tr><td>3</td><td>s</td><td>250</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">memp</span><span class="p">[</span><span class="m">1</span><span class="p">,</span><span class="m">1</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+'1'
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">vemp</span><span class="p">[</span><span class="m">1</span><span class="p">,</span><span class="m">1</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+1
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>애초에 매트릭스를 이용해 데이터 프레임 객체를 생성할 때 매트릭스는 동일한 자료밖에 안 되기에 안의 원소가 전부 character로 변경됐었지만 vemp는 상이한 벡터 객체들을 데이터 프레임을 통해서 모아놓은 것이기 떄문에 자료형이 변하지 않고 유지되었음</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="nf">data.frame</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="m">1</span><span class="o">:</span><span class="m">5</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="nf">seq</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">9</span><span class="p">,</span><span class="m">2</span><span class="p">),</span><span class="n">z</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s">&#39;abfa&#39;</span><span class="p">,</span><span class="s">&#39;aavd&#39;</span><span class="p">,</span><span class="s">&#39;avs&#39;</span><span class="p">,</span><span class="s">&#39;S&#39;</span><span class="p">,</span><span class="s">&#39;S&#39;</span><span class="p">))</span>
+<span class="n">df</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A data.frame: 5 × 3</caption>
+<thead>
+	<tr><th scope="col">x</th><th scope="col">y</th><th scope="col">z</th></tr>
+	<tr><th scope="col">&lt;int&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;chr&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><td>1</td><td>1</td><td>abfa</td></tr>
+	<tr><td>2</td><td>3</td><td>aavd</td></tr>
+	<tr><td>3</td><td>5</td><td>avs </td></tr>
+	<tr><td>4</td><td>7</td><td>S   </td></tr>
+	<tr><td>5</td><td>9</td><td>S   </td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>데이터 프레임의 칼럼명 참조하기</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">df</span><span class="o">$</span><span class="n">x</span>
+<span class="n">df</span><span class="o">$</span><span class="n">y</span>
+<span class="n">df</span><span class="o">$</span><span class="n">z</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>1</li><li>2</li><li>3</li><li>4</li><li>5</li>&lt;/ol&gt;
+
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>1</li><li>3</li><li>5</li><li>7</li><li>9</li>&lt;/ol&gt;
+
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>'abfa'</li><li>'aavd'</li><li>'avs'</li><li>'S'</li><li>'S'</li>&lt;/ol&gt;
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>$는 데이터 프레임에선 칼럼을 의미하며 리스트에서는 키를 의미한다.</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+
+
+
+  </div><a class="u-url" href="/INTROr/2022/02/05/r.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/INTROr/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/INTROr/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/INTROr/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>An easy to use blogging platform with support for Jupyter Notebooks.</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/rhkrehtjd" target="_blank" title="rhkrehtjd"><svg class="svg-icon grey"><use xlink:href="/INTROr/assets/minima-social-icons.svg#github"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
