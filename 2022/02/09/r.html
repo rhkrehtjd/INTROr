@@ -1,0 +1,2014 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>연산자, 조건문, 반복문, 함수, 몬테카를로 함수 | INTROr</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="연산자, 조건문, 반복문, 함수, 몬테카를로 함수" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="An easy to use blogging platform with support for Jupyter Notebooks." />
+<meta property="og:description" content="An easy to use blogging platform with support for Jupyter Notebooks." />
+<link rel="canonical" href="https://rhkrehtjd.github.io/INTROr/2022/02/09/r.html" />
+<meta property="og:url" content="https://rhkrehtjd.github.io/INTROr/2022/02/09/r.html" />
+<meta property="og:site_name" content="INTROr" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-02-09T00:00:00-06:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="연산자, 조건문, 반복문, 함수, 몬테카를로 함수" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2022-02-09T00:00:00-06:00","datePublished":"2022-02-09T00:00:00-06:00","description":"An easy to use blogging platform with support for Jupyter Notebooks.","headline":"연산자, 조건문, 반복문, 함수, 몬테카를로 함수","mainEntityOfPage":{"@type":"WebPage","@id":"https://rhkrehtjd.github.io/INTROr/2022/02/09/r.html"},"url":"https://rhkrehtjd.github.io/INTROr/2022/02/09/r.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/INTROr/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://rhkrehtjd.github.io/INTROr/feed.xml" title="INTROr" /><link rel="shortcut icon" type="image/x-icon" href="/INTROr/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.css" integrity="sha512-h7nl+xz8wgDlNM4NqKEM4F1NkIRS17M9+uJwIGwuo8vGqIl4BhuCKdxjWEINm+xyrUjNCnK5dCrhM0sj+wTIXw==" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.js" integrity="sha512-/CMIhXiDA3m2c9kzRyd97MTb3MC6OVnx4TElQ7fkkoRghwDf6gi41gaT1PwF270W6+J60uTmwgeRpNpJdRV6sg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/contrib/auto-render.min.js" integrity="sha512-Do7uJAaHZm5OLrIv/yN4w0iG1dbu01kzdMNnFfu/mAqgUk6Nniv2JYHcwH+cNwjqgLcqcuBBk+JRvprLVI8azg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha512-0doc9hKxR3PYwso42RD1p5ySZpzzuDiOwMrdCEh2WdJZCjcmFKc/wEnL+z8fBQrnHoiNWbo+3fiGkOYXBdQp4A==" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/INTROr/">INTROr</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/INTROr/about/">About Me</a><a class="page-link" href="/INTROr/search/">Search</a><a class="page-link" href="/INTROr/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">연산자, 조건문, 반복문, 함수, 몬테카를로 함수</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2022-02-09T00:00:00-06:00" itemprop="datePublished">
+        Feb 9, 2022
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      6 min read
+    
+</span></p>
+
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-justify-center">
+          <div class="px-2">
+
+    <a href="https://github.com/rhkrehtjd/INTROr/tree/master/_notebooks/2022-02-09-r.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/INTROr/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://mybinder.org/v2/gh/rhkrehtjd/INTROr/master?filepath=_notebooks%2F2022-02-09-r.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/INTROr/assets/badges/binder.svg" alt="Open In Binder"/>
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://colab.research.google.com/github/rhkrehtjd/INTROr/blob/master/_notebooks/2022-02-09-r.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/INTROr/assets/badges/colab.svg" alt="Open In Colab"/>
+    </a>
+</div>
+          <div class="px-2">
+  <a href="https://deepnote.com/launch?url=https%3A%2F%2Fgithub.com%2Frhkrehtjd%2FINTROr%2Fblob%2Fmaster%2F_notebooks%2F2022-02-09-r.ipynb" target="_blank">
+      <img class="notebook-badge-image" src="/INTROr/assets/badges/deepnote.svg" alt="Launch in Deepnote"/>
+  </a>
+</div>
+
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2022-02-09-r.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>산술연산자</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="m">5</span><span class="o">/</span><span class="m">2</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+2.5
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="m">5</span><span class="o">%%</span><span class="m">2</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+1
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="m">5</span><span class="o">^</span><span class="m">2</span>
+<span class="m">5</span><span class="o">**</span><span class="m">2</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+25
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+25
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>파이썬에서는...<div class="highlight"><pre><span></span><span class="mi">5</span><span class="o">//</span><span class="mi">2</span> <span class="o">=&gt;</span> <span class="n">몫</span>
+<span class="mi">5</span><span class="o">%</span><span class="mi">2</span> <span class="o">=&gt;</span> <span class="n">나머지</span>
+<span class="mi">5</span><span class="o">**</span><span class="mi">2</span> <span class="o">=&gt;</span> <span class="n">제곱</span>
+</pre></div>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="m">100</span><span class="o">^</span><span class="m">20</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+1e+40
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>1e+40 =&gt; 1뒤에 40개의 0이 있다는 표현으로 아주 큰 값을 표기해야 하는 경우</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr />
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>관계연산자는 파이썬과 동일하다<ul>
+<li>==,!=,&lt;,&gt;,&lt;=,&gt;=</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr />
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>논리연산자<ul>
+<li>산술연산자와 관계연산자를 이용한 논리식이 참이면 TRUE 거짓이면 FALSE를 반환</li>
+<li>&amp;,|</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="o">!</span><span class="p">(</span><span class="m">100</span><span class="o">&gt;=</span><span class="m">50</span><span class="p">)</span>
+<span class="c1"># 괄호 안의 관계식 판단 결과에 대한 부정</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+FALSE
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">x</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">;</span><span class="n">y</span><span class="o">=</span><span class="kc">FALSE</span>
+<span class="c1"># 배타적 논리합을 연산하는 xor() 함수는 두 논리적인 값이 상반되는 경우 TRUE를 반환하고, 같으면 FALSE를 반환한다.</span>
+<span class="nf">xor</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+TRUE
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr />
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>조건문</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>1) if() 함수</p>
+<ul>
+<li>비교판단문을 작성할 수 있다.</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">x</span><span class="o">=</span><span class="m">50</span><span class="p">;</span><span class="n">y</span><span class="o">=</span><span class="m">4</span><span class="p">;</span><span class="n">z</span><span class="o">=</span><span class="n">x</span><span class="o">*</span><span class="n">y</span>
+<span class="nf">if</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="n">y</span><span class="o">&gt;=</span><span class="m">40</span><span class="p">){</span>
+    <span class="nf">cat</span><span class="p">(</span><span class="s">&#39;x*y의 결과는 40이상입니다.\n&#39;</span><span class="p">)</span>
+    <span class="nf">cat</span><span class="p">(</span><span class="s">&#39;x*y=&#39;</span><span class="p">,</span><span class="n">z</span><span class="p">)</span>
+<span class="p">}</span><span class="n">else</span><span class="p">{</span>
+    <span class="nf">cat</span><span class="p">(</span><span class="s">&#39;x*y의 결과는 40미만입니다. x*y = &#39;</span><span class="p">,</span><span class="n">z</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>x*y의 결과는 40이상입니다.
+x*y= 200</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>cat은 format과 print와 유사한 출력함수이다.</li>
+<li>동일하진 않고 일부 차이가 있는 것으로 보인다.</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">score</span><span class="o">=</span><span class="m">79</span><span class="p">;</span><span class="n">result</span><span class="o">=</span><span class="s">&#39;노력&#39;</span>
+<span class="nf">if</span><span class="p">(</span><span class="n">score</span><span class="o">&gt;=</span><span class="m">80</span><span class="p">){</span>
+    <span class="n">result</span><span class="o">&lt;-</span><span class="s">&#39;우수&#39;</span>
+    <span class="p">}</span><span class="n">else</span><span class="p">{</span>
+    <span class="n">result</span><span class="o">=</span><span class="s">&#39;노력필요&#39;</span><span class="p">}</span>
+<span class="nf">cat</span><span class="p">(</span><span class="s">&#39;당신의 학점은&#39;</span><span class="p">,</span><span class="n">result</span><span class="p">,</span><span class="n">score</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>당신의 학점은 노력필요 79</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">result</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+'노력필요'
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">score</span><span class="o">=</span><span class="m">90</span>
+
+<span class="nf">if</span><span class="p">(</span><span class="n">score</span><span class="o">&gt;=</span><span class="m">90</span><span class="p">){</span>
+    <span class="n">result</span><span class="o">=</span><span class="s">&#39;a&#39;</span>
+    <span class="p">}</span><span class="n">else</span> <span class="nf">if</span><span class="p">(</span><span class="n">score</span><span class="o">&gt;=</span><span class="m">80</span><span class="p">){</span>
+    <span class="n">result</span><span class="o">=</span><span class="s">&#39;b&#39;</span>
+    <span class="p">}</span><span class="n">else</span> <span class="nf">if</span><span class="p">(</span><span class="n">score</span><span class="o">&gt;=</span><span class="m">70</span><span class="p">){</span>
+    <span class="n">result</span><span class="o">=</span><span class="s">&#39;c&#39;</span><span class="p">}</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">cat</span><span class="p">(</span><span class="s">&#39;당신의 학점은&#39;</span><span class="p">,</span><span class="n">result</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>당신의 학점은 a</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>파이썬에서는 else if가 아니라 elif였음</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr />
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>ifelse(조건식, 참인경우일때 처리문, 거짓인 경우일 때의 처리문)</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">score</span><span class="o">=</span><span class="m">90</span>
+
+<span class="nf">ifelse</span><span class="p">(</span><span class="n">score</span><span class="o">&gt;=</span><span class="m">80</span><span class="p">,</span><span class="s">&#39;우수&#39;</span><span class="p">,</span><span class="s">&#39;노력&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+'우수'
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>ifelse의 조건식에서, a&gt;=2 &amp; a&lt;=4 이런식으로 논리 연산자 사용 가능하다</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr />
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>switch() 함수<ul>
+<li>비교 문장의 내용에 따라서 여러 개의 실행 문장 중 하나를 선택할 수 있도록 프로그램을 작성할 수 있다.</li>
+<li>swtich(비교문, 실행문1[,실행문2,실행문3,...])</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>비교문 위치에 있는 변수의 이름이 실행문 위치에 있는 변수의 이름과 일치할 때 일치하는 변수에 할당된 값을 출력한다.</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">switch</span><span class="p">(</span><span class="s">&#39;name&#39;</span><span class="p">,</span><span class="n">id</span><span class="o">=</span><span class="s">&#39;a&#39;</span><span class="p">,</span><span class="n">age</span><span class="o">=</span><span class="m">32</span><span class="p">,</span><span class="n">name</span><span class="o">=</span><span class="s">&#39;awf&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+'awf'
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr />
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>which()<ul>
+<li>벡터 객체를 대상으로 특정 데이터를 검색하는 데 사용되는 함수 이다.</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">name</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s">&#39;a1&#39;</span><span class="p">,</span><span class="s">&#39;a2&#39;</span><span class="p">,</span><span class="s">&#39;a3&#39;</span><span class="p">,</span><span class="s">&#39;a4&#39;</span><span class="p">)</span>
+<span class="nf">which</span><span class="p">(</span><span class="n">name</span><span class="o">!=</span><span class="s">&#39;a3&#39;</span><span class="p">)</span>
+<span class="nf">which</span><span class="p">(</span><span class="n">name</span><span class="o">==</span><span class="s">&#39;a2&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>1</li><li>2</li><li>4</li>&lt;/ol&gt;
+
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+2
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">which</span><span class="p">(</span><span class="n">name</span><span class="o">==</span><span class="s">&#39;a5&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>조건식의 결과가 참인 벡터 원소의 위치(인덱스)가 출력되며, 조건식의 결과가 거짓이면 0이 출력된다.<ul>
+<li>btw 거짓이면 아무것도 출력되지 않는 것 같다.</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>data.frame에서 활용해보자</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">no</span> <span class="o">=</span> <span class="m">1</span><span class="o">:</span><span class="m">4</span>
+<span class="n">name</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#39;a&#39;</span><span class="p">,</span><span class="s">&#39;b&#39;</span><span class="p">,</span><span class="s">&#39;c&#39;</span><span class="p">,</span><span class="s">&#39;d&#39;</span><span class="p">)</span>
+<span class="n">score</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="m">12</span><span class="p">,</span><span class="m">123</span><span class="p">,</span><span class="m">4</span><span class="p">,</span><span class="m">124</span><span class="p">)</span>
+<span class="n">exam</span> <span class="o">=</span> <span class="nf">data.frame</span><span class="p">(</span>학번<span class="o">=</span><span class="n">no</span><span class="p">,</span> 이름<span class="o">=</span><span class="n">name</span><span class="p">,</span> 성적<span class="o">=</span><span class="n">score</span><span class="p">)</span>
+<span class="n">exam</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A data.frame: 4 × 3</caption>
+<thead>
+	<tr><th scope="col">학번</th><th scope="col">이름</th><th scope="col">성적</th></tr>
+	<tr><th scope="col">&lt;int&gt;</th><th scope="col">&lt;chr&gt;</th><th scope="col">&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><td>1</td><td>a</td><td> 12</td></tr>
+	<tr><td>2</td><td>b</td><td>123</td></tr>
+	<tr><td>3</td><td>c</td><td>  4</td></tr>
+	<tr><td>4</td><td>d</td><td>124</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">which</span><span class="p">(</span><span class="n">exam</span><span class="o">$</span>이름<span class="o">==</span><span class="s">&#39;b&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+2
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">exam</span><span class="p">[</span><span class="m">2</span><span class="p">,]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A data.frame: 1 × 3</caption>
+<thead>
+	<tr><th></th><th scope="col">학번</th><th scope="col">이름</th><th scope="col">성적</th></tr>
+	<tr><th></th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;chr&gt;</th><th scope="col">&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><th scope="row">2</th><td>2</td><td>b</td><td>123</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>which 함수는 크기가 큰 데이터프레임이나 테이블 구조의 자료를 대상으로 특정 정보를 검색하는 데 유용하게 사용된다.</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr />
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>반복문</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">for</span><span class="p">(</span><span class="n">n</span> <span class="n">in</span> <span class="m">1</span><span class="o">:</span><span class="m">10</span><span class="p">){</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">n</span> <span class="o">*</span> <span class="m">10</span><span class="p">)}</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[1] 1
+[1] 10
+[1] 2
+[1] 20
+[1] 3
+[1] 30
+[1] 4
+[1] 40
+[1] 5
+[1] 50
+[1] 6
+[1] 60
+[1] 7
+[1] 70
+[1] 8
+[1] 80
+[1] 9
+[1] 90
+[1] 10
+[1] 100
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">for</span><span class="p">(</span><span class="n">n</span> <span class="n">in</span> <span class="m">1</span><span class="o">:</span><span class="m">10</span><span class="p">)</span>
+    <span class="nf">if</span><span class="p">(</span><span class="n">n</span><span class="o">%%</span><span class="m">2</span><span class="o">==</span><span class="m">0</span><span class="p">)</span> <span class="nf">print</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[1] 2
+[1] 4
+[1] 6
+[1] 8
+[1] 10
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>바로 위 셀처럼 반복할 문장이 하나 뿐일 때는 {}를 생략할 수 있다</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">for</span><span class="p">(</span><span class="n">n</span> <span class="n">in</span> <span class="m">1</span><span class="o">:</span><span class="m">10</span><span class="p">){</span>
+    <span class="nf">if</span><span class="p">(</span><span class="n">n</span><span class="o">%%</span><span class="m">2</span><span class="o">==</span><span class="m">0</span><span class="p">){</span>
+        <span class="n">next</span> <span class="c1"># 다음 문장으로 skip, 반복문 계속(continue와 동일)</span>
+        <span class="p">}</span><span class="n">else</span><span class="p">{</span>
+        <span class="nf">print</span><span class="p">(</span><span class="n">n</span><span class="p">)}}</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[1] 1
+[1] 3
+[1] 5
+[1] 7
+[1] 9
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>for() 함수의 반복 범위에서 문장을 실행하지 않고 계속 반복할 때는 next문을 사용한다.</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">exam</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A data.frame: 4 × 3</caption>
+<thead>
+	<tr><th scope="col">학번</th><th scope="col">이름</th><th scope="col">성적</th></tr>
+	<tr><th scope="col">&lt;int&gt;</th><th scope="col">&lt;chr&gt;</th><th scope="col">&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><td>1</td><td>a</td><td> 12</td></tr>
+	<tr><td>2</td><td>b</td><td>123</td></tr>
+	<tr><td>3</td><td>c</td><td>  4</td></tr>
+	<tr><td>4</td><td>d</td><td>124</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>변수의 칼럼명 출력하기</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">names</span><span class="p">(</span><span class="n">exam</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>'학번'</li><li>'이름'</li><li>'성적'</li>&lt;/ol&gt;
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">for</span><span class="p">(</span><span class="n">n</span> <span class="n">in</span> <span class="nf">c</span><span class="p">(</span><span class="nf">names</span><span class="p">(</span><span class="n">exam</span><span class="p">))){</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">n</span><span class="p">)}</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[1] &#34;학번&#34;
+[1] &#34;이름&#34;
+[1] &#34;성적&#34;
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr />
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">i</span><span class="o">=</span><span class="m">1</span>
+<span class="n">name</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s">&#39;a&#39;</span><span class="p">,</span><span class="s">&#39;b&#39;</span><span class="p">,</span><span class="s">&#39;c&#39;</span><span class="p">)</span>
+<span class="nf">for</span><span class="p">(</span><span class="n">s</span> <span class="n">in</span> <span class="nf">c</span><span class="p">(</span><span class="m">85</span><span class="p">,</span><span class="m">95</span><span class="p">,</span><span class="m">98</span><span class="p">)){</span>
+    <span class="nf">cat</span><span class="p">(</span><span class="n">name</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="s">&#39;-&gt;&#39;</span><span class="p">,</span><span class="n">s</span><span class="p">,</span><span class="s">&#39;\n&#39;</span><span class="p">)</span>
+    <span class="n">i</span><span class="o">=</span><span class="n">i</span><span class="m">+1</span>
+<span class="p">}</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>a -&gt; 85 
+b -&gt; 95 
+c -&gt; 98 
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr />
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>while() 함수<ul>
+<li>for() 함수와 동일한 방식으로 수행된다. for() 함수와 차이점으로 for() 함수는 반복 회수를 결정하는 변수를 사용하는 대신에 while 함수는 사용자가 블록 내에서 증감식을 이용하여 반복 회수를 지정해야 한다.</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">i</span><span class="o">=</span><span class="m">0</span>
+<span class="nf">while</span><span class="p">(</span><span class="n">i</span><span class="o">&lt;</span><span class="m">10</span><span class="p">){</span> <span class="c1"># 이런식으로 증감식을 이용하여 반복 횟수를 지정한다.</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    <span class="n">i</span><span class="o">=</span><span class="n">i</span><span class="m">+1</span><span class="p">}</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[1] 0
+[1] 1
+[1] 2
+[1] 3
+[1] 4
+[1] 5
+[1] 6
+[1] 7
+[1] 8
+[1] 9
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr />
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>함수 정의</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="highlight"><pre><span></span><span class="c1"># 파이썬에서는 아래와 같이 함수를 정의하지만</span>
+<span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="mi">2</span><span class="p">)</span>
+<span class="c1"># R에서는 아래와 같이 함수를 정의한다.</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="n">f1</span><span class="o">=</span><span class="nf">function</span><span class="p">(</span>매개변수 자리인데 없이도 가능하다<span class="p">){</span>실행문<span class="p">}</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">f1</span><span class="o">=</span><span class="nf">function</span><span class="p">(){</span>
+    <span class="nf">print</span><span class="p">(</span><span class="s">&#39;매개변수가 없는 함수&#39;</span><span class="p">)}</span>
+<span class="nf">f1</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[1] &#34;매개변수가 없는 함수&#34;
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>매개변수가 없는 함수는 '함수명()' 형태로 함수명에 빈 괄호를 붙여 호출한다.</li>
+<li>정의된 함수를 호출하지 않으면 함수의 내용은 실행되지 않는다</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">f3</span><span class="o">=</span><span class="nf">function</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">){</span>
+    <span class="n">add</span> <span class="o">&lt;-</span> <span class="n">x</span><span class="o">+</span><span class="n">y</span>
+    <span class="nf">return</span><span class="p">(</span><span class="n">add</span><span class="p">)}</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">f3</span><span class="p">(</span><span class="m">10</span><span class="p">,</span><span class="m">20</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+30
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr />
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>기술통계량을 계산하는 함수 정의<ul>
+<li>추론 통계의 기초 정보를 제공하는 요약 통계량, 빈도수 등의 기술통계량을 계싼하는 함수를 정의해본다</li>
+<li>119p 참고!</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr />
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>분산과 표준편차를 구하는 사용자 함수 정의</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">x</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">7</span><span class="p">,</span><span class="m">5</span><span class="p">,</span><span class="m">12</span><span class="p">,</span><span class="m">9</span><span class="p">,</span><span class="m">15</span><span class="p">,</span><span class="m">6</span><span class="p">)</span>
+<span class="n">var_sd</span> <span class="o">=</span> <span class="nf">function</span><span class="p">(</span><span class="n">x</span><span class="p">){</span>
+    <span class="n">var</span> <span class="o">=</span> <span class="nf">sum</span><span class="p">((</span><span class="n">x</span><span class="o">-</span><span class="nf">mean</span><span class="p">(</span><span class="n">x</span><span class="p">))</span><span class="o">^</span><span class="m">2</span><span class="o">/</span><span class="nf">length</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="m">-1</span><span class="p">)</span> <span class="c1"># 표본 분산</span>
+    <span class="n">sd</span> <span class="o">=</span> <span class="nf">sqrt</span><span class="p">(</span><span class="n">var</span><span class="p">)</span>
+    <span class="nf">cat</span><span class="p">(</span><span class="s">&#39;표본 분산&#39;</span><span class="p">,</span><span class="n">var</span><span class="p">,</span><span class="s">&#39;\n&#39;</span><span class="p">)</span>
+    <span class="nf">cat</span><span class="p">(</span><span class="s">&#39;표본 표준 편차&#39;</span><span class="p">,</span><span class="n">sd</span><span class="p">)}</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">var_sd</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>표본 분산 6.333333 
+표본 표준 편차 2.516611</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>구구단 함수 정의</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">gugudan</span><span class="o">=</span><span class="nf">function</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">){</span>
+    <span class="nf">for</span><span class="p">(</span><span class="n">x</span> <span class="n">in</span> <span class="n">i</span><span class="p">){</span> <span class="c1"># 단수 지정</span>
+    <span class="nf">cat</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="s">&#39;단을 외워봅시다\n&#39;</span><span class="p">)</span>
+        <span class="nf">for</span><span class="p">(</span><span class="n">y</span> <span class="n">in</span> <span class="n">j</span><span class="p">){</span>
+            <span class="nf">cat</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="s">&#39;*&#39;</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="s">&#39;=&#39;</span><span class="p">,</span><span class="n">x</span><span class="o">*</span><span class="n">y</span><span class="p">,</span><span class="s">&#39;\n&#39;</span><span class="p">)</span>
+            <span class="p">}</span>
+        <span class="nf">cat</span><span class="p">(</span><span class="s">&#39;\n&#39;</span><span class="p">)}}</span>
+<span class="nf">gugudan</span><span class="p">(</span><span class="m">2</span><span class="o">:</span><span class="m">9</span><span class="p">,</span><span class="m">1</span><span class="o">:</span><span class="m">9</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>2 단을 외워봅시다
+2 * 1 = 2 
+2 * 2 = 4 
+2 * 3 = 6 
+2 * 4 = 8 
+2 * 5 = 10 
+2 * 6 = 12 
+2 * 7 = 14 
+2 * 8 = 16 
+2 * 9 = 18 
+
+3 단을 외워봅시다
+3 * 1 = 3 
+3 * 2 = 6 
+3 * 3 = 9 
+3 * 4 = 12 
+3 * 5 = 15 
+3 * 6 = 18 
+3 * 7 = 21 
+3 * 8 = 24 
+3 * 9 = 27 
+
+4 단을 외워봅시다
+4 * 1 = 4 
+4 * 2 = 8 
+4 * 3 = 12 
+4 * 4 = 16 
+4 * 5 = 20 
+4 * 6 = 24 
+4 * 7 = 28 
+4 * 8 = 32 
+4 * 9 = 36 
+
+5 단을 외워봅시다
+5 * 1 = 5 
+5 * 2 = 10 
+5 * 3 = 15 
+5 * 4 = 20 
+5 * 5 = 25 
+5 * 6 = 30 
+5 * 7 = 35 
+5 * 8 = 40 
+5 * 9 = 45 
+
+6 단을 외워봅시다
+6 * 1 = 6 
+6 * 2 = 12 
+6 * 3 = 18 
+6 * 4 = 24 
+6 * 5 = 30 
+6 * 6 = 36 
+6 * 7 = 42 
+6 * 8 = 48 
+6 * 9 = 54 
+
+7 단을 외워봅시다
+7 * 1 = 7 
+7 * 2 = 14 
+7 * 3 = 21 
+7 * 4 = 28 
+7 * 5 = 35 
+7 * 6 = 42 
+7 * 7 = 49 
+7 * 8 = 56 
+7 * 9 = 63 
+
+8 단을 외워봅시다
+8 * 1 = 8 
+8 * 2 = 16 
+8 * 3 = 24 
+8 * 4 = 32 
+8 * 5 = 40 
+8 * 6 = 48 
+8 * 7 = 56 
+8 * 8 = 64 
+8 * 9 = 72 
+
+9 단을 외워봅시다
+9 * 1 = 9 
+9 * 2 = 18 
+9 * 3 = 27 
+9 * 4 = 36 
+9 * 5 = 45 
+9 * 6 = 54 
+9 * 7 = 63 
+9 * 8 = 72 
+9 * 9 = 81 
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>결측치 포함 자료의 평균 계산 함수 정의</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">data</span><span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="m">10</span><span class="p">,</span><span class="m">20</span><span class="p">,</span><span class="m">5</span><span class="p">,</span><span class="m">4</span><span class="p">,</span><span class="m">40</span><span class="p">,</span><span class="m">7</span><span class="p">,</span><span class="kc">NA</span><span class="p">,</span><span class="m">6</span><span class="p">,</span><span class="m">3</span><span class="p">,</span><span class="kc">NA</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="kc">NA</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">na</span> <span class="o">=</span> <span class="nf">function</span><span class="p">(</span><span class="n">x</span><span class="p">){</span>
+    <span class="c1"># 첫 번째 방법 : NA제거</span>
+    <span class="nf">cat</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="s">&#39;\n&#39;</span><span class="p">)</span>
+    <span class="nf">cat</span><span class="p">(</span><span class="nf">mean</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">na.rm</span><span class="o">=</span><span class="bp">T</span><span class="p">),</span><span class="s">&#39;\n&#39;</span><span class="p">)</span>
+    <span class="nf">cat</span><span class="p">(</span><span class="s">&#39;\n&#39;</span><span class="p">)</span>
+    
+    <span class="c1"># 두 번째 방법 : NA를 0으로 대체하여 처리</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="nf">ifelse</span><span class="p">(</span><span class="o">!</span><span class="nf">is.na</span><span class="p">(</span><span class="n">x</span><span class="p">),</span><span class="n">x</span><span class="p">,</span><span class="m">0</span><span class="p">)</span>
+    <span class="nf">cat</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="s">&#39;\n&#39;</span><span class="p">)</span>
+    <span class="nf">cat</span><span class="p">(</span><span class="nf">mean</span><span class="p">(</span><span class="n">data</span><span class="p">),</span><span class="s">&#39;\n&#39;</span><span class="p">)</span>
+    <span class="nf">cat</span><span class="p">(</span><span class="s">&#39;\n&#39;</span><span class="p">)</span>
+    
+    <span class="c1"># 세 번째 방법 : NA를 평균으로 대체하여 처리</span>
+    <span class="n">data2</span> <span class="o">=</span> <span class="nf">ifelse</span><span class="p">(</span><span class="o">!</span><span class="nf">is.na</span><span class="p">(</span><span class="n">x</span><span class="p">),</span><span class="n">x</span><span class="p">,</span><span class="nf">round</span><span class="p">(</span><span class="nf">mean</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">na.rm</span><span class="o">=</span><span class="bp">T</span><span class="p">),</span><span class="m">2</span><span class="p">))</span>
+    <span class="nf">cat</span><span class="p">(</span><span class="n">data2</span><span class="p">,</span><span class="s">&#39;\n&#39;</span><span class="p">)</span>
+    <span class="nf">cat</span><span class="p">(</span><span class="nf">mean</span><span class="p">(</span><span class="n">data2</span><span class="p">),</span><span class="s">&#39;\n&#39;</span><span class="p">)}</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">na</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>10 20 5 4 40 7 NA 6 3 NA 2 NA 
+10.77778 
+
+10 20 5 4 40 7 0 6 3 0 2 0 
+8.083333 
+
+10 20 5 4 40 7 10.78 6 3 10.78 2 10.78 
+10.77833 
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr />
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>몬테카를로 시뮬레이션 함수 정의<ul>
+<li>현실적으로 불가능한 문제의 해답을 얻기 위해서 난수의 확률 분포를 이용하는 모의 시험으로 근사적 해를 구하는 기법</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">coin</span><span class="o">=</span><span class="nf">function</span><span class="p">(</span><span class="n">n</span><span class="p">){</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="nf">runif</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">min</span><span class="o">=</span><span class="m">0</span><span class="p">,</span><span class="n">max</span><span class="o">=</span><span class="m">1</span><span class="p">)</span>
+    <span class="n">result</span><span class="o">=</span><span class="nf">numeric</span><span class="p">()</span>
+    <span class="nf">for</span><span class="p">(</span><span class="n">i</span> <span class="n">in</span> <span class="m">1</span><span class="o">:</span><span class="n">n</span><span class="p">){</span>
+        <span class="nf">if</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">&lt;=</span><span class="m">0.5</span><span class="p">)</span>
+            <span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="m">0</span> <span class="c1"># 앞면, 실행문이 하나일 땐 {}생략 가능하다</span>
+        <span class="n">else</span>
+            <span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="m">1</span><span class="p">}</span> <span class="c1"># 뒷면</span>
+        <span class="nf">return</span><span class="p">(</span><span class="n">result</span><span class="p">)}</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">coin</span><span class="p">(</span><span class="m">10</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>1</li><li>0</li><li>0</li><li>0</li><li>0</li><li>0</li><li>1</li><li>1</li><li>1</li><li>1</li>&lt;/ol&gt;
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">montaCoin</span><span class="o">=</span><span class="nf">function</span><span class="p">(</span><span class="n">n</span><span class="p">){</span>
+    <span class="n">cnt</span> <span class="o">=</span> <span class="m">0</span>
+    <span class="nf">for</span><span class="p">(</span><span class="n">i</span> <span class="n">in</span> <span class="m">1</span><span class="o">:</span><span class="n">n</span><span class="p">){</span>
+        <span class="n">cnt</span> <span class="o">=</span> <span class="n">cnt</span> <span class="o">+</span> <span class="nf">coin</span><span class="p">(</span><span class="m">1</span><span class="p">)</span> <span class="c1"># n 시행 횟수만큼 동정 함수 호출</span>
+        <span class="p">}</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">cnt</span><span class="o">/</span><span class="n">n</span>
+    <span class="nf">return</span><span class="p">(</span><span class="n">result</span><span class="p">)}</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">montaCoin</span><span class="p">(</span><span class="m">1000</span><span class="p">)</span>
+<span class="nf">montaCoin</span><span class="p">(</span><span class="m">100000</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+0.486
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+0.50078
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+</div>
+
+
+
+  </div><a class="u-url" href="/INTROr/2022/02/09/r.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/INTROr/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/INTROr/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/INTROr/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>An easy to use blogging platform with support for Jupyter Notebooks.</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/rhkrehtjd" target="_blank" title="rhkrehtjd"><svg class="svg-icon grey"><use xlink:href="/INTROr/assets/minima-social-icons.svg#github"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
