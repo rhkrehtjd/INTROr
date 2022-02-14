@@ -1,0 +1,2331 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>데이터 전처리 | INTROr</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="데이터 전처리" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="An easy to use blogging platform with support for Jupyter Notebooks." />
+<meta property="og:description" content="An easy to use blogging platform with support for Jupyter Notebooks." />
+<link rel="canonical" href="https://rhkrehtjd.github.io/INTROr/2022/02/14/r.html" />
+<meta property="og:url" content="https://rhkrehtjd.github.io/INTROr/2022/02/14/r.html" />
+<meta property="og:site_name" content="INTROr" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-02-14T00:00:00-06:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="데이터 전처리" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2022-02-14T00:00:00-06:00","datePublished":"2022-02-14T00:00:00-06:00","description":"An easy to use blogging platform with support for Jupyter Notebooks.","headline":"데이터 전처리","mainEntityOfPage":{"@type":"WebPage","@id":"https://rhkrehtjd.github.io/INTROr/2022/02/14/r.html"},"url":"https://rhkrehtjd.github.io/INTROr/2022/02/14/r.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/INTROr/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://rhkrehtjd.github.io/INTROr/feed.xml" title="INTROr" /><link rel="shortcut icon" type="image/x-icon" href="/INTROr/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.css" integrity="sha512-h7nl+xz8wgDlNM4NqKEM4F1NkIRS17M9+uJwIGwuo8vGqIl4BhuCKdxjWEINm+xyrUjNCnK5dCrhM0sj+wTIXw==" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.js" integrity="sha512-/CMIhXiDA3m2c9kzRyd97MTb3MC6OVnx4TElQ7fkkoRghwDf6gi41gaT1PwF270W6+J60uTmwgeRpNpJdRV6sg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/contrib/auto-render.min.js" integrity="sha512-Do7uJAaHZm5OLrIv/yN4w0iG1dbu01kzdMNnFfu/mAqgUk6Nniv2JYHcwH+cNwjqgLcqcuBBk+JRvprLVI8azg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha512-0doc9hKxR3PYwso42RD1p5ySZpzzuDiOwMrdCEh2WdJZCjcmFKc/wEnL+z8fBQrnHoiNWbo+3fiGkOYXBdQp4A==" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/INTROr/">INTROr</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/INTROr/about/">About Me</a><a class="page-link" href="/INTROr/search/">Search</a><a class="page-link" href="/INTROr/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">데이터 전처리</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2022-02-14T00:00:00-06:00" itemprop="datePublished">
+        Feb 14, 2022
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      13 min read
+    
+</span></p>
+
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-justify-center">
+          <div class="px-2">
+
+    <a href="https://github.com/rhkrehtjd/INTROr/tree/master/_notebooks/2022-02-14-r.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/INTROr/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://mybinder.org/v2/gh/rhkrehtjd/INTROr/master?filepath=_notebooks%2F2022-02-14-r.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/INTROr/assets/badges/binder.svg" alt="Open In Binder"/>
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://colab.research.google.com/github/rhkrehtjd/INTROr/blob/master/_notebooks/2022-02-14-r.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/INTROr/assets/badges/colab.svg" alt="Open In Colab"/>
+    </a>
+</div>
+          <div class="px-2">
+  <a href="https://deepnote.com/launch?url=https%3A%2F%2Fgithub.com%2Frhkrehtjd%2FINTROr%2Fblob%2Fmaster%2F_notebooks%2F2022-02-14-r.ipynb" target="_blank">
+      <img class="notebook-badge-image" src="/INTROr/assets/badges/deepnote.svg" alt="Launch in Deepnote"/>
+  </a>
+</div>
+
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2022-02-14-r.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>칼럼으로 데이터 정렬</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">library</span><span class="p">(</span><span class="n">hflights</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">dplyr</span><span class="p">)</span>
+<span class="c1"># 데이터를 년, 월, 출발시간, 도착시간 기준으로 오름차순 정렬</span>
+<span class="nf">arrange</span><span class="p">(</span><span class="n">hflights</span><span class="p">,</span><span class="n">Year</span><span class="p">,</span><span class="n">Month</span><span class="p">,</span><span class="n">DepTime</span><span class="p">,</span><span class="n">ArrTime</span><span class="p">)</span>
+<span class="c1"># 정렬의 우선순위는 가장 왼쪽의 칼럼부터 시작하여 오른쪽 칼럼 순으로 정렬된다.</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A data.frame: 227496 × 21</caption>
+<thead>
+	<tr><th scope="col">Year</th><th scope="col">Month</th><th scope="col">DayofMonth</th><th scope="col">DayOfWeek</th><th scope="col">DepTime</th><th scope="col">ArrTime</th><th scope="col">UniqueCarrier</th><th scope="col">FlightNum</th><th scope="col">TailNum</th><th scope="col">ActualElapsedTime</th><th scope="col">⋯</th><th scope="col">ArrDelay</th><th scope="col">DepDelay</th><th scope="col">Origin</th><th scope="col">Dest</th><th scope="col">Distance</th><th scope="col">TaxiIn</th><th scope="col">TaxiOut</th><th scope="col">Cancelled</th><th scope="col">CancellationCode</th><th scope="col">Diverted</th></tr>
+	<tr><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;chr&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;chr&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">⋯</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;chr&gt;</th><th scope="col">&lt;chr&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;chr&gt;</th><th scope="col">&lt;int&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><td>2011</td><td>1</td><td> 1</td><td>6</td><td>  1</td><td>621</td><td>CO</td><td>1542</td><td>N76254</td><td>260</td><td>⋯</td><td> 24</td><td>  2</td><td>IAH</td><td>SJU</td><td>2007</td><td>10</td><td>16</td><td>0</td><td></td><td>0</td></tr>
+	<tr><td>2011</td><td>1</td><td>21</td><td>5</td><td>  4</td><td> 46</td><td>XE</td><td>2956</td><td>N13997</td><td> 42</td><td>⋯</td><td> 60</td><td> 64</td><td>IAH</td><td>AUS</td><td> 140</td><td> 4</td><td> 7</td><td>0</td><td></td><td>0</td></tr>
+	<tr><td>2011</td><td>1</td><td> 4</td><td>2</td><td>  5</td><td> 59</td><td>OO</td><td>1118</td><td>N745SK</td><td> 54</td><td>⋯</td><td>171</td><td>180</td><td>IAH</td><td>DFW</td><td> 224</td><td> 3</td><td>12</td><td>0</td><td></td><td>0</td></tr>
+	<tr><td>2011</td><td>1</td><td>27</td><td>4</td><td> 11</td><td>216</td><td>CO</td><td> 209</td><td>N17730</td><td>245</td><td>⋯</td><td>137</td><td>168</td><td>IAH</td><td>PDX</td><td>1825</td><td> 3</td><td> 8</td><td>0</td><td></td><td>0</td></tr>
+	<tr><td>2011</td><td>1</td><td>27</td><td>4</td><td> 17</td><td>240</td><td>XE</td><td>2771</td><td>N11565</td><td>143</td><td>⋯</td><td>202</td><td>185</td><td>IAH</td><td>OMA</td><td> 781</td><td> 5</td><td>16</td><td>0</td><td></td><td>0</td></tr>
+	<tr><td>2011</td><td>1</td><td> 9</td><td>7</td><td> 22</td><td>117</td><td>WN</td><td>  55</td><td>N506SW</td><td> 55</td><td>⋯</td><td>167</td><td>172</td><td>HOU</td><td>HRL</td><td> 276</td><td> 2</td><td> 7</td><td>0</td><td></td><td>0</td></tr>
+	<tr><td>2011</td><td>1</td><td>28</td><td>5</td><td>226</td><td>310</td><td>XE</td><td>2956</td><td>N11535</td><td> 44</td><td>⋯</td><td>204</td><td>206</td><td>IAH</td><td>AUS</td><td> 140</td><td> 5</td><td>10</td><td>0</td><td></td><td>0</td></tr>
+	<tr><td>2011</td><td>1</td><td>18</td><td>2</td><td>537</td><td>829</td><td>DL</td><td>1248</td><td>N302NB</td><td>112</td><td>⋯</td><td>-18</td><td> -8</td><td>IAH</td><td>ATL</td><td> 689</td><td>18</td><td> 9</td><td>0</td><td></td><td>0</td></tr>
+	<tr><td>2011</td><td>1</td><td>25</td><td>2</td><td>538</td><td>824</td><td>DL</td><td>1248</td><td>N355NB</td><td>106</td><td>⋯</td><td>-23</td><td> -7</td><td>IAH</td><td>ATL</td><td> 689</td><td>10</td><td>14</td><td>0</td><td></td><td>0</td></tr>
+	<tr><td>2011</td><td>1</td><td> 7</td><td>5</td><td>538</td><td>832</td><td>DL</td><td>1248</td><td>N337NB</td><td>114</td><td>⋯</td><td>-15</td><td> -7</td><td>IAH</td><td>ATL</td><td> 689</td><td>16</td><td>10</td><td>0</td><td></td><td>0</td></tr>
+	<tr><td>2011</td><td>1</td><td>19</td><td>3</td><td>538</td><td>844</td><td>DL</td><td>1248</td><td>N370NB</td><td>126</td><td>⋯</td><td> -3</td><td> -7</td><td>IAH</td><td>ATL</td><td> 689</td><td>11</td><td>16</td><td>0</td><td></td><td>0</td></tr>
+	<tr><td>2011</td><td>1</td><td>27</td><td>4</td><td>540</td><td>824</td><td>DL</td><td>1248</td><td>N320NB</td><td>104</td><td>⋯</td><td>-23</td><td> -5</td><td>IAH</td><td>ATL</td><td> 689</td><td> 7</td><td>10</td><td>0</td><td></td><td>0</td></tr>
+	<tr><td>2011</td><td>1</td><td>20</td><td>4</td><td>540</td><td>828</td><td>DL</td><td>1248</td><td>N316NB</td><td>108</td><td>⋯</td><td>-19</td><td> -5</td><td>IAH</td><td>ATL</td><td> 689</td><td>18</td><td> 9</td><td>0</td><td></td><td>0</td></tr>
+	<tr><td>2011</td><td>1</td><td>14</td><td>5</td><td>540</td><td>846</td><td>DL</td><td>1248</td><td>N324NB</td><td>126</td><td>⋯</td><td> -1</td><td> -5</td><td>IAH</td><td>ATL</td><td> 689</td><td>14</td><td>19</td><td>0</td><td></td><td>0</td></tr>
+	<tr><td>2011</td><td>1</td><td>22</td><td>6</td><td>540</td><td>850</td><td>DL</td><td>1248</td><td>N315NB</td><td>130</td><td>⋯</td><td>  3</td><td> -5</td><td>IAH</td><td>ATL</td><td> 689</td><td>11</td><td>38</td><td>0</td><td></td><td>0</td></tr>
+	<tr><td>2011</td><td>1</td><td>26</td><td>3</td><td>540</td><td>851</td><td>DL</td><td>1248</td><td>N321NB</td><td>131</td><td>⋯</td><td>  4</td><td> -5</td><td>IAH</td><td>ATL</td><td> 689</td><td>21</td><td>20</td><td>0</td><td></td><td>0</td></tr>
+	<tr><td>2011</td><td>1</td><td>13</td><td>4</td><td>541</td><td>817</td><td>DL</td><td>1248</td><td>N360NB</td><td> 96</td><td>⋯</td><td>-30</td><td> -4</td><td>IAH</td><td>ATL</td><td> 689</td><td> 5</td><td> 9</td><td>0</td><td></td><td>0</td></tr>
+	<tr><td>2011</td><td>1</td><td> 9</td><td>7</td><td>541</td><td>823</td><td>DL</td><td>1248</td><td>N338NB</td><td>102</td><td>⋯</td><td>-24</td><td> -4</td><td>IAH</td><td>ATL</td><td> 689</td><td> 8</td><td>12</td><td>0</td><td></td><td>0</td></tr>
+	<tr><td>2011</td><td>1</td><td>24</td><td>1</td><td>541</td><td>824</td><td>DL</td><td>1248</td><td>N322NB</td><td>103</td><td>⋯</td><td>-23</td><td> -4</td><td>IAH</td><td>ATL</td><td> 689</td><td>14</td><td>10</td><td>0</td><td></td><td>0</td></tr>
+	<tr><td>2011</td><td>1</td><td>12</td><td>3</td><td>541</td><td>827</td><td>DL</td><td>1248</td><td>N338NB</td><td>106</td><td>⋯</td><td>-20</td><td> -4</td><td>IAH</td><td>ATL</td><td> 689</td><td>10</td><td>10</td><td>0</td><td></td><td>0</td></tr>
+	<tr><td>2011</td><td>1</td><td>29</td><td>6</td><td>541</td><td>831</td><td>DL</td><td>1248</td><td>N320NB</td><td>110</td><td>⋯</td><td>-16</td><td> -4</td><td>IAH</td><td>ATL</td><td> 689</td><td>14</td><td>10</td><td>0</td><td></td><td>0</td></tr>
+	<tr><td>2011</td><td>1</td><td>23</td><td>7</td><td>542</td><td>823</td><td>DL</td><td>1248</td><td>N348NB</td><td>101</td><td>⋯</td><td>-24</td><td> -3</td><td>IAH</td><td>ATL</td><td> 689</td><td> 5</td><td>10</td><td>0</td><td></td><td>0</td></tr>
+	<tr><td>2011</td><td>1</td><td>17</td><td>1</td><td>542</td><td>831</td><td>DL</td><td>1248</td><td>N347NB</td><td>109</td><td>⋯</td><td>-16</td><td> -3</td><td>IAH</td><td>ATL</td><td> 689</td><td> 7</td><td>10</td><td>0</td><td></td><td>0</td></tr>
+	<tr><td>2011</td><td>1</td><td>30</td><td>7</td><td>542</td><td>831</td><td>DL</td><td>1248</td><td>N339NB</td><td>109</td><td>⋯</td><td>-16</td><td> -3</td><td>IAH</td><td>ATL</td><td> 689</td><td>15</td><td>10</td><td>0</td><td></td><td>0</td></tr>
+	<tr><td>2011</td><td>1</td><td>16</td><td>7</td><td>542</td><td>834</td><td>DL</td><td>1248</td><td>N364NB</td><td>112</td><td>⋯</td><td>-13</td><td> -3</td><td>IAH</td><td>ATL</td><td> 689</td><td>15</td><td> 9</td><td>0</td><td></td><td>0</td></tr>
+	<tr><td>2011</td><td>1</td><td> 8</td><td>6</td><td>542</td><td>843</td><td>DL</td><td>1248</td><td>N341NB</td><td>121</td><td>⋯</td><td> -4</td><td> -3</td><td>IAH</td><td>ATL</td><td> 689</td><td>25</td><td>10</td><td>0</td><td></td><td>0</td></tr>
+	<tr><td>2011</td><td>1</td><td> 5</td><td>3</td><td>543</td><td>834</td><td>DL</td><td>1248</td><td>N332NB</td><td>111</td><td>⋯</td><td>-13</td><td> -2</td><td>IAH</td><td>ATL</td><td> 689</td><td>13</td><td> 9</td><td>0</td><td></td><td>0</td></tr>
+	<tr><td>2011</td><td>1</td><td>31</td><td>1</td><td>543</td><td>840</td><td>DL</td><td>1248</td><td>N339NB</td><td>117</td><td>⋯</td><td> -7</td><td> -2</td><td>IAH</td><td>ATL</td><td> 689</td><td>13</td><td> 9</td><td>0</td><td></td><td>0</td></tr>
+	<tr><td>2011</td><td>1</td><td>21</td><td>5</td><td>544</td><td>838</td><td>DL</td><td>1248</td><td>N370NB</td><td>114</td><td>⋯</td><td> -9</td><td> -1</td><td>IAH</td><td>ATL</td><td> 689</td><td>12</td><td>13</td><td>0</td><td></td><td>0</td></tr>
+	<tr><td>2011</td><td>1</td><td>28</td><td>5</td><td>545</td><td>835</td><td>DL</td><td>1248</td><td>N348NB</td><td>110</td><td>⋯</td><td>-12</td><td>  0</td><td>IAH</td><td>ATL</td><td> 689</td><td>10</td><td>12</td><td>0</td><td></td><td>0</td></tr>
+	<tr><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td><td>⋱</td><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td></tr>
+	<tr><td>2011</td><td>12</td><td>31</td><td>6</td><td>NA</td><td>NA</td><td>XE</td><td>4698</td><td>N13913</td><td>NA</td><td>⋯</td><td>NA</td><td>NA</td><td>IAH</td><td>CHS</td><td> 925</td><td>NA</td><td>NA</td><td>1</td><td>C</td><td>0</td></tr>
+	<tr><td>2011</td><td>12</td><td>31</td><td>6</td><td>NA</td><td>NA</td><td>XE</td><td>4702</td><td>N21154</td><td>NA</td><td>⋯</td><td>NA</td><td>NA</td><td>IAH</td><td>IAD</td><td>1190</td><td>NA</td><td>NA</td><td>1</td><td>B</td><td>0</td></tr>
+	<tr><td>2011</td><td>12</td><td>29</td><td>4</td><td>NA</td><td>NA</td><td>XE</td><td>4708</td><td>N17560</td><td>NA</td><td>⋯</td><td>NA</td><td>NA</td><td>IAH</td><td>CAE</td><td> 878</td><td>NA</td><td>NA</td><td>1</td><td>B</td><td>0</td></tr>
+	<tr><td>2011</td><td>12</td><td>31</td><td>6</td><td>NA</td><td>NA</td><td>XE</td><td>4708</td><td>N16963</td><td>NA</td><td>⋯</td><td>NA</td><td>NA</td><td>IAH</td><td>CAE</td><td> 878</td><td>NA</td><td>NA</td><td>1</td><td>B</td><td>0</td></tr>
+	<tr><td>2011</td><td>12</td><td>30</td><td>5</td><td>NA</td><td>NA</td><td>XE</td><td>4710</td><td>N13550</td><td>NA</td><td>⋯</td><td>NA</td><td>NA</td><td>IAH</td><td>CRP</td><td> 201</td><td>NA</td><td>NA</td><td>1</td><td>B</td><td>0</td></tr>
+	<tr><td>2011</td><td>12</td><td>12</td><td>1</td><td>NA</td><td>NA</td><td>OO</td><td>5246</td><td>N908SW</td><td>NA</td><td>⋯</td><td>NA</td><td>NA</td><td>IAH</td><td>MAF</td><td> 429</td><td>NA</td><td>NA</td><td>1</td><td>A</td><td>0</td></tr>
+	<tr><td>2011</td><td>12</td><td>31</td><td>6</td><td>NA</td><td>NA</td><td>OO</td><td>5239</td><td>N693BR</td><td>NA</td><td>⋯</td><td>NA</td><td>NA</td><td>IAH</td><td>DAL</td><td> 216</td><td>NA</td><td>NA</td><td>1</td><td>A</td><td>0</td></tr>
+	<tr><td>2011</td><td>12</td><td>31</td><td>6</td><td>NA</td><td>NA</td><td>OO</td><td>5243</td><td>N941SW</td><td>NA</td><td>⋯</td><td>NA</td><td>NA</td><td>IAH</td><td>ELP</td><td> 667</td><td>NA</td><td>NA</td><td>1</td><td>C</td><td>0</td></tr>
+	<tr><td>2011</td><td>12</td><td>29</td><td>4</td><td>NA</td><td>NA</td><td>OO</td><td>5245</td><td>N912SW</td><td>NA</td><td>⋯</td><td>NA</td><td>NA</td><td>IAH</td><td>MAF</td><td> 429</td><td>NA</td><td>NA</td><td>1</td><td>A</td><td>0</td></tr>
+	<tr><td>2011</td><td>12</td><td>29</td><td>4</td><td>NA</td><td>NA</td><td>OO</td><td>5233</td><td>N927SW</td><td>NA</td><td>⋯</td><td>NA</td><td>NA</td><td>IAH</td><td>CLT</td><td> 912</td><td>NA</td><td>NA</td><td>1</td><td>B</td><td>0</td></tr>
+	<tr><td>2011</td><td>12</td><td>29</td><td>4</td><td>NA</td><td>NA</td><td>OO</td><td>5237</td><td>N971SW</td><td>NA</td><td>⋯</td><td>NA</td><td>NA</td><td>IAH</td><td>DAL</td><td> 216</td><td>NA</td><td>NA</td><td>1</td><td>A</td><td>0</td></tr>
+	<tr><td>2011</td><td>12</td><td>21</td><td>3</td><td>NA</td><td>NA</td><td>OO</td><td>5237</td><td>N958SW</td><td>NA</td><td>⋯</td><td>NA</td><td>NA</td><td>IAH</td><td>DAL</td><td> 216</td><td>NA</td><td>NA</td><td>1</td><td>A</td><td>0</td></tr>
+	<tr><td>2011</td><td>12</td><td>31</td><td>6</td><td>NA</td><td>NA</td><td>OO</td><td>5193</td><td>N727SK</td><td>NA</td><td>⋯</td><td>NA</td><td>NA</td><td>IAH</td><td>OKC</td><td> 395</td><td>NA</td><td>NA</td><td>1</td><td>B</td><td>0</td></tr>
+	<tr><td>2011</td><td>12</td><td>12</td><td>1</td><td>NA</td><td>NA</td><td>OO</td><td>5162</td><td>N702SK</td><td>NA</td><td>⋯</td><td>NA</td><td>NA</td><td>IAH</td><td>OMA</td><td> 781</td><td>NA</td><td>NA</td><td>1</td><td>A</td><td>0</td></tr>
+	<tr><td>2011</td><td>12</td><td> 4</td><td>7</td><td>NA</td><td>NA</td><td>OO</td><td>5162</td><td>N768SK</td><td>NA</td><td>⋯</td><td>NA</td><td>NA</td><td>IAH</td><td>OMA</td><td> 781</td><td>NA</td><td>NA</td><td>1</td><td>B</td><td>0</td></tr>
+	<tr><td>2011</td><td>12</td><td>31</td><td>6</td><td>NA</td><td>NA</td><td>OO</td><td>5173</td><td>N793SK</td><td>NA</td><td>⋯</td><td>NA</td><td>NA</td><td>IAH</td><td>DFW</td><td> 224</td><td>NA</td><td>NA</td><td>1</td><td>C</td><td>0</td></tr>
+	<tr><td>2011</td><td>12</td><td>12</td><td>1</td><td>NA</td><td>NA</td><td>OO</td><td>5176</td><td>N794SK</td><td>NA</td><td>⋯</td><td>NA</td><td>NA</td><td>IAH</td><td>CMH</td><td> 986</td><td>NA</td><td>NA</td><td>1</td><td>A</td><td>0</td></tr>
+	<tr><td>2011</td><td>12</td><td> 1</td><td>4</td><td>NA</td><td>NA</td><td>OO</td><td>5218</td><td>N770SK</td><td>NA</td><td>⋯</td><td>NA</td><td>NA</td><td>IAH</td><td>MCI</td><td> 643</td><td>NA</td><td>NA</td><td>1</td><td>A</td><td>0</td></tr>
+	<tr><td>2011</td><td>12</td><td>27</td><td>2</td><td>NA</td><td>NA</td><td>UA</td><td> 855</td><td>      </td><td>NA</td><td>⋯</td><td>NA</td><td>NA</td><td>IAH</td><td>SFO</td><td>1635</td><td>NA</td><td>NA</td><td>1</td><td>A</td><td>0</td></tr>
+	<tr><td>2011</td><td>12</td><td> 9</td><td>5</td><td>NA</td><td>NA</td><td>US</td><td>1828</td><td>      </td><td>NA</td><td>⋯</td><td>NA</td><td>NA</td><td>IAH</td><td>PHL</td><td>1325</td><td>NA</td><td>NA</td><td>1</td><td>A</td><td>0</td></tr>
+	<tr><td>2011</td><td>12</td><td>27</td><td>2</td><td>NA</td><td>NA</td><td>US</td><td>1170</td><td>      </td><td>NA</td><td>⋯</td><td>NA</td><td>NA</td><td>IAH</td><td>CLT</td><td> 912</td><td>NA</td><td>NA</td><td>1</td><td>A</td><td>0</td></tr>
+	<tr><td>2011</td><td>12</td><td>30</td><td>5</td><td>NA</td><td>NA</td><td>US</td><td> 403</td><td>      </td><td>NA</td><td>⋯</td><td>NA</td><td>NA</td><td>IAH</td><td>PHX</td><td>1009</td><td>NA</td><td>NA</td><td>1</td><td>A</td><td>0</td></tr>
+	<tr><td>2011</td><td>12</td><td> 1</td><td>4</td><td>NA</td><td>NA</td><td>WN</td><td>   9</td><td>N230WN</td><td>NA</td><td>⋯</td><td>NA</td><td>NA</td><td>HOU</td><td>HRL</td><td> 277</td><td>NA</td><td>NA</td><td>1</td><td>A</td><td>0</td></tr>
+	<tr><td>2011</td><td>12</td><td> 2</td><td>5</td><td>NA</td><td>NA</td><td>WN</td><td>   6</td><td>N946WN</td><td>NA</td><td>⋯</td><td>NA</td><td>NA</td><td>HOU</td><td>DAL</td><td> 239</td><td>NA</td><td>NA</td><td>1</td><td>A</td><td>0</td></tr>
+	<tr><td>2011</td><td>12</td><td> 2</td><td>5</td><td>NA</td><td>NA</td><td>WN</td><td>  16</td><td>N281WN</td><td>NA</td><td>⋯</td><td>NA</td><td>NA</td><td>HOU</td><td>DAL</td><td> 239</td><td>NA</td><td>NA</td><td>1</td><td>A</td><td>0</td></tr>
+	<tr><td>2011</td><td>12</td><td> 2</td><td>5</td><td>NA</td><td>NA</td><td>WN</td><td>1167</td><td>N510SW</td><td>NA</td><td>⋯</td><td>NA</td><td>NA</td><td>HOU</td><td>OAK</td><td>1642</td><td>NA</td><td>NA</td><td>1</td><td>A</td><td>0</td></tr>
+	<tr><td>2011</td><td>12</td><td> 3</td><td>6</td><td>NA</td><td>NA</td><td>WN</td><td>1491</td><td>N348SW</td><td>NA</td><td>⋯</td><td>NA</td><td>NA</td><td>HOU</td><td>DAL</td><td> 239</td><td>NA</td><td>NA</td><td>1</td><td>A</td><td>0</td></tr>
+	<tr><td>2011</td><td>12</td><td> 4</td><td>7</td><td>NA</td><td>NA</td><td>WN</td><td>2387</td><td>N928WN</td><td>NA</td><td>⋯</td><td>NA</td><td>NA</td><td>HOU</td><td>DAL</td><td> 239</td><td>NA</td><td>NA</td><td>1</td><td>A</td><td>0</td></tr>
+	<tr><td>2011</td><td>12</td><td> 5</td><td>1</td><td>NA</td><td>NA</td><td>WN</td><td>  38</td><td>N604SW</td><td>NA</td><td>⋯</td><td>NA</td><td>NA</td><td>HOU</td><td>DAL</td><td> 239</td><td>NA</td><td>NA</td><td>1</td><td>A</td><td>0</td></tr>
+	<tr><td>2011</td><td>12</td><td> 6</td><td>2</td><td>NA</td><td>NA</td><td>WN</td><td>  16</td><td>N362SW</td><td>NA</td><td>⋯</td><td>NA</td><td>NA</td><td>HOU</td><td>DAL</td><td> 239</td><td>NA</td><td>NA</td><td>1</td><td>A</td><td>0</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>칼럼으로 데이터 검색<ul>
+<li>대용량의 데이터 셋의 특정 칼럼을 기준으로 데이터를 검색할 수 있다. </li>
+<li>관계형 데이터 베이스에서 데이터 검색을 위한 select 문과 비슷한 기능을 수행하는 select() 함수에 대해서 알아본다.</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">select</span><span class="p">(</span><span class="n">hflights</span><span class="p">,</span><span class="n">Year</span><span class="p">,</span><span class="n">Month</span><span class="p">,</span><span class="n">DepTime</span><span class="p">,</span><span class="n">ArrTime</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A data.frame: 227496 × 4</caption>
+<thead>
+	<tr><th></th><th scope="col">Year</th><th scope="col">Month</th><th scope="col">DepTime</th><th scope="col">ArrTime</th></tr>
+	<tr><th></th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><th scope="row">5424</th><td>2011</td><td>1</td><td>1400</td><td>1500</td></tr>
+	<tr><th scope="row">5425</th><td>2011</td><td>1</td><td>1401</td><td>1501</td></tr>
+	<tr><th scope="row">5426</th><td>2011</td><td>1</td><td>1352</td><td>1502</td></tr>
+	<tr><th scope="row">5427</th><td>2011</td><td>1</td><td>1403</td><td>1513</td></tr>
+	<tr><th scope="row">5428</th><td>2011</td><td>1</td><td>1405</td><td>1507</td></tr>
+	<tr><th scope="row">5429</th><td>2011</td><td>1</td><td>1359</td><td>1503</td></tr>
+	<tr><th scope="row">5430</th><td>2011</td><td>1</td><td>1359</td><td>1509</td></tr>
+	<tr><th scope="row">5431</th><td>2011</td><td>1</td><td>1355</td><td>1454</td></tr>
+	<tr><th scope="row">5432</th><td>2011</td><td>1</td><td>1443</td><td>1554</td></tr>
+	<tr><th scope="row">5433</th><td>2011</td><td>1</td><td>1443</td><td>1553</td></tr>
+	<tr><th scope="row">5434</th><td>2011</td><td>1</td><td>1429</td><td>1539</td></tr>
+	<tr><th scope="row">5435</th><td>2011</td><td>1</td><td>1419</td><td>1515</td></tr>
+	<tr><th scope="row">5436</th><td>2011</td><td>1</td><td>1358</td><td>1501</td></tr>
+	<tr><th scope="row">5437</th><td>2011</td><td>1</td><td>1357</td><td>1504</td></tr>
+	<tr><th scope="row">5438</th><td>2011</td><td>1</td><td>1359</td><td>1459</td></tr>
+	<tr><th scope="row">5439</th><td>2011</td><td>1</td><td>1359</td><td>1509</td></tr>
+	<tr><th scope="row">5440</th><td>2011</td><td>1</td><td>1530</td><td>1634</td></tr>
+	<tr><th scope="row">5441</th><td>2011</td><td>1</td><td>1408</td><td>1508</td></tr>
+	<tr><th scope="row">5442</th><td>2011</td><td>1</td><td>1356</td><td>1503</td></tr>
+	<tr><th scope="row">5443</th><td>2011</td><td>1</td><td>1507</td><td>1622</td></tr>
+	<tr><th scope="row">5444</th><td>2011</td><td>1</td><td>1357</td><td>1459</td></tr>
+	<tr><th scope="row">5445</th><td>2011</td><td>1</td><td>1355</td><td>1456</td></tr>
+	<tr><th scope="row">5446</th><td>2011</td><td>1</td><td>1356</td><td>1501</td></tr>
+	<tr><th scope="row">5447</th><td>2011</td><td>1</td><td>1356</td><td>1513</td></tr>
+	<tr><th scope="row">5448</th><td>2011</td><td>1</td><td>1352</td><td>1452</td></tr>
+	<tr><th scope="row">5449</th><td>2011</td><td>1</td><td>1353</td><td>1455</td></tr>
+	<tr><th scope="row">5450</th><td>2011</td><td>1</td><td>1356</td><td>1458</td></tr>
+	<tr><th scope="row">5451</th><td>2011</td><td>1</td><td>1359</td><td>1505</td></tr>
+	<tr><th scope="row">5452</th><td>2011</td><td>1</td><td>1355</td><td>1455</td></tr>
+	<tr><th scope="row">5453</th><td>2011</td><td>1</td><td>1359</td><td>1456</td></tr>
+	<tr><th scope="row">⋮</th><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td></tr>
+	<tr><th scope="row">6083230</th><td>2011</td><td>12</td><td> 752</td><td> 857</td></tr>
+	<tr><th scope="row">6083231</th><td>2011</td><td>12</td><td> 651</td><td> 746</td></tr>
+	<tr><th scope="row">6083232</th><td>2011</td><td>12</td><td>1728</td><td>1932</td></tr>
+	<tr><th scope="row">6083233</th><td>2011</td><td>12</td><td>1115</td><td>1315</td></tr>
+	<tr><th scope="row">6083234</th><td>2011</td><td>12</td><td>1753</td><td>1911</td></tr>
+	<tr><th scope="row">6083235</th><td>2011</td><td>12</td><td>1222</td><td>1335</td></tr>
+	<tr><th scope="row">6083236</th><td>2011</td><td>12</td><td> 836</td><td> 946</td></tr>
+	<tr><th scope="row">6083237</th><td>2011</td><td>12</td><td>1352</td><td>1749</td></tr>
+	<tr><th scope="row">6083238</th><td>2011</td><td>12</td><td>1850</td><td>2046</td></tr>
+	<tr><th scope="row">6083239</th><td>2011</td><td>12</td><td> 707</td><td> 903</td></tr>
+	<tr><th scope="row">6083240</th><td>2011</td><td>12</td><td>1335</td><td>1528</td></tr>
+	<tr><th scope="row">6083241</th><td>2011</td><td>12</td><td>1005</td><td>1158</td></tr>
+	<tr><th scope="row">6083242</th><td>2011</td><td>12</td><td>1723</td><td>1845</td></tr>
+	<tr><th scope="row">6083243</th><td>2011</td><td>12</td><td>1139</td><td>1304</td></tr>
+	<tr><th scope="row">6083244</th><td>2011</td><td>12</td><td>2023</td><td>2109</td></tr>
+	<tr><th scope="row">6083245</th><td>2011</td><td>12</td><td>1542</td><td>1637</td></tr>
+	<tr><th scope="row">6083246</th><td>2011</td><td>12</td><td>1728</td><td>1825</td></tr>
+	<tr><th scope="row">6083247</th><td>2011</td><td>12</td><td>1252</td><td>1349</td></tr>
+	<tr><th scope="row">6083248</th><td>2011</td><td>12</td><td> 857</td><td> 955</td></tr>
+	<tr><th scope="row">6083249</th><td>2011</td><td>12</td><td>1939</td><td>2119</td></tr>
+	<tr><th scope="row">6083250</th><td>2011</td><td>12</td><td> 556</td><td> 745</td></tr>
+	<tr><th scope="row">6083251</th><td>2011</td><td>12</td><td>1026</td><td>1208</td></tr>
+	<tr><th scope="row">6083252</th><td>2011</td><td>12</td><td>1611</td><td>1746</td></tr>
+	<tr><th scope="row">6083253</th><td>2011</td><td>12</td><td> 758</td><td>1051</td></tr>
+	<tr><th scope="row">6083254</th><td>2011</td><td>12</td><td>1307</td><td>1600</td></tr>
+	<tr><th scope="row">6083255</th><td>2011</td><td>12</td><td>1818</td><td>2111</td></tr>
+	<tr><th scope="row">6083256</th><td>2011</td><td>12</td><td>2047</td><td>2334</td></tr>
+	<tr><th scope="row">6083257</th><td>2011</td><td>12</td><td> 912</td><td>1031</td></tr>
+	<tr><th scope="row">6083258</th><td>2011</td><td>12</td><td> 656</td><td> 812</td></tr>
+	<tr><th scope="row">6083259</th><td>2011</td><td>12</td><td>1600</td><td>1713</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">select</span><span class="p">(</span><span class="n">hflights</span><span class="p">,</span><span class="n">Year</span><span class="o">:</span><span class="n">ArrTime</span><span class="p">)</span>
+<span class="c1"># 만약 특정 칼럼 또는 칼럼의 범위를 검색에서 제외하려는 경우 제외하려는 칼럼 이름 또는 범위 앞에 -속성을 지정한다.</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A data.frame: 227496 × 6</caption>
+<thead>
+	<tr><th></th><th scope="col">Year</th><th scope="col">Month</th><th scope="col">DayofMonth</th><th scope="col">DayOfWeek</th><th scope="col">DepTime</th><th scope="col">ArrTime</th></tr>
+	<tr><th></th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><th scope="row">5424</th><td>2011</td><td>1</td><td> 1</td><td>6</td><td>1400</td><td>1500</td></tr>
+	<tr><th scope="row">5425</th><td>2011</td><td>1</td><td> 2</td><td>7</td><td>1401</td><td>1501</td></tr>
+	<tr><th scope="row">5426</th><td>2011</td><td>1</td><td> 3</td><td>1</td><td>1352</td><td>1502</td></tr>
+	<tr><th scope="row">5427</th><td>2011</td><td>1</td><td> 4</td><td>2</td><td>1403</td><td>1513</td></tr>
+	<tr><th scope="row">5428</th><td>2011</td><td>1</td><td> 5</td><td>3</td><td>1405</td><td>1507</td></tr>
+	<tr><th scope="row">5429</th><td>2011</td><td>1</td><td> 6</td><td>4</td><td>1359</td><td>1503</td></tr>
+	<tr><th scope="row">5430</th><td>2011</td><td>1</td><td> 7</td><td>5</td><td>1359</td><td>1509</td></tr>
+	<tr><th scope="row">5431</th><td>2011</td><td>1</td><td> 8</td><td>6</td><td>1355</td><td>1454</td></tr>
+	<tr><th scope="row">5432</th><td>2011</td><td>1</td><td> 9</td><td>7</td><td>1443</td><td>1554</td></tr>
+	<tr><th scope="row">5433</th><td>2011</td><td>1</td><td>10</td><td>1</td><td>1443</td><td>1553</td></tr>
+	<tr><th scope="row">5434</th><td>2011</td><td>1</td><td>11</td><td>2</td><td>1429</td><td>1539</td></tr>
+	<tr><th scope="row">5435</th><td>2011</td><td>1</td><td>12</td><td>3</td><td>1419</td><td>1515</td></tr>
+	<tr><th scope="row">5436</th><td>2011</td><td>1</td><td>13</td><td>4</td><td>1358</td><td>1501</td></tr>
+	<tr><th scope="row">5437</th><td>2011</td><td>1</td><td>14</td><td>5</td><td>1357</td><td>1504</td></tr>
+	<tr><th scope="row">5438</th><td>2011</td><td>1</td><td>15</td><td>6</td><td>1359</td><td>1459</td></tr>
+	<tr><th scope="row">5439</th><td>2011</td><td>1</td><td>16</td><td>7</td><td>1359</td><td>1509</td></tr>
+	<tr><th scope="row">5440</th><td>2011</td><td>1</td><td>17</td><td>1</td><td>1530</td><td>1634</td></tr>
+	<tr><th scope="row">5441</th><td>2011</td><td>1</td><td>18</td><td>2</td><td>1408</td><td>1508</td></tr>
+	<tr><th scope="row">5442</th><td>2011</td><td>1</td><td>19</td><td>3</td><td>1356</td><td>1503</td></tr>
+	<tr><th scope="row">5443</th><td>2011</td><td>1</td><td>20</td><td>4</td><td>1507</td><td>1622</td></tr>
+	<tr><th scope="row">5444</th><td>2011</td><td>1</td><td>21</td><td>5</td><td>1357</td><td>1459</td></tr>
+	<tr><th scope="row">5445</th><td>2011</td><td>1</td><td>22</td><td>6</td><td>1355</td><td>1456</td></tr>
+	<tr><th scope="row">5446</th><td>2011</td><td>1</td><td>23</td><td>7</td><td>1356</td><td>1501</td></tr>
+	<tr><th scope="row">5447</th><td>2011</td><td>1</td><td>24</td><td>1</td><td>1356</td><td>1513</td></tr>
+	<tr><th scope="row">5448</th><td>2011</td><td>1</td><td>25</td><td>2</td><td>1352</td><td>1452</td></tr>
+	<tr><th scope="row">5449</th><td>2011</td><td>1</td><td>26</td><td>3</td><td>1353</td><td>1455</td></tr>
+	<tr><th scope="row">5450</th><td>2011</td><td>1</td><td>27</td><td>4</td><td>1356</td><td>1458</td></tr>
+	<tr><th scope="row">5451</th><td>2011</td><td>1</td><td>28</td><td>5</td><td>1359</td><td>1505</td></tr>
+	<tr><th scope="row">5452</th><td>2011</td><td>1</td><td>29</td><td>6</td><td>1355</td><td>1455</td></tr>
+	<tr><th scope="row">5453</th><td>2011</td><td>1</td><td>30</td><td>7</td><td>1359</td><td>1456</td></tr>
+	<tr><th scope="row">⋮</th><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td></tr>
+	<tr><th scope="row">6083230</th><td>2011</td><td>12</td><td>6</td><td>2</td><td> 752</td><td> 857</td></tr>
+	<tr><th scope="row">6083231</th><td>2011</td><td>12</td><td>6</td><td>2</td><td> 651</td><td> 746</td></tr>
+	<tr><th scope="row">6083232</th><td>2011</td><td>12</td><td>6</td><td>2</td><td>1728</td><td>1932</td></tr>
+	<tr><th scope="row">6083233</th><td>2011</td><td>12</td><td>6</td><td>2</td><td>1115</td><td>1315</td></tr>
+	<tr><th scope="row">6083234</th><td>2011</td><td>12</td><td>6</td><td>2</td><td>1753</td><td>1911</td></tr>
+	<tr><th scope="row">6083235</th><td>2011</td><td>12</td><td>6</td><td>2</td><td>1222</td><td>1335</td></tr>
+	<tr><th scope="row">6083236</th><td>2011</td><td>12</td><td>6</td><td>2</td><td> 836</td><td> 946</td></tr>
+	<tr><th scope="row">6083237</th><td>2011</td><td>12</td><td>6</td><td>2</td><td>1352</td><td>1749</td></tr>
+	<tr><th scope="row">6083238</th><td>2011</td><td>12</td><td>6</td><td>2</td><td>1850</td><td>2046</td></tr>
+	<tr><th scope="row">6083239</th><td>2011</td><td>12</td><td>6</td><td>2</td><td> 707</td><td> 903</td></tr>
+	<tr><th scope="row">6083240</th><td>2011</td><td>12</td><td>6</td><td>2</td><td>1335</td><td>1528</td></tr>
+	<tr><th scope="row">6083241</th><td>2011</td><td>12</td><td>6</td><td>2</td><td>1005</td><td>1158</td></tr>
+	<tr><th scope="row">6083242</th><td>2011</td><td>12</td><td>6</td><td>2</td><td>1723</td><td>1845</td></tr>
+	<tr><th scope="row">6083243</th><td>2011</td><td>12</td><td>6</td><td>2</td><td>1139</td><td>1304</td></tr>
+	<tr><th scope="row">6083244</th><td>2011</td><td>12</td><td>6</td><td>2</td><td>2023</td><td>2109</td></tr>
+	<tr><th scope="row">6083245</th><td>2011</td><td>12</td><td>6</td><td>2</td><td>1542</td><td>1637</td></tr>
+	<tr><th scope="row">6083246</th><td>2011</td><td>12</td><td>6</td><td>2</td><td>1728</td><td>1825</td></tr>
+	<tr><th scope="row">6083247</th><td>2011</td><td>12</td><td>6</td><td>2</td><td>1252</td><td>1349</td></tr>
+	<tr><th scope="row">6083248</th><td>2011</td><td>12</td><td>6</td><td>2</td><td> 857</td><td> 955</td></tr>
+	<tr><th scope="row">6083249</th><td>2011</td><td>12</td><td>6</td><td>2</td><td>1939</td><td>2119</td></tr>
+	<tr><th scope="row">6083250</th><td>2011</td><td>12</td><td>6</td><td>2</td><td> 556</td><td> 745</td></tr>
+	<tr><th scope="row">6083251</th><td>2011</td><td>12</td><td>6</td><td>2</td><td>1026</td><td>1208</td></tr>
+	<tr><th scope="row">6083252</th><td>2011</td><td>12</td><td>6</td><td>2</td><td>1611</td><td>1746</td></tr>
+	<tr><th scope="row">6083253</th><td>2011</td><td>12</td><td>6</td><td>2</td><td> 758</td><td>1051</td></tr>
+	<tr><th scope="row">6083254</th><td>2011</td><td>12</td><td>6</td><td>2</td><td>1307</td><td>1600</td></tr>
+	<tr><th scope="row">6083255</th><td>2011</td><td>12</td><td>6</td><td>2</td><td>1818</td><td>2111</td></tr>
+	<tr><th scope="row">6083256</th><td>2011</td><td>12</td><td>6</td><td>2</td><td>2047</td><td>2334</td></tr>
+	<tr><th scope="row">6083257</th><td>2011</td><td>12</td><td>6</td><td>2</td><td> 912</td><td>1031</td></tr>
+	<tr><th scope="row">6083258</th><td>2011</td><td>12</td><td>6</td><td>2</td><td> 656</td><td> 812</td></tr>
+	<tr><th scope="row">6083259</th><td>2011</td><td>12</td><td>6</td><td>2</td><td>1600</td><td>1713</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>데이터 셋에 칼럼 추가<ul>
+<li>대용량의 데이터 셋을 대상으로 특정 칼럼을 추가하는 함수에 대해서 알아보자</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">mutate</span><span class="p">(</span><span class="n">hflights</span><span class="p">,</span><span class="n">gain</span><span class="o">=</span><span class="n">ArrDelay</span><span class="o">-</span><span class="n">DepDelay</span><span class="p">)</span>
+<span class="c1"># gain이라는 칼럼명을 추가해줄 것이고 수식은 ArrDelay-DepDelay와 같다.</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A data.frame: 227496 × 22</caption>
+<thead>
+	<tr><th></th><th scope="col">Year</th><th scope="col">Month</th><th scope="col">DayofMonth</th><th scope="col">DayOfWeek</th><th scope="col">DepTime</th><th scope="col">ArrTime</th><th scope="col">UniqueCarrier</th><th scope="col">FlightNum</th><th scope="col">TailNum</th><th scope="col">ActualElapsedTime</th><th scope="col">⋯</th><th scope="col">DepDelay</th><th scope="col">Origin</th><th scope="col">Dest</th><th scope="col">Distance</th><th scope="col">TaxiIn</th><th scope="col">TaxiOut</th><th scope="col">Cancelled</th><th scope="col">CancellationCode</th><th scope="col">Diverted</th><th scope="col">gain</th></tr>
+	<tr><th></th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;chr&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;chr&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">⋯</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;chr&gt;</th><th scope="col">&lt;chr&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;chr&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><th scope="row">5424</th><td>2011</td><td>1</td><td> 1</td><td>6</td><td>1400</td><td>1500</td><td>AA</td><td>428</td><td>N576AA</td><td>60</td><td>⋯</td><td> 0</td><td>IAH</td><td>DFW</td><td>224</td><td> 7</td><td>13</td><td>0</td><td></td><td>0</td><td>-10</td></tr>
+	<tr><th scope="row">5425</th><td>2011</td><td>1</td><td> 2</td><td>7</td><td>1401</td><td>1501</td><td>AA</td><td>428</td><td>N557AA</td><td>60</td><td>⋯</td><td> 1</td><td>IAH</td><td>DFW</td><td>224</td><td> 6</td><td> 9</td><td>0</td><td></td><td>0</td><td>-10</td></tr>
+	<tr><th scope="row">5426</th><td>2011</td><td>1</td><td> 3</td><td>1</td><td>1352</td><td>1502</td><td>AA</td><td>428</td><td>N541AA</td><td>70</td><td>⋯</td><td>-8</td><td>IAH</td><td>DFW</td><td>224</td><td> 5</td><td>17</td><td>0</td><td></td><td>0</td><td>  0</td></tr>
+	<tr><th scope="row">5427</th><td>2011</td><td>1</td><td> 4</td><td>2</td><td>1403</td><td>1513</td><td>AA</td><td>428</td><td>N403AA</td><td>70</td><td>⋯</td><td> 3</td><td>IAH</td><td>DFW</td><td>224</td><td> 9</td><td>22</td><td>0</td><td></td><td>0</td><td>  0</td></tr>
+	<tr><th scope="row">5428</th><td>2011</td><td>1</td><td> 5</td><td>3</td><td>1405</td><td>1507</td><td>AA</td><td>428</td><td>N492AA</td><td>62</td><td>⋯</td><td> 5</td><td>IAH</td><td>DFW</td><td>224</td><td> 9</td><td> 9</td><td>0</td><td></td><td>0</td><td> -8</td></tr>
+	<tr><th scope="row">5429</th><td>2011</td><td>1</td><td> 6</td><td>4</td><td>1359</td><td>1503</td><td>AA</td><td>428</td><td>N262AA</td><td>64</td><td>⋯</td><td>-1</td><td>IAH</td><td>DFW</td><td>224</td><td> 6</td><td>13</td><td>0</td><td></td><td>0</td><td> -6</td></tr>
+	<tr><th scope="row">5430</th><td>2011</td><td>1</td><td> 7</td><td>5</td><td>1359</td><td>1509</td><td>AA</td><td>428</td><td>N493AA</td><td>70</td><td>⋯</td><td>-1</td><td>IAH</td><td>DFW</td><td>224</td><td>12</td><td>15</td><td>0</td><td></td><td>0</td><td>  0</td></tr>
+	<tr><th scope="row">5431</th><td>2011</td><td>1</td><td> 8</td><td>6</td><td>1355</td><td>1454</td><td>AA</td><td>428</td><td>N477AA</td><td>59</td><td>⋯</td><td>-5</td><td>IAH</td><td>DFW</td><td>224</td><td> 7</td><td>12</td><td>0</td><td></td><td>0</td><td>-11</td></tr>
+	<tr><th scope="row">5432</th><td>2011</td><td>1</td><td> 9</td><td>7</td><td>1443</td><td>1554</td><td>AA</td><td>428</td><td>N476AA</td><td>71</td><td>⋯</td><td>43</td><td>IAH</td><td>DFW</td><td>224</td><td> 8</td><td>22</td><td>0</td><td></td><td>0</td><td>  1</td></tr>
+	<tr><th scope="row">5433</th><td>2011</td><td>1</td><td>10</td><td>1</td><td>1443</td><td>1553</td><td>AA</td><td>428</td><td>N504AA</td><td>70</td><td>⋯</td><td>43</td><td>IAH</td><td>DFW</td><td>224</td><td> 6</td><td>19</td><td>0</td><td></td><td>0</td><td>  0</td></tr>
+	<tr><th scope="row">5434</th><td>2011</td><td>1</td><td>11</td><td>2</td><td>1429</td><td>1539</td><td>AA</td><td>428</td><td>N565AA</td><td>70</td><td>⋯</td><td>29</td><td>IAH</td><td>DFW</td><td>224</td><td> 8</td><td>20</td><td>0</td><td></td><td>0</td><td>  0</td></tr>
+	<tr><th scope="row">5435</th><td>2011</td><td>1</td><td>12</td><td>3</td><td>1419</td><td>1515</td><td>AA</td><td>428</td><td>N577AA</td><td>56</td><td>⋯</td><td>19</td><td>IAH</td><td>DFW</td><td>224</td><td> 4</td><td>11</td><td>0</td><td></td><td>0</td><td>-14</td></tr>
+	<tr><th scope="row">5436</th><td>2011</td><td>1</td><td>13</td><td>4</td><td>1358</td><td>1501</td><td>AA</td><td>428</td><td>N476AA</td><td>63</td><td>⋯</td><td>-2</td><td>IAH</td><td>DFW</td><td>224</td><td> 6</td><td>13</td><td>0</td><td></td><td>0</td><td> -7</td></tr>
+	<tr><th scope="row">5437</th><td>2011</td><td>1</td><td>14</td><td>5</td><td>1357</td><td>1504</td><td>AA</td><td>428</td><td>N552AA</td><td>67</td><td>⋯</td><td>-3</td><td>IAH</td><td>DFW</td><td>224</td><td> 5</td><td>15</td><td>0</td><td></td><td>0</td><td> -3</td></tr>
+	<tr><th scope="row">5438</th><td>2011</td><td>1</td><td>15</td><td>6</td><td>1359</td><td>1459</td><td>AA</td><td>428</td><td>N462AA</td><td>60</td><td>⋯</td><td>-1</td><td>IAH</td><td>DFW</td><td>224</td><td> 6</td><td>10</td><td>0</td><td></td><td>0</td><td>-10</td></tr>
+	<tr><th scope="row">5439</th><td>2011</td><td>1</td><td>16</td><td>7</td><td>1359</td><td>1509</td><td>AA</td><td>428</td><td>N555AA</td><td>70</td><td>⋯</td><td>-1</td><td>IAH</td><td>DFW</td><td>224</td><td>12</td><td>17</td><td>0</td><td></td><td>0</td><td>  0</td></tr>
+	<tr><th scope="row">5440</th><td>2011</td><td>1</td><td>17</td><td>1</td><td>1530</td><td>1634</td><td>AA</td><td>428</td><td>N518AA</td><td>64</td><td>⋯</td><td>90</td><td>IAH</td><td>DFW</td><td>224</td><td> 8</td><td> 8</td><td>0</td><td></td><td>0</td><td> -6</td></tr>
+	<tr><th scope="row">5441</th><td>2011</td><td>1</td><td>18</td><td>2</td><td>1408</td><td>1508</td><td>AA</td><td>428</td><td>N507AA</td><td>60</td><td>⋯</td><td> 8</td><td>IAH</td><td>DFW</td><td>224</td><td> 7</td><td>11</td><td>0</td><td></td><td>0</td><td>-10</td></tr>
+	<tr><th scope="row">5442</th><td>2011</td><td>1</td><td>19</td><td>3</td><td>1356</td><td>1503</td><td>AA</td><td>428</td><td>N523AA</td><td>67</td><td>⋯</td><td>-4</td><td>IAH</td><td>DFW</td><td>224</td><td>10</td><td>11</td><td>0</td><td></td><td>0</td><td> -3</td></tr>
+	<tr><th scope="row">5443</th><td>2011</td><td>1</td><td>20</td><td>4</td><td>1507</td><td>1622</td><td>AA</td><td>428</td><td>N425AA</td><td>75</td><td>⋯</td><td>67</td><td>IAH</td><td>DFW</td><td>224</td><td> 9</td><td>24</td><td>0</td><td></td><td>0</td><td>  5</td></tr>
+	<tr><th scope="row">5444</th><td>2011</td><td>1</td><td>21</td><td>5</td><td>1357</td><td>1459</td><td>AA</td><td>428</td><td>N251AA</td><td>62</td><td>⋯</td><td>-3</td><td>IAH</td><td>DFW</td><td>224</td><td> 6</td><td> 9</td><td>0</td><td></td><td>0</td><td> -8</td></tr>
+	<tr><th scope="row">5445</th><td>2011</td><td>1</td><td>22</td><td>6</td><td>1355</td><td>1456</td><td>AA</td><td>428</td><td>N551AA</td><td>61</td><td>⋯</td><td>-5</td><td>IAH</td><td>DFW</td><td>224</td><td> 9</td><td> 8</td><td>0</td><td></td><td>0</td><td> -9</td></tr>
+	<tr><th scope="row">5446</th><td>2011</td><td>1</td><td>23</td><td>7</td><td>1356</td><td>1501</td><td>AA</td><td>428</td><td>N479AA</td><td>65</td><td>⋯</td><td>-4</td><td>IAH</td><td>DFW</td><td>224</td><td> 7</td><td>18</td><td>0</td><td></td><td>0</td><td> -5</td></tr>
+	<tr><th scope="row">5447</th><td>2011</td><td>1</td><td>24</td><td>1</td><td>1356</td><td>1513</td><td>AA</td><td>428</td><td>N531AA</td><td>77</td><td>⋯</td><td>-4</td><td>IAH</td><td>DFW</td><td>224</td><td> 6</td><td>28</td><td>0</td><td></td><td>0</td><td>  7</td></tr>
+	<tr><th scope="row">5448</th><td>2011</td><td>1</td><td>25</td><td>2</td><td>1352</td><td>1452</td><td>AA</td><td>428</td><td>N561AA</td><td>60</td><td>⋯</td><td>-8</td><td>IAH</td><td>DFW</td><td>224</td><td> 7</td><td>13</td><td>0</td><td></td><td>0</td><td>-10</td></tr>
+	<tr><th scope="row">5449</th><td>2011</td><td>1</td><td>26</td><td>3</td><td>1353</td><td>1455</td><td>AA</td><td>428</td><td>N541AA</td><td>62</td><td>⋯</td><td>-7</td><td>IAH</td><td>DFW</td><td>224</td><td> 8</td><td>14</td><td>0</td><td></td><td>0</td><td> -8</td></tr>
+	<tr><th scope="row">5450</th><td>2011</td><td>1</td><td>27</td><td>4</td><td>1356</td><td>1458</td><td>AA</td><td>428</td><td>N512AA</td><td>62</td><td>⋯</td><td>-4</td><td>IAH</td><td>DFW</td><td>224</td><td>12</td><td>10</td><td>0</td><td></td><td>0</td><td> -8</td></tr>
+	<tr><th scope="row">5451</th><td>2011</td><td>1</td><td>28</td><td>5</td><td>1359</td><td>1505</td><td>AA</td><td>428</td><td>N4UBAA</td><td>66</td><td>⋯</td><td>-1</td><td>IAH</td><td>DFW</td><td>224</td><td> 8</td><td>12</td><td>0</td><td></td><td>0</td><td> -4</td></tr>
+	<tr><th scope="row">5452</th><td>2011</td><td>1</td><td>29</td><td>6</td><td>1355</td><td>1455</td><td>AA</td><td>428</td><td>N491AA</td><td>60</td><td>⋯</td><td>-5</td><td>IAH</td><td>DFW</td><td>224</td><td> 7</td><td> 7</td><td>0</td><td></td><td>0</td><td>-10</td></tr>
+	<tr><th scope="row">5453</th><td>2011</td><td>1</td><td>30</td><td>7</td><td>1359</td><td>1456</td><td>AA</td><td>428</td><td>N561AA</td><td>57</td><td>⋯</td><td>-1</td><td>IAH</td><td>DFW</td><td>224</td><td> 7</td><td>11</td><td>0</td><td></td><td>0</td><td>-13</td></tr>
+	<tr><th scope="row">⋮</th><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td><td>⋱</td><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td></tr>
+	<tr><th scope="row">6083230</th><td>2011</td><td>12</td><td>6</td><td>2</td><td> 752</td><td> 857</td><td>WN</td><td>1628</td><td>N435WN</td><td> 65</td><td>⋯</td><td>-3</td><td>HOU</td><td>MSY</td><td> 302</td><td> 4</td><td>11</td><td>0</td><td></td><td>0</td><td>  5</td></tr>
+	<tr><th scope="row">6083231</th><td>2011</td><td>12</td><td>6</td><td>2</td><td> 651</td><td> 746</td><td>WN</td><td>2534</td><td>N232WN</td><td> 55</td><td>⋯</td><td>-4</td><td>HOU</td><td>MSY</td><td> 302</td><td> 5</td><td> 7</td><td>0</td><td></td><td>0</td><td> -5</td></tr>
+	<tr><th scope="row">6083232</th><td>2011</td><td>12</td><td>6</td><td>2</td><td>1728</td><td>1932</td><td>WN</td><td> 902</td><td>N724SW</td><td>244</td><td>⋯</td><td>23</td><td>HOU</td><td>OAK</td><td>1642</td><td> 5</td><td> 8</td><td>0</td><td></td><td>0</td><td>-16</td></tr>
+	<tr><th scope="row">6083233</th><td>2011</td><td>12</td><td>6</td><td>2</td><td>1115</td><td>1315</td><td>WN</td><td>1167</td><td>N455WN</td><td>240</td><td>⋯</td><td> 5</td><td>HOU</td><td>OAK</td><td>1642</td><td> 6</td><td> 9</td><td>0</td><td></td><td>0</td><td>-20</td></tr>
+	<tr><th scope="row">6083234</th><td>2011</td><td>12</td><td>6</td><td>2</td><td>1753</td><td>1911</td><td>WN</td><td> 513</td><td>N362SW</td><td> 78</td><td>⋯</td><td>33</td><td>HOU</td><td>OKC</td><td> 419</td><td> 4</td><td>15</td><td>0</td><td></td><td>0</td><td> -2</td></tr>
+	<tr><th scope="row">6083235</th><td>2011</td><td>12</td><td>6</td><td>2</td><td>1222</td><td>1335</td><td>WN</td><td> 581</td><td>N646SW</td><td> 73</td><td>⋯</td><td>-3</td><td>HOU</td><td>OKC</td><td> 419</td><td> 3</td><td> 9</td><td>0</td><td></td><td>0</td><td> -7</td></tr>
+	<tr><th scope="row">6083236</th><td>2011</td><td>12</td><td>6</td><td>2</td><td> 836</td><td> 946</td><td>WN</td><td>1223</td><td>N394SW</td><td> 70</td><td>⋯</td><td> 1</td><td>HOU</td><td>OKC</td><td> 419</td><td> 4</td><td> 8</td><td>0</td><td></td><td>0</td><td>-10</td></tr>
+	<tr><th scope="row">6083237</th><td>2011</td><td>12</td><td>6</td><td>2</td><td>1352</td><td>1749</td><td>WN</td><td>3085</td><td>N510SW</td><td>177</td><td>⋯</td><td>72</td><td>HOU</td><td>PHL</td><td>1336</td><td> 5</td><td> 9</td><td>0</td><td></td><td>0</td><td>-13</td></tr>
+	<tr><th scope="row">6083238</th><td>2011</td><td>12</td><td>6</td><td>2</td><td>1850</td><td>2046</td><td>WN</td><td>  39</td><td>N754SW</td><td>176</td><td>⋯</td><td>70</td><td>HOU</td><td>PHX</td><td>1020</td><td> 4</td><td>15</td><td>0</td><td></td><td>0</td><td>  1</td></tr>
+	<tr><th scope="row">6083239</th><td>2011</td><td>12</td><td>6</td><td>2</td><td> 707</td><td> 903</td><td>WN</td><td> 424</td><td>N769SW</td><td>176</td><td>⋯</td><td>-3</td><td>HOU</td><td>PHX</td><td>1020</td><td> 4</td><td>10</td><td>0</td><td></td><td>0</td><td>  1</td></tr>
+	<tr><th scope="row">6083240</th><td>2011</td><td>12</td><td>6</td><td>2</td><td>1335</td><td>1528</td><td>WN</td><td>1098</td><td>N448WN</td><td>173</td><td>⋯</td><td>20</td><td>HOU</td><td>PHX</td><td>1020</td><td> 4</td><td>10</td><td>0</td><td></td><td>0</td><td> -2</td></tr>
+	<tr><th scope="row">6083241</th><td>2011</td><td>12</td><td>6</td><td>2</td><td>1005</td><td>1158</td><td>WN</td><td>1403</td><td>N430WN</td><td>173</td><td>⋯</td><td>15</td><td>HOU</td><td>PHX</td><td>1020</td><td> 3</td><td> 7</td><td>0</td><td></td><td>0</td><td> -2</td></tr>
+	<tr><th scope="row">6083242</th><td>2011</td><td>12</td><td>6</td><td>2</td><td>1723</td><td>1845</td><td>WN</td><td>  33</td><td>N698SW</td><td>202</td><td>⋯</td><td>78</td><td>HOU</td><td>SAN</td><td>1313</td><td> 3</td><td> 7</td><td>0</td><td></td><td>0</td><td> -8</td></tr>
+	<tr><th scope="row">6083243</th><td>2011</td><td>12</td><td>6</td><td>2</td><td>1139</td><td>1304</td><td>WN</td><td>1212</td><td>N226WN</td><td>205</td><td>⋯</td><td>-1</td><td>HOU</td><td>SAN</td><td>1313</td><td> 2</td><td>10</td><td>0</td><td></td><td>0</td><td> -5</td></tr>
+	<tr><th scope="row">6083244</th><td>2011</td><td>12</td><td>6</td><td>2</td><td>2023</td><td>2109</td><td>WN</td><td> 207</td><td>N354SW</td><td> 46</td><td>⋯</td><td>43</td><td>HOU</td><td>SAT</td><td> 192</td><td> 4</td><td> 4</td><td>0</td><td></td><td>0</td><td>-14</td></tr>
+	<tr><th scope="row">6083245</th><td>2011</td><td>12</td><td>6</td><td>2</td><td>1542</td><td>1637</td><td>WN</td><td> 405</td><td>N617SW</td><td> 55</td><td>⋯</td><td>12</td><td>HOU</td><td>SAT</td><td> 192</td><td> 4</td><td> 8</td><td>0</td><td></td><td>0</td><td>  0</td></tr>
+	<tr><th scope="row">6083246</th><td>2011</td><td>12</td><td>6</td><td>2</td><td>1728</td><td>1825</td><td>WN</td><td> 628</td><td>N389SW</td><td> 57</td><td>⋯</td><td> 3</td><td>HOU</td><td>SAT</td><td> 192</td><td> 4</td><td>14</td><td>0</td><td></td><td>0</td><td>  2</td></tr>
+	<tr><th scope="row">6083247</th><td>2011</td><td>12</td><td>6</td><td>2</td><td>1252</td><td>1349</td><td>WN</td><td> 994</td><td>N713SW</td><td> 57</td><td>⋯</td><td> 7</td><td>HOU</td><td>SAT</td><td> 192</td><td> 5</td><td> 9</td><td>0</td><td></td><td>0</td><td>  2</td></tr>
+	<tr><th scope="row">6083248</th><td>2011</td><td>12</td><td>6</td><td>2</td><td> 857</td><td> 955</td><td>WN</td><td>1231</td><td>N284WN</td><td> 58</td><td>⋯</td><td>-3</td><td>HOU</td><td>SAT</td><td> 192</td><td> 5</td><td> 9</td><td>0</td><td></td><td>0</td><td>  3</td></tr>
+	<tr><th scope="row">6083249</th><td>2011</td><td>12</td><td>6</td><td>2</td><td>1939</td><td>2119</td><td>WN</td><td> 124</td><td>N522SW</td><td>100</td><td>⋯</td><td>39</td><td>HOU</td><td>STL</td><td> 687</td><td> 4</td><td>15</td><td>0</td><td></td><td>0</td><td>-25</td></tr>
+	<tr><th scope="row">6083250</th><td>2011</td><td>12</td><td>6</td><td>2</td><td> 556</td><td> 745</td><td>WN</td><td> 280</td><td>N728SW</td><td>109</td><td>⋯</td><td>-4</td><td>HOU</td><td>STL</td><td> 687</td><td>13</td><td> 9</td><td>0</td><td></td><td>0</td><td> -6</td></tr>
+	<tr><th scope="row">6083251</th><td>2011</td><td>12</td><td>6</td><td>2</td><td>1026</td><td>1208</td><td>WN</td><td> 782</td><td>N476WN</td><td>102</td><td>⋯</td><td> 1</td><td>HOU</td><td>STL</td><td> 687</td><td> 4</td><td>12</td><td>0</td><td></td><td>0</td><td>-13</td></tr>
+	<tr><th scope="row">6083252</th><td>2011</td><td>12</td><td>6</td><td>2</td><td>1611</td><td>1746</td><td>WN</td><td>1050</td><td>N655WN</td><td> 95</td><td>⋯</td><td>16</td><td>HOU</td><td>STL</td><td> 687</td><td> 3</td><td> 9</td><td>0</td><td></td><td>0</td><td>-25</td></tr>
+	<tr><th scope="row">6083253</th><td>2011</td><td>12</td><td>6</td><td>2</td><td> 758</td><td>1051</td><td>WN</td><td> 201</td><td>N903WN</td><td>113</td><td>⋯</td><td>-2</td><td>HOU</td><td>TPA</td><td> 781</td><td> 3</td><td>10</td><td>0</td><td></td><td>0</td><td> -2</td></tr>
+	<tr><th scope="row">6083254</th><td>2011</td><td>12</td><td>6</td><td>2</td><td>1307</td><td>1600</td><td>WN</td><td> 471</td><td>N632SW</td><td>113</td><td>⋯</td><td> 7</td><td>HOU</td><td>TPA</td><td> 781</td><td> 5</td><td>10</td><td>0</td><td></td><td>0</td><td> -7</td></tr>
+	<tr><th scope="row">6083255</th><td>2011</td><td>12</td><td>6</td><td>2</td><td>1818</td><td>2111</td><td>WN</td><td>1191</td><td>N284WN</td><td>113</td><td>⋯</td><td> 8</td><td>HOU</td><td>TPA</td><td> 781</td><td> 5</td><td>11</td><td>0</td><td></td><td>0</td><td>-17</td></tr>
+	<tr><th scope="row">6083256</th><td>2011</td><td>12</td><td>6</td><td>2</td><td>2047</td><td>2334</td><td>WN</td><td>1674</td><td>N366SW</td><td>107</td><td>⋯</td><td> 7</td><td>HOU</td><td>TPA</td><td> 781</td><td> 4</td><td> 9</td><td>0</td><td></td><td>0</td><td> -3</td></tr>
+	<tr><th scope="row">6083257</th><td>2011</td><td>12</td><td>6</td><td>2</td><td> 912</td><td>1031</td><td>WN</td><td> 127</td><td>N777QC</td><td> 79</td><td>⋯</td><td>-3</td><td>HOU</td><td>TUL</td><td> 453</td><td> 4</td><td>14</td><td>0</td><td></td><td>0</td><td> -1</td></tr>
+	<tr><th scope="row">6083258</th><td>2011</td><td>12</td><td>6</td><td>2</td><td> 656</td><td> 812</td><td>WN</td><td> 621</td><td>N727SW</td><td> 76</td><td>⋯</td><td>-4</td><td>HOU</td><td>TUL</td><td> 453</td><td> 3</td><td> 9</td><td>0</td><td></td><td>0</td><td> -9</td></tr>
+	<tr><th scope="row">6083259</th><td>2011</td><td>12</td><td>6</td><td>2</td><td>1600</td><td>1713</td><td>WN</td><td>1597</td><td>N745SW</td><td> 73</td><td>⋯</td><td> 0</td><td>HOU</td><td>TUL</td><td> 453</td><td> 3</td><td>11</td><td>0</td><td></td><td>0</td><td>-12</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">hflights</span><span class="o">%&gt;%</span><span class="nf">mutate</span><span class="p">(</span><span class="n">gain</span><span class="o">=</span><span class="n">ArrDelay</span><span class="o">-</span><span class="n">DayOfWeek</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A data.frame: 227496 × 22</caption>
+<thead>
+	<tr><th></th><th scope="col">Year</th><th scope="col">Month</th><th scope="col">DayofMonth</th><th scope="col">DayOfWeek</th><th scope="col">DepTime</th><th scope="col">ArrTime</th><th scope="col">UniqueCarrier</th><th scope="col">FlightNum</th><th scope="col">TailNum</th><th scope="col">ActualElapsedTime</th><th scope="col">⋯</th><th scope="col">DepDelay</th><th scope="col">Origin</th><th scope="col">Dest</th><th scope="col">Distance</th><th scope="col">TaxiIn</th><th scope="col">TaxiOut</th><th scope="col">Cancelled</th><th scope="col">CancellationCode</th><th scope="col">Diverted</th><th scope="col">gain</th></tr>
+	<tr><th></th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;chr&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;chr&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">⋯</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;chr&gt;</th><th scope="col">&lt;chr&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;chr&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><th scope="row">5424</th><td>2011</td><td>1</td><td> 1</td><td>6</td><td>1400</td><td>1500</td><td>AA</td><td>428</td><td>N576AA</td><td>60</td><td>⋯</td><td> 0</td><td>IAH</td><td>DFW</td><td>224</td><td> 7</td><td>13</td><td>0</td><td></td><td>0</td><td>-16</td></tr>
+	<tr><th scope="row">5425</th><td>2011</td><td>1</td><td> 2</td><td>7</td><td>1401</td><td>1501</td><td>AA</td><td>428</td><td>N557AA</td><td>60</td><td>⋯</td><td> 1</td><td>IAH</td><td>DFW</td><td>224</td><td> 6</td><td> 9</td><td>0</td><td></td><td>0</td><td>-16</td></tr>
+	<tr><th scope="row">5426</th><td>2011</td><td>1</td><td> 3</td><td>1</td><td>1352</td><td>1502</td><td>AA</td><td>428</td><td>N541AA</td><td>70</td><td>⋯</td><td>-8</td><td>IAH</td><td>DFW</td><td>224</td><td> 5</td><td>17</td><td>0</td><td></td><td>0</td><td> -9</td></tr>
+	<tr><th scope="row">5427</th><td>2011</td><td>1</td><td> 4</td><td>2</td><td>1403</td><td>1513</td><td>AA</td><td>428</td><td>N403AA</td><td>70</td><td>⋯</td><td> 3</td><td>IAH</td><td>DFW</td><td>224</td><td> 9</td><td>22</td><td>0</td><td></td><td>0</td><td>  1</td></tr>
+	<tr><th scope="row">5428</th><td>2011</td><td>1</td><td> 5</td><td>3</td><td>1405</td><td>1507</td><td>AA</td><td>428</td><td>N492AA</td><td>62</td><td>⋯</td><td> 5</td><td>IAH</td><td>DFW</td><td>224</td><td> 9</td><td> 9</td><td>0</td><td></td><td>0</td><td> -6</td></tr>
+	<tr><th scope="row">5429</th><td>2011</td><td>1</td><td> 6</td><td>4</td><td>1359</td><td>1503</td><td>AA</td><td>428</td><td>N262AA</td><td>64</td><td>⋯</td><td>-1</td><td>IAH</td><td>DFW</td><td>224</td><td> 6</td><td>13</td><td>0</td><td></td><td>0</td><td>-11</td></tr>
+	<tr><th scope="row">5430</th><td>2011</td><td>1</td><td> 7</td><td>5</td><td>1359</td><td>1509</td><td>AA</td><td>428</td><td>N493AA</td><td>70</td><td>⋯</td><td>-1</td><td>IAH</td><td>DFW</td><td>224</td><td>12</td><td>15</td><td>0</td><td></td><td>0</td><td> -6</td></tr>
+	<tr><th scope="row">5431</th><td>2011</td><td>1</td><td> 8</td><td>6</td><td>1355</td><td>1454</td><td>AA</td><td>428</td><td>N477AA</td><td>59</td><td>⋯</td><td>-5</td><td>IAH</td><td>DFW</td><td>224</td><td> 7</td><td>12</td><td>0</td><td></td><td>0</td><td>-22</td></tr>
+	<tr><th scope="row">5432</th><td>2011</td><td>1</td><td> 9</td><td>7</td><td>1443</td><td>1554</td><td>AA</td><td>428</td><td>N476AA</td><td>71</td><td>⋯</td><td>43</td><td>IAH</td><td>DFW</td><td>224</td><td> 8</td><td>22</td><td>0</td><td></td><td>0</td><td> 37</td></tr>
+	<tr><th scope="row">5433</th><td>2011</td><td>1</td><td>10</td><td>1</td><td>1443</td><td>1553</td><td>AA</td><td>428</td><td>N504AA</td><td>70</td><td>⋯</td><td>43</td><td>IAH</td><td>DFW</td><td>224</td><td> 6</td><td>19</td><td>0</td><td></td><td>0</td><td> 42</td></tr>
+	<tr><th scope="row">5434</th><td>2011</td><td>1</td><td>11</td><td>2</td><td>1429</td><td>1539</td><td>AA</td><td>428</td><td>N565AA</td><td>70</td><td>⋯</td><td>29</td><td>IAH</td><td>DFW</td><td>224</td><td> 8</td><td>20</td><td>0</td><td></td><td>0</td><td> 27</td></tr>
+	<tr><th scope="row">5435</th><td>2011</td><td>1</td><td>12</td><td>3</td><td>1419</td><td>1515</td><td>AA</td><td>428</td><td>N577AA</td><td>56</td><td>⋯</td><td>19</td><td>IAH</td><td>DFW</td><td>224</td><td> 4</td><td>11</td><td>0</td><td></td><td>0</td><td>  2</td></tr>
+	<tr><th scope="row">5436</th><td>2011</td><td>1</td><td>13</td><td>4</td><td>1358</td><td>1501</td><td>AA</td><td>428</td><td>N476AA</td><td>63</td><td>⋯</td><td>-2</td><td>IAH</td><td>DFW</td><td>224</td><td> 6</td><td>13</td><td>0</td><td></td><td>0</td><td>-13</td></tr>
+	<tr><th scope="row">5437</th><td>2011</td><td>1</td><td>14</td><td>5</td><td>1357</td><td>1504</td><td>AA</td><td>428</td><td>N552AA</td><td>67</td><td>⋯</td><td>-3</td><td>IAH</td><td>DFW</td><td>224</td><td> 5</td><td>15</td><td>0</td><td></td><td>0</td><td>-11</td></tr>
+	<tr><th scope="row">5438</th><td>2011</td><td>1</td><td>15</td><td>6</td><td>1359</td><td>1459</td><td>AA</td><td>428</td><td>N462AA</td><td>60</td><td>⋯</td><td>-1</td><td>IAH</td><td>DFW</td><td>224</td><td> 6</td><td>10</td><td>0</td><td></td><td>0</td><td>-17</td></tr>
+	<tr><th scope="row">5439</th><td>2011</td><td>1</td><td>16</td><td>7</td><td>1359</td><td>1509</td><td>AA</td><td>428</td><td>N555AA</td><td>70</td><td>⋯</td><td>-1</td><td>IAH</td><td>DFW</td><td>224</td><td>12</td><td>17</td><td>0</td><td></td><td>0</td><td> -8</td></tr>
+	<tr><th scope="row">5440</th><td>2011</td><td>1</td><td>17</td><td>1</td><td>1530</td><td>1634</td><td>AA</td><td>428</td><td>N518AA</td><td>64</td><td>⋯</td><td>90</td><td>IAH</td><td>DFW</td><td>224</td><td> 8</td><td> 8</td><td>0</td><td></td><td>0</td><td> 83</td></tr>
+	<tr><th scope="row">5441</th><td>2011</td><td>1</td><td>18</td><td>2</td><td>1408</td><td>1508</td><td>AA</td><td>428</td><td>N507AA</td><td>60</td><td>⋯</td><td> 8</td><td>IAH</td><td>DFW</td><td>224</td><td> 7</td><td>11</td><td>0</td><td></td><td>0</td><td> -4</td></tr>
+	<tr><th scope="row">5442</th><td>2011</td><td>1</td><td>19</td><td>3</td><td>1356</td><td>1503</td><td>AA</td><td>428</td><td>N523AA</td><td>67</td><td>⋯</td><td>-4</td><td>IAH</td><td>DFW</td><td>224</td><td>10</td><td>11</td><td>0</td><td></td><td>0</td><td>-10</td></tr>
+	<tr><th scope="row">5443</th><td>2011</td><td>1</td><td>20</td><td>4</td><td>1507</td><td>1622</td><td>AA</td><td>428</td><td>N425AA</td><td>75</td><td>⋯</td><td>67</td><td>IAH</td><td>DFW</td><td>224</td><td> 9</td><td>24</td><td>0</td><td></td><td>0</td><td> 68</td></tr>
+	<tr><th scope="row">5444</th><td>2011</td><td>1</td><td>21</td><td>5</td><td>1357</td><td>1459</td><td>AA</td><td>428</td><td>N251AA</td><td>62</td><td>⋯</td><td>-3</td><td>IAH</td><td>DFW</td><td>224</td><td> 6</td><td> 9</td><td>0</td><td></td><td>0</td><td>-16</td></tr>
+	<tr><th scope="row">5445</th><td>2011</td><td>1</td><td>22</td><td>6</td><td>1355</td><td>1456</td><td>AA</td><td>428</td><td>N551AA</td><td>61</td><td>⋯</td><td>-5</td><td>IAH</td><td>DFW</td><td>224</td><td> 9</td><td> 8</td><td>0</td><td></td><td>0</td><td>-20</td></tr>
+	<tr><th scope="row">5446</th><td>2011</td><td>1</td><td>23</td><td>7</td><td>1356</td><td>1501</td><td>AA</td><td>428</td><td>N479AA</td><td>65</td><td>⋯</td><td>-4</td><td>IAH</td><td>DFW</td><td>224</td><td> 7</td><td>18</td><td>0</td><td></td><td>0</td><td>-16</td></tr>
+	<tr><th scope="row">5447</th><td>2011</td><td>1</td><td>24</td><td>1</td><td>1356</td><td>1513</td><td>AA</td><td>428</td><td>N531AA</td><td>77</td><td>⋯</td><td>-4</td><td>IAH</td><td>DFW</td><td>224</td><td> 6</td><td>28</td><td>0</td><td></td><td>0</td><td>  2</td></tr>
+	<tr><th scope="row">5448</th><td>2011</td><td>1</td><td>25</td><td>2</td><td>1352</td><td>1452</td><td>AA</td><td>428</td><td>N561AA</td><td>60</td><td>⋯</td><td>-8</td><td>IAH</td><td>DFW</td><td>224</td><td> 7</td><td>13</td><td>0</td><td></td><td>0</td><td>-20</td></tr>
+	<tr><th scope="row">5449</th><td>2011</td><td>1</td><td>26</td><td>3</td><td>1353</td><td>1455</td><td>AA</td><td>428</td><td>N541AA</td><td>62</td><td>⋯</td><td>-7</td><td>IAH</td><td>DFW</td><td>224</td><td> 8</td><td>14</td><td>0</td><td></td><td>0</td><td>-18</td></tr>
+	<tr><th scope="row">5450</th><td>2011</td><td>1</td><td>27</td><td>4</td><td>1356</td><td>1458</td><td>AA</td><td>428</td><td>N512AA</td><td>62</td><td>⋯</td><td>-4</td><td>IAH</td><td>DFW</td><td>224</td><td>12</td><td>10</td><td>0</td><td></td><td>0</td><td>-16</td></tr>
+	<tr><th scope="row">5451</th><td>2011</td><td>1</td><td>28</td><td>5</td><td>1359</td><td>1505</td><td>AA</td><td>428</td><td>N4UBAA</td><td>66</td><td>⋯</td><td>-1</td><td>IAH</td><td>DFW</td><td>224</td><td> 8</td><td>12</td><td>0</td><td></td><td>0</td><td>-10</td></tr>
+	<tr><th scope="row">5452</th><td>2011</td><td>1</td><td>29</td><td>6</td><td>1355</td><td>1455</td><td>AA</td><td>428</td><td>N491AA</td><td>60</td><td>⋯</td><td>-5</td><td>IAH</td><td>DFW</td><td>224</td><td> 7</td><td> 7</td><td>0</td><td></td><td>0</td><td>-21</td></tr>
+	<tr><th scope="row">5453</th><td>2011</td><td>1</td><td>30</td><td>7</td><td>1359</td><td>1456</td><td>AA</td><td>428</td><td>N561AA</td><td>57</td><td>⋯</td><td>-1</td><td>IAH</td><td>DFW</td><td>224</td><td> 7</td><td>11</td><td>0</td><td></td><td>0</td><td>-21</td></tr>
+	<tr><th scope="row">⋮</th><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td><td>⋱</td><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td></tr>
+	<tr><th scope="row">6083230</th><td>2011</td><td>12</td><td>6</td><td>2</td><td> 752</td><td> 857</td><td>WN</td><td>1628</td><td>N435WN</td><td> 65</td><td>⋯</td><td>-3</td><td>HOU</td><td>MSY</td><td> 302</td><td> 4</td><td>11</td><td>0</td><td></td><td>0</td><td>  0</td></tr>
+	<tr><th scope="row">6083231</th><td>2011</td><td>12</td><td>6</td><td>2</td><td> 651</td><td> 746</td><td>WN</td><td>2534</td><td>N232WN</td><td> 55</td><td>⋯</td><td>-4</td><td>HOU</td><td>MSY</td><td> 302</td><td> 5</td><td> 7</td><td>0</td><td></td><td>0</td><td>-11</td></tr>
+	<tr><th scope="row">6083232</th><td>2011</td><td>12</td><td>6</td><td>2</td><td>1728</td><td>1932</td><td>WN</td><td> 902</td><td>N724SW</td><td>244</td><td>⋯</td><td>23</td><td>HOU</td><td>OAK</td><td>1642</td><td> 5</td><td> 8</td><td>0</td><td></td><td>0</td><td>  5</td></tr>
+	<tr><th scope="row">6083233</th><td>2011</td><td>12</td><td>6</td><td>2</td><td>1115</td><td>1315</td><td>WN</td><td>1167</td><td>N455WN</td><td>240</td><td>⋯</td><td> 5</td><td>HOU</td><td>OAK</td><td>1642</td><td> 6</td><td> 9</td><td>0</td><td></td><td>0</td><td>-17</td></tr>
+	<tr><th scope="row">6083234</th><td>2011</td><td>12</td><td>6</td><td>2</td><td>1753</td><td>1911</td><td>WN</td><td> 513</td><td>N362SW</td><td> 78</td><td>⋯</td><td>33</td><td>HOU</td><td>OKC</td><td> 419</td><td> 4</td><td>15</td><td>0</td><td></td><td>0</td><td> 29</td></tr>
+	<tr><th scope="row">6083235</th><td>2011</td><td>12</td><td>6</td><td>2</td><td>1222</td><td>1335</td><td>WN</td><td> 581</td><td>N646SW</td><td> 73</td><td>⋯</td><td>-3</td><td>HOU</td><td>OKC</td><td> 419</td><td> 3</td><td> 9</td><td>0</td><td></td><td>0</td><td>-12</td></tr>
+	<tr><th scope="row">6083236</th><td>2011</td><td>12</td><td>6</td><td>2</td><td> 836</td><td> 946</td><td>WN</td><td>1223</td><td>N394SW</td><td> 70</td><td>⋯</td><td> 1</td><td>HOU</td><td>OKC</td><td> 419</td><td> 4</td><td> 8</td><td>0</td><td></td><td>0</td><td>-11</td></tr>
+	<tr><th scope="row">6083237</th><td>2011</td><td>12</td><td>6</td><td>2</td><td>1352</td><td>1749</td><td>WN</td><td>3085</td><td>N510SW</td><td>177</td><td>⋯</td><td>72</td><td>HOU</td><td>PHL</td><td>1336</td><td> 5</td><td> 9</td><td>0</td><td></td><td>0</td><td> 57</td></tr>
+	<tr><th scope="row">6083238</th><td>2011</td><td>12</td><td>6</td><td>2</td><td>1850</td><td>2046</td><td>WN</td><td>  39</td><td>N754SW</td><td>176</td><td>⋯</td><td>70</td><td>HOU</td><td>PHX</td><td>1020</td><td> 4</td><td>15</td><td>0</td><td></td><td>0</td><td> 69</td></tr>
+	<tr><th scope="row">6083239</th><td>2011</td><td>12</td><td>6</td><td>2</td><td> 707</td><td> 903</td><td>WN</td><td> 424</td><td>N769SW</td><td>176</td><td>⋯</td><td>-3</td><td>HOU</td><td>PHX</td><td>1020</td><td> 4</td><td>10</td><td>0</td><td></td><td>0</td><td> -4</td></tr>
+	<tr><th scope="row">6083240</th><td>2011</td><td>12</td><td>6</td><td>2</td><td>1335</td><td>1528</td><td>WN</td><td>1098</td><td>N448WN</td><td>173</td><td>⋯</td><td>20</td><td>HOU</td><td>PHX</td><td>1020</td><td> 4</td><td>10</td><td>0</td><td></td><td>0</td><td> 16</td></tr>
+	<tr><th scope="row">6083241</th><td>2011</td><td>12</td><td>6</td><td>2</td><td>1005</td><td>1158</td><td>WN</td><td>1403</td><td>N430WN</td><td>173</td><td>⋯</td><td>15</td><td>HOU</td><td>PHX</td><td>1020</td><td> 3</td><td> 7</td><td>0</td><td></td><td>0</td><td> 11</td></tr>
+	<tr><th scope="row">6083242</th><td>2011</td><td>12</td><td>6</td><td>2</td><td>1723</td><td>1845</td><td>WN</td><td>  33</td><td>N698SW</td><td>202</td><td>⋯</td><td>78</td><td>HOU</td><td>SAN</td><td>1313</td><td> 3</td><td> 7</td><td>0</td><td></td><td>0</td><td> 68</td></tr>
+	<tr><th scope="row">6083243</th><td>2011</td><td>12</td><td>6</td><td>2</td><td>1139</td><td>1304</td><td>WN</td><td>1212</td><td>N226WN</td><td>205</td><td>⋯</td><td>-1</td><td>HOU</td><td>SAN</td><td>1313</td><td> 2</td><td>10</td><td>0</td><td></td><td>0</td><td> -8</td></tr>
+	<tr><th scope="row">6083244</th><td>2011</td><td>12</td><td>6</td><td>2</td><td>2023</td><td>2109</td><td>WN</td><td> 207</td><td>N354SW</td><td> 46</td><td>⋯</td><td>43</td><td>HOU</td><td>SAT</td><td> 192</td><td> 4</td><td> 4</td><td>0</td><td></td><td>0</td><td> 27</td></tr>
+	<tr><th scope="row">6083245</th><td>2011</td><td>12</td><td>6</td><td>2</td><td>1542</td><td>1637</td><td>WN</td><td> 405</td><td>N617SW</td><td> 55</td><td>⋯</td><td>12</td><td>HOU</td><td>SAT</td><td> 192</td><td> 4</td><td> 8</td><td>0</td><td></td><td>0</td><td> 10</td></tr>
+	<tr><th scope="row">6083246</th><td>2011</td><td>12</td><td>6</td><td>2</td><td>1728</td><td>1825</td><td>WN</td><td> 628</td><td>N389SW</td><td> 57</td><td>⋯</td><td> 3</td><td>HOU</td><td>SAT</td><td> 192</td><td> 4</td><td>14</td><td>0</td><td></td><td>0</td><td>  3</td></tr>
+	<tr><th scope="row">6083247</th><td>2011</td><td>12</td><td>6</td><td>2</td><td>1252</td><td>1349</td><td>WN</td><td> 994</td><td>N713SW</td><td> 57</td><td>⋯</td><td> 7</td><td>HOU</td><td>SAT</td><td> 192</td><td> 5</td><td> 9</td><td>0</td><td></td><td>0</td><td>  7</td></tr>
+	<tr><th scope="row">6083248</th><td>2011</td><td>12</td><td>6</td><td>2</td><td> 857</td><td> 955</td><td>WN</td><td>1231</td><td>N284WN</td><td> 58</td><td>⋯</td><td>-3</td><td>HOU</td><td>SAT</td><td> 192</td><td> 5</td><td> 9</td><td>0</td><td></td><td>0</td><td> -2</td></tr>
+	<tr><th scope="row">6083249</th><td>2011</td><td>12</td><td>6</td><td>2</td><td>1939</td><td>2119</td><td>WN</td><td> 124</td><td>N522SW</td><td>100</td><td>⋯</td><td>39</td><td>HOU</td><td>STL</td><td> 687</td><td> 4</td><td>15</td><td>0</td><td></td><td>0</td><td> 12</td></tr>
+	<tr><th scope="row">6083250</th><td>2011</td><td>12</td><td>6</td><td>2</td><td> 556</td><td> 745</td><td>WN</td><td> 280</td><td>N728SW</td><td>109</td><td>⋯</td><td>-4</td><td>HOU</td><td>STL</td><td> 687</td><td>13</td><td> 9</td><td>0</td><td></td><td>0</td><td>-12</td></tr>
+	<tr><th scope="row">6083251</th><td>2011</td><td>12</td><td>6</td><td>2</td><td>1026</td><td>1208</td><td>WN</td><td> 782</td><td>N476WN</td><td>102</td><td>⋯</td><td> 1</td><td>HOU</td><td>STL</td><td> 687</td><td> 4</td><td>12</td><td>0</td><td></td><td>0</td><td>-14</td></tr>
+	<tr><th scope="row">6083252</th><td>2011</td><td>12</td><td>6</td><td>2</td><td>1611</td><td>1746</td><td>WN</td><td>1050</td><td>N655WN</td><td> 95</td><td>⋯</td><td>16</td><td>HOU</td><td>STL</td><td> 687</td><td> 3</td><td> 9</td><td>0</td><td></td><td>0</td><td>-11</td></tr>
+	<tr><th scope="row">6083253</th><td>2011</td><td>12</td><td>6</td><td>2</td><td> 758</td><td>1051</td><td>WN</td><td> 201</td><td>N903WN</td><td>113</td><td>⋯</td><td>-2</td><td>HOU</td><td>TPA</td><td> 781</td><td> 3</td><td>10</td><td>0</td><td></td><td>0</td><td> -6</td></tr>
+	<tr><th scope="row">6083254</th><td>2011</td><td>12</td><td>6</td><td>2</td><td>1307</td><td>1600</td><td>WN</td><td> 471</td><td>N632SW</td><td>113</td><td>⋯</td><td> 7</td><td>HOU</td><td>TPA</td><td> 781</td><td> 5</td><td>10</td><td>0</td><td></td><td>0</td><td> -2</td></tr>
+	<tr><th scope="row">6083255</th><td>2011</td><td>12</td><td>6</td><td>2</td><td>1818</td><td>2111</td><td>WN</td><td>1191</td><td>N284WN</td><td>113</td><td>⋯</td><td> 8</td><td>HOU</td><td>TPA</td><td> 781</td><td> 5</td><td>11</td><td>0</td><td></td><td>0</td><td>-11</td></tr>
+	<tr><th scope="row">6083256</th><td>2011</td><td>12</td><td>6</td><td>2</td><td>2047</td><td>2334</td><td>WN</td><td>1674</td><td>N366SW</td><td>107</td><td>⋯</td><td> 7</td><td>HOU</td><td>TPA</td><td> 781</td><td> 4</td><td> 9</td><td>0</td><td></td><td>0</td><td>  2</td></tr>
+	<tr><th scope="row">6083257</th><td>2011</td><td>12</td><td>6</td><td>2</td><td> 912</td><td>1031</td><td>WN</td><td> 127</td><td>N777QC</td><td> 79</td><td>⋯</td><td>-3</td><td>HOU</td><td>TUL</td><td> 453</td><td> 4</td><td>14</td><td>0</td><td></td><td>0</td><td> -6</td></tr>
+	<tr><th scope="row">6083258</th><td>2011</td><td>12</td><td>6</td><td>2</td><td> 656</td><td> 812</td><td>WN</td><td> 621</td><td>N727SW</td><td> 76</td><td>⋯</td><td>-4</td><td>HOU</td><td>TUL</td><td> 453</td><td> 3</td><td> 9</td><td>0</td><td></td><td>0</td><td>-15</td></tr>
+	<tr><th scope="row">6083259</th><td>2011</td><td>12</td><td>6</td><td>2</td><td>1600</td><td>1713</td><td>WN</td><td>1597</td><td>N745SW</td><td> 73</td><td>⋯</td><td> 0</td><td>HOU</td><td>TUL</td><td> 453</td><td> 3</td><td>11</td><td>0</td><td></td><td>0</td><td>-14</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>요약 통계 구하기<ul>
+<li>대용량의 데이터 셋을 대상으로 특정 칼럼을 대상으로 기술 통계량을 계산하는 관련 함수에 대해서 알아보자</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">summarise</span><span class="p">(</span><span class="n">hflights</span><span class="p">,</span><span class="n">avgAIRTIME</span> <span class="o">=</span> <span class="nf">mean</span><span class="p">(</span><span class="n">AirTime</span><span class="p">,</span><span class="n">na.rm</span><span class="o">=</span><span class="bp">T</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A data.frame: 1 × 1</caption>
+<thead>
+	<tr><th scope="col">avgAIRTIME</th></tr>
+	<tr><th scope="col">&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><td>108.1423</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">hflights</span><span class="o">%&gt;%</span><span class="nf">summarise</span><span class="p">(</span><span class="n">avg</span><span class="o">=</span><span class="nf">mean</span><span class="p">(</span><span class="n">AirTime</span><span class="p">,</span><span class="n">na.rm</span><span class="o">=</span><span class="bp">T</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A data.frame: 1 × 1</caption>
+<thead>
+	<tr><th scope="col">avg</th></tr>
+	<tr><th scope="col">&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><td>108.1423</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">str</span><span class="p">(</span><span class="n">hflights</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>&#39;data.frame&#39;:	227496 obs. of  21 variables:
+ $ Year             : int  2011 2011 2011 2011 2011 2011 2011 2011 2011 2011 ...
+ $ Month            : int  1 1 1 1 1 1 1 1 1 1 ...
+ $ DayofMonth       : int  1 2 3 4 5 6 7 8 9 10 ...
+ $ DayOfWeek        : int  6 7 1 2 3 4 5 6 7 1 ...
+ $ DepTime          : int  1400 1401 1352 1403 1405 1359 1359 1355 1443 1443 ...
+ $ ArrTime          : int  1500 1501 1502 1513 1507 1503 1509 1454 1554 1553 ...
+ $ UniqueCarrier    : chr  &#34;AA&#34; &#34;AA&#34; &#34;AA&#34; &#34;AA&#34; ...
+ $ FlightNum        : int  428 428 428 428 428 428 428 428 428 428 ...
+ $ TailNum          : chr  &#34;N576AA&#34; &#34;N557AA&#34; &#34;N541AA&#34; &#34;N403AA&#34; ...
+ $ ActualElapsedTime: int  60 60 70 70 62 64 70 59 71 70 ...
+ $ AirTime          : int  40 45 48 39 44 45 43 40 41 45 ...
+ $ ArrDelay         : int  -10 -9 -8 3 -3 -7 -1 -16 44 43 ...
+ $ DepDelay         : int  0 1 -8 3 5 -1 -1 -5 43 43 ...
+ $ Origin           : chr  &#34;IAH&#34; &#34;IAH&#34; &#34;IAH&#34; &#34;IAH&#34; ...
+ $ Dest             : chr  &#34;DFW&#34; &#34;DFW&#34; &#34;DFW&#34; &#34;DFW&#34; ...
+ $ Distance         : int  224 224 224 224 224 224 224 224 224 224 ...
+ $ TaxiIn           : int  7 6 5 9 9 6 12 7 8 6 ...
+ $ TaxiOut          : int  13 9 17 22 9 13 15 12 22 19 ...
+ $ Cancelled        : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ CancellationCode : chr  &#34;&#34; &#34;&#34; &#34;&#34; &#34;&#34; ...
+ $ Diverted         : int  0 0 0 0 0 0 0 0 0 0 ...
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">summarise</span><span class="p">(</span><span class="n">hflights</span><span class="p">,</span><span class="n">count</span><span class="o">=</span><span class="nf">n</span><span class="p">(),</span><span class="n">delay</span><span class="o">=</span><span class="nf">mean</span><span class="p">(</span><span class="n">AirTime</span><span class="p">,</span><span class="n">na.rm</span><span class="o">=</span><span class="bp">T</span><span class="p">))</span>
+<span class="c1"># n()은 데이터 셋의 관측치 길이를 구해준다. dplyr 패키지에서 제공해주는 함수이다.</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A data.frame: 1 × 2</caption>
+<thead>
+	<tr><th scope="col">count</th><th scope="col">delay</th></tr>
+	<tr><th scope="col">&lt;int&gt;</th><th scope="col">&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><td>227496</td><td>108.1423</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>집단변수 대상 그룹화</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">data</span><span class="p">(</span><span class="n">iris</span><span class="p">)</span>
+<span class="n">species</span> <span class="o">=</span> <span class="nf">group_by</span><span class="p">(</span><span class="n">iris</span><span class="p">,</span><span class="n">Species</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>결과 변수를 확인하면 꽃의 종류별로 그룹화되어 있는 것을 볼 수 있다.</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">str</span><span class="p">(</span><span class="n">species</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>grouped_df [150 x 5] (S3: grouped_df/tbl_df/tbl/data.frame)
+ $ Sepal.Length: num [1:150] 5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...
+ $ Sepal.Width : num [1:150] 3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...
+ $ Petal.Length: num [1:150] 1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
+ $ Petal.Width : num [1:150] 0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
+ $ Species     : Factor w/ 3 levels &#34;setosa&#34;,&#34;versicolor&#34;,..: 1 1 1 1 1 1 1 1 1 1 ...
+ - attr(*, &#34;groups&#34;)= tibble [3 x 2] (S3: tbl_df/tbl/data.frame)
+  ..$ Species: Factor w/ 3 levels &#34;setosa&#34;,&#34;versicolor&#34;,..: 1 2 3
+  ..$ .rows  : list&lt;int&gt; [1:3] 
+  .. ..$ : int [1:50] 1 2 3 4 5 6 7 8 9 10 ...
+  .. ..$ : int [1:50] 51 52 53 54 55 56 57 58 59 60 ...
+  .. ..$ : int [1:50] 101 102 103 104 105 106 107 108 109 110 ...
+  .. ..@ ptype: int(0) 
+  ..- attr(*, &#34;.drop&#34;)= logi TRUE
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">species</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A grouped_df: 150 × 5</caption>
+<thead>
+	<tr><th scope="col">Sepal.Length</th><th scope="col">Sepal.Width</th><th scope="col">Petal.Length</th><th scope="col">Petal.Width</th><th scope="col">Species</th></tr>
+	<tr><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;fct&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><td>5.1</td><td>3.5</td><td>1.4</td><td>0.2</td><td>setosa</td></tr>
+	<tr><td>4.9</td><td>3.0</td><td>1.4</td><td>0.2</td><td>setosa</td></tr>
+	<tr><td>4.7</td><td>3.2</td><td>1.3</td><td>0.2</td><td>setosa</td></tr>
+	<tr><td>4.6</td><td>3.1</td><td>1.5</td><td>0.2</td><td>setosa</td></tr>
+	<tr><td>5.0</td><td>3.6</td><td>1.4</td><td>0.2</td><td>setosa</td></tr>
+	<tr><td>5.4</td><td>3.9</td><td>1.7</td><td>0.4</td><td>setosa</td></tr>
+	<tr><td>4.6</td><td>3.4</td><td>1.4</td><td>0.3</td><td>setosa</td></tr>
+	<tr><td>5.0</td><td>3.4</td><td>1.5</td><td>0.2</td><td>setosa</td></tr>
+	<tr><td>4.4</td><td>2.9</td><td>1.4</td><td>0.2</td><td>setosa</td></tr>
+	<tr><td>4.9</td><td>3.1</td><td>1.5</td><td>0.1</td><td>setosa</td></tr>
+	<tr><td>5.4</td><td>3.7</td><td>1.5</td><td>0.2</td><td>setosa</td></tr>
+	<tr><td>4.8</td><td>3.4</td><td>1.6</td><td>0.2</td><td>setosa</td></tr>
+	<tr><td>4.8</td><td>3.0</td><td>1.4</td><td>0.1</td><td>setosa</td></tr>
+	<tr><td>4.3</td><td>3.0</td><td>1.1</td><td>0.1</td><td>setosa</td></tr>
+	<tr><td>5.8</td><td>4.0</td><td>1.2</td><td>0.2</td><td>setosa</td></tr>
+	<tr><td>5.7</td><td>4.4</td><td>1.5</td><td>0.4</td><td>setosa</td></tr>
+	<tr><td>5.4</td><td>3.9</td><td>1.3</td><td>0.4</td><td>setosa</td></tr>
+	<tr><td>5.1</td><td>3.5</td><td>1.4</td><td>0.3</td><td>setosa</td></tr>
+	<tr><td>5.7</td><td>3.8</td><td>1.7</td><td>0.3</td><td>setosa</td></tr>
+	<tr><td>5.1</td><td>3.8</td><td>1.5</td><td>0.3</td><td>setosa</td></tr>
+	<tr><td>5.4</td><td>3.4</td><td>1.7</td><td>0.2</td><td>setosa</td></tr>
+	<tr><td>5.1</td><td>3.7</td><td>1.5</td><td>0.4</td><td>setosa</td></tr>
+	<tr><td>4.6</td><td>3.6</td><td>1.0</td><td>0.2</td><td>setosa</td></tr>
+	<tr><td>5.1</td><td>3.3</td><td>1.7</td><td>0.5</td><td>setosa</td></tr>
+	<tr><td>4.8</td><td>3.4</td><td>1.9</td><td>0.2</td><td>setosa</td></tr>
+	<tr><td>5.0</td><td>3.0</td><td>1.6</td><td>0.2</td><td>setosa</td></tr>
+	<tr><td>5.0</td><td>3.4</td><td>1.6</td><td>0.4</td><td>setosa</td></tr>
+	<tr><td>5.2</td><td>3.5</td><td>1.5</td><td>0.2</td><td>setosa</td></tr>
+	<tr><td>5.2</td><td>3.4</td><td>1.4</td><td>0.2</td><td>setosa</td></tr>
+	<tr><td>4.7</td><td>3.2</td><td>1.6</td><td>0.2</td><td>setosa</td></tr>
+	<tr><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td></tr>
+	<tr><td>6.9</td><td>3.2</td><td>5.7</td><td>2.3</td><td>virginica</td></tr>
+	<tr><td>5.6</td><td>2.8</td><td>4.9</td><td>2.0</td><td>virginica</td></tr>
+	<tr><td>7.7</td><td>2.8</td><td>6.7</td><td>2.0</td><td>virginica</td></tr>
+	<tr><td>6.3</td><td>2.7</td><td>4.9</td><td>1.8</td><td>virginica</td></tr>
+	<tr><td>6.7</td><td>3.3</td><td>5.7</td><td>2.1</td><td>virginica</td></tr>
+	<tr><td>7.2</td><td>3.2</td><td>6.0</td><td>1.8</td><td>virginica</td></tr>
+	<tr><td>6.2</td><td>2.8</td><td>4.8</td><td>1.8</td><td>virginica</td></tr>
+	<tr><td>6.1</td><td>3.0</td><td>4.9</td><td>1.8</td><td>virginica</td></tr>
+	<tr><td>6.4</td><td>2.8</td><td>5.6</td><td>2.1</td><td>virginica</td></tr>
+	<tr><td>7.2</td><td>3.0</td><td>5.8</td><td>1.6</td><td>virginica</td></tr>
+	<tr><td>7.4</td><td>2.8</td><td>6.1</td><td>1.9</td><td>virginica</td></tr>
+	<tr><td>7.9</td><td>3.8</td><td>6.4</td><td>2.0</td><td>virginica</td></tr>
+	<tr><td>6.4</td><td>2.8</td><td>5.6</td><td>2.2</td><td>virginica</td></tr>
+	<tr><td>6.3</td><td>2.8</td><td>5.1</td><td>1.5</td><td>virginica</td></tr>
+	<tr><td>6.1</td><td>2.6</td><td>5.6</td><td>1.4</td><td>virginica</td></tr>
+	<tr><td>7.7</td><td>3.0</td><td>6.1</td><td>2.3</td><td>virginica</td></tr>
+	<tr><td>6.3</td><td>3.4</td><td>5.6</td><td>2.4</td><td>virginica</td></tr>
+	<tr><td>6.4</td><td>3.1</td><td>5.5</td><td>1.8</td><td>virginica</td></tr>
+	<tr><td>6.0</td><td>3.0</td><td>4.8</td><td>1.8</td><td>virginica</td></tr>
+	<tr><td>6.9</td><td>3.1</td><td>5.4</td><td>2.1</td><td>virginica</td></tr>
+	<tr><td>6.7</td><td>3.1</td><td>5.6</td><td>2.4</td><td>virginica</td></tr>
+	<tr><td>6.9</td><td>3.1</td><td>5.1</td><td>2.3</td><td>virginica</td></tr>
+	<tr><td>5.8</td><td>2.7</td><td>5.1</td><td>1.9</td><td>virginica</td></tr>
+	<tr><td>6.8</td><td>3.2</td><td>5.9</td><td>2.3</td><td>virginica</td></tr>
+	<tr><td>6.7</td><td>3.3</td><td>5.7</td><td>2.5</td><td>virginica</td></tr>
+	<tr><td>6.7</td><td>3.0</td><td>5.2</td><td>2.3</td><td>virginica</td></tr>
+	<tr><td>6.3</td><td>2.5</td><td>5.0</td><td>1.9</td><td>virginica</td></tr>
+	<tr><td>6.5</td><td>3.0</td><td>5.2</td><td>2.0</td><td>virginica</td></tr>
+	<tr><td>6.2</td><td>3.4</td><td>5.4</td><td>2.3</td><td>virginica</td></tr>
+	<tr><td>5.9</td><td>3.0</td><td>5.1</td><td>1.8</td><td>virginica</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>데이터프레임 병합<ul>
+<li>서로 다른 데이터프레임을 대상으로 공통 칼럼을 이용하여 하나의 데이터프레임으로 병합하는 함수에 대해서 알아보자</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>공통 변수를 이용하여 내부조인 하기</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">df1</span>
+<span class="n">df2</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A data.frame: 5 × 2</caption>
+<thead>
+	<tr><th scope="col">x</th><th scope="col">y</th></tr>
+	<tr><th scope="col">&lt;int&gt;</th><th scope="col">&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><td>1</td><td>-0.8698428</td></tr>
+	<tr><td>2</td><td>-0.3587920</td></tr>
+	<tr><td>3</td><td> 1.3628454</td></tr>
+	<tr><td>4</td><td> 1.3764428</td></tr>
+	<tr><td>5</td><td> 0.7828960</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A data.frame: 5 × 2</caption>
+<thead>
+	<tr><th scope="col">x</th><th scope="col">y</th></tr>
+	<tr><th scope="col">&lt;int&gt;</th><th scope="col">&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><td>2</td><td>-0.1237231</td></tr>
+	<tr><td>3</td><td>-1.2491581</td></tr>
+	<tr><td>4</td><td>-1.1889538</td></tr>
+	<tr><td>5</td><td>-0.2320964</td></tr>
+	<tr><td>6</td><td>-0.5577591</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">df1</span><span class="o">=</span><span class="nf">data.frame</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="m">1</span><span class="o">:</span><span class="m">5</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="nf">rnorm</span><span class="p">(</span><span class="m">5</span><span class="p">))</span>
+<span class="n">df2</span><span class="o">=</span><span class="nf">data.frame</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="m">2</span><span class="o">:</span><span class="m">6</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="nf">rnorm</span><span class="p">(</span><span class="m">5</span><span class="p">))</span>
+<span class="nf">inner_join</span><span class="p">(</span><span class="n">df1</span><span class="p">,</span><span class="n">df2</span><span class="p">,</span><span class="n">by</span><span class="o">=</span><span class="s">&#39;x&#39;</span><span class="p">)</span>
+<span class="c1"># 공통으로 사용된 x는 병합을 위해 사용된다.</span>
+<span class="c1"># 병합의 결과는 양쪽 모두 x가 존재하는 2,3,4,5 관측치를 대상으로 병합된다. </span>
+<span class="c1"># inner_join은 내부조인이라고 부른다.</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A data.frame: 4 × 3</caption>
+<thead>
+	<tr><th scope="col">x</th><th scope="col">y.x</th><th scope="col">y.y</th></tr>
+	<tr><th scope="col">&lt;int&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><td>2</td><td>-0.358792</td><td>-0.1237231</td></tr>
+	<tr><td>3</td><td> 1.362845</td><td>-1.2491581</td></tr>
+	<tr><td>4</td><td> 1.376443</td><td>-1.1889538</td></tr>
+	<tr><td>5</td><td> 0.782896</td><td>-0.2320964</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>공통변수를 이용하여 왼쪽 조인하기</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">left_join</span><span class="p">(</span><span class="n">df1</span><span class="p">,</span><span class="n">df2</span><span class="p">,</span><span class="n">by</span><span class="o">=</span><span class="s">&#39;x&#39;</span><span class="p">)</span>
+<span class="c1"># 왼쪽에 위치한 df1의 x칼럼을 기준으로 오른쪽 df2와 병합한다.</span>
+<span class="c1"># 만약 오른쪽의 df2에서 해당하는 x의 값이 없는 경우에는 결측치 NA로 둔다. </span>
+<span class="c1"># 왿쪽 데이터프레임을 기준으로 병합하기 때문에 왼쪽 조인이라고 부른다.</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A data.frame: 5 × 3</caption>
+<thead>
+	<tr><th scope="col">x</th><th scope="col">y.x</th><th scope="col">y.y</th></tr>
+	<tr><th scope="col">&lt;int&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><td>1</td><td>-0.8698428</td><td>        NA</td></tr>
+	<tr><td>2</td><td>-0.3587920</td><td>-0.1237231</td></tr>
+	<tr><td>3</td><td> 1.3628454</td><td>-1.2491581</td></tr>
+	<tr><td>4</td><td> 1.3764428</td><td>-1.1889538</td></tr>
+	<tr><td>5</td><td> 0.7828960</td><td>-0.2320964</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>공통변수를 이용하여 오른쪽 조인하기</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">right_join</span><span class="p">(</span><span class="n">df1</span><span class="p">,</span><span class="n">df2</span><span class="p">,</span><span class="n">by</span><span class="o">=</span><span class="s">&#39;x&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A data.frame: 5 × 3</caption>
+<thead>
+	<tr><th scope="col">x</th><th scope="col">y.x</th><th scope="col">y.y</th></tr>
+	<tr><th scope="col">&lt;int&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><td>2</td><td>-0.358792</td><td>-0.1237231</td></tr>
+	<tr><td>3</td><td> 1.362845</td><td>-1.2491581</td></tr>
+	<tr><td>4</td><td> 1.376443</td><td>-1.1889538</td></tr>
+	<tr><td>5</td><td> 0.782896</td><td>-0.2320964</td></tr>
+	<tr><td>6</td><td>       NA</td><td>-0.5577591</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>공통변수를 이용하여 전체 조인하기</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">full_join</span><span class="p">(</span><span class="n">df1</span><span class="p">,</span><span class="n">df2</span><span class="p">,</span><span class="n">by</span><span class="o">=</span><span class="s">&#39;x&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A data.frame: 6 × 3</caption>
+<thead>
+	<tr><th scope="col">x</th><th scope="col">y.x</th><th scope="col">y.y</th></tr>
+	<tr><th scope="col">&lt;int&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><td>1</td><td>-0.8698428</td><td>        NA</td></tr>
+	<tr><td>2</td><td>-0.3587920</td><td>-0.1237231</td></tr>
+	<tr><td>3</td><td> 1.3628454</td><td>-1.2491581</td></tr>
+	<tr><td>4</td><td> 1.3764428</td><td>-1.1889538</td></tr>
+	<tr><td>5</td><td> 0.7828960</td><td>-0.2320964</td></tr>
+	<tr><td>6</td><td>        NA</td><td>-0.5577591</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>위와는 다른 상황인, 서로 다른 데이터프레임을 대상으로 행 단위 또는 열 단위로 합치는 함수에 대해서 알아보자</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">bind_rows</span><span class="p">(</span><span class="n">df1</span><span class="p">,</span><span class="n">df2</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A data.frame: 10 × 2</caption>
+<thead>
+	<tr><th scope="col">x</th><th scope="col">y</th></tr>
+	<tr><th scope="col">&lt;int&gt;</th><th scope="col">&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><td>1</td><td>-0.8698428</td></tr>
+	<tr><td>2</td><td>-0.3587920</td></tr>
+	<tr><td>3</td><td> 1.3628454</td></tr>
+	<tr><td>4</td><td> 1.3764428</td></tr>
+	<tr><td>5</td><td> 0.7828960</td></tr>
+	<tr><td>2</td><td>-0.1237231</td></tr>
+	<tr><td>3</td><td>-1.2491581</td></tr>
+	<tr><td>4</td><td>-1.1889538</td></tr>
+	<tr><td>5</td><td>-0.2320964</td></tr>
+	<tr><td>6</td><td>-0.5577591</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">bind_cols</span><span class="p">(</span><span class="n">df1</span><span class="p">,</span><span class="n">df2</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>New names:
+* x -&gt; x...1
+* y -&gt; y...2
+* x -&gt; x...3
+* y -&gt; y...4
+
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A data.frame: 5 × 4</caption>
+<thead>
+	<tr><th scope="col">x...1</th><th scope="col">y...2</th><th scope="col">x...3</th><th scope="col">y...4</th></tr>
+	<tr><th scope="col">&lt;int&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><td>1</td><td>-0.8698428</td><td>2</td><td>-0.1237231</td></tr>
+	<tr><td>2</td><td>-0.3587920</td><td>3</td><td>-1.2491581</td></tr>
+	<tr><td>3</td><td> 1.3628454</td><td>4</td><td>-1.1889538</td></tr>
+	<tr><td>4</td><td> 1.3764428</td><td>5</td><td>-0.2320964</td></tr>
+	<tr><td>5</td><td> 0.7828960</td><td>6</td><td>-0.5577591</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>칼럼명 수정하기</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">names</span><span class="p">(</span><span class="n">df1</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>'x'</li><li>'y'</li>&lt;/ol&gt;
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">attributes</span><span class="p">(</span><span class="n">df1</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<dl>
+	<dt>$names</dt>
+		<dd><style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>'x'</li><li>'y'</li>&lt;/ol&gt;
+</dd>
+	<dt>$class</dt>
+		<dd>'data.frame'</dd>
+	<dt>$row.names</dt>
+		<dd><style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>1</li><li>2</li><li>3</li><li>4</li><li>5</li>&lt;/ol&gt;
+</dd>
+</dl>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>수정해보자</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">df1</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A data.frame: 5 × 2</caption>
+<thead>
+	<tr><th scope="col">x</th><th scope="col">y</th></tr>
+	<tr><th scope="col">&lt;int&gt;</th><th scope="col">&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><td>1</td><td>-0.8698428</td></tr>
+	<tr><td>2</td><td>-0.3587920</td></tr>
+	<tr><td>3</td><td> 1.3628454</td></tr>
+	<tr><td>4</td><td> 1.3764428</td></tr>
+	<tr><td>5</td><td> 0.7828960</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">df_rename</span> <span class="o">=</span> <span class="nf">rename</span><span class="p">(</span><span class="n">df1</span><span class="p">,</span><span class="n">asd</span><span class="o">=</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">df_rename</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A data.frame: 5 × 2</caption>
+<thead>
+	<tr><th scope="col">asd</th><th scope="col">y</th></tr>
+	<tr><th scope="col">&lt;int&gt;</th><th scope="col">&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><td>1</td><td>-0.8698428</td></tr>
+	<tr><td>2</td><td>-0.3587920</td></tr>
+	<tr><td>3</td><td> 1.3628454</td></tr>
+	<tr><td>4</td><td> 1.3764428</td></tr>
+	<tr><td>5</td><td> 0.7828960</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr />
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>reshape2 패키지 활용<ul>
+<li>reshape2 패키지에서 제공하는 dcast() 함수를 이용하여 긴 형식의 데이터를 넓은 형식의 데이터로 변경한다.</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>긴 형식을 넓은 형식으로 변경</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">install.packages</span><span class="p">(</span><span class="s">&#39;reshape2&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>package &#39;reshape2&#39; successfully unpacked and MD5 sums checked
+
+The downloaded binary packages are in
+	C:\Users\ehfus\AppData\Local\Temp\RtmpC2f3ED\downloaded_packages
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">library</span><span class="p">(</span><span class="n">reshape2</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="highlight"><pre><span></span><span class="n">wide</span> <span class="o">=</span> <span class="nf">dcast</span><span class="p">(</span>데이터셋<span class="p">,</span> 앞변수<span class="o">~</span>뒷변수<span class="p">,</span> 적용함수<span class="p">)</span>
+</pre></div>
+<ul>
+<li>이때 dcast() 함수를 실행하면 데이터 셋을 대상으로 앞 변수와 뒷 변수의 값이 같은 경우 측정변수를 대상으로 적용함수가 적용된다. 이때 앞 변수는 각 행을 구성하며, 뒷 변수를 각 열을 구성한다. 실행 후 출력되는 결과 메시지는 어떤 변수가 측정변수로 사용되어 정리 대상 변수가 되었다고 알려주는 메시지이다. </li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>넓은 형식을 긴 형식으로 변경<ul>
+<li>reshape2 패키지에서 제공하는 melt() 함수를 이용하여 넓은 형식의 데이터를 긴 형식의 데이터로 변경할 수 있다. </li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="highlight"><pre><span></span><span class="n">melted</span> <span class="o">=</span> <span class="nf">melt</span><span class="p">(</span>데이터 셋<span class="p">,</span> <span class="n">id</span><span class="o">=</span><span class="s">&#39;칼럼명&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>넓은 형식의 데이터 셋을 대상으로 id='칼럼명'로 지정된 칼럼명을 기준으로 데이터의 구조를 긴 형식으로 변경하는 과정이다.</li>
+<li>칼럼명을 변경하려면<div class="highlight"><pre><span></span><span class="nf">colnames</span><span class="p">(</span><span class="n">melted</span><span class="p">)</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#39;a&#39;</span><span class="p">,</span><span class="s">&#39;v&#39;</span><span class="p">,</span><span class="kc">...</span><span class="p">)</span>
+</pre></div>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">data</span><span class="p">(</span><span class="n">smiths</span><span class="p">)</span>
+<span class="n">smiths</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A data.frame: 2 × 5</caption>
+<thead>
+	<tr><th scope="col">subject</th><th scope="col">time</th><th scope="col">age</th><th scope="col">weight</th><th scope="col">height</th></tr>
+	<tr><th scope="col">&lt;fct&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><td>John Smith</td><td>1</td><td>33</td><td>90</td><td>1.87</td></tr>
+	<tr><td>Mary Smith</td><td>1</td><td>NA</td><td>NA</td><td>1.54</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>현재는 넓은 형식의 데이터 셋이다.</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">long</span> <span class="o">=</span> <span class="nf">melt</span><span class="p">(</span><span class="n">smiths</span><span class="p">,</span> <span class="n">id</span><span class="o">=</span><span class="m">1</span><span class="o">:</span><span class="m">2</span><span class="p">)</span>
+<span class="n">long</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A data.frame: 6 × 4</caption>
+<thead>
+	<tr><th scope="col">subject</th><th scope="col">time</th><th scope="col">variable</th><th scope="col">value</th></tr>
+	<tr><th scope="col">&lt;fct&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;fct&gt;</th><th scope="col">&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><td>John Smith</td><td>1</td><td>age   </td><td>33.00</td></tr>
+	<tr><td>Mary Smith</td><td>1</td><td>age   </td><td>   NA</td></tr>
+	<tr><td>John Smith</td><td>1</td><td>weight</td><td>90.00</td></tr>
+	<tr><td>Mary Smith</td><td>1</td><td>weight</td><td>   NA</td></tr>
+	<tr><td>John Smith</td><td>1</td><td>height</td><td> 1.87</td></tr>
+	<tr><td>Mary Smith</td><td>1</td><td>height</td><td> 1.54</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>smiths 데이터 셋을 대상으로 첫 번째 칼럼과 두 번째 칼럼을 기준으로 긴 형식으로 구조가 변경되어 4개의 칼럼과 6개의 관측치를 갖는 데이터프레임이 생성된다. </li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>긴 형식을 넓은 형식으로 변경하기</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">dcast</span><span class="p">(</span><span class="n">long</span><span class="p">,</span><span class="n">subject</span><span class="o">+</span><span class="n">time</span><span class="o">~</span><span class="kc">...</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A data.frame: 2 × 5</caption>
+<thead>
+	<tr><th scope="col">subject</th><th scope="col">time</th><th scope="col">age</th><th scope="col">weight</th><th scope="col">height</th></tr>
+	<tr><th scope="col">&lt;fct&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><td>John Smith</td><td>1</td><td>33</td><td>90</td><td>1.87</td></tr>
+	<tr><td>Mary Smith</td><td>1</td><td>NA</td><td>NA</td><td>1.54</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>긴 형식으로 변경된 데이터 셋을 대상으로 subject와 time 칼럼을 기준으로 다시 넓은 형식으로 구조를 변경하였다. </li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>3차원 배열 형식으로 변경</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">data</span><span class="p">(</span><span class="s">&#39;airquality&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">str</span><span class="p">(</span><span class="n">airquality</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>&#39;data.frame&#39;:	153 obs. of  6 variables:
+ $ Ozone  : int  41 36 12 18 NA 28 23 19 8 NA ...
+ $ Solar.R: int  190 118 149 313 NA NA 299 99 19 194 ...
+ $ Wind   : num  7.4 8 12.6 11.5 14.3 14.9 8.6 13.8 20.1 8.6 ...
+ $ Temp   : int  67 72 74 62 56 66 65 59 61 69 ...
+ $ Month  : int  5 5 5 5 5 5 5 5 5 5 ...
+ $ Day    : int  1 2 3 4 5 6 7 8 9 10 ...
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>칼럼 제목을 대문자로 일괄 변경</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">names</span><span class="p">(</span><span class="n">airquality</span><span class="p">)</span> <span class="o">=</span> <span class="nf">toupper</span><span class="p">(</span><span class="nf">names</span><span class="p">(</span><span class="n">airquality</span><span class="p">))</span>
+<span class="nf">head</span><span class="p">(</span><span class="n">airquality</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A data.frame: 6 × 6</caption>
+<thead>
+	<tr><th></th><th scope="col">OZONE</th><th scope="col">SOLAR.R</th><th scope="col">WIND</th><th scope="col">TEMP</th><th scope="col">MONTH</th><th scope="col">DAY</th></tr>
+	<tr><th></th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><th scope="row">1</th><td>41</td><td>190</td><td> 7.4</td><td>67</td><td>5</td><td>1</td></tr>
+	<tr><th scope="row">2</th><td>36</td><td>118</td><td> 8.0</td><td>72</td><td>5</td><td>2</td></tr>
+	<tr><th scope="row">3</th><td>12</td><td>149</td><td>12.6</td><td>74</td><td>5</td><td>3</td></tr>
+	<tr><th scope="row">4</th><td>18</td><td>313</td><td>11.5</td><td>62</td><td>5</td><td>4</td></tr>
+	<tr><th scope="row">5</th><td>NA</td><td> NA</td><td>14.3</td><td>56</td><td>5</td><td>5</td></tr>
+	<tr><th scope="row">6</th><td>28</td><td> NA</td><td>14.9</td><td>66</td><td>5</td><td>6</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>melt() 함수를 이용하여 넓은 형식을 긴 형식으로 변경하기</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">air_melt</span> <span class="o">=</span> <span class="nf">melt</span><span class="p">(</span><span class="n">airquality</span><span class="p">,</span> <span class="n">id</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#39;MONTH&#39;</span><span class="p">,</span><span class="s">&#39;DAY&#39;</span><span class="p">),</span><span class="n">na.rm</span><span class="o">=</span><span class="bp">T</span><span class="p">)</span>
+<span class="nf">head</span><span class="p">(</span><span class="n">air_melt</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A data.frame: 6 × 4</caption>
+<thead>
+	<tr><th></th><th scope="col">MONTH</th><th scope="col">DAY</th><th scope="col">variable</th><th scope="col">value</th></tr>
+	<tr><th></th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;fct&gt;</th><th scope="col">&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><th scope="row">1</th><td>5</td><td>1</td><td>OZONE</td><td>41</td></tr>
+	<tr><th scope="row">2</th><td>5</td><td>2</td><td>OZONE</td><td>36</td></tr>
+	<tr><th scope="row">3</th><td>5</td><td>3</td><td>OZONE</td><td>12</td></tr>
+	<tr><th scope="row">4</th><td>5</td><td>4</td><td>OZONE</td><td>18</td></tr>
+	<tr><th scope="row">6</th><td>5</td><td>6</td><td>OZONE</td><td>28</td></tr>
+	<tr><th scope="row">7</th><td>5</td><td>7</td><td>OZONE</td><td>23</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>acast() 함수를 이용하여 3차원 구조로 변경하기</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">names</span><span class="p">(</span><span class="n">air_melt</span><span class="p">)</span> <span class="o">=</span> <span class="nf">tolower</span><span class="p">(</span><span class="nf">names</span><span class="p">(</span><span class="n">air_melt</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">head</span><span class="p">(</span><span class="n">air_melt</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A data.frame: 6 × 4</caption>
+<thead>
+	<tr><th></th><th scope="col">month</th><th scope="col">day</th><th scope="col">variable</th><th scope="col">value</th></tr>
+	<tr><th></th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;fct&gt;</th><th scope="col">&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><th scope="row">1</th><td>5</td><td>1</td><td>OZONE</td><td>41</td></tr>
+	<tr><th scope="row">2</th><td>5</td><td>2</td><td>OZONE</td><td>36</td></tr>
+	<tr><th scope="row">3</th><td>5</td><td>3</td><td>OZONE</td><td>12</td></tr>
+	<tr><th scope="row">4</th><td>5</td><td>4</td><td>OZONE</td><td>18</td></tr>
+	<tr><th scope="row">6</th><td>5</td><td>6</td><td>OZONE</td><td>28</td></tr>
+	<tr><th scope="row">7</th><td>5</td><td>7</td><td>OZONE</td><td>23</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">acast</span> <span class="o">=</span> <span class="nf">acast</span><span class="p">(</span><span class="n">air_melt</span><span class="p">,</span><span class="n">day</span><span class="o">~</span><span class="n">month</span><span class="o">~</span><span class="n">variable</span><span class="p">)</span>
+<span class="n">acast</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>41</li><li>36</li><li>12</li><li>18</li><li>&lt;NA&gt;</li><li>28</li><li>23</li><li>19</li><li>8</li><li>&lt;NA&gt;</li><li>7</li><li>16</li><li>11</li><li>14</li><li>18</li><li>14</li><li>34</li><li>6</li><li>30</li><li>11</li><li>1</li><li>11</li><li>4</li><li>32</li><li>&lt;NA&gt;</li><li>&lt;NA&gt;</li><li>&lt;NA&gt;</li><li>23</li><li>45</li><li>115</li><li>37</li><li>&lt;NA&gt;</li><li>&lt;NA&gt;</li><li>&lt;NA&gt;</li><li>&lt;NA&gt;</li><li>&lt;NA&gt;</li><li>&lt;NA&gt;</li><li>29</li><li>&lt;NA&gt;</li><li>71</li><li>39</li><li>&lt;NA&gt;</li><li>&lt;NA&gt;</li><li>23</li><li>&lt;NA&gt;</li><li>&lt;NA&gt;</li><li>21</li><li>37</li><li>20</li><li>12</li><li>13</li><li>&lt;NA&gt;</li><li>&lt;NA&gt;</li><li>&lt;NA&gt;</li><li>&lt;NA&gt;</li><li>&lt;NA&gt;</li><li>&lt;NA&gt;</li><li>&lt;NA&gt;</li><li>&lt;NA&gt;</li><li>&lt;NA&gt;</li><li>&lt;NA&gt;</li><li>&lt;NA&gt;</li><li>135</li><li>49</li><li>32</li><li>&lt;NA&gt;</li><li>64</li><li>40</li><li>77</li><li>97</li><li>97</li><li>85</li><li>&lt;NA&gt;</li><li>10</li><li>27</li><li>&lt;NA&gt;</li><li>7</li><li>48</li><li>35</li><li>61</li><li>79</li><li>63</li><li>16</li><li>&lt;NA&gt;</li><li>&lt;NA&gt;</li><li>80</li><li>108</li><li>20</li><li>52</li><li>82</li><li>50</li><li>64</li><li>59</li><li>39</li><li>9</li><li>16</li><li>78</li><li>35</li><li>66</li><li>122</li><li>89</li><li>110</li><li>&lt;NA&gt;</li><li>&lt;NA&gt;</li><li>44</li><li>28</li><li>65</li><li>&lt;NA&gt;</li><li>22</li><li>59</li><li>23</li><li>31</li><li>44</li><li>21</li><li>9</li><li>&lt;NA&gt;</li><li>45</li><li>168</li><li>73</li><li>&lt;NA&gt;</li><li>76</li><li>118</li><li>84</li><li>85</li><li>96</li><li>78</li><li>73</li><li>91</li><li>47</li><li>32</li><li>20</li><li>23</li><li>21</li><li>24</li><li>44</li><li>21</li><li>28</li><li>9</li><li>13</li><li>46</li><li>18</li><li>13</li><li>24</li><li>16</li><li>13</li><li>23</li><li>36</li><li>7</li><li>14</li><li>30</li><li>&lt;NA&gt;</li><li>14</li><li>18</li><li>20</li><li>&lt;NA&gt;</li><li>190</li><li>118</li><li>149</li><li>313</li><li>&lt;NA&gt;</li><li>&lt;NA&gt;</li><li>299</li><li>99</li><li>19</li><li>194</li><li>&lt;NA&gt;</li><li>256</li><li>290</li><li>274</li><li>65</li><li>334</li><li>307</li><li>78</li><li>322</li><li>44</li><li>8</li><li>320</li><li>25</li><li>92</li><li>66</li><li>266</li><li>&lt;NA&gt;</li><li>13</li><li>252</li><li>223</li><li>279</li><li>286</li><li>287</li><li>242</li><li>186</li><li>220</li><li>264</li><li>127</li><li>273</li><li>291</li><li>323</li><li>259</li><li>250</li><li>148</li><li>332</li><li>⋯</li><li>7.4</li><li>10.9</li><li>10.3</li><li>15.5</li><li>14.3</li><li>12.6</li><li>9.7</li><li>3.4</li><li>8</li><li>5.7</li><li>9.7</li><li>2.3</li><li>6.3</li><li>6.3</li><li>6.9</li><li>5.1</li><li>2.8</li><li>4.6</li><li>7.4</li><li>15.5</li><li>10.9</li><li>10.3</li><li>10.9</li><li>9.7</li><li>14.9</li><li>15.5</li><li>6.3</li><li>10.9</li><li>11.5</li><li>6.9</li><li>13.8</li><li>10.3</li><li>10.3</li><li>8</li><li>12.6</li><li>9.2</li><li>10.3</li><li>10.3</li><li>16.6</li><li>6.9</li><li>13.2</li><li>14.3</li><li>8</li><li>11.5</li><li>&lt;NA&gt;</li><li>67</li><li>72</li><li>74</li><li>62</li><li>56</li><li>66</li><li>65</li><li>59</li><li>61</li><li>69</li><li>74</li><li>69</li><li>66</li><li>68</li><li>58</li><li>64</li><li>66</li><li>57</li><li>68</li><li>62</li><li>59</li><li>73</li><li>61</li><li>61</li><li>57</li><li>58</li><li>57</li><li>67</li><li>81</li><li>79</li><li>76</li><li>78</li><li>74</li><li>67</li><li>84</li><li>85</li><li>79</li><li>82</li><li>87</li><li>90</li><li>87</li><li>93</li><li>92</li><li>82</li><li>80</li><li>79</li><li>77</li><li>72</li><li>65</li><li>73</li><li>76</li><li>77</li><li>76</li><li>76</li><li>76</li><li>75</li><li>78</li><li>73</li><li>80</li><li>77</li><li>83</li><li>&lt;NA&gt;</li><li>84</li><li>85</li><li>81</li><li>84</li><li>83</li><li>83</li><li>88</li><li>92</li><li>92</li><li>89</li><li>82</li><li>73</li><li>81</li><li>91</li><li>80</li><li>81</li><li>82</li><li>84</li><li>87</li><li>85</li><li>74</li><li>81</li><li>82</li><li>86</li><li>85</li><li>82</li><li>86</li><li>88</li><li>86</li><li>83</li><li>81</li><li>81</li><li>81</li><li>82</li><li>86</li><li>85</li><li>87</li><li>89</li><li>90</li><li>90</li><li>92</li><li>86</li><li>86</li><li>82</li><li>80</li><li>79</li><li>77</li><li>79</li><li>76</li><li>78</li><li>78</li><li>77</li><li>72</li><li>75</li><li>79</li><li>81</li><li>86</li><li>88</li><li>97</li><li>94</li><li>96</li><li>94</li><li>91</li><li>92</li><li>93</li><li>93</li><li>87</li><li>84</li><li>80</li><li>78</li><li>75</li><li>73</li><li>81</li><li>76</li><li>77</li><li>71</li><li>71</li><li>78</li><li>67</li><li>76</li><li>68</li><li>82</li><li>64</li><li>71</li><li>81</li><li>69</li><li>63</li><li>70</li><li>77</li><li>75</li><li>76</li><li>68</li><li>&lt;NA&gt;</li>&lt;/ol&gt;
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+</div>
+
+
+
+  </div><a class="u-url" href="/INTROr/2022/02/14/r.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/INTROr/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/INTROr/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/INTROr/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>An easy to use blogging platform with support for Jupyter Notebooks.</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/rhkrehtjd" target="_blank" title="rhkrehtjd"><svg class="svg-icon grey"><use xlink:href="/INTROr/assets/minima-social-icons.svg#github"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
