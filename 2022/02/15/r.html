@@ -1,0 +1,3385 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>EDA(Exploratory Data Analysis) | INTROr</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="EDA(Exploratory Data Analysis)" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="An easy to use blogging platform with support for Jupyter Notebooks." />
+<meta property="og:description" content="An easy to use blogging platform with support for Jupyter Notebooks." />
+<link rel="canonical" href="https://rhkrehtjd.github.io/INTROr/2022/02/15/r.html" />
+<meta property="og:url" content="https://rhkrehtjd.github.io/INTROr/2022/02/15/r.html" />
+<meta property="og:site_name" content="INTROr" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-02-15T00:00:00-06:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="EDA(Exploratory Data Analysis)" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2022-02-15T00:00:00-06:00","datePublished":"2022-02-15T00:00:00-06:00","description":"An easy to use blogging platform with support for Jupyter Notebooks.","headline":"EDA(Exploratory Data Analysis)","mainEntityOfPage":{"@type":"WebPage","@id":"https://rhkrehtjd.github.io/INTROr/2022/02/15/r.html"},"url":"https://rhkrehtjd.github.io/INTROr/2022/02/15/r.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/INTROr/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://rhkrehtjd.github.io/INTROr/feed.xml" title="INTROr" /><link rel="shortcut icon" type="image/x-icon" href="/INTROr/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.css" integrity="sha512-h7nl+xz8wgDlNM4NqKEM4F1NkIRS17M9+uJwIGwuo8vGqIl4BhuCKdxjWEINm+xyrUjNCnK5dCrhM0sj+wTIXw==" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.js" integrity="sha512-/CMIhXiDA3m2c9kzRyd97MTb3MC6OVnx4TElQ7fkkoRghwDf6gi41gaT1PwF270W6+J60uTmwgeRpNpJdRV6sg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/contrib/auto-render.min.js" integrity="sha512-Do7uJAaHZm5OLrIv/yN4w0iG1dbu01kzdMNnFfu/mAqgUk6Nniv2JYHcwH+cNwjqgLcqcuBBk+JRvprLVI8azg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha512-0doc9hKxR3PYwso42RD1p5ySZpzzuDiOwMrdCEh2WdJZCjcmFKc/wEnL+z8fBQrnHoiNWbo+3fiGkOYXBdQp4A==" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/INTROr/">INTROr</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/INTROr/about/">About Me</a><a class="page-link" href="/INTROr/search/">Search</a><a class="page-link" href="/INTROr/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">EDA(Exploratory Data Analysis)</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2022-02-15T00:00:00-06:00" itemprop="datePublished">
+        Feb 15, 2022
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      12 min read
+    
+</span></p>
+
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-justify-center">
+          <div class="px-2">
+
+    <a href="https://github.com/rhkrehtjd/INTROr/tree/master/_notebooks/2022-02-15-r.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/INTROr/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://mybinder.org/v2/gh/rhkrehtjd/INTROr/master?filepath=_notebooks%2F2022-02-15-r.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/INTROr/assets/badges/binder.svg" alt="Open In Binder"/>
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://colab.research.google.com/github/rhkrehtjd/INTROr/blob/master/_notebooks/2022-02-15-r.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/INTROr/assets/badges/colab.svg" alt="Open In Colab"/>
+    </a>
+</div>
+          <div class="px-2">
+  <a href="https://deepnote.com/launch?url=https%3A%2F%2Fgithub.com%2Frhkrehtjd%2FINTROr%2Fblob%2Fmaster%2F_notebooks%2F2022-02-15-r.ipynb" target="_blank">
+      <img class="notebook-badge-image" src="/INTROr/assets/badges/deepnote.svg" alt="Launch in Deepnote"/>
+  </a>
+</div>
+
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2022-02-15-r.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>EDA : 탐색적 자료 분석, 즉 수집한 자료를 <code>다양한 각도에서 관찰하고 이해</code>하는 과정으로 그래프나 통계적 방법을 이용해서 자료를 직관적으로 파악하는 과정을 말한다. <code>자료의 분포와 통계를 파악하여 자료가 갖고 있는 특성을 이해</code>하고, 잠재적인 문제를 발견해서 분석전에 발견이 어려운 다양한 문제점을 발견하고 이를 바탕으로 기존의 가설을 수정하거나 새로운 방향의 가설을 세울 수 있다. </li>
+<li>EDA는 분석에 필요한 자료를 이해하고 자료의 전처리 그리고 정제된 데이터셋을 대상으로 변수 간의 특성을 분석하는 데 필요하다. <ul>
+<li>1) 분석의 목적과 변수의 특징 확인<ul>
+<li>수집된 자료를 대상으로 셀 수 없는 변수와 셀 수 있는 변수를 구분한다.</li>
+</ul>
+</li>
+<li>2) 자료 확인 및 전처리<ul>
+<li>수집된 자료를 확인하고 결측치와 이상치를 확인하고 정제한다.</li>
+</ul>
+</li>
+<li>3) 자료의 각 변수 관찰<ul>
+<li>대표값이나 산포도를 이용한 통계 조사 및 이산변수와 연속변수 시각화</li>
+</ul>
+</li>
+<li>4) 변수 간의 관계에 초점을 맞춰 패턴 발견<ul>
+<li>변수와 변수 간의 상관관계이나 고급 시각화 도구를 이용한 변수 간의 패턴 발견</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr />
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>1) 수집 자료 이해<ul>
+<li>예를 들면 자료 구조, 관측치의 길이, 변수 구성, 각 변수의 의미, 측정 방법, 척도 유형 등을 확인한다. 수집 자료의 이해는 자료로부터 의미 있는 통찰을 얻는 출발점이다.</li>
+<li>데이터의 분포 현황을 통해서 데이터의 유형과 결측치(NA) 그리고 극단치(outlier)등의 데이터를 발견할 수 있다. 결측치는 응답자의 회피와 응답할 수 없는 상황(예를 들면 여성인 경우 군필 항목)에서 주로 발생하며, 극단치는 데이터의 수집과 입력과정에서 실수로 발생한다.</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">getwd</span><span class="p">()</span>
+<span class="nf">setwd</span><span class="p">(</span><span class="s">&#39;C:/Users/ehfus/Downloads/R&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+'C:/Users/ehfus/Downloads/R'
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">dataset</span> <span class="o">=</span> <span class="nf">read.csv</span><span class="p">(</span><span class="s">&#39;dataset.csv&#39;</span><span class="p">,</span><span class="n">header</span><span class="o">=</span><span class="bp">T</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">head</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
+<span class="nf">names</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A data.frame: 6 × 7</caption>
+<thead>
+	<tr><th></th><th scope="col">resident</th><th scope="col">gender</th><th scope="col">job</th><th scope="col">age</th><th scope="col">position</th><th scope="col">price</th><th scope="col">survey</th></tr>
+	<tr><th></th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;int&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><th scope="row">1</th><td> 1</td><td>1</td><td> 1</td><td>26</td><td> 2</td><td>5.1</td><td>1</td></tr>
+	<tr><th scope="row">2</th><td> 2</td><td>1</td><td> 2</td><td>54</td><td> 5</td><td>4.2</td><td>2</td></tr>
+	<tr><th scope="row">3</th><td>NA</td><td>1</td><td> 2</td><td>41</td><td> 4</td><td>4.7</td><td>4</td></tr>
+	<tr><th scope="row">4</th><td> 4</td><td>2</td><td>NA</td><td>45</td><td> 4</td><td>3.5</td><td>2</td></tr>
+	<tr><th scope="row">5</th><td> 5</td><td>1</td><td> 3</td><td>62</td><td> 5</td><td>5.0</td><td>1</td></tr>
+	<tr><th scope="row">6</th><td> 3</td><td>1</td><td> 2</td><td>57</td><td>NA</td><td>5.4</td><td>2</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>'resident'</li><li>'gender'</li><li>'job'</li><li>'age'</li><li>'position'</li><li>'price'</li><li>'survey'</li>&lt;/ol&gt;
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>print() 함수의 결과는 콘솔 창에서 확인할 수 있고, View() 함수의 결과는 별도의 창을 통해 테이블 형식으로 확인할 수 있다. </li>
+<li>여기서는 jupyter notebook으로 실행하기 때문에 생략한다.</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">tail</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A data.frame: 6 × 7</caption>
+<thead>
+	<tr><th></th><th scope="col">resident</th><th scope="col">gender</th><th scope="col">job</th><th scope="col">age</th><th scope="col">position</th><th scope="col">price</th><th scope="col">survey</th></tr>
+	<tr><th></th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;int&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><th scope="row">295</th><td>2</td><td>1</td><td>1</td><td>20</td><td>1</td><td>3.5</td><td>5</td></tr>
+	<tr><th scope="row">296</th><td>1</td><td>5</td><td>2</td><td>26</td><td>1</td><td>7.1</td><td>2</td></tr>
+	<tr><th scope="row">297</th><td>3</td><td>1</td><td>3</td><td>24</td><td>1</td><td>6.1</td><td>2</td></tr>
+	<tr><th scope="row">298</th><td>4</td><td>1</td><td>3</td><td>59</td><td>5</td><td>5.5</td><td>2</td></tr>
+	<tr><th scope="row">299</th><td>3</td><td>0</td><td>1</td><td>45</td><td>4</td><td>5.1</td><td>2</td></tr>
+	<tr><th scope="row">300</th><td>1</td><td>1</td><td>3</td><td>27</td><td>2</td><td>4.4</td><td>2</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>2) 데이터 셋 구조 보기<ul>
+<li>분석에 필요한 <code>데이터 셋의 구조</code>를 확인하는 함수는 <code>names(),attributes(),str()</code> 함수 등이 있다. 이러한 함수들을 이용하여 데이터 셋의 세부정보를 조회할 수 있다. 특히 attributes() 함수는 열 이름과 행 이름 그리고 자료구조 정보를 제공하며 str() 함수는 자료구조 그리고 관측치와 변수의 개수를 제공한다. </li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">names</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
+<span class="c1"># 변수명(칼럼) 조회</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>'resident'</li><li>'gender'</li><li>'job'</li><li>'age'</li><li>'position'</li><li>'price'</li><li>'survey'</li>&lt;/ol&gt;
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">attributes</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
+<span class="c1"># 열,행,그리고 자료구조 정보 제공</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<dl>
+	<dt>$names</dt>
+		<dd><style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>'resident'</li><li>'gender'</li><li>'job'</li><li>'age'</li><li>'position'</li><li>'price'</li><li>'survey'</li>&lt;/ol&gt;
+</dd>
+	<dt>$class</dt>
+		<dd>'data.frame'</dd>
+	<dt>$row.names</dt>
+		<dd><style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>1</li><li>2</li><li>3</li><li>4</li><li>5</li><li>6</li><li>7</li><li>8</li><li>9</li><li>10</li><li>11</li><li>12</li><li>13</li><li>14</li><li>15</li><li>16</li><li>17</li><li>18</li><li>19</li><li>20</li><li>21</li><li>22</li><li>23</li><li>24</li><li>25</li><li>26</li><li>27</li><li>28</li><li>29</li><li>30</li><li>31</li><li>32</li><li>33</li><li>34</li><li>35</li><li>36</li><li>37</li><li>38</li><li>39</li><li>40</li><li>41</li><li>42</li><li>43</li><li>44</li><li>45</li><li>46</li><li>47</li><li>48</li><li>49</li><li>50</li><li>51</li><li>52</li><li>53</li><li>54</li><li>55</li><li>56</li><li>57</li><li>58</li><li>59</li><li>60</li><li>61</li><li>62</li><li>63</li><li>64</li><li>65</li><li>66</li><li>67</li><li>68</li><li>69</li><li>70</li><li>71</li><li>72</li><li>73</li><li>74</li><li>75</li><li>76</li><li>77</li><li>78</li><li>79</li><li>80</li><li>81</li><li>82</li><li>83</li><li>84</li><li>85</li><li>86</li><li>87</li><li>88</li><li>89</li><li>90</li><li>91</li><li>92</li><li>93</li><li>94</li><li>95</li><li>96</li><li>97</li><li>98</li><li>99</li><li>100</li><li>101</li><li>102</li><li>103</li><li>104</li><li>105</li><li>106</li><li>107</li><li>108</li><li>109</li><li>110</li><li>111</li><li>112</li><li>113</li><li>114</li><li>115</li><li>116</li><li>117</li><li>118</li><li>119</li><li>120</li><li>121</li><li>122</li><li>123</li><li>124</li><li>125</li><li>126</li><li>127</li><li>128</li><li>129</li><li>130</li><li>131</li><li>132</li><li>133</li><li>134</li><li>135</li><li>136</li><li>137</li><li>138</li><li>139</li><li>140</li><li>141</li><li>142</li><li>143</li><li>144</li><li>145</li><li>146</li><li>147</li><li>148</li><li>149</li><li>150</li><li>151</li><li>152</li><li>153</li><li>154</li><li>155</li><li>156</li><li>157</li><li>158</li><li>159</li><li>160</li><li>161</li><li>162</li><li>163</li><li>164</li><li>165</li><li>166</li><li>167</li><li>168</li><li>169</li><li>170</li><li>171</li><li>172</li><li>173</li><li>174</li><li>175</li><li>176</li><li>177</li><li>178</li><li>179</li><li>180</li><li>181</li><li>182</li><li>183</li><li>184</li><li>185</li><li>186</li><li>187</li><li>188</li><li>189</li><li>190</li><li>191</li><li>192</li><li>193</li><li>194</li><li>195</li><li>196</li><li>197</li><li>198</li><li>199</li><li>200</li><li>201</li><li>202</li><li>203</li><li>204</li><li>205</li><li>206</li><li>207</li><li>208</li><li>209</li><li>210</li><li>211</li><li>212</li><li>213</li><li>214</li><li>215</li><li>216</li><li>217</li><li>218</li><li>219</li><li>220</li><li>221</li><li>222</li><li>223</li><li>224</li><li>225</li><li>226</li><li>227</li><li>228</li><li>229</li><li>230</li><li>231</li><li>232</li><li>233</li><li>234</li><li>235</li><li>236</li><li>237</li><li>238</li><li>239</li><li>240</li><li>241</li><li>242</li><li>243</li><li>244</li><li>245</li><li>246</li><li>247</li><li>248</li><li>249</li><li>250</li><li>251</li><li>252</li><li>253</li><li>254</li><li>255</li><li>256</li><li>257</li><li>258</li><li>259</li><li>260</li><li>261</li><li>262</li><li>263</li><li>264</li><li>265</li><li>266</li><li>267</li><li>268</li><li>269</li><li>270</li><li>271</li><li>272</li><li>273</li><li>274</li><li>275</li><li>276</li><li>277</li><li>278</li><li>279</li><li>280</li><li>281</li><li>282</li><li>283</li><li>284</li><li>285</li><li>286</li><li>287</li><li>288</li><li>289</li><li>290</li><li>291</li><li>292</li><li>293</li><li>294</li><li>295</li><li>296</li><li>297</li><li>298</li><li>299</li><li>300</li>&lt;/ol&gt;
+</dd>
+</dl>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">str</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>&#39;data.frame&#39;:	300 obs. of  7 variables:
+ $ resident: int  1 2 NA 4 5 3 2 5 NA 2 ...
+ $ gender  : int  1 1 1 2 1 1 2 1 1 1 ...
+ $ job     : int  1 2 2 NA 3 2 1 2 1 2 ...
+ $ age     : int  26 54 41 45 62 57 36 NA 56 37 ...
+ $ position: int  2 5 4 4 5 NA 3 3 5 3 ...
+ $ price   : num  5.1 4.2 4.7 3.5 5 5.4 4.1 675 4.4 4.9 ...
+ $ survey  : int  1 2 4 2 1 2 4 4 3 3 ...
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>3) 데이터 셋 조회<ul>
+<li>데이터 셋에 포함된 특정 변수의 내용을 조회하는 방법에 대해서 알아본다.</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">names</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>'resident'</li><li>'gender'</li><li>'job'</li><li>'age'</li><li>'position'</li><li>'price'</li><li>'survey'</li>&lt;/ol&gt;
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">dataset</span><span class="o">$</span><span class="n">resident</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>1</li><li>2</li><li>&lt;NA&gt;</li><li>4</li><li>5</li><li>3</li><li>2</li><li>5</li><li>&lt;NA&gt;</li><li>2</li><li>5</li><li>3</li><li>1</li><li>2</li><li>&lt;NA&gt;</li><li>1</li><li>3</li><li>2</li><li>1</li><li>1</li><li>1</li><li>1</li><li>2</li><li>1</li><li>1</li><li>2</li><li>1</li><li>1</li><li>2</li><li>1</li><li>1</li><li>2</li><li>1</li><li>3</li><li>2</li><li>5</li><li>1</li><li>3</li><li>2</li><li>4</li><li>2</li><li>5</li><li>3</li><li>5</li><li>5</li><li>3</li><li>1</li><li>1</li><li>1</li><li>4</li><li>1</li><li>2</li><li>1</li><li>1</li><li>1</li><li>&lt;NA&gt;</li><li>1</li><li>4</li><li>2</li><li>1</li><li>1</li><li>3</li><li>&lt;NA&gt;</li><li>1</li><li>1</li><li>2</li><li>&lt;NA&gt;</li><li>2</li><li>1</li><li>1</li><li>&lt;NA&gt;</li><li>5</li><li>1</li><li>3</li><li>1</li><li>1</li><li>3</li><li>1</li><li>&lt;NA&gt;</li><li>1</li><li>1</li><li>1</li><li>&lt;NA&gt;</li><li>1</li><li>5</li><li>1</li><li>2</li><li>1</li><li>5</li><li>2</li><li>5</li><li>1</li><li>2</li><li>1</li><li>1</li><li>4</li><li>2</li><li>1</li><li>2</li><li>5</li><li>1</li><li>2</li><li>1</li><li>5</li><li>1</li><li>5</li><li>3</li><li>1</li><li>1</li><li>3</li><li>4</li><li>1</li><li>3</li><li>1</li><li>1</li><li>5</li><li>3</li><li>1</li><li>&lt;NA&gt;</li><li>5</li><li>5</li><li>2</li><li>1</li><li>2</li><li>1</li><li>4</li><li>2</li><li>1</li><li>2</li><li>2</li><li>&lt;NA&gt;</li><li>1</li><li>3</li><li>1</li><li>2</li><li>1</li><li>1</li><li>2</li><li>1</li><li>1</li><li>2</li><li>1</li><li>1</li><li>2</li><li>1</li><li>3</li><li>2</li><li>5</li><li>1</li><li>3</li><li>2</li><li>4</li><li>2</li><li>5</li><li>3</li><li>5</li><li>5</li><li>3</li><li>1</li><li>1</li><li>1</li><li>4</li><li>1</li><li>2</li><li>1</li><li>1</li><li>1</li><li>&lt;NA&gt;</li><li>1</li><li>4</li><li>2</li><li>1</li><li>1</li><li>3</li><li>&lt;NA&gt;</li><li>1</li><li>1</li><li>2</li><li>&lt;NA&gt;</li><li>2</li><li>1</li><li>1</li><li>&lt;NA&gt;</li><li>5</li><li>1</li><li>3</li><li>1</li><li>1</li><li>3</li><li>1</li><li>&lt;NA&gt;</li><li>1</li><li>1</li><li>1</li><li>&lt;NA&gt;</li><li>1</li><li>5</li><li>1</li><li>2</li><li>1</li><li>5</li><li>2</li><li>5</li><li>1</li><li>2</li><li>1</li><li>1</li><li>4</li><li>2</li><li>1</li><li>2</li><li>5</li><li>1</li><li>2</li><li>1</li><li>5</li><li>1</li><li>5</li><li>3</li><li>1</li><li>1</li><li>3</li><li>4</li><li>1</li><li>3</li><li>1</li><li>1</li><li>5</li><li>3</li><li>1</li><li>&lt;NA&gt;</li><li>1</li><li>1</li><li>1</li><li>5</li><li>1</li><li>&lt;NA&gt;</li><li>5</li><li>1</li><li>1</li><li>5</li><li>1</li><li>5</li><li>5</li><li>1</li><li>2</li><li>&lt;NA&gt;</li><li>5</li><li>2</li><li>1</li><li>4</li><li>2</li><li>1</li><li>5</li><li>5</li><li>2</li><li>1</li><li>2</li><li>1</li><li>3</li><li>4</li><li>1</li><li>3</li><li>1</li><li>1</li><li>5</li><li>3</li><li>1</li><li>5</li><li>1</li><li>1</li><li>5</li><li>1</li><li>5</li><li>5</li><li>1</li><li>2</li><li>&lt;NA&gt;</li><li>5</li><li>2</li><li>1</li><li>4</li><li>2</li><li>1</li><li>4</li><li>2</li><li>1</li><li>1</li><li>1</li><li>1</li><li>5</li><li>1</li><li>2</li><li>1</li><li>2</li><li>1</li><li>3</li><li>4</li><li>3</li><li>1</li>&lt;/ol&gt;
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">length</span><span class="p">(</span><span class="n">dataset</span><span class="o">$</span><span class="n">resident</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+300
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>위의 특정 변수의 조회 결과를 변수에 저장하기</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">$</span><span class="n">age</span>
+<span class="n">x</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>26</li><li>54</li><li>41</li><li>45</li><li>62</li><li>57</li><li>36</li><li>&lt;NA&gt;</li><li>56</li><li>37</li><li>29</li><li>35</li><li>56</li><li>20</li><li>63</li><li>49</li><li>49</li><li>49</li><li>25</li><li>57</li><li>56</li><li>21</li><li>69</li><li>63</li><li>30</li><li>34</li><li>26</li><li>59</li><li>38</li><li>57</li><li>60</li><li>49</li><li>65</li><li>&lt;NA&gt;</li><li>49</li><li>23</li><li>63</li><li>&lt;NA&gt;</li><li>45</li><li>29</li><li>28</li><li>65</li><li>60</li><li>32</li><li>25</li><li>&lt;NA&gt;</li><li>38</li><li>65</li><li>&lt;NA&gt;</li><li>24</li><li>61</li><li>41</li><li>63</li><li>30</li><li>37</li><li>22</li><li>29</li><li>&lt;NA&gt;</li><li>25</li><li>36</li><li>47</li><li>64</li><li>&lt;NA&gt;</li><li>28</li><li>65</li><li>24</li><li>62</li><li>62</li><li>28</li><li>63</li><li>&lt;NA&gt;</li><li>26</li><li>40</li><li>52</li><li>&lt;NA&gt;</li><li>43</li><li>44</li><li>30</li><li>48</li><li>41</li><li>54</li><li>44</li><li>29</li><li>31</li><li>49</li><li>64</li><li>65</li><li>46</li><li>42</li><li>38</li><li>65</li><li>40</li><li>42</li><li>40</li><li>55</li><li>41</li><li>63</li><li>45</li><li>59</li><li>43</li><li>&lt;NA&gt;</li><li>63</li><li>47</li><li>45</li><li>44</li><li>&lt;NA&gt;</li><li>27</li><li>37</li><li>35</li><li>69</li><li>20</li><li>&lt;NA&gt;</li><li>20</li><li>24</li><li>46</li><li>25</li><li>&lt;NA&gt;</li><li>21</li><li>53</li><li>33</li><li>56</li><li>45</li><li>60</li><li>38</li><li>&lt;NA&gt;</li><li>63</li><li>41</li><li>27</li><li>37</li><li>20</li><li>63</li><li>49</li><li>49</li><li>21</li><li>69</li><li>63</li><li>30</li><li>34</li><li>26</li><li>59</li><li>38</li><li>57</li><li>60</li><li>49</li><li>65</li><li>&lt;NA&gt;</li><li>49</li><li>23</li><li>63</li><li>&lt;NA&gt;</li><li>45</li><li>29</li><li>28</li><li>65</li><li>60</li><li>32</li><li>25</li><li>&lt;NA&gt;</li><li>38</li><li>65</li><li>&lt;NA&gt;</li><li>24</li><li>61</li><li>41</li><li>63</li><li>30</li><li>37</li><li>22</li><li>29</li><li>&lt;NA&gt;</li><li>25</li><li>36</li><li>47</li><li>64</li><li>&lt;NA&gt;</li><li>28</li><li>65</li><li>24</li><li>62</li><li>62</li><li>28</li><li>63</li><li>&lt;NA&gt;</li><li>26</li><li>40</li><li>52</li><li>&lt;NA&gt;</li><li>43</li><li>44</li><li>30</li><li>48</li><li>41</li><li>54</li><li>44</li><li>29</li><li>31</li><li>49</li><li>64</li><li>65</li><li>46</li><li>42</li><li>38</li><li>65</li><li>40</li><li>42</li><li>40</li><li>55</li><li>41</li><li>63</li><li>45</li><li>59</li><li>43</li><li>&lt;NA&gt;</li><li>63</li><li>47</li><li>45</li><li>44</li><li>&lt;NA&gt;</li><li>27</li><li>37</li><li>35</li><li>69</li><li>20</li><li>&lt;NA&gt;</li><li>20</li><li>24</li><li>46</li><li>25</li><li>&lt;NA&gt;</li><li>21</li><li>53</li><li>47</li><li>48</li><li>22</li><li>48</li><li>21</li><li>51</li><li>64</li><li>27</li><li>64</li><li>54</li><li>&lt;NA&gt;</li><li>42</li><li>54</li><li>25</li><li>54</li><li>60</li><li>&lt;NA&gt;</li><li>63</li><li>43</li><li>21</li><li>23</li><li>24</li><li>33</li><li>56</li><li>45</li><li>60</li><li>38</li><li>&lt;NA&gt;</li><li>63</li><li>20</li><li>60</li><li>20</li><li>24</li><li>46</li><li>25</li><li>50</li><li>21</li><li>64</li><li>27</li><li>64</li><li>54</li><li>&lt;NA&gt;</li><li>42</li><li>54</li><li>25</li><li>54</li><li>60</li><li>&lt;NA&gt;</li><li>63</li><li>43</li><li>21</li><li>23</li><li>24</li><li>63</li><li>41</li><li>27</li><li>47</li><li>48</li><li>22</li><li>48</li><li>21</li><li>55</li><li>43</li><li>20</li><li>26</li><li>24</li><li>59</li><li>45</li><li>27</li>&lt;/ol&gt;
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>산점도 그래프로 변수 조회</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">plot</span><span class="p">(</span><span class="n">dataset</span><span class="o">$</span><span class="n">price</span><span class="p">)</span>
+<span class="c1"># x축은 index 즉, price의 순서?이니까 딱 300개가 있을 것이다.</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+cATObFhu3hxyAmc2jPCkYcwn/GM8R5rwDo5ASPPN2+hPIaTh1/KYT/jH2KgnvIPj6od2y/fN
+235P4KFdPfzjjpGfpwz+MGvKz8uu39lQystmnbzHZqme5i19xpQ3rHOmvLxX7/6utm+f/5Q9
+tWGKt/QZU96wzpny8jogO6YJP2c4a8LLK6QxTXgv1lkTXt5USB/za+fk1yEmabLHVb4x2eW9
+NqRFD3/48pFCYiKuDOnYkb12PLIrQ6rKWz0rq9Xs/s+1gysEzmx4+bw3Wk7igCz8VSCk9837
+NXiOxEO7MqT550O7VXmqP4TEQ0u8Hml2+OvmKULizly7+/tl89VzKYvQ/JwZAm6fMxsgQEgQ
+ENhrt+WvmvPQQiH5q+Y8titC8lfNYe+aeyR/1Rx2Us+RsoTEnbHXDgK8sA8CvLAPArywDwK8
+sA8CvLAPArywDwK8sA8CvLAPArywDwKmcmbDfx7IOvn10+vvD45tPp6b+v57u8/7Xzs/Iz/P
+3pnrnhyea3zRy7uV/uexwMPsda51vM3+77rfLO/ht05v7dIa6njNk2+cGb41hXPzvBv3P27x
++wrpcJs2b4Ttl8eflcPPW2ulbv2kbm45h28cJtj+3d2UGxOq6+Zg9eHjyc9K63eaX7Q3jeYG
+c0bdXKjS2Rb2122u9sZvl9bP6taSn7tpWlc5ne7J7DTXx/Hit4vRvu43y9sepTmTJ1c5Ls/u
+1+vG+jj5re7l5jeaK65uzWZpX/u/NtkfNNLvzE7M+Yk17yAaC/nNLdxaISd9tLbFk7V1Zgrd
+iXWn2NzovpmR5m21+7D9/3DN7qidcTvXP5nFzpbe+qK5tTX+OTkdtTuTpbF43Z92NuGfJnZu
+NlszU7eX9+t2rL+Z4MmctVP4eS7q/ZRPptBYhu3PT1b04fqXbrIXbeUXTf9vvgmpc4/TWc7d
+it/fQM3f2W2yX5ttc/ttrZnj6tlNpW5c/2Qltgfa/2tW162fHNdYac5de6DdktW77aC1Ro+z
+2Vyierco+5npBFE3tpT9JL9xvGbdnOPO5n7ctk6Wtzu15v/dCe6vW5/bdjv/brT+XaqPEzl8
+3k/vcP9c77/s3DjtqdbHW6e5euuyn0Jj+2jV1rz+xZvs5Vv5vNqcG/RRXbTT7uNlvl2g+eKX
+8yDOztXhNm2sx+OG19hsDjfw4YY4htTYFOrGdPZT72yTdeu/cu5WbWyGzY2jU1FzYrtfPqz0
+ej9f+y2+7v7yyZZWd7aF9ujNn57+a3C4fY7fPFnm1jbauFFb23F9bs5a/1h0F6M1X8c86tav
+Nm/R0pyH5k9bN1FzZe9v2vbMNpe2bv5yo/D9+m9NqrFpNa508SZ7+Va+KMvt5+UFu+3WzRcC
+/nwixHchdZapswL2a6d507Vu0fbNv/uFuj730+52cHaob1ftyZcnE6uPG1X9c0hnRq6bm2R9
+5ucnIR22k58X4odl7mzqjQcHl137+5C+mdR3P/3vkE5m5L9C6i73129euMn+rHmVUroXvrco
+1dtXdqv36ufw/jekRjvdTa55ix1ux/3399tvc8WdXr90p3xcm4fpNB7onPk3rLU2S2t9NUva
+X7exNTVWaOsf1f3KD4V0srH+HFIpx6HLYcGbS97d2PcroHm3vV9jdXvIxrI1l7Kz1lo/Ozys
+20+vNSMnMbQ2pP3V68Pd+XGk1ujN61+4yf6seZXqcI/0+7sI7X/3gt//bl5L+8Fdc3W01mq3
+t8PDwMMW1dwEjz88rPHS0NgMGhtz9xdbIbXX2+k2WTfWULvV7uCHJW3MzJlN9PxNcMhqP2Rz
+2zluQ60hO9voYcHPLE1z/jozfSbaw7bZ/bX65Lp144fNm+Zk1bQWb5dQ8+qHhWl982TAxmwc
+/1lrzd6vHV0b0ue9zObpzuc9zMvv1zt7V9b4TmvZzk/g/G153NBPf1AftpbW2jtZScdN7WTC
+jS3w/PrslHV2Rs7Mb9ltya1pnm3p5DsnQ3xzu7Sm2Jl03fr0+4z++PPmbP0wxdav/8fN1Lm5
+68Ol1rj7f5S6W9PpdM9PoTX7307i9you1LrKbDf1C14ge/U90nFhm//UNpe9bn+9v9RYfYdN
+vq6b32ndHx1vr3O3aN389cPESvvDyXZed7+o96vksGraVzwu8fGXm5NqjXFmU69PvuhsIO1/
+bhvL217M0+VtLmrd3PaaEyvntJa7u0zN5d010RihtH7SmkJzUuduyfYMndmguheav3RcsLPX
+/32T/UH7Km+bHXHzS17W93nv9b7aXvrbc6Tdj5qb1eFb7WXffziugvPTaV/32189DtLdFvaz
+2vnJD7d3Z/jLtMb75oqNzbk+dwM2t4jWlz/cPD8v73Fujrfl5cv03fJ1v/PniXYmd8VkLrru
+1SH9h/2918bTupchdldP3PiXjtX5PK7+5+a2lvd2DBlS/bHYHkeq5i9/OY50m25sw/ruDik8
+wM0s780YNKRbGiKm9033vzQe1/Y1QuMjB0K6Vv+b7v/p+3HtrS3vjRDS9YZ8SnYLHm15LyIk
+CBASBAgJAoQEAUKCACFBgJAgQEgQICQIEBIECAkChAQBQoIAIUGAkCBASBAgJAgQEgQICQKE
+BAFCggAhQYCQIEBIECAkCBASBEw/JG+wywCmHpK3fGcQkw8pPD04a+Ih+bNYDENIECAkCJh4
+SJ4jMYzJh2SvHUOYekiOIzGI6YcEAxASBAgJAoQEAUKCACFBgJAgQEgQICQIEBIECAkChAQB
+QoIAIUGAkCBASBAgJAgQEgQICQKEBAFCggAhQYCQIEBIECAkCBASBAgJAoQEAUKCACFBgJAg
+QEgQICQIEBIECAkChAQBQoIAIUGAkCBg0JA+XuZlY7746GsIGMWAIa2fytGslyFgJAOGtCjV
+23J7afVelUUfQ8BIBgypKsvD5WWp+hgCRjJgSKV890VsCBiJeyQIGPY50vtqe8lzJKZmyN3f
+s8Zeu6d1L0PAOIY9jrTYHkeq5i+OIzEtzmyAACFBgFOEIMApQhDgFCEIcEAWApwiBAHukSDA
+KUIQ4BQhCLidU4RK05+HgFE4swEChAQBQ4a0fi5l9r6biN3fTMmQpwhVXyfafU1ESEzJoLu/
+Xz9req22p9kJiUkZ9IDs9tOqeloJiYkZ4RSh9WwmJCZmwJCeyv4g7NNMSEzLgCG9lufdpVWZ
+CYlJGXL39+JQz/svJy8IiTsz6AHZ5Xx/afUsJKbEmQ0QICQIGCOk30/uFhLfCbw2oI+XFwiJ
+e7Lddq7rIDCJc1Md5CqdCQiJPyqNj+NN4tup9n2VzgSExN+UzudxJvHTZPu9SmcCQuJvhNSa
+gJD4GyHd3BDcJc+Rbm0I7pK9drc2BHfKcaTbGgKShAQBQoIAIUGAkCBASBAgJAgQEgQICQKE
+BAFCggAhQYCQIEBIECAkCBASBAgJAoQEAUKCACFBgJAgQEgQICQIEBIECAkChAQBQoIAIUGA
+kCBASBAgJAgQEgQICQKEBAFCggAhQYCQIEBIECAkCBASBAgJAoQEAUKCACFBgJAgQEgQICQI
+EBIXKMUq+ZmQ+NW2Iin9SEj8qjQ+cp6Q+E3pfOYMIfEbIV1ASPxGSBcQEr/yHOl3QuJX9tr9
+TkhcwHGk3wgJAoQEAUKCgEFD+niZl4354qOvIWAUA4a0fipHs16GgJEMGNKiVG/L7aXVe1UW
+fQwBIxkwpKosD5eXpepjCBjJgCG1DkX8fFxCSNwZ90gQMOxzpPfV9pLnSEzNkLu/Z429dk/r
+XoaAcQx7HGmxPY5UzV8cR2JanNkAAUKCAKcIQYBThCDAKUIQ4IAsBDhFCALcI0GAU4QgwClC
+EHA7pwiVpj8PAaNwZgMECAkCRgnp14duQuLOCAkCBj0ge/H+BCFxZwYM6aMSElM15EO79bzM
+tkdkPbRjaoZ9jvRWylstJKZn4J0Nq1mZr4XE5Ay+1+6lVO9CYmqG3/29fPr9FCAhcWfGOI70
+LCSmxilCEDBGSL+f3C0k7oyQIEBIECAkCBASBAgJAuz+hgAhQYCQIEBIECAkCBDSn3gPS9qE
+9AfbiqREg5D+oDQ+woaQ/l/pfAYh/YGQOCGk/yckTgjpDzxHoktIf2CvHV1C+hPHkWgTEgQI
+CQKEBAFCggAhQYCQIEBIECAkCBASBAgJAoQEAUKCACFBgJAgQEgQICQIEBIECAkCbjQkuDN/
+2Mrz4dzeyIYyVN9DCclQhrq1id3qyIYyVN9DCclQhrq1id3qyIYyVN9DCclQhrq1id3qyIYy
+VN9DCclQhrq1id3qyIYyVN9DCclQhrq1id3qyIYyVN9DCclQhrq1icGjEhIECAkChAQBQoIA
+IUGAkCBASBAgJAgQEgQICQKEBAFCggAhQYCQIEBIEDBSSIuqVIt1z4M03xC9zwFf9zdiY5Ce
+xtsP1fuivT6dW5Seh+p7qdbPpTwv6+70I0ONE9Jse4M99TvIsrFe+hxwuf/jBY1BehpvP1Tv
+i7bYTrRa1/0v1XGo3peq2k502Zl+ZqhRQvoo1bJeVuWj11GWZT7EgJ+TLd1BehrvMFTfi7Ys
+z+vN3d9z/0vVGKrvpVpsBllsB8kv1SghLcr758e38tLrKK/H6fc44GuZ7R+MHAfpZ7zjUH0v
+2vxrmM1ofS9VY6i+l6oq691IPSzVKCHNy6pu/QPUi9fyOsCAZVHvtu7GIP2MdxxqmEXbjtb7
+Uh2HGmiFVXUfSzVKSKU0P/VlXt6fP59F9jzgsjv1zad+xjsONcyirctsgKU6DjXIUi22teaX
+atIhbc16H3CokOpGSEMs2uvmQc8wIW2HGmCp3krphiqk30d5+/ynbvsv0NRCGmTRVtW8Hiik
+/VC9L9XrvNo+GRLSf1tvdmxOLaQv/S7aupo1JtzrUu2G2n3R8wp77oR6zyFVA4a0HaXfAXeT
+bQzS23jtKfY61OzryMoQSzVrHcTpeYWtN3sb8ks14l67Vc977XaOu576GrC112513BPUw3in
+IfU01Oppttpe6H+pDkPt9L3COtMPDTVKSC/bXffvX8/7evN12GB7C/U74G7rbgzS23iHO7+e
+F+297B9s9b5Ux6H6Xqr99J/6WKpRQhrmzIbF5rZZb4+39TvgYGc2HIbqe9FWh42796VqDNX3
+Um3PbFjPN8+RJnJmQ/102M/Zo/XXqVWL3gfcP95qDNLXeLuh+l6053I87a3npWoM1fsKq84u
+SmaocUJab0+4HWKUp9f+B9yH1Bikr/GaQ/W4aOW4dfe9VN2hel1hZ6efGWqckGBihAQBQoIA
+IUGAkCBASBAgJAgQEgQICQKEBAFCggAhQYCQIEBIECAkCBASBAgJAoQEAUKCACFBgJAgQEgQ
+ICQIEBIECAkChAQBQoIAIUGAkCBASBAgJAgQEgQICQKEdA/O/+36a/+iPUHWxT0Q0s2zLu6B
+kG6edXEPhHTzrIt7sE2mlNW8VC/bbyyqstiF9PpUqs1f6p6Vj8+PH+V5vNl8ZEK6B7uQqvJp
+U9Jsc2G+/e58c7HM6npVqs8vq2o97qw+KiHdg11Is3X9Wp7q+q1Uy3pZbb77vvnmelbeP++a
+Pht7KW9jz+uDEtI92IX0sbs43156/7q4uQdal3m9uZ963X5mBEK6B7uQ9hd3exm+Lu7Umwd3
+n0+jRpzLhyake3BZSPWiLMabxwcnpHvwU0jH33KPNCIh3YNOSPPNvoX643jxy/zzOdJspDl8
+eEK6B52Q3o977bY78OrtToa3zwd2L+V15Fl9VEK6B52Qvg4ePW8vbg8plWpVr6vtcSQP7sYh
+pHvQDal+aZ3ZUJ4/63nendngwd0ohAQBQoIAIUGAkCBASBAgJAgQEgQICQKEBAFCggAhQYCQ
+IEBIECAkCBASBAgJAoQEAUKCACFBgJAgQEgQICQIEBIECAkChAQBQoIAIUGAkCBASBAgJAgQ
+EgT8AzrNGKKoLj6OAAAAAElFTkSuQmCC" width="420" height="420" />
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>칼럼명을 이용하여 특정 변수 조회</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">head</span><span class="p">(</span><span class="n">dataset</span><span class="p">[</span><span class="s">&#39;gender&#39;</span><span class="p">])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A data.frame: 6 × 1</caption>
+<thead>
+	<tr><th></th><th scope="col">gender</th></tr>
+	<tr><th></th><th scope="col">&lt;int&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><th scope="row">1</th><td>1</td></tr>
+	<tr><th scope="row">2</th><td>1</td></tr>
+	<tr><th scope="row">3</th><td>1</td></tr>
+	<tr><th scope="row">4</th><td>2</td></tr>
+	<tr><th scope="row">5</th><td>1</td></tr>
+	<tr><th scope="row">6</th><td>1</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>색인을 사용하여 특정 변수 조회</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">dataset</span><span class="p">[</span><span class="m">2</span><span class="p">]</span>
+<span class="c1"># 두 번째 칼럼 조회</span>
+<span class="c1"># 칼럼이 default</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A data.frame: 300 × 1</caption>
+<thead>
+	<tr><th scope="col">gender</th></tr>
+	<tr><th scope="col">&lt;int&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><td>1</td></tr>
+	<tr><td>1</td></tr>
+	<tr><td>1</td></tr>
+	<tr><td>2</td></tr>
+	<tr><td>1</td></tr>
+	<tr><td>1</td></tr>
+	<tr><td>2</td></tr>
+	<tr><td>1</td></tr>
+	<tr><td>1</td></tr>
+	<tr><td>1</td></tr>
+	<tr><td>2</td></tr>
+	<tr><td>1</td></tr>
+	<tr><td>1</td></tr>
+	<tr><td>2</td></tr>
+	<tr><td>1</td></tr>
+	<tr><td>1</td></tr>
+	<tr><td>1</td></tr>
+	<tr><td>1</td></tr>
+	<tr><td>2</td></tr>
+	<tr><td>1</td></tr>
+	<tr><td>1</td></tr>
+	<tr><td>1</td></tr>
+	<tr><td>1</td></tr>
+	<tr><td>1</td></tr>
+	<tr><td>1</td></tr>
+	<tr><td>2</td></tr>
+	<tr><td>1</td></tr>
+	<tr><td>1</td></tr>
+	<tr><td>1</td></tr>
+	<tr><td>2</td></tr>
+	<tr><td>⋮</td></tr>
+	<tr><td>2</td></tr>
+	<tr><td>1</td></tr>
+	<tr><td>2</td></tr>
+	<tr><td>2</td></tr>
+	<tr><td>2</td></tr>
+	<tr><td>1</td></tr>
+	<tr><td>2</td></tr>
+	<tr><td>1</td></tr>
+	<tr><td>1</td></tr>
+	<tr><td>2</td></tr>
+	<tr><td>2</td></tr>
+	<tr><td>2</td></tr>
+	<tr><td>2</td></tr>
+	<tr><td>1</td></tr>
+	<tr><td>2</td></tr>
+	<tr><td>1</td></tr>
+	<tr><td>2</td></tr>
+	<tr><td>1</td></tr>
+	<tr><td>2</td></tr>
+	<tr><td>2</td></tr>
+	<tr><td>2</td></tr>
+	<tr><td>2</td></tr>
+	<tr><td>0</td></tr>
+	<tr><td>2</td></tr>
+	<tr><td>1</td></tr>
+	<tr><td>5</td></tr>
+	<tr><td>1</td></tr>
+	<tr><td>1</td></tr>
+	<tr><td>0</td></tr>
+	<tr><td>1</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">dataset</span><span class="p">[</span><span class="m">3</span><span class="p">,]</span>
+<span class="c1"># 3번째 행, 모든 열</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A data.frame: 1 × 7</caption>
+<thead>
+	<tr><th></th><th scope="col">resident</th><th scope="col">gender</th><th scope="col">job</th><th scope="col">age</th><th scope="col">position</th><th scope="col">price</th><th scope="col">survey</th></tr>
+	<tr><th></th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;int&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><th scope="row">3</th><td>NA</td><td>1</td><td>2</td><td>41</td><td>4</td><td>4.7</td><td>4</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">dataset</span><span class="p">[,</span><span class="m">3</span><span class="p">]</span>
+<span class="n">dataset</span><span class="p">[</span><span class="m">3</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>1</li><li>2</li><li>2</li><li>&lt;NA&gt;</li><li>3</li><li>2</li><li>1</li><li>2</li><li>1</li><li>2</li><li>&lt;NA&gt;</li><li>3</li><li>1</li><li>3</li><li>2</li><li>1</li><li>2</li><li>3</li><li>2</li><li>1</li><li>&lt;NA&gt;</li><li>3</li><li>1</li><li>2</li><li>1</li><li>3</li><li>1</li><li>1</li><li>2</li><li>1</li><li>1</li><li>2</li><li>1</li><li>3</li><li>1</li><li>3</li><li>1</li><li>2</li><li>2</li><li>1</li><li>3</li><li>&lt;NA&gt;</li><li>1</li><li>2</li><li>1</li><li>2</li><li>3</li><li>3</li><li>1</li><li>2</li><li>2</li><li>2</li><li>1</li><li>3</li><li>2</li><li>2</li><li>1</li><li>3</li><li>2</li><li>2</li><li>1</li><li>3</li><li>2</li><li>2</li><li>1</li><li>2</li><li>2</li><li>1</li><li>3</li><li>2</li><li>2</li><li>&lt;NA&gt;</li><li>3</li><li>2</li><li>1</li><li>2</li><li>3</li><li>2</li><li>2</li><li>1</li><li>2</li><li>3</li><li>2</li><li>2</li><li>2</li><li>1</li><li>3</li><li>2</li><li>2</li><li>1</li><li>3</li><li>1</li><li>1</li><li>2</li><li>3</li><li>2</li><li>2</li><li>3</li><li>2</li><li>2</li><li>3</li><li>3</li><li>&lt;NA&gt;</li><li>3</li><li>1</li><li>3</li><li>2</li><li>3</li><li>3</li><li>3</li><li>2</li><li>3</li><li>3</li><li>1</li><li>2</li><li>3</li><li>3</li><li>1</li><li>3</li><li>2</li><li>3</li><li>3</li><li>3</li><li>1</li><li>3</li><li>3</li><li>2</li><li>3</li><li>2</li><li>3</li><li>2</li><li>1</li><li>2</li><li>3</li><li>1</li><li>2</li><li>1</li><li>3</li><li>1</li><li>1</li><li>2</li><li>1</li><li>1</li><li>2</li><li>1</li><li>3</li><li>1</li><li>3</li><li>1</li><li>2</li><li>2</li><li>1</li><li>3</li><li>&lt;NA&gt;</li><li>1</li><li>2</li><li>1</li><li>2</li><li>3</li><li>3</li><li>1</li><li>2</li><li>2</li><li>2</li><li>1</li><li>3</li><li>2</li><li>2</li><li>1</li><li>3</li><li>2</li><li>2</li><li>1</li><li>3</li><li>2</li><li>2</li><li>1</li><li>2</li><li>2</li><li>1</li><li>3</li><li>2</li><li>2</li><li>&lt;NA&gt;</li><li>3</li><li>2</li><li>1</li><li>2</li><li>3</li><li>2</li><li>2</li><li>1</li><li>2</li><li>3</li><li>2</li><li>2</li><li>2</li><li>1</li><li>3</li><li>2</li><li>2</li><li>1</li><li>3</li><li>1</li><li>1</li><li>2</li><li>3</li><li>2</li><li>2</li><li>3</li><li>2</li><li>2</li><li>3</li><li>3</li><li>&lt;NA&gt;</li><li>3</li><li>1</li><li>3</li><li>2</li><li>3</li><li>3</li><li>3</li><li>2</li><li>3</li><li>3</li><li>1</li><li>2</li><li>3</li><li>3</li><li>1</li><li>3</li><li>3</li><li>2</li><li>3</li><li>1</li><li>3</li><li>3</li><li>2</li><li>&lt;NA&gt;</li><li>1</li><li>3</li><li>1</li><li>3</li><li>3</li><li>&lt;NA&gt;</li><li>3</li><li>1</li><li>3</li><li>2</li><li>3</li><li>3</li><li>3</li><li>3</li><li>2</li><li>3</li><li>3</li><li>3</li><li>1</li><li>3</li><li>3</li><li>2</li><li>3</li><li>3</li><li>1</li><li>2</li><li>3</li><li>3</li><li>1</li><li>2</li><li>&lt;NA&gt;</li><li>1</li><li>3</li><li>1</li><li>3</li><li>3</li><li>&lt;NA&gt;</li><li>3</li><li>1</li><li>3</li><li>2</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>2</li><li>3</li><li>3</li><li>2</li><li>3</li><li>1</li><li>3</li><li>1</li><li>2</li><li>1</li><li>2</li><li>3</li><li>3</li><li>1</li><li>3</li>&lt;/ol&gt;
+
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A data.frame: 300 × 1</caption>
+<thead>
+	<tr><th scope="col">job</th></tr>
+	<tr><th scope="col">&lt;int&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><td> 1</td></tr>
+	<tr><td> 2</td></tr>
+	<tr><td> 2</td></tr>
+	<tr><td>NA</td></tr>
+	<tr><td> 3</td></tr>
+	<tr><td> 2</td></tr>
+	<tr><td> 1</td></tr>
+	<tr><td> 2</td></tr>
+	<tr><td> 1</td></tr>
+	<tr><td> 2</td></tr>
+	<tr><td>NA</td></tr>
+	<tr><td> 3</td></tr>
+	<tr><td> 1</td></tr>
+	<tr><td> 3</td></tr>
+	<tr><td> 2</td></tr>
+	<tr><td> 1</td></tr>
+	<tr><td> 2</td></tr>
+	<tr><td> 3</td></tr>
+	<tr><td> 2</td></tr>
+	<tr><td> 1</td></tr>
+	<tr><td>NA</td></tr>
+	<tr><td> 3</td></tr>
+	<tr><td> 1</td></tr>
+	<tr><td> 2</td></tr>
+	<tr><td> 1</td></tr>
+	<tr><td> 3</td></tr>
+	<tr><td> 1</td></tr>
+	<tr><td> 1</td></tr>
+	<tr><td> 2</td></tr>
+	<tr><td> 1</td></tr>
+	<tr><td>⋮</td></tr>
+	<tr><td> 1</td></tr>
+	<tr><td> 3</td></tr>
+	<tr><td> 1</td></tr>
+	<tr><td> 3</td></tr>
+	<tr><td> 3</td></tr>
+	<tr><td>NA</td></tr>
+	<tr><td> 3</td></tr>
+	<tr><td> 1</td></tr>
+	<tr><td> 3</td></tr>
+	<tr><td> 2</td></tr>
+	<tr><td> 3</td></tr>
+	<tr><td> 3</td></tr>
+	<tr><td> 3</td></tr>
+	<tr><td> 3</td></tr>
+	<tr><td> 3</td></tr>
+	<tr><td> 2</td></tr>
+	<tr><td> 3</td></tr>
+	<tr><td> 3</td></tr>
+	<tr><td> 2</td></tr>
+	<tr><td> 3</td></tr>
+	<tr><td> 1</td></tr>
+	<tr><td> 3</td></tr>
+	<tr><td> 1</td></tr>
+	<tr><td> 2</td></tr>
+	<tr><td> 1</td></tr>
+	<tr><td> 2</td></tr>
+	<tr><td> 3</td></tr>
+	<tr><td> 3</td></tr>
+	<tr><td> 1</td></tr>
+	<tr><td> 3</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>2개 이상의 칼럼 조회</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">dataset</span><span class="p">[</span><span class="nf">c</span><span class="p">(</span><span class="s">&#39;age&#39;</span><span class="p">,</span><span class="s">&#39;price&#39;</span><span class="p">)]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A data.frame: 300 × 2</caption>
+<thead>
+	<tr><th scope="col">age</th><th scope="col">price</th></tr>
+	<tr><th scope="col">&lt;int&gt;</th><th scope="col">&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><td>26</td><td>  5.1</td></tr>
+	<tr><td>54</td><td>  4.2</td></tr>
+	<tr><td>41</td><td>  4.7</td></tr>
+	<tr><td>45</td><td>  3.5</td></tr>
+	<tr><td>62</td><td>  5.0</td></tr>
+	<tr><td>57</td><td>  5.4</td></tr>
+	<tr><td>36</td><td>  4.1</td></tr>
+	<tr><td>NA</td><td>675.0</td></tr>
+	<tr><td>56</td><td>  4.4</td></tr>
+	<tr><td>37</td><td>  4.9</td></tr>
+	<tr><td>29</td><td>  2.3</td></tr>
+	<tr><td>35</td><td>  4.2</td></tr>
+	<tr><td>56</td><td>  6.7</td></tr>
+	<tr><td>20</td><td>  4.3</td></tr>
+	<tr><td>63</td><td>257.8</td></tr>
+	<tr><td>49</td><td>  5.7</td></tr>
+	<tr><td>49</td><td>  4.6</td></tr>
+	<tr><td>49</td><td>  5.1</td></tr>
+	<tr><td>25</td><td>  2.1</td></tr>
+	<tr><td>57</td><td>  5.1</td></tr>
+	<tr><td>56</td><td>  6.2</td></tr>
+	<tr><td>21</td><td>  5.1</td></tr>
+	<tr><td>69</td><td>  4.1</td></tr>
+	<tr><td>63</td><td>  4.1</td></tr>
+	<tr><td>30</td><td>-75.0</td></tr>
+	<tr><td>34</td><td>  2.3</td></tr>
+	<tr><td>26</td><td>  5.0</td></tr>
+	<tr><td>59</td><td>   NA</td></tr>
+	<tr><td>38</td><td>  5.2</td></tr>
+	<tr><td>57</td><td>  4.7</td></tr>
+	<tr><td>⋮</td><td>⋮</td></tr>
+	<tr><td>64</td><td>    NA</td></tr>
+	<tr><td>54</td><td>   6.4</td></tr>
+	<tr><td>NA</td><td>-235.8</td></tr>
+	<tr><td>42</td><td>    NA</td></tr>
+	<tr><td>54</td><td>   7.9</td></tr>
+	<tr><td>25</td><td>   6.4</td></tr>
+	<tr><td>54</td><td>   6.3</td></tr>
+	<tr><td>60</td><td>   6.1</td></tr>
+	<tr><td>NA</td><td>    NA</td></tr>
+	<tr><td>63</td><td>   6.3</td></tr>
+	<tr><td>43</td><td>    NA</td></tr>
+	<tr><td>21</td><td>   6.0</td></tr>
+	<tr><td>23</td><td>   6.9</td></tr>
+	<tr><td>24</td><td>    NA</td></tr>
+	<tr><td>63</td><td> 336.5</td></tr>
+	<tr><td>41</td><td>   6.2</td></tr>
+	<tr><td>27</td><td>   5.9</td></tr>
+	<tr><td>47</td><td>    NA</td></tr>
+	<tr><td>48</td><td>   6.9</td></tr>
+	<tr><td>22</td><td>    NA</td></tr>
+	<tr><td>48</td><td>   7.7</td></tr>
+	<tr><td>21</td><td>   6.3</td></tr>
+	<tr><td>55</td><td>   5.5</td></tr>
+	<tr><td>43</td><td>   4.5</td></tr>
+	<tr><td>20</td><td>   3.5</td></tr>
+	<tr><td>26</td><td>   7.1</td></tr>
+	<tr><td>24</td><td>   6.1</td></tr>
+	<tr><td>59</td><td>   5.5</td></tr>
+	<tr><td>45</td><td>   5.1</td></tr>
+	<tr><td>27</td><td>   4.4</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">dataset</span><span class="p">[</span><span class="nf">c</span><span class="p">(</span><span class="m">2</span><span class="p">,</span><span class="m">6</span><span class="p">)]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A data.frame: 300 × 2</caption>
+<thead>
+	<tr><th scope="col">gender</th><th scope="col">price</th></tr>
+	<tr><th scope="col">&lt;int&gt;</th><th scope="col">&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><td>1</td><td>  5.1</td></tr>
+	<tr><td>1</td><td>  4.2</td></tr>
+	<tr><td>1</td><td>  4.7</td></tr>
+	<tr><td>2</td><td>  3.5</td></tr>
+	<tr><td>1</td><td>  5.0</td></tr>
+	<tr><td>1</td><td>  5.4</td></tr>
+	<tr><td>2</td><td>  4.1</td></tr>
+	<tr><td>1</td><td>675.0</td></tr>
+	<tr><td>1</td><td>  4.4</td></tr>
+	<tr><td>1</td><td>  4.9</td></tr>
+	<tr><td>2</td><td>  2.3</td></tr>
+	<tr><td>1</td><td>  4.2</td></tr>
+	<tr><td>1</td><td>  6.7</td></tr>
+	<tr><td>2</td><td>  4.3</td></tr>
+	<tr><td>1</td><td>257.8</td></tr>
+	<tr><td>1</td><td>  5.7</td></tr>
+	<tr><td>1</td><td>  4.6</td></tr>
+	<tr><td>1</td><td>  5.1</td></tr>
+	<tr><td>2</td><td>  2.1</td></tr>
+	<tr><td>1</td><td>  5.1</td></tr>
+	<tr><td>1</td><td>  6.2</td></tr>
+	<tr><td>1</td><td>  5.1</td></tr>
+	<tr><td>1</td><td>  4.1</td></tr>
+	<tr><td>1</td><td>  4.1</td></tr>
+	<tr><td>1</td><td>-75.0</td></tr>
+	<tr><td>2</td><td>  2.3</td></tr>
+	<tr><td>1</td><td>  5.0</td></tr>
+	<tr><td>1</td><td>   NA</td></tr>
+	<tr><td>1</td><td>  5.2</td></tr>
+	<tr><td>2</td><td>  4.7</td></tr>
+	<tr><td>⋮</td><td>⋮</td></tr>
+	<tr><td>2</td><td>    NA</td></tr>
+	<tr><td>1</td><td>   6.4</td></tr>
+	<tr><td>2</td><td>-235.8</td></tr>
+	<tr><td>2</td><td>    NA</td></tr>
+	<tr><td>2</td><td>   7.9</td></tr>
+	<tr><td>1</td><td>   6.4</td></tr>
+	<tr><td>2</td><td>   6.3</td></tr>
+	<tr><td>1</td><td>   6.1</td></tr>
+	<tr><td>1</td><td>    NA</td></tr>
+	<tr><td>2</td><td>   6.3</td></tr>
+	<tr><td>2</td><td>    NA</td></tr>
+	<tr><td>2</td><td>   6.0</td></tr>
+	<tr><td>2</td><td>   6.9</td></tr>
+	<tr><td>1</td><td>    NA</td></tr>
+	<tr><td>2</td><td> 336.5</td></tr>
+	<tr><td>1</td><td>   6.2</td></tr>
+	<tr><td>2</td><td>   5.9</td></tr>
+	<tr><td>1</td><td>    NA</td></tr>
+	<tr><td>2</td><td>   6.9</td></tr>
+	<tr><td>2</td><td>    NA</td></tr>
+	<tr><td>2</td><td>   7.7</td></tr>
+	<tr><td>2</td><td>   6.3</td></tr>
+	<tr><td>0</td><td>   5.5</td></tr>
+	<tr><td>2</td><td>   4.5</td></tr>
+	<tr><td>1</td><td>   3.5</td></tr>
+	<tr><td>5</td><td>   7.1</td></tr>
+	<tr><td>1</td><td>   6.1</td></tr>
+	<tr><td>1</td><td>   5.5</td></tr>
+	<tr><td>0</td><td>   5.1</td></tr>
+	<tr><td>1</td><td>   4.4</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr />
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>결측치 처리<ul>
+<li>na.rm=T 또는 na.omit() 함수를 통해 결측치를 제거한 후 유효한 자료만을 대상으로 연산할 수도 있다. 하지만 무조건 결측치를 제거한다면 그로 인하여 중요한 데이터가 손실될 수 있다. 따라서 결측치를 처리하는 방법에는 결측치를 제거하는 방법도 있지만 결측치를 제거하지 않고 다른 값으로 대체하는 방법도 고려해볼 수 있다. </li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>결측치 확인</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">summary</span><span class="p">(</span><span class="n">dataset</span><span class="o">$</span><span class="n">price</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea ">
+<pre>    Min.  1st Qu.   Median     Mean  3rd Qu.     Max.     NA&#39;s 
+-457.200    4.425    5.400    8.752    6.300  675.000       30 </pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>결측치가 30개 있다.</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">sum</span><span class="p">(</span><span class="n">dataset</span><span class="o">$</span><span class="n">price</span><span class="p">)</span> <span class="c1"># error</span>
+<span class="nf">sum</span><span class="p">(</span><span class="n">dataset</span><span class="o">$</span><span class="n">price</span><span class="p">,</span><span class="n">na.rm</span><span class="o">=</span><span class="bp">T</span><span class="p">)</span> <span class="c1"># 무시</span>
+<span class="nf">sum</span><span class="p">(</span><span class="nf">na.omit</span><span class="p">(</span><span class="n">dataset</span><span class="o">$</span><span class="n">price</span><span class="p">))</span>
+<span class="c1"># na.omit() 함수는 결측치를 제거한 후 남은 것을 반환해준다.</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+&lt;NA&gt;
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+2362.9
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+2362.9
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>결측치 대체 (0으로 대체하거나 평균으로 대체한다.)</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">ifelse</span><span class="p">(</span><span class="o">!</span><span class="nf">is.na</span><span class="p">(</span><span class="n">dataset</span><span class="o">$</span><span class="n">price</span><span class="p">),</span><span class="n">dataset</span><span class="o">$</span><span class="n">price</span><span class="p">,</span><span class="m">0</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>5.1</li><li>4.2</li><li>4.7</li><li>3.5</li><li>5</li><li>5.4</li><li>4.1</li><li>675</li><li>4.4</li><li>4.9</li><li>2.3</li><li>4.2</li><li>6.7</li><li>4.3</li><li>257.8</li><li>5.7</li><li>4.6</li><li>5.1</li><li>2.1</li><li>5.1</li><li>6.2</li><li>5.1</li><li>4.1</li><li>4.1</li><li>-75</li><li>2.3</li><li>5</li><li>0</li><li>5.2</li><li>4.7</li><li>0</li><li>4.4</li><li>5.2</li><li>0</li><li>6.3</li><li>4</li><li>5.3</li><li>0</li><li>4.2</li><li>4.1</li><li>5</li><li>0</li><li>7.1</li><li>4</li><li>85.1</li><li>3.8</li><li>5.3</li><li>4.7</li><li>5.3</li><li>6.2</li><li>7</li><li>6.4</li><li>5.1</li><li>5.5</li><li>6.4</li><li>4.7</li><li>6.3</li><li>3.9</li><li>4.1</li><li>4.1</li><li>5</li><li>3.5</li><li>6</li><li>3.3</li><li>-457.2</li><li>6.3</li><li>5.6</li><li>6.2</li><li>6.2</li><li>6.3</li><li>-5.9</li><li>3.4</li><li>6.3</li><li>3.5</li><li>6.4</li><li>3</li><li>6.8</li><li>0</li><li>3.5</li><li>5.2</li><li>5.5</li><li>6.1</li><li>5.8</li><li>6.1</li><li>5.4</li><li>6</li><li>6.7</li><li>5.2</li><li>5.6</li><li>5.1</li><li>5.5</li><li>6.1</li><li>0</li><li>5</li><li>4</li><li>5.7</li><li>115.7</li><li>0</li><li>75.1</li><li>5.7</li><li>6.3</li><li>0</li><li>7.1</li><li>5</li><li>6.5</li><li>0</li><li>4.9</li><li>6.2</li><li>4.6</li><li>7.2</li><li>6.5</li><li>6.4</li><li>6.8</li><li>5.5</li><li>5.8</li><li>4</li><li>6</li><li>6.7</li><li>7.7</li><li>4.3</li><li>5</li><li>4</li><li>6.7</li><li>5.4</li><li>0</li><li>336.5</li><li>6.2</li><li>5.9</li><li>4.9</li><li>4.3</li><li>225.8</li><li>5.7</li><li>4</li><li>5.1</li><li>3.8</li><li>4.1</li><li>-4.8</li><li>5.1</li><li>5</li><li>0</li><li>5.2</li><li>4.7</li><li>5.1</li><li>4.4</li><li>5.2</li><li>0</li><li>5</li><li>4</li><li>3.9</li><li>0</li><li>4</li><li>4.1</li><li>5</li><li>5</li><li>4</li><li>4</li><li>85.1</li><li>3.8</li><li>6</li><li>3</li><li>5.3</li><li>5</li><li>7</li><li>6.4</li><li>6.2</li><li>5.5</li><li>4.3</li><li>4.7</li><li>4.8</li><li>3.9</li><li>6</li><li>4.1</li><li>5</li><li>4</li><li>6</li><li>3.3</li><li>-345.6</li><li>0</li><li>5.6</li><li>5.3</li><li>6.2</li><li>4.6</li><li>-5.9</li><li>3.4</li><li>6.3</li><li>6.3</li><li>6.4</li><li>3</li><li>6.8</li><li>5</li><li>4</li><li>5.2</li><li>5.5</li><li>3</li><li>5.8</li><li>6.3</li><li>5.4</li><li>6</li><li>6.7</li><li>5.2</li><li>5.6</li><li>4.6</li><li>5.5</li><li>6.1</li><li>5.3</li><li>5</li><li>6</li><li>5.7</li><li>115.7</li><li>4.6</li><li>75.1</li><li>5.7</li><li>6.3</li><li>6.3</li><li>7.1</li><li>5.2</li><li>6.5</li><li>0</li><li>4.9</li><li>6.2</li><li>4</li><li>7.2</li><li>6.5</li><li>6.4</li><li>6.8</li><li>5</li><li>5.8</li><li>6</li><li>3</li><li>6.7</li><li>7.7</li><li>0</li><li>6.9</li><li>4</li><li>7.7</li><li>5.3</li><li>6.7</li><li>4.8</li><li>6.2</li><li>6</li><li>6.4</li><li>-235.8</li><li>5.1</li><li>7.9</li><li>6.4</li><li>6.3</li><li>6.1</li><li>0</li><li>6.3</li><li>0</li><li>6</li><li>6.9</li><li>0</li><li>4.3</li><li>0</li><li>0</li><li>6.7</li><li>5.4</li><li>0</li><li>7</li><li>6</li><li>6.2</li><li>6.1</li><li>5</li><li>5.8</li><li>4</li><li>3</li><li>5</li><li>6</li><li>6.2</li><li>0</li><li>6.4</li><li>-235.8</li><li>0</li><li>7.9</li><li>6.4</li><li>6.3</li><li>6.1</li><li>0</li><li>6.3</li><li>0</li><li>6</li><li>6.9</li><li>0</li><li>336.5</li><li>6.2</li><li>5.9</li><li>0</li><li>6.9</li><li>0</li><li>7.7</li><li>6.3</li><li>5.5</li><li>4.5</li><li>3.5</li><li>7.1</li><li>6.1</li><li>5.5</li><li>5.1</li><li>4.4</li>&lt;/ol&gt;
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">ifelse</span><span class="p">(</span><span class="o">!</span><span class="nf">is.na</span><span class="p">(</span><span class="n">dataset</span><span class="o">$</span><span class="n">price</span><span class="p">),</span><span class="n">dataset</span><span class="o">$</span><span class="n">price</span><span class="p">,</span><span class="nf">round</span><span class="p">(</span><span class="nf">mean</span><span class="p">(</span><span class="n">dataset</span><span class="o">$</span><span class="n">price</span><span class="p">,</span><span class="n">na.rm</span><span class="o">=</span><span class="bp">T</span><span class="p">),</span><span class="m">2</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>5.1</li><li>4.2</li><li>4.7</li><li>3.5</li><li>5</li><li>5.4</li><li>4.1</li><li>675</li><li>4.4</li><li>4.9</li><li>2.3</li><li>4.2</li><li>6.7</li><li>4.3</li><li>257.8</li><li>5.7</li><li>4.6</li><li>5.1</li><li>2.1</li><li>5.1</li><li>6.2</li><li>5.1</li><li>4.1</li><li>4.1</li><li>-75</li><li>2.3</li><li>5</li><li>8.75</li><li>5.2</li><li>4.7</li><li>8.75</li><li>4.4</li><li>5.2</li><li>8.75</li><li>6.3</li><li>4</li><li>5.3</li><li>8.75</li><li>4.2</li><li>4.1</li><li>5</li><li>8.75</li><li>7.1</li><li>4</li><li>85.1</li><li>3.8</li><li>5.3</li><li>4.7</li><li>5.3</li><li>6.2</li><li>7</li><li>6.4</li><li>5.1</li><li>5.5</li><li>6.4</li><li>4.7</li><li>6.3</li><li>3.9</li><li>4.1</li><li>4.1</li><li>5</li><li>3.5</li><li>6</li><li>3.3</li><li>-457.2</li><li>6.3</li><li>5.6</li><li>6.2</li><li>6.2</li><li>6.3</li><li>-5.9</li><li>3.4</li><li>6.3</li><li>3.5</li><li>6.4</li><li>3</li><li>6.8</li><li>8.75</li><li>3.5</li><li>5.2</li><li>5.5</li><li>6.1</li><li>5.8</li><li>6.1</li><li>5.4</li><li>6</li><li>6.7</li><li>5.2</li><li>5.6</li><li>5.1</li><li>5.5</li><li>6.1</li><li>8.75</li><li>5</li><li>4</li><li>5.7</li><li>115.7</li><li>8.75</li><li>75.1</li><li>5.7</li><li>6.3</li><li>8.75</li><li>7.1</li><li>5</li><li>6.5</li><li>8.75</li><li>4.9</li><li>6.2</li><li>4.6</li><li>7.2</li><li>6.5</li><li>6.4</li><li>6.8</li><li>5.5</li><li>5.8</li><li>4</li><li>6</li><li>6.7</li><li>7.7</li><li>4.3</li><li>5</li><li>4</li><li>6.7</li><li>5.4</li><li>8.75</li><li>336.5</li><li>6.2</li><li>5.9</li><li>4.9</li><li>4.3</li><li>225.8</li><li>5.7</li><li>4</li><li>5.1</li><li>3.8</li><li>4.1</li><li>-4.8</li><li>5.1</li><li>5</li><li>8.75</li><li>5.2</li><li>4.7</li><li>5.1</li><li>4.4</li><li>5.2</li><li>8.75</li><li>5</li><li>4</li><li>3.9</li><li>8.75</li><li>4</li><li>4.1</li><li>5</li><li>5</li><li>4</li><li>4</li><li>85.1</li><li>3.8</li><li>6</li><li>3</li><li>5.3</li><li>5</li><li>7</li><li>6.4</li><li>6.2</li><li>5.5</li><li>4.3</li><li>4.7</li><li>4.8</li><li>3.9</li><li>6</li><li>4.1</li><li>5</li><li>4</li><li>6</li><li>3.3</li><li>-345.6</li><li>8.75</li><li>5.6</li><li>5.3</li><li>6.2</li><li>4.6</li><li>-5.9</li><li>3.4</li><li>6.3</li><li>6.3</li><li>6.4</li><li>3</li><li>6.8</li><li>5</li><li>4</li><li>5.2</li><li>5.5</li><li>3</li><li>5.8</li><li>6.3</li><li>5.4</li><li>6</li><li>6.7</li><li>5.2</li><li>5.6</li><li>4.6</li><li>5.5</li><li>6.1</li><li>5.3</li><li>5</li><li>6</li><li>5.7</li><li>115.7</li><li>4.6</li><li>75.1</li><li>5.7</li><li>6.3</li><li>6.3</li><li>7.1</li><li>5.2</li><li>6.5</li><li>8.75</li><li>4.9</li><li>6.2</li><li>4</li><li>7.2</li><li>6.5</li><li>6.4</li><li>6.8</li><li>5</li><li>5.8</li><li>6</li><li>3</li><li>6.7</li><li>7.7</li><li>8.75</li><li>6.9</li><li>4</li><li>7.7</li><li>5.3</li><li>6.7</li><li>4.8</li><li>6.2</li><li>6</li><li>6.4</li><li>-235.8</li><li>5.1</li><li>7.9</li><li>6.4</li><li>6.3</li><li>6.1</li><li>8.75</li><li>6.3</li><li>8.75</li><li>6</li><li>6.9</li><li>8.75</li><li>4.3</li><li>8.75</li><li>8.75</li><li>6.7</li><li>5.4</li><li>8.75</li><li>7</li><li>6</li><li>6.2</li><li>6.1</li><li>5</li><li>5.8</li><li>4</li><li>3</li><li>5</li><li>6</li><li>6.2</li><li>8.75</li><li>6.4</li><li>-235.8</li><li>8.75</li><li>7.9</li><li>6.4</li><li>6.3</li><li>6.1</li><li>8.75</li><li>6.3</li><li>8.75</li><li>6</li><li>6.9</li><li>8.75</li><li>336.5</li><li>6.2</li><li>5.9</li><li>8.75</li><li>6.9</li><li>8.75</li><li>7.7</li><li>6.3</li><li>5.5</li><li>4.5</li><li>3.5</li><li>7.1</li><li>6.1</li><li>5.5</li><li>5.1</li><li>4.4</li>&lt;/ol&gt;
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">dataset</span><span class="o">$</span><span class="n">newprice</span> <span class="o">=</span> <span class="nf">ifelse</span><span class="p">(</span><span class="o">!</span><span class="nf">is.na</span><span class="p">(</span><span class="n">dataset</span><span class="o">$</span><span class="n">price</span><span class="p">),</span><span class="n">dataset</span><span class="o">$</span><span class="n">price</span><span class="p">,</span><span class="nf">round</span><span class="p">(</span><span class="nf">mean</span><span class="p">(</span><span class="n">dataset</span><span class="o">$</span><span class="n">price</span><span class="p">,</span><span class="n">na.rm</span><span class="o">=</span><span class="bp">T</span><span class="p">),</span><span class="m">2</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">dataset</span><span class="o">$</span><span class="n">newprice</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>5.1</li><li>4.2</li><li>4.7</li><li>3.5</li><li>5</li><li>5.4</li><li>4.1</li><li>675</li><li>4.4</li><li>4.9</li><li>2.3</li><li>4.2</li><li>6.7</li><li>4.3</li><li>257.8</li><li>5.7</li><li>4.6</li><li>5.1</li><li>2.1</li><li>5.1</li><li>6.2</li><li>5.1</li><li>4.1</li><li>4.1</li><li>-75</li><li>2.3</li><li>5</li><li>8.75</li><li>5.2</li><li>4.7</li><li>8.75</li><li>4.4</li><li>5.2</li><li>8.75</li><li>6.3</li><li>4</li><li>5.3</li><li>8.75</li><li>4.2</li><li>4.1</li><li>5</li><li>8.75</li><li>7.1</li><li>4</li><li>85.1</li><li>3.8</li><li>5.3</li><li>4.7</li><li>5.3</li><li>6.2</li><li>7</li><li>6.4</li><li>5.1</li><li>5.5</li><li>6.4</li><li>4.7</li><li>6.3</li><li>3.9</li><li>4.1</li><li>4.1</li><li>5</li><li>3.5</li><li>6</li><li>3.3</li><li>-457.2</li><li>6.3</li><li>5.6</li><li>6.2</li><li>6.2</li><li>6.3</li><li>-5.9</li><li>3.4</li><li>6.3</li><li>3.5</li><li>6.4</li><li>3</li><li>6.8</li><li>8.75</li><li>3.5</li><li>5.2</li><li>5.5</li><li>6.1</li><li>5.8</li><li>6.1</li><li>5.4</li><li>6</li><li>6.7</li><li>5.2</li><li>5.6</li><li>5.1</li><li>5.5</li><li>6.1</li><li>8.75</li><li>5</li><li>4</li><li>5.7</li><li>115.7</li><li>8.75</li><li>75.1</li><li>5.7</li><li>6.3</li><li>8.75</li><li>7.1</li><li>5</li><li>6.5</li><li>8.75</li><li>4.9</li><li>6.2</li><li>4.6</li><li>7.2</li><li>6.5</li><li>6.4</li><li>6.8</li><li>5.5</li><li>5.8</li><li>4</li><li>6</li><li>6.7</li><li>7.7</li><li>4.3</li><li>5</li><li>4</li><li>6.7</li><li>5.4</li><li>8.75</li><li>336.5</li><li>6.2</li><li>5.9</li><li>4.9</li><li>4.3</li><li>225.8</li><li>5.7</li><li>4</li><li>5.1</li><li>3.8</li><li>4.1</li><li>-4.8</li><li>5.1</li><li>5</li><li>8.75</li><li>5.2</li><li>4.7</li><li>5.1</li><li>4.4</li><li>5.2</li><li>8.75</li><li>5</li><li>4</li><li>3.9</li><li>8.75</li><li>4</li><li>4.1</li><li>5</li><li>5</li><li>4</li><li>4</li><li>85.1</li><li>3.8</li><li>6</li><li>3</li><li>5.3</li><li>5</li><li>7</li><li>6.4</li><li>6.2</li><li>5.5</li><li>4.3</li><li>4.7</li><li>4.8</li><li>3.9</li><li>6</li><li>4.1</li><li>5</li><li>4</li><li>6</li><li>3.3</li><li>-345.6</li><li>8.75</li><li>5.6</li><li>5.3</li><li>6.2</li><li>4.6</li><li>-5.9</li><li>3.4</li><li>6.3</li><li>6.3</li><li>6.4</li><li>3</li><li>6.8</li><li>5</li><li>4</li><li>5.2</li><li>5.5</li><li>3</li><li>5.8</li><li>6.3</li><li>5.4</li><li>6</li><li>6.7</li><li>5.2</li><li>5.6</li><li>4.6</li><li>5.5</li><li>6.1</li><li>5.3</li><li>5</li><li>6</li><li>5.7</li><li>115.7</li><li>4.6</li><li>75.1</li><li>5.7</li><li>6.3</li><li>6.3</li><li>7.1</li><li>5.2</li><li>6.5</li><li>8.75</li><li>4.9</li><li>6.2</li><li>4</li><li>7.2</li><li>6.5</li><li>6.4</li><li>6.8</li><li>5</li><li>5.8</li><li>6</li><li>3</li><li>6.7</li><li>7.7</li><li>8.75</li><li>6.9</li><li>4</li><li>7.7</li><li>5.3</li><li>6.7</li><li>4.8</li><li>6.2</li><li>6</li><li>6.4</li><li>-235.8</li><li>5.1</li><li>7.9</li><li>6.4</li><li>6.3</li><li>6.1</li><li>8.75</li><li>6.3</li><li>8.75</li><li>6</li><li>6.9</li><li>8.75</li><li>4.3</li><li>8.75</li><li>8.75</li><li>6.7</li><li>5.4</li><li>8.75</li><li>7</li><li>6</li><li>6.2</li><li>6.1</li><li>5</li><li>5.8</li><li>4</li><li>3</li><li>5</li><li>6</li><li>6.2</li><li>8.75</li><li>6.4</li><li>-235.8</li><li>8.75</li><li>7.9</li><li>6.4</li><li>6.3</li><li>6.1</li><li>8.75</li><li>6.3</li><li>8.75</li><li>6</li><li>6.9</li><li>8.75</li><li>336.5</li><li>6.2</li><li>5.9</li><li>8.75</li><li>6.9</li><li>8.75</li><li>7.7</li><li>6.3</li><li>5.5</li><li>4.5</li><li>3.5</li><li>7.1</li><li>6.1</li><li>5.5</li><li>5.1</li><li>4.4</li>&lt;/ol&gt;
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>극단치 처리<ul>
+<li>극단치 : 표본 중 다른 대상들과 확연히 구분되는 통계적 관측치를 의미한다. 즉, 변수의 분포에서 비정상적으로 분포를 벗어난 값을 극단치(outlier)라고 한다. 예를 들면 나이의 분포는 0세 이상 100세 사이의 분포를 보이는 것이 일반적이지만 -2 또는 230과 같은 비정상적인 수치가 보인다면 이는 극단치에 해당한다. 또한 변수와의 상관관계에 있어서 높은 직급의 경력사원이 직급이나 낮은 일반 사원보다 급여가 월등하게 적다면 이 또한 비정상적인 수치로 의심해볼 수 있다. </li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>범주형 변수 극단치 처리<ul>
+<li>성별과 같은 변수를 컴퓨터로 처리하기 위해서는 남자(1), 여자(2)와 같이 수치 데이터로 표현해야 한다. 이렇게 명목상 수치로 표현된 변수들을 범주형(명목척도)이라고 한다. </li>
+<li>범주형 변수들을 대상으로 극단치를 확인하고 이를 토대로 데이터를 정제하는 과정을 알아보자</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">table</span><span class="p">(</span><span class="n">dataset</span><span class="o">$</span><span class="n">gender</span><span class="p">)</span>
+<span class="nf">pie</span><span class="p">(</span><span class="nf">table</span><span class="p">(</span><span class="n">dataset</span><span class="o">$</span><span class="n">gender</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea ">
+<pre>
+  0   1   2   5 
+  2 173 124   1 </pre>
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA0gAAANICAMAAADKOT/pAAAATlBMVEUAAAA5OTlERERNTU1o
+aGh7e3t8fHyAgICEhISMjIyRkZGampqhoaGnp6et2OaysrK9vb3Hx8fQ0NDZ2dng///h4eHp
+6enw8PD/5OH///+MEEgyAAAACXBIWXMAABJ0AAASdAHeZh94AAAXE0lEQVR4nO3c25ZcVXKG
+0bSFsXFbmKYtBO//oqYkDiqpsiojM/bhjzXnBR6jL3CsteMbq1QNffkNeNjl6AFgAiFBAyFB
+AyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFB
+AyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFB
+AyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFB
+AyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFB
+AyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFB
+AyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFB
+AyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFB
+AyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFB
+AyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyFBAyHt7Cc3PpLPuq8PFzc+
+ks+6qw/vhDSTz7qnny7fC2kmn3VPl/e/CWkmn3VPH34T0lA+686ENJPPujMhzeSz7kxIM/ms
+OxPSTD7rzoQ0k8+6MyHN5LPuTEgz+aw7E9JMPuvOhDSTzwoNhAQNhHQUNz+Kz3kUNz+Kz3mY
+8tVfbrDFoNzAzR/m5qv/M5Ifb6Cng7jyw7x99YWA9HQwd32YV67+/oL0dBCXfJwX7r6roBd6
+2v98S3G/x3l+91sU9HVNBx10Be72OH/f/cYNPYvJF9+Eaz3OH3e/U0TPa/Ldm7nQA112e4pe
+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
+3fuPO27U64TEmV3dz+8vT77bc6VeJSTO5vKlK5/3X5d3H3778O7yr12X6hVC4hiXq559xiuf
+9/3l59//+s/L/26/SbcREpu6KZdXPuOV//yHyy+///XD5YeufXmUkOjwYC/XP+O1//zy5f85
+gdMM0k1IG7jtx7HWz/j5r9/8PxHSXoR0v91zeeUzXvn/K6S9COlNJ+rlqus/2p1s1tMM0k1I
+f9j/x7FO14b897Md4jSDdFstpOhcrrs2/n9c/vP3v/7it3abWyCk62/NIFc+739d/vv3v/58
+eb/nTr1GSKkul19fVlvU/zu3a/v5P5d/80827GJ4SFczqjp5ddf/C9lPvt91p14jpERtGW1Z
+XUt2z/6GX3xeIe1lckgHZVTVkd31X3//87ffPr6//LTrUr1CSHGOeo42dqWvVz/yx/P8exRC
+CjM0o2ve2M/z/Hb/NIN0GxrSWhkJ6XgjQ1rsOfr1ekjvLk//lrn/QnZ7A0NaL6PrIb1/+q9i
+P37+1/tOQUgpVszoekgf3336VcRp/sEGIaVYMqNX/oz08f27y3en+eW3kEKs+Rz9+uYvG84j
+ZtCqSSEtm5GQjjcnpIUzEtIJTClp5YyEdAIzQlr6OfpVSCcwIaTVM8rpSEhntnpGQjqD+JCW
+f45+FdIZhIckoyc565kzaVV0SDL6LGc9cyatSg5JRn/IWc+cSatyQ/Ic/SVnPXMmrUoNSUZf
+yFnPnEmrMkOS0TM565kzaVVkSDJ6Lmc9cyatCgzJc/S1nPXMmbQqLiQZfStnPXMmrUoLSUYv
+yFnPnEnLokryHL0oZz1zJi0LCklGLwvazqBRq2JCktE1QdsZNGpVSkgyuipoO4NGrcoIyXP0
+iqDtDBq1KiEkGb0qaDuDRq06f0gyel3ScibNWnX2kmT0hqTlTJq16twheY7elLScSbNWnTkk
+Gd0gaTmTZq06cUgyukHUbkYNW3TakDxHN4nazahhq85ZkoxuFLWbUcNWnTEkGd0sajejhq06
+YUgyul3UbkYNW3W6kDxHFVG7GTVs2blKklFJ1mpmTVt1ppBkVJS1mlnTVp0oJBlVZa1m1rRV
+pwnJc1SXtZpZ01adJCQZ3SNrNbOmLTtFSTK6R9hmho1bdYKQPEf3CdvMsHGrDg9JRvcK28yw
+casODklG9wvbzLBxq44NSUb3S1vMtHmrDizJc/SItMVMm7fqsJBk9Ji0xUybt+qgkGT0oLi9
+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
+r3KJ0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI
+0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI
+0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI
+0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI
+0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI
+0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI
+0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI
+0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI
+0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI
+0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI0EBI
+0EBI0OD/AY5fosjIxRFTAAAAAElFTkSuQmCC" width="420" height="420" />
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">dataset</span> <span class="o">=</span> <span class="nf">subset</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span><span class="n">gender</span><span class="o">==</span><span class="m">1</span><span class="o">|</span><span class="n">gender</span><span class="o">==</span><span class="m">2</span><span class="p">)</span>
+<span class="c1"># subset은 데이터 셋의 특정 변수를 대상으로 조건식에 해당하는 레코드(행)를 추출하여 별도의 변수에 저장하는 경우 유용한 함수이다.</span>
+<span class="n">dataset</span>
+<span class="c1"># subset 함수를 이용하여 데이터를 정제한 것이다. (gender==5인 경우는 걸러낸 것이다. subset으로!)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A data.frame: 297 × 8</caption>
+<thead>
+	<tr><th></th><th scope="col">resident</th><th scope="col">gender</th><th scope="col">job</th><th scope="col">age</th><th scope="col">position</th><th scope="col">price</th><th scope="col">survey</th><th scope="col">newprice</th></tr>
+	<tr><th></th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><th scope="row">1</th><td> 1</td><td>1</td><td> 1</td><td>26</td><td> 2</td><td>  5.1</td><td>1</td><td>  5.10</td></tr>
+	<tr><th scope="row">2</th><td> 2</td><td>1</td><td> 2</td><td>54</td><td> 5</td><td>  4.2</td><td>2</td><td>  4.20</td></tr>
+	<tr><th scope="row">3</th><td>NA</td><td>1</td><td> 2</td><td>41</td><td> 4</td><td>  4.7</td><td>4</td><td>  4.70</td></tr>
+	<tr><th scope="row">4</th><td> 4</td><td>2</td><td>NA</td><td>45</td><td> 4</td><td>  3.5</td><td>2</td><td>  3.50</td></tr>
+	<tr><th scope="row">5</th><td> 5</td><td>1</td><td> 3</td><td>62</td><td> 5</td><td>  5.0</td><td>1</td><td>  5.00</td></tr>
+	<tr><th scope="row">6</th><td> 3</td><td>1</td><td> 2</td><td>57</td><td>NA</td><td>  5.4</td><td>2</td><td>  5.40</td></tr>
+	<tr><th scope="row">7</th><td> 2</td><td>2</td><td> 1</td><td>36</td><td> 3</td><td>  4.1</td><td>4</td><td>  4.10</td></tr>
+	<tr><th scope="row">8</th><td> 5</td><td>1</td><td> 2</td><td>NA</td><td> 3</td><td>675.0</td><td>4</td><td>675.00</td></tr>
+	<tr><th scope="row">9</th><td>NA</td><td>1</td><td> 1</td><td>56</td><td> 5</td><td>  4.4</td><td>3</td><td>  4.40</td></tr>
+	<tr><th scope="row">10</th><td> 2</td><td>1</td><td> 2</td><td>37</td><td> 3</td><td>  4.9</td><td>3</td><td>  4.90</td></tr>
+	<tr><th scope="row">11</th><td> 5</td><td>2</td><td>NA</td><td>29</td><td> 2</td><td>  2.3</td><td>5</td><td>  2.30</td></tr>
+	<tr><th scope="row">12</th><td> 3</td><td>1</td><td> 3</td><td>35</td><td> 2</td><td>  4.2</td><td>3</td><td>  4.20</td></tr>
+	<tr><th scope="row">13</th><td> 1</td><td>1</td><td> 1</td><td>56</td><td> 5</td><td>  6.7</td><td>2</td><td>  6.70</td></tr>
+	<tr><th scope="row">14</th><td> 2</td><td>2</td><td> 3</td><td>20</td><td> 1</td><td>  4.3</td><td>2</td><td>  4.30</td></tr>
+	<tr><th scope="row">15</th><td>NA</td><td>1</td><td> 2</td><td>63</td><td>NA</td><td>257.8</td><td>2</td><td>257.80</td></tr>
+	<tr><th scope="row">16</th><td> 1</td><td>1</td><td> 1</td><td>49</td><td> 4</td><td>  5.7</td><td>2</td><td>  5.70</td></tr>
+	<tr><th scope="row">17</th><td> 3</td><td>1</td><td> 2</td><td>49</td><td> 4</td><td>  4.6</td><td>1</td><td>  4.60</td></tr>
+	<tr><th scope="row">18</th><td> 2</td><td>1</td><td> 3</td><td>49</td><td> 4</td><td>  5.1</td><td>2</td><td>  5.10</td></tr>
+	<tr><th scope="row">19</th><td> 1</td><td>2</td><td> 2</td><td>25</td><td> 1</td><td>  2.1</td><td>2</td><td>  2.10</td></tr>
+	<tr><th scope="row">20</th><td> 1</td><td>1</td><td> 1</td><td>57</td><td> 5</td><td>  5.1</td><td>2</td><td>  5.10</td></tr>
+	<tr><th scope="row">21</th><td> 1</td><td>1</td><td>NA</td><td>56</td><td> 5</td><td>  6.2</td><td>2</td><td>  6.20</td></tr>
+	<tr><th scope="row">22</th><td> 1</td><td>1</td><td> 3</td><td>21</td><td> 1</td><td>  5.1</td><td>2</td><td>  5.10</td></tr>
+	<tr><th scope="row">23</th><td> 2</td><td>1</td><td> 1</td><td>69</td><td> 5</td><td>  4.1</td><td>1</td><td>  4.10</td></tr>
+	<tr><th scope="row">24</th><td> 1</td><td>1</td><td> 2</td><td>63</td><td> 5</td><td>  4.1</td><td>2</td><td>  4.10</td></tr>
+	<tr><th scope="row">25</th><td> 1</td><td>1</td><td> 1</td><td>30</td><td> 2</td><td>-75.0</td><td>2</td><td>-75.00</td></tr>
+	<tr><th scope="row">26</th><td> 2</td><td>2</td><td> 3</td><td>34</td><td> 2</td><td>  2.3</td><td>3</td><td>  2.30</td></tr>
+	<tr><th scope="row">27</th><td> 1</td><td>1</td><td> 1</td><td>26</td><td> 2</td><td>  5.0</td><td>3</td><td>  5.00</td></tr>
+	<tr><th scope="row">28</th><td> 1</td><td>1</td><td> 1</td><td>59</td><td>NA</td><td>   NA</td><td>4</td><td>  8.75</td></tr>
+	<tr><th scope="row">29</th><td> 2</td><td>1</td><td> 2</td><td>38</td><td> 3</td><td>  5.2</td><td>3</td><td>  5.20</td></tr>
+	<tr><th scope="row">30</th><td> 1</td><td>2</td><td> 1</td><td>57</td><td> 5</td><td>  4.7</td><td>3</td><td>  4.70</td></tr>
+	<tr><th scope="row">⋮</th><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td></tr>
+	<tr><th scope="row">268</th><td> 1</td><td>2</td><td> 1</td><td>21</td><td> 1</td><td>   5.0</td><td>3</td><td>   5.00</td></tr>
+	<tr><th scope="row">269</th><td> 5</td><td>1</td><td> 2</td><td>64</td><td> 5</td><td>   6.0</td><td>4</td><td>   6.00</td></tr>
+	<tr><th scope="row">270</th><td> 1</td><td>2</td><td>NA</td><td>27</td><td> 2</td><td>   6.2</td><td>2</td><td>   6.20</td></tr>
+	<tr><th scope="row">271</th><td> 1</td><td>2</td><td> 1</td><td>64</td><td>NA</td><td>    NA</td><td>1</td><td>   8.75</td></tr>
+	<tr><th scope="row">272</th><td> 5</td><td>1</td><td> 3</td><td>54</td><td> 5</td><td>   6.4</td><td>2</td><td>   6.40</td></tr>
+	<tr><th scope="row">273</th><td> 1</td><td>2</td><td> 1</td><td>NA</td><td> 1</td><td>-235.8</td><td>3</td><td>-235.80</td></tr>
+	<tr><th scope="row">274</th><td> 5</td><td>2</td><td> 3</td><td>42</td><td> 4</td><td>    NA</td><td>3</td><td>   8.75</td></tr>
+	<tr><th scope="row">275</th><td> 5</td><td>2</td><td> 3</td><td>54</td><td> 5</td><td>   7.9</td><td>3</td><td>   7.90</td></tr>
+	<tr><th scope="row">276</th><td> 1</td><td>1</td><td>NA</td><td>25</td><td>NA</td><td>   6.4</td><td>4</td><td>   6.40</td></tr>
+	<tr><th scope="row">277</th><td> 2</td><td>2</td><td> 3</td><td>54</td><td> 5</td><td>   6.3</td><td>3</td><td>   6.30</td></tr>
+	<tr><th scope="row">278</th><td>NA</td><td>1</td><td> 1</td><td>60</td><td> 5</td><td>   6.1</td><td>3</td><td>   6.10</td></tr>
+	<tr><th scope="row">279</th><td> 5</td><td>1</td><td> 3</td><td>NA</td><td> 5</td><td>    NA</td><td>4</td><td>   8.75</td></tr>
+	<tr><th scope="row">280</th><td> 2</td><td>2</td><td> 2</td><td>63</td><td> 5</td><td>   6.3</td><td>3</td><td>   6.30</td></tr>
+	<tr><th scope="row">281</th><td> 1</td><td>2</td><td> 3</td><td>43</td><td> 4</td><td>    NA</td><td>3</td><td>   8.75</td></tr>
+	<tr><th scope="row">282</th><td> 4</td><td>2</td><td> 3</td><td>21</td><td> 1</td><td>   6.0</td><td>4</td><td>   6.00</td></tr>
+	<tr><th scope="row">283</th><td> 2</td><td>2</td><td> 3</td><td>23</td><td> 1</td><td>   6.9</td><td>2</td><td>   6.90</td></tr>
+	<tr><th scope="row">284</th><td> 1</td><td>1</td><td> 3</td><td>24</td><td> 1</td><td>    NA</td><td>2</td><td>   8.75</td></tr>
+	<tr><th scope="row">285</th><td> 4</td><td>2</td><td> 3</td><td>63</td><td> 5</td><td> 336.5</td><td>2</td><td> 336.50</td></tr>
+	<tr><th scope="row">286</th><td> 2</td><td>1</td><td> 2</td><td>41</td><td> 4</td><td>   6.2</td><td>1</td><td>   6.20</td></tr>
+	<tr><th scope="row">287</th><td> 1</td><td>2</td><td> 3</td><td>27</td><td> 2</td><td>   5.9</td><td>2</td><td>   5.90</td></tr>
+	<tr><th scope="row">288</th><td> 1</td><td>1</td><td> 3</td><td>47</td><td>NA</td><td>    NA</td><td>2</td><td>   8.75</td></tr>
+	<tr><th scope="row">289</th><td> 1</td><td>2</td><td> 2</td><td>48</td><td> 4</td><td>   6.9</td><td>4</td><td>   6.90</td></tr>
+	<tr><th scope="row">290</th><td> 1</td><td>2</td><td> 3</td><td>22</td><td> 1</td><td>    NA</td><td>3</td><td>   8.75</td></tr>
+	<tr><th scope="row">291</th><td> 5</td><td>2</td><td> 1</td><td>48</td><td> 4</td><td>   7.7</td><td>3</td><td>   7.70</td></tr>
+	<tr><th scope="row">292</th><td> 1</td><td>2</td><td> 3</td><td>21</td><td> 1</td><td>   6.3</td><td>3</td><td>   6.30</td></tr>
+	<tr><th scope="row">294</th><td> 1</td><td>2</td><td> 2</td><td>43</td><td> 4</td><td>   4.5</td><td>2</td><td>   4.50</td></tr>
+	<tr><th scope="row">295</th><td> 2</td><td>1</td><td> 1</td><td>20</td><td> 1</td><td>   3.5</td><td>5</td><td>   3.50</td></tr>
+	<tr><th scope="row">297</th><td> 3</td><td>1</td><td> 3</td><td>24</td><td> 1</td><td>   6.1</td><td>2</td><td>   6.10</td></tr>
+	<tr><th scope="row">298</th><td> 4</td><td>1</td><td> 3</td><td>59</td><td> 5</td><td>   5.5</td><td>2</td><td>   5.50</td></tr>
+	<tr><th scope="row">300</th><td> 1</td><td>1</td><td> 3</td><td>27</td><td> 2</td><td>   4.4</td><td>2</td><td>   4.40</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">length</span><span class="p">(</span><span class="n">dataset</span><span class="o">$</span><span class="n">gender</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+297
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>원래는 300개였는데 297개로 3개 줄어듦을 확인할 수 있다. </li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">pie</span><span class="p">(</span><span class="nf">table</span><span class="p">(</span><span class="n">dataset</span><span class="o">$</span><span class="n">gender</span><span class="p">),</span><span class="n">col</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s">&#39;red&#39;</span><span class="p">,</span><span class="s">&#39;blue&#39;</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA0gAAANICAMAAADKOT/pAAAALVBMVEUAAAAAAP9NTU1oaGh8
+fHyMjIyampqnp6e9vb3Q0NDh4eHp6enw8PD/AAD///+LbOkXAAAACXBIWXMAABJ0AAASdAHe
+Zh94AAAWE0lEQVR4nO3cjZocRY6G0eJngAHM/V/urt14sHF3u1SlzMhPcc4FsFKU3ieNZ2du
+fwFPu60eACYQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQ
+EjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQ
+EjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQ
+EjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQ
+EjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQ
+EjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQ
+EjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQ
+EjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQ
+EjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQEjQQ0gq/efZp
+/KIL/H7z7NP4Rc/3+49CGscverrfbj8LaRy/6Oluv/4lpHH8oqf7/S8hzeMXXUFI4/hFVxDS
+OH7RFYQ0jl90BSGN4xddQUjj+EVXENI4ftEVhDSOX3QFIY3jF11BSOP4RaGBkKCBkJby/FP4
+JZfy/FP4Jdfy/kP4Idfy/kP4Idcqvf/tHkdNyru8+1rfef+vG/lwDz0t4cEXe+MHqKSjpwvw
+0ot9+wM8WZCelvDEi339A3Q29E1Pizbcg9dd7Isf4KCIvqpp3aLDednVXn6Boz5Fr8S0eN+h
+POtqz/6twiMt+dXbedKVzm7oy5hW7z6M91xlVUNftOTH7+Mtl1gc0WdaauMhF7hGRS98mHp4
+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
+1zgjL1Dlrxy+5YqE9AAl/YsjEtJDlPSl7f/16BOP8Ah/vPuHC/rEMzxGSS98jv7mHR7ko/SR
+8/nMSzxMST5H//AUj9v9o+R2vuAxnrFzST5HX/EaT9n3o+RwvuY9nrRnST5H/+ZBnrXjR8nV
+fMOTPG+3knyOXuFNGuz1UXIyr/EqLfZJyefodZ6lySYpuZc3eJg2G6Tkc/QmL9NoeEoyeoe3
+aTU4JRm9y+s0G1qSjL7D+3Qb+FG6yei7vFC/YSmp6B4e6QiDUpLRfTzTMYakJKN7eaijDEhJ
+RvfzVMcJT0lGFR7rSLkp+Yu6Is91rFtkSyoq82KHi0tJRg/wZidISsmf6R7j1U6R8ic8FT3K
+w53ldv2YZPQ4T3emS7cko2d4vJNdM6WbfzV6kuc73eVSElEDT7jApf6Ep6IWXnGNq/zVg4ya
+eMd1lrfkz3R9vORS6z5M/nqhl8dc7vSWbiLq50Gv4LQP0+eG/OzdvOhV3I6u6avvkN+9mQe9
+lNvtiJ5u3/5hzu/ezINeUVdPt1cS+vv/wuk7DedBL+zxnt4u6PM/+rwt9uBBr6/S03cL+t8/
+9Pi5t+I9Y9zucf8/7cBJd+Q9N+WH7+U9N+WH7+U9d+WXb+U5d+WXb+U5oYGQoIGQoIGQoIGQ
+9vbbT7cff/1z9RQDCGlrv376f4f4UUlPE9LOfr/98v8N/Xb7ZfUg+YS0s/+8/Pz+i+fP84QI
+qYEn5M/bz6tHyCckfrv9d/UI+YS0vT9+/M/qEQYQ0u7+/NEf7BoIaXc//7R6ghGEtLc/fvr5
+j9UzjCCkrf3XX9g1EdLO/tBRFyHt7Jfy//gQb/CEO6v/r3jxBk8IDYQEDYQEDYQEDYQEDYQE
+DYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQE
+DYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQE
+DYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQE
+DYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQE
+DYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQE
+DYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQE
+DYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQE
+DYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQE
+DYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQE
+DYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDYQEDf4PLHGCVKMHoCoAAAAA
+SUVORK5CYII=" width="420" height="420" />
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>연속형 변수의 극단치 처리<ul>
+<li>연소득이나 구매금액 등 연속된 데이터를 갖는 변수들을 대상으로 극단치를 확인하고 이를 토대로 데이터를 정제해보자</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">dataset</span> <span class="o">=</span> <span class="nf">read.csv</span><span class="p">(</span><span class="s">&#39;dataset.csv&#39;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="bp">T</span><span class="p">)</span>
+<span class="nf">length</span><span class="p">(</span><span class="n">dataset</span><span class="o">$</span><span class="n">price</span><span class="p">)</span> <span class="c1"># NA를 포함하여 300개의 데이터가 있다. </span>
+<span class="nf">plot</span><span class="p">(</span><span class="n">dataset</span><span class="o">$</span><span class="n">price</span><span class="p">)</span> <span class="c1"># 산점도를 이용하여 가격 분포 보기</span>
+<span class="nf">summary</span><span class="p">(</span><span class="n">dataset</span><span class="o">$</span><span class="n">price</span><span class="p">)</span> <span class="c1"># -457~675까지 분포되어 있음</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+300
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea ">
+<pre>    Min.  1st Qu.   Median     Mean  3rd Qu.     Max.     NA&#39;s 
+-457.200    4.425    5.400    8.752    6.300  675.000       30 </pre>
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+cATObFhu3hxyAmc2jPCkYcwn/GM8R5rwDo5ASPPN2+hPIaTh1/KYT/jH2KgnvIPj6od2y/fN
+235P4KFdPfzjjpGfpwz+MGvKz8uu39lQystmnbzHZqme5i19xpQ3rHOmvLxX7/6utm+f/5Q9
+tWGKt/QZU96wzpny8jogO6YJP2c4a8LLK6QxTXgv1lkTXt5USB/za+fk1yEmabLHVb4x2eW9
+NqRFD3/48pFCYiKuDOnYkb12PLIrQ6rKWz0rq9Xs/s+1gysEzmx4+bw3Wk7igCz8VSCk9837
+NXiOxEO7MqT550O7VXmqP4TEQ0u8Hml2+OvmKULizly7+/tl89VzKYvQ/JwZAm6fMxsgQEgQ
+ENhrt+WvmvPQQiH5q+Y8titC8lfNYe+aeyR/1Rx2Us+RsoTEnbHXDgK8sA8CvLAPArywDwK8
+sA8CvLAPArywDwK8sA8CvLAPArywDwKmcmbDfx7IOvn10+vvD45tPp6b+v57u8/7Xzs/Iz/P
+3pnrnhyea3zRy7uV/uexwMPsda51vM3+77rfLO/ht05v7dIa6njNk2+cGb41hXPzvBv3P27x
++wrpcJs2b4Ttl8eflcPPW2ulbv2kbm45h28cJtj+3d2UGxOq6+Zg9eHjyc9K63eaX7Q3jeYG
+c0bdXKjS2Rb2122u9sZvl9bP6taSn7tpWlc5ne7J7DTXx/Hit4vRvu43y9sepTmTJ1c5Ls/u
+1+vG+jj5re7l5jeaK65uzWZpX/u/NtkfNNLvzE7M+Yk17yAaC/nNLdxaISd9tLbFk7V1Zgrd
+iXWn2NzovpmR5m21+7D9/3DN7qidcTvXP5nFzpbe+qK5tTX+OTkdtTuTpbF43Z92NuGfJnZu
+NlszU7eX9+t2rL+Z4MmctVP4eS7q/ZRPptBYhu3PT1b04fqXbrIXbeUXTf9vvgmpc4/TWc7d
+it/fQM3f2W2yX5ttc/ttrZnj6tlNpW5c/2Qltgfa/2tW162fHNdYac5de6DdktW77aC1Ro+z
+2Vyierco+5npBFE3tpT9JL9xvGbdnOPO5n7ctk6Wtzu15v/dCe6vW5/bdjv/brT+XaqPEzl8
+3k/vcP9c77/s3DjtqdbHW6e5euuyn0Jj+2jV1rz+xZvs5Vv5vNqcG/RRXbTT7uNlvl2g+eKX
+8yDOztXhNm2sx+OG19hsDjfw4YY4htTYFOrGdPZT72yTdeu/cu5WbWyGzY2jU1FzYrtfPqz0
+ej9f+y2+7v7yyZZWd7aF9ujNn57+a3C4fY7fPFnm1jbauFFb23F9bs5a/1h0F6M1X8c86tav
+Nm/R0pyH5k9bN1FzZe9v2vbMNpe2bv5yo/D9+m9NqrFpNa508SZ7+Va+KMvt5+UFu+3WzRcC
+/nwixHchdZapswL2a6d507Vu0fbNv/uFuj730+52cHaob1ftyZcnE6uPG1X9c0hnRq6bm2R9
+5ucnIR22k58X4odl7mzqjQcHl137+5C+mdR3P/3vkE5m5L9C6i73129euMn+rHmVUroXvrco
+1dtXdqv36ufw/jekRjvdTa55ix1ux/3399tvc8WdXr90p3xcm4fpNB7onPk3rLU2S2t9NUva
+X7exNTVWaOsf1f3KD4V0srH+HFIpx6HLYcGbS97d2PcroHm3vV9jdXvIxrI1l7Kz1lo/Ozys
+20+vNSMnMbQ2pP3V68Pd+XGk1ujN61+4yf6seZXqcI/0+7sI7X/3gt//bl5L+8Fdc3W01mq3
+t8PDwMMW1dwEjz88rPHS0NgMGhtz9xdbIbXX2+k2WTfWULvV7uCHJW3MzJlN9PxNcMhqP2Rz
+2zluQ60hO9voYcHPLE1z/jozfSbaw7bZ/bX65Lp144fNm+Zk1bQWb5dQ8+qHhWl982TAxmwc
+/1lrzd6vHV0b0ue9zObpzuc9zMvv1zt7V9b4TmvZzk/g/G153NBPf1AftpbW2jtZScdN7WTC
+jS3w/PrslHV2Rs7Mb9ltya1pnm3p5DsnQ3xzu7Sm2Jl03fr0+4z++PPmbP0wxdav/8fN1Lm5
+68Ol1rj7f5S6W9PpdM9PoTX7307i9you1LrKbDf1C14ge/U90nFhm//UNpe9bn+9v9RYfYdN
+vq6b32ndHx1vr3O3aN389cPESvvDyXZed7+o96vksGraVzwu8fGXm5NqjXFmU69PvuhsIO1/
+bhvL217M0+VtLmrd3PaaEyvntJa7u0zN5d010RihtH7SmkJzUuduyfYMndmguheav3RcsLPX
+/32T/UH7Km+bHXHzS17W93nv9b7aXvrbc6Tdj5qb1eFb7WXffziugvPTaV/32189DtLdFvaz
+2vnJD7d3Z/jLtMb75oqNzbk+dwM2t4jWlz/cPD8v73Fujrfl5cv03fJ1v/PniXYmd8VkLrru
+1SH9h/2918bTupchdldP3PiXjtX5PK7+5+a2lvd2DBlS/bHYHkeq5i9/OY50m25sw/ruDik8
+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
+EgT8AzrNGKKoLj6OAAAAAElFTkSuQmCC" width="420" height="420" />
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>price 변수의 데이터 정제와 시각화</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">dataset2</span> <span class="o">=</span> <span class="nf">subset</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span><span class="n">price</span><span class="o">&gt;=</span><span class="m">2</span> <span class="o">&amp;</span> <span class="n">price</span><span class="o">&lt;=</span><span class="m">8</span><span class="p">)</span>
+<span class="nf">length</span><span class="p">(</span><span class="n">dataset2</span><span class="o">$</span><span class="n">price</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+251
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">stem</span><span class="p">(</span><span class="n">dataset2</span><span class="o">$</span><span class="n">price</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+  The decimal point is at the |
+
+  2 | 133
+  2 | 
+  3 | 0000003344
+  3 | 55555888999
+  4 | 000000000000000111111111222333334444
+  4 | 566666777777889999
+  5 | 00000000000000000011111111111222222222333333344444
+  5 | 55555555566667777778888899
+  6 | 00000000000000111111112222222222222333333333333333344444444444
+  6 | 55557777777788889999
+  7 | 000111122
+  7 | 777799
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>age 변수의 데이터 정제와 시각화</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">summary</span><span class="p">(</span><span class="n">dataset2</span><span class="o">$</span><span class="n">age</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea ">
+<pre>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
+   20.0    28.5    43.0    42.6    54.5    69.0      16 </pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">length</span><span class="p">(</span><span class="n">dataset2</span><span class="o">$</span><span class="n">age</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+251
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">dataset2</span> <span class="o">=</span> <span class="nf">subset</span><span class="p">(</span><span class="n">dataset2</span><span class="p">,</span> <span class="n">age</span><span class="o">&gt;=</span><span class="m">20</span> <span class="o">&amp;</span> <span class="n">age</span><span class="o">&lt;=</span><span class="m">69</span><span class="p">)</span>
+<span class="nf">length</span><span class="p">(</span><span class="n">dataset2</span><span class="o">$</span><span class="n">age</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+235
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>극단치를 찾기 어려운 경우<ul>
+<li>범주형 변수를 일정한 범주를 가지고 있기 때문에 극단치를 찾는 데 큰 어려움이 없다. 하지만 구매 가격과 같은 연속 변수는 극단치를 찾기 어려울 수 있따. 실제 VIP 고객은 일반 고객과 비교하여 평균 구매금액이 월등히 많은 경우를 종종 볼 수 있따. 이런 경우 값의 범위에서 상하위 0.3 %를 극단치로 보여주는 boxplot와 통계를 이용해 볼 수 있다.</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">boxplot</span><span class="p">(</span><span class="n">dataset</span><span class="o">$</span><span class="n">price</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+iCUnAAAAAElFTkSuQmCC" width="420" height="420" />
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>극단치 통계 확인</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">boxplot</span><span class="p">(</span><span class="n">dataset</span><span class="o">$</span><span class="n">price</span><span class="p">)</span><span class="o">$</span><span class="n">stats</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A matrix: 5 × 1 of type dbl</caption>
+<tbody>
+	<tr><td>2.1</td></tr>
+	<tr><td>4.4</td></tr>
+	<tr><td>5.4</td></tr>
+	<tr><td>6.3</td></tr>
+	<tr><td>7.9</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+iCUnAAAAAElFTkSuQmCC" width="420" height="420" />
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>이를 통해 극단치를 제거한 서브 셋을 만들자</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">dataset_sub</span> <span class="o">=</span> <span class="nf">subset</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span><span class="n">price</span><span class="o">&gt;=</span><span class="m">2.1</span><span class="o">&amp;</span><span class="n">price</span><span class="o">&lt;=</span><span class="m">7.9</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">summary</span><span class="p">(</span><span class="n">dataset_sub</span><span class="o">$</span><span class="n">price</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea ">
+<pre>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  2.100   4.600   5.400   5.361   6.200   7.900 </pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr />
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>코딩 변경<ul>
+<li>최초 코딩 내용을 용도에 맞게 변경하는 작업을 의미.데이터 가독성과 척도 변경 그리고 역 코딩 등의 목적으로 수행.</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>1) 가독성을 위한 코딩 변경<ul>
+<li>일반적으로 데이터는 디지털화하기 위해서 숫자로 코딩한다. <ul>
+<li>예를 들면 거주지 관련 칼럼에서 서울은 1, 인천은 2로 코딩한다. 이런 코딩 결과를 대상으로 기술통계분석을 수행하면 1과 2의 숫자를 실제 거주지명으로 표현해야 한다. 실습해보자</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">head</span><span class="p">(</span><span class="n">dataset2</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A data.frame: 6 × 7</caption>
+<thead>
+	<tr><th></th><th scope="col">resident</th><th scope="col">gender</th><th scope="col">job</th><th scope="col">age</th><th scope="col">position</th><th scope="col">price</th><th scope="col">survey</th></tr>
+	<tr><th></th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;int&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><th scope="row">1</th><td> 1</td><td>1</td><td> 1</td><td>26</td><td> 2</td><td>5.1</td><td>1</td></tr>
+	<tr><th scope="row">2</th><td> 2</td><td>1</td><td> 2</td><td>54</td><td> 5</td><td>4.2</td><td>2</td></tr>
+	<tr><th scope="row">3</th><td>NA</td><td>1</td><td> 2</td><td>41</td><td> 4</td><td>4.7</td><td>4</td></tr>
+	<tr><th scope="row">4</th><td> 4</td><td>2</td><td>NA</td><td>45</td><td> 4</td><td>3.5</td><td>2</td></tr>
+	<tr><th scope="row">5</th><td> 5</td><td>1</td><td> 3</td><td>62</td><td> 5</td><td>5.0</td><td>1</td></tr>
+	<tr><th scope="row">6</th><td> 3</td><td>1</td><td> 2</td><td>57</td><td>NA</td><td>5.4</td><td>2</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>resident 칼럼을 보면 실제 거주지명이 아닌 1,2,3,4,5로 표현되어 있음을 알 수 있다. </li>
+<li>dataset2의 resident 칼럼으로 조건식을 지정하여 거주지역별로 실제 거주지명을 resident2 칼럼에 추가한다.</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">dataset2</span><span class="o">$</span><span class="n">resident2</span><span class="p">[</span><span class="n">dataset2</span><span class="o">$</span><span class="n">resident</span> <span class="o">==</span> <span class="m">1</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;1.서울특별시&#39;</span>
+<span class="n">dataset2</span><span class="o">$</span><span class="n">resident2</span><span class="p">[</span><span class="n">dataset2</span><span class="o">$</span><span class="n">resident</span> <span class="o">==</span> <span class="m">2</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;2.인천광역시&#39;</span>
+<span class="n">dataset2</span><span class="o">$</span><span class="n">resident2</span><span class="p">[</span><span class="n">dataset2</span><span class="o">$</span><span class="n">resident</span> <span class="o">==</span> <span class="m">3</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;3.대전광역시&#39;</span>
+<span class="n">dataset2</span><span class="o">$</span><span class="n">resident2</span><span class="p">[</span><span class="n">dataset2</span><span class="o">$</span><span class="n">resident</span> <span class="o">==</span> <span class="m">4</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;4.대구광역시&#39;</span>
+<span class="n">dataset2</span><span class="o">$</span><span class="n">resident2</span><span class="p">[</span><span class="n">dataset2</span><span class="o">$</span><span class="n">resident</span> <span class="o">==</span> <span class="m">5</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;5.시구군&#39;</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>코딩 변경 전과 변경 후의 칼럼을 살펴보자</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">head</span><span class="p">(</span><span class="n">dataset2</span><span class="p">[</span><span class="nf">c</span><span class="p">(</span><span class="s">&#39;resident&#39;</span><span class="p">,</span><span class="s">&#39;resident2&#39;</span><span class="p">)])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A data.frame: 6 × 2</caption>
+<thead>
+	<tr><th></th><th scope="col">resident</th><th scope="col">resident2</th></tr>
+	<tr><th></th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;chr&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><th scope="row">1</th><td> 1</td><td>1.서울특별시</td></tr>
+	<tr><th scope="row">2</th><td> 2</td><td>2.인천광역시</td></tr>
+	<tr><th scope="row">3</th><td>NA</td><td>NA          </td></tr>
+	<tr><th scope="row">4</th><td> 4</td><td>4.대구광역시</td></tr>
+	<tr><th scope="row">5</th><td> 5</td><td>5.시구군    </td></tr>
+	<tr><th scope="row">6</th><td> 3</td><td>3.대전광역시</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>동일한 원리를 통해 job칼럼에도 코딩변경을 수행하여 가독성을 향상시켜줄 수 있다. </li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr />
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>척도 변경을 위한 코딩 변경</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">dataset2</span><span class="o">$</span><span class="n">age2</span><span class="p">[</span><span class="n">dataset2</span><span class="o">$</span><span class="n">age</span><span class="o">&lt;=</span><span class="m">30</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;청년층&#39;</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">dataset2</span><span class="o">$</span><span class="n">age2</span>
+<span class="n">dataset2</span><span class="p">[</span><span class="s">&#39;age2&#39;</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>'청년층'</li><li>NA</li><li>NA</li><li>NA</li><li>NA</li><li>NA</li><li>NA</li><li>NA</li><li>NA</li><li>'청년층'</li><li>NA</li><li>NA</li><li>'청년층'</li><li>NA</li><li>NA</li><li>NA</li><li>'청년층'</li><li>NA</li><li>NA</li><li>'청년층'</li><li>NA</li><li>NA</li><li>NA</li><li>'청년층'</li><li>NA</li><li>NA</li><li>NA</li><li>NA</li><li>NA</li><li>'청년층'</li><li>NA</li><li>NA</li><li>'청년층'</li><li>'청년층'</li><li>NA</li><li>NA</li><li>NA</li><li>NA</li><li>'청년층'</li><li>NA</li><li>NA</li><li>NA</li><li>'청년층'</li><li>NA</li><li>'청년층'</li><li>'청년층'</li><li>'청년층'</li><li>NA</li><li>NA</li><li>NA</li><li>'청년층'</li><li>'청년층'</li><li>NA</li><li>NA</li><li>'청년층'</li><li>NA</li><li>'청년층'</li><li>NA</li><li>NA</li><li>NA</li><li>NA</li><li>NA</li><li>NA</li><li>NA</li><li>NA</li><li>'청년층'</li><li>NA</li><li>NA</li><li>NA</li><li>NA</li><li>NA</li><li>NA</li><li>NA</li><li>NA</li><li>NA</li><li>NA</li><li>NA</li><li>NA</li><li>NA</li><li>NA</li><li>NA</li><li>NA</li><li>'청년층'</li><li>NA</li><li>NA</li><li>NA</li><li>'청년층'</li><li>'청년층'</li><li>'청년층'</li><li>NA</li><li>'청년층'</li><li>'청년층'</li><li>NA</li><li>NA</li><li>NA</li><li>NA</li><li>NA</li><li>NA</li><li>NA</li><li>'청년층'</li><li>NA</li><li>'청년층'</li><li>NA</li><li>NA</li><li>'청년층'</li><li>NA</li><li>NA</li><li>NA</li><li>'청년층'</li><li>NA</li><li>NA</li><li>NA</li><li>NA</li><li>NA</li><li>NA</li><li>'청년층'</li><li>NA</li><li>NA</li><li>'청년층'</li><li>'청년층'</li><li>NA</li><li>NA</li><li>NA</li><li>NA</li><li>NA</li><li>'청년층'</li><li>NA</li><li>NA</li><li>NA</li><li>'청년층'</li><li>NA</li><li>'청년층'</li><li>'청년층'</li><li>'청년층'</li><li>NA</li><li>NA</li><li>NA</li><li>'청년층'</li><li>NA</li><li>NA</li><li>'청년층'</li><li>NA</li><li>'청년층'</li><li>NA</li><li>NA</li><li>NA</li><li>NA</li><li>'청년층'</li><li>NA</li><li>NA</li><li>NA</li><li>NA</li><li>'청년층'</li><li>NA</li><li>NA</li><li>NA</li><li>NA</li><li>NA</li><li>NA</li><li>NA</li><li>NA</li><li>NA</li><li>NA</li><li>NA</li><li>NA</li><li>NA</li><li>NA</li><li>NA</li><li>NA</li><li>NA</li><li>NA</li><li>NA</li><li>'청년층'</li><li>NA</li><li>NA</li><li>NA</li><li>'청년층'</li><li>'청년층'</li><li>'청년층'</li><li>NA</li><li>'청년층'</li><li>'청년층'</li><li>NA</li><li>NA</li><li>'청년층'</li><li>NA</li><li>'청년층'</li><li>NA</li><li>NA</li><li>'청년층'</li><li>NA</li><li>NA</li><li>NA</li><li>NA</li><li>'청년층'</li><li>NA</li><li>NA</li><li>NA</li><li>'청년층'</li><li>'청년층'</li><li>NA</li><li>NA</li><li>NA</li><li>NA</li><li>'청년층'</li><li>NA</li><li>'청년층'</li><li>'청년층'</li><li>NA</li><li>'청년층'</li><li>NA</li><li>'청년층'</li><li>NA</li><li>'청년층'</li><li>NA</li><li>NA</li><li>'청년층'</li><li>NA</li><li>NA</li><li>NA</li><li>'청년층'</li><li>'청년층'</li><li>NA</li><li>'청년층'</li><li>NA</li><li>NA</li><li>'청년층'</li><li>NA</li><li>NA</li><li>'청년층'</li><li>'청년층'</li><li>'청년층'</li><li>NA</li><li>NA</li><li>'청년층'</li>&lt;/ol&gt;
+
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A data.frame: 235 × 1</caption>
+<thead>
+	<tr><th></th><th scope="col">age2</th></tr>
+	<tr><th></th><th scope="col">&lt;chr&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><th scope="row">1</th><td>청년층</td></tr>
+	<tr><th scope="row">2</th><td>NA    </td></tr>
+	<tr><th scope="row">3</th><td>NA    </td></tr>
+	<tr><th scope="row">4</th><td>NA    </td></tr>
+	<tr><th scope="row">5</th><td>NA    </td></tr>
+	<tr><th scope="row">6</th><td>NA    </td></tr>
+	<tr><th scope="row">7</th><td>NA    </td></tr>
+	<tr><th scope="row">9</th><td>NA    </td></tr>
+	<tr><th scope="row">10</th><td>NA    </td></tr>
+	<tr><th scope="row">11</th><td>청년층</td></tr>
+	<tr><th scope="row">12</th><td>NA    </td></tr>
+	<tr><th scope="row">13</th><td>NA    </td></tr>
+	<tr><th scope="row">14</th><td>청년층</td></tr>
+	<tr><th scope="row">16</th><td>NA    </td></tr>
+	<tr><th scope="row">17</th><td>NA    </td></tr>
+	<tr><th scope="row">18</th><td>NA    </td></tr>
+	<tr><th scope="row">19</th><td>청년층</td></tr>
+	<tr><th scope="row">20</th><td>NA    </td></tr>
+	<tr><th scope="row">21</th><td>NA    </td></tr>
+	<tr><th scope="row">22</th><td>청년층</td></tr>
+	<tr><th scope="row">23</th><td>NA    </td></tr>
+	<tr><th scope="row">24</th><td>NA    </td></tr>
+	<tr><th scope="row">26</th><td>NA    </td></tr>
+	<tr><th scope="row">27</th><td>청년층</td></tr>
+	<tr><th scope="row">29</th><td>NA    </td></tr>
+	<tr><th scope="row">30</th><td>NA    </td></tr>
+	<tr><th scope="row">32</th><td>NA    </td></tr>
+	<tr><th scope="row">33</th><td>NA    </td></tr>
+	<tr><th scope="row">35</th><td>NA    </td></tr>
+	<tr><th scope="row">36</th><td>청년층</td></tr>
+	<tr><th scope="row">⋮</th><td>⋮</td></tr>
+	<tr><th scope="row">262</th><td>NA    </td></tr>
+	<tr><th scope="row">263</th><td>청년층</td></tr>
+	<tr><th scope="row">264</th><td>청년층</td></tr>
+	<tr><th scope="row">265</th><td>NA    </td></tr>
+	<tr><th scope="row">266</th><td>청년층</td></tr>
+	<tr><th scope="row">267</th><td>NA    </td></tr>
+	<tr><th scope="row">268</th><td>청년층</td></tr>
+	<tr><th scope="row">269</th><td>NA    </td></tr>
+	<tr><th scope="row">270</th><td>청년층</td></tr>
+	<tr><th scope="row">272</th><td>NA    </td></tr>
+	<tr><th scope="row">275</th><td>NA    </td></tr>
+	<tr><th scope="row">276</th><td>청년층</td></tr>
+	<tr><th scope="row">277</th><td>NA    </td></tr>
+	<tr><th scope="row">278</th><td>NA    </td></tr>
+	<tr><th scope="row">280</th><td>NA    </td></tr>
+	<tr><th scope="row">282</th><td>청년층</td></tr>
+	<tr><th scope="row">283</th><td>청년층</td></tr>
+	<tr><th scope="row">286</th><td>NA    </td></tr>
+	<tr><th scope="row">287</th><td>청년층</td></tr>
+	<tr><th scope="row">289</th><td>NA    </td></tr>
+	<tr><th scope="row">291</th><td>NA    </td></tr>
+	<tr><th scope="row">292</th><td>청년층</td></tr>
+	<tr><th scope="row">293</th><td>NA    </td></tr>
+	<tr><th scope="row">294</th><td>NA    </td></tr>
+	<tr><th scope="row">295</th><td>청년층</td></tr>
+	<tr><th scope="row">296</th><td>청년층</td></tr>
+	<tr><th scope="row">297</th><td>청년층</td></tr>
+	<tr><th scope="row">298</th><td>NA    </td></tr>
+	<tr><th scope="row">299</th><td>NA    </td></tr>
+	<tr><th scope="row">300</th><td>청년층</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>역 코딩을 위한 코딩 변경<ul>
+<li>만족도 평가를 위해서 설문지 문항을 5점 척도인 매우만족, 만족, 보통, 불만족, 매우 불만족 형태로 작성된 경우 순서대로 코딩하면 매우 만족이 1 그리고 매우 불만족이 5로 코딩된다. 이러한 만족도 평가를 점수화하기 위해서는 매우 만족과 매우 불만족이 역순으로 변경되어야 하는데 이러한 작업을 역코딩이라고 한다. </li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">head</span><span class="p">(</span><span class="n">dataset2</span><span class="p">[</span><span class="s">&#39;survey&#39;</span><span class="p">])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A data.frame: 6 × 1</caption>
+<thead>
+	<tr><th></th><th scope="col">survey</th></tr>
+	<tr><th></th><th scope="col">&lt;int&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><th scope="row">1</th><td>1</td></tr>
+	<tr><th scope="row">2</th><td>2</td></tr>
+	<tr><th scope="row">3</th><td>4</td></tr>
+	<tr><th scope="row">4</th><td>2</td></tr>
+	<tr><th scope="row">5</th><td>1</td></tr>
+	<tr><th scope="row">6</th><td>2</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>예를 들면 만족도(survey) 칼럼을 대상으로 1~5 순서로 코딩된 값을 5~1 순서로 역코딩하기 위해서는 6-현재값 형식으로 수식을 적용하면 된다. </li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">survey</span> <span class="o">=</span> <span class="n">dataset2</span><span class="o">$</span><span class="n">survey</span>
+<span class="n">dataset2</span><span class="o">$</span><span class="n">survey2</span> <span class="o">=</span> <span class="m">6</span> <span class="o">-</span> <span class="n">survey</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">dataset2</span><span class="p">[</span><span class="s">&#39;survey2&#39;</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A data.frame: 235 × 1</caption>
+<thead>
+	<tr><th></th><th scope="col">survey2</th></tr>
+	<tr><th></th><th scope="col">&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><th scope="row">1</th><td>5</td></tr>
+	<tr><th scope="row">2</th><td>4</td></tr>
+	<tr><th scope="row">3</th><td>2</td></tr>
+	<tr><th scope="row">4</th><td>4</td></tr>
+	<tr><th scope="row">5</th><td>5</td></tr>
+	<tr><th scope="row">6</th><td>4</td></tr>
+	<tr><th scope="row">7</th><td>2</td></tr>
+	<tr><th scope="row">9</th><td>3</td></tr>
+	<tr><th scope="row">10</th><td>3</td></tr>
+	<tr><th scope="row">11</th><td>1</td></tr>
+	<tr><th scope="row">12</th><td>3</td></tr>
+	<tr><th scope="row">13</th><td>4</td></tr>
+	<tr><th scope="row">14</th><td>4</td></tr>
+	<tr><th scope="row">16</th><td>4</td></tr>
+	<tr><th scope="row">17</th><td>5</td></tr>
+	<tr><th scope="row">18</th><td>4</td></tr>
+	<tr><th scope="row">19</th><td>4</td></tr>
+	<tr><th scope="row">20</th><td>4</td></tr>
+	<tr><th scope="row">21</th><td>4</td></tr>
+	<tr><th scope="row">22</th><td>4</td></tr>
+	<tr><th scope="row">23</th><td>5</td></tr>
+	<tr><th scope="row">24</th><td>4</td></tr>
+	<tr><th scope="row">26</th><td>3</td></tr>
+	<tr><th scope="row">27</th><td>3</td></tr>
+	<tr><th scope="row">29</th><td>3</td></tr>
+	<tr><th scope="row">30</th><td>3</td></tr>
+	<tr><th scope="row">32</th><td>3</td></tr>
+	<tr><th scope="row">33</th><td>4</td></tr>
+	<tr><th scope="row">35</th><td>4</td></tr>
+	<tr><th scope="row">36</th><td>5</td></tr>
+	<tr><th scope="row">⋮</th><td>⋮</td></tr>
+	<tr><th scope="row">262</th><td>3</td></tr>
+	<tr><th scope="row">263</th><td>3</td></tr>
+	<tr><th scope="row">264</th><td>3</td></tr>
+	<tr><th scope="row">265</th><td>3</td></tr>
+	<tr><th scope="row">266</th><td>3</td></tr>
+	<tr><th scope="row">267</th><td>2</td></tr>
+	<tr><th scope="row">268</th><td>3</td></tr>
+	<tr><th scope="row">269</th><td>2</td></tr>
+	<tr><th scope="row">270</th><td>4</td></tr>
+	<tr><th scope="row">272</th><td>4</td></tr>
+	<tr><th scope="row">275</th><td>3</td></tr>
+	<tr><th scope="row">276</th><td>2</td></tr>
+	<tr><th scope="row">277</th><td>3</td></tr>
+	<tr><th scope="row">278</th><td>3</td></tr>
+	<tr><th scope="row">280</th><td>3</td></tr>
+	<tr><th scope="row">282</th><td>2</td></tr>
+	<tr><th scope="row">283</th><td>4</td></tr>
+	<tr><th scope="row">286</th><td>5</td></tr>
+	<tr><th scope="row">287</th><td>4</td></tr>
+	<tr><th scope="row">289</th><td>2</td></tr>
+	<tr><th scope="row">291</th><td>3</td></tr>
+	<tr><th scope="row">292</th><td>3</td></tr>
+	<tr><th scope="row">293</th><td>3</td></tr>
+	<tr><th scope="row">294</th><td>4</td></tr>
+	<tr><th scope="row">295</th><td>1</td></tr>
+	<tr><th scope="row">296</th><td>4</td></tr>
+	<tr><th scope="row">297</th><td>4</td></tr>
+	<tr><th scope="row">298</th><td>4</td></tr>
+	<tr><th scope="row">299</th><td>4</td></tr>
+	<tr><th scope="row">300</th><td>4</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+</div>
+
+
+
+  </div><a class="u-url" href="/INTROr/2022/02/15/r.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/INTROr/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/INTROr/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/INTROr/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>An easy to use blogging platform with support for Jupyter Notebooks.</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/rhkrehtjd" target="_blank" title="rhkrehtjd"><svg class="svg-icon grey"><use xlink:href="/INTROr/assets/minima-social-icons.svg#github"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
