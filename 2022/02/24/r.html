@@ -1,0 +1,2707 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>교차분석, 카이제곱검정, 추정과 검정(단일 집단 검정) | INTROr</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="교차분석, 카이제곱검정, 추정과 검정(단일 집단 검정)" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="An easy to use blogging platform with support for Jupyter Notebooks." />
+<meta property="og:description" content="An easy to use blogging platform with support for Jupyter Notebooks." />
+<link rel="canonical" href="https://rhkrehtjd.github.io/INTROr/2022/02/24/r.html" />
+<meta property="og:url" content="https://rhkrehtjd.github.io/INTROr/2022/02/24/r.html" />
+<meta property="og:site_name" content="INTROr" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-02-24T00:00:00-06:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="교차분석, 카이제곱검정, 추정과 검정(단일 집단 검정)" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2022-02-24T00:00:00-06:00","datePublished":"2022-02-24T00:00:00-06:00","description":"An easy to use blogging platform with support for Jupyter Notebooks.","headline":"교차분석, 카이제곱검정, 추정과 검정(단일 집단 검정)","mainEntityOfPage":{"@type":"WebPage","@id":"https://rhkrehtjd.github.io/INTROr/2022/02/24/r.html"},"url":"https://rhkrehtjd.github.io/INTROr/2022/02/24/r.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/INTROr/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://rhkrehtjd.github.io/INTROr/feed.xml" title="INTROr" /><link rel="shortcut icon" type="image/x-icon" href="/INTROr/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.css" integrity="sha512-h7nl+xz8wgDlNM4NqKEM4F1NkIRS17M9+uJwIGwuo8vGqIl4BhuCKdxjWEINm+xyrUjNCnK5dCrhM0sj+wTIXw==" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.js" integrity="sha512-/CMIhXiDA3m2c9kzRyd97MTb3MC6OVnx4TElQ7fkkoRghwDf6gi41gaT1PwF270W6+J60uTmwgeRpNpJdRV6sg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/contrib/auto-render.min.js" integrity="sha512-Do7uJAaHZm5OLrIv/yN4w0iG1dbu01kzdMNnFfu/mAqgUk6Nniv2JYHcwH+cNwjqgLcqcuBBk+JRvprLVI8azg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha512-0doc9hKxR3PYwso42RD1p5ySZpzzuDiOwMrdCEh2WdJZCjcmFKc/wEnL+z8fBQrnHoiNWbo+3fiGkOYXBdQp4A==" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/INTROr/">INTROr</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/INTROr/about/">About Me</a><a class="page-link" href="/INTROr/search/">Search</a><a class="page-link" href="/INTROr/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">교차분석, 카이제곱검정, 추정과 검정(단일 집단 검정)</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2022-02-24T00:00:00-06:00" itemprop="datePublished">
+        Feb 24, 2022
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      18 min read
+    
+</span></p>
+
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-justify-center">
+          <div class="px-2">
+
+    <a href="https://github.com/rhkrehtjd/INTROr/tree/master/_notebooks/2022-02-24-r.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/INTROr/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://mybinder.org/v2/gh/rhkrehtjd/INTROr/master?filepath=_notebooks%2F2022-02-24-r.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/INTROr/assets/badges/binder.svg" alt="Open In Binder"/>
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://colab.research.google.com/github/rhkrehtjd/INTROr/blob/master/_notebooks/2022-02-24-r.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/INTROr/assets/badges/colab.svg" alt="Open In Colab"/>
+    </a>
+</div>
+          <div class="px-2">
+  <a href="https://deepnote.com/launch?url=https%3A%2F%2Fgithub.com%2Frhkrehtjd%2FINTROr%2Fblob%2Fmaster%2F_notebooks%2F2022-02-24-r.ipynb" target="_blank">
+      <img class="notebook-badge-image" src="/INTROr/assets/badges/deepnote.svg" alt="Launch in Deepnote"/>
+  </a>
+</div>
+
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2022-02-24-r.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>교차분석<ul>
+<li>범주형 자료(명목척도, 서열척도)를 대상으로 두 개 이상의 변수들에 대한 관련성을 알아보기 위해서 결합분포를 나타내는 교차 분할표를 작성하고 이를 통해서 변수 상호간의 관련성 여부를 분석하는 방법이다. </li>
+<li>빈도분석의 특성별 차이를 분석하기 위해 수행하는 분석 방법으로 빈도분석 결과에 대한 보충자료를 제시하는 데 효과적이다.</li>
+<li>교차분석은 빈도분석과 함께 고급통계분석의 기초정보를 제공한다.</li>
+<li>주의 1) 교차분석에 사용되는 변수는 값이 10 미만인 범주형 변수(명목척도, 서열척도)이어야 한다.</li>
+<li>주의 2) 비율척도인 경우는 코딩 변경을 통해서 범주형 자료로 변화해야 한다. <ul>
+<li>예를 들면, 나이의 경우 10~19세는 1, 20~29세는 2 등으로 코딩변경을 통해 범주화하여 사용한다.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr />
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>데이터프레임 생성<ul>
+<li>해당 변수를 확인하여 모델링한 후 범주형 데이터로 변환하는 변수 리코딩 과정을 거친다. </li>
+<li>대상 변수를 분할표로 작성하기 위해서는 데이터프레임을 생성해야 한다. </li>
+<li>변수 모델링 : 특정 객체를 대상으로 분석할 속성(변수)을 선택하여 속성 간의 관계를 설정하는 일련의 과정을 의미한다. 여기서 속성은 변수 또는 변인이라고도 한다. <ul>
+<li>예를 들면, smoke 객체에서 education과 smoking 속성을 분석대상으로 하여 education이 smoking과 관련성이 있는가를 모델링하는 경우 education $\to$ smoking 형태로 기술한다. 이때 education은 영향을 미치는 독립변수에 해당하고, smoking은 영향을 받는 종속변수에 해당한다. </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="nf">read.csv</span><span class="p">(</span><span class="s">&#39;cleanDescriptive.csv&#39;</span><span class="p">,</span><span class="n">header</span><span class="o">=</span><span class="bp">T</span><span class="p">)</span>
+<span class="nf">head</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="m">3</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A data.frame: 3 × 14</caption>
+<thead>
+	<tr><th></th><th scope="col">resident</th><th scope="col">gender</th><th scope="col">age</th><th scope="col">level</th><th scope="col">cost</th><th scope="col">type</th><th scope="col">survey</th><th scope="col">pass</th><th scope="col">cost2</th><th scope="col">resident2</th><th scope="col">gender2</th><th scope="col">age2</th><th scope="col">level2</th><th scope="col">pass2</th></tr>
+	<tr><th></th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;chr&gt;</th><th scope="col">&lt;chr&gt;</th><th scope="col">&lt;chr&gt;</th><th scope="col">&lt;chr&gt;</th><th scope="col">&lt;chr&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><th scope="row">1</th><td> 1</td><td>1</td><td>50</td><td>1</td><td>5.1</td><td>1</td><td>1</td><td>2</td><td>2</td><td>특별시</td><td>남자</td><td>장년층</td><td>고졸</td><td>실패</td></tr>
+	<tr><th scope="row">2</th><td> 2</td><td>1</td><td>54</td><td>2</td><td>4.2</td><td>1</td><td>2</td><td>2</td><td>2</td><td>광역시</td><td>남자</td><td>장년층</td><td>대졸</td><td>실패</td></tr>
+	<tr><th scope="row">3</th><td>NA</td><td>1</td><td>62</td><td>2</td><td>4.7</td><td>1</td><td>1</td><td>1</td><td>2</td><td>NA    </td><td>남자</td><td>노년층</td><td>대졸</td><td>합격</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">data</span><span class="o">$</span><span class="n">level2</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="o">$</span><span class="n">pass2</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>교차분할표 작성을 위해 데이터프레임을 생성하자</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="nf">data.frame</span><span class="p">(</span><span class="n">Level</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">Pass</span> <span class="o">=</span> <span class="n">y</span><span class="p">)</span>
+<span class="nf">dim</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>248</li><li>2</li>&lt;/ol&gt;
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">head</span><span class="p">(</span><span class="n">result</span><span class="p">,</span><span class="m">2</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A data.frame: 2 × 2</caption>
+<thead>
+	<tr><th></th><th scope="col">Level</th><th scope="col">Pass</th></tr>
+	<tr><th></th><th scope="col">&lt;chr&gt;</th><th scope="col">&lt;chr&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><th scope="row">1</th><td>고졸</td><td>실패</td></tr>
+	<tr><th scope="row">2</th><td>대졸</td><td>실패</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>부모의 학력 수준이 자녀의 대학 진학여부와 관련이 있는지를 분석하기 위해서 학력수준(독립변수)과 진학여부(종속변수) 변수를 대상으로 데이터프레임을 생성했다. </li>
+<li>교차 분할표를 통해서 범주형 변수의 관계를 분석하는 방법으로 이전에 작성한 데이터프레임을 이용하여 교차분석을 수행한다. </li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">table</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea ">
+<pre>          Pass
+Level      실패 합격
+  고졸       40   49
+  대졸       27   55
+  대학원졸   23   31</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>result 데이터프레임 객체를 대상으로 기보 함수인 table() 함수를 이용하여 두 개 이상 변수의 결합분포를 나타내는 교차분할표를 작성했다. </li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">install.packages</span><span class="p">(</span><span class="s">&#39;gmodels&#39;</span><span class="p">)</span>
+<span class="nf">install.packages</span><span class="p">(</span><span class="s">&#39;ggplot2&#39;</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">gmodels</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>also installing the dependencies &#39;gtools&#39;, &#39;gdata&#39;
+
+
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>package &#39;gtools&#39; successfully unpacked and MD5 sums checked
+package &#39;gdata&#39; successfully unpacked and MD5 sums checked
+package &#39;gmodels&#39; successfully unpacked and MD5 sums checked
+
+The downloaded binary packages are in
+	C:\Users\ehfus\AppData\Local\Temp\RtmpUBsNIL\downloaded_packages
+package &#39;ggplot2&#39; successfully unpacked and MD5 sums checked
+
+The downloaded binary packages are in
+	C:\Users\ehfus\AppData\Local\Temp\RtmpUBsNIL\downloaded_packages
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">data</span><span class="o">$</span><span class="n">level2</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="o">$</span><span class="n">pass2</span>
+<span class="nf">CrossTable</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span> <span class="c1"># 교차 분할표 작성</span>
+<span class="c1"># Cell Contents은 교차 분할표를 이루고 있는 각 셀에 대한 데이터의 설명이다.</span>
+<span class="c1"># 첫 번째 줄 : 관측치를 의미</span>
+<span class="c1"># 두 번째 줄 : 카이제곱의 결과(기대치 비율)</span>
+<span class="c1"># 세 번째 줄 : 현재 행의 비율</span>
+<span class="c1"># 네 번째 줄 : 현재 열의 비율</span>
+<span class="c1"># 다섯 번째 줄 : 전체비율에서 현재 셀의 값이 차지하는 비율</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+ 
+   Cell Contents
+|-------------------------|
+|                       N |
+| Chi-square contribution |
+|           N / Row Total |
+|           N / Col Total |
+|         N / Table Total |
+|-------------------------|
+
+ 
+Total Observations in Table:  225 
+
+ 
+             | y 
+           x |      실패 |      합격 | Row Total | 
+-------------|-----------|-----------|-----------|
+        고졸 |        40 |        49 |        89 | 
+             |     0.544 |     0.363 |           | 
+             |     0.449 |     0.551 |     0.396 | 
+             |     0.444 |     0.363 |           | 
+             |     0.178 |     0.218 |           | 
+-------------|-----------|-----------|-----------|
+        대졸 |        27 |        55 |        82 | 
+             |     1.026 |     0.684 |           | 
+             |     0.329 |     0.671 |     0.364 | 
+             |     0.300 |     0.407 |           | 
+             |     0.120 |     0.244 |           | 
+-------------|-----------|-----------|-----------|
+    대학원졸 |        23 |        31 |        54 | 
+             |     0.091 |     0.060 |           | 
+             |     0.426 |     0.574 |     0.240 | 
+             |     0.256 |     0.230 |           | 
+             |     0.102 |     0.138 |           | 
+-------------|-----------|-----------|-----------|
+Column Total |        90 |       135 |       225 | 
+             |     0.400 |     0.600 |           | 
+-------------|-----------|-----------|-----------|
+
+ 
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>교차 분할표에서 기대비율은 카이제곱 식(= 시그마(관측값-기대값)^2/기대값)에 의해서 구해진 결과이다. </li>
+<li>이때 기대값은 (현재 셀의 행 합 x 현재 셀의 열 합)/전체합으로 구한다. </li>
+<li>이렇게 계산된 기대비율 6개(교차 분할표 6개 셀)의 총합과 자유도(df)라는 검정 통계량을 이용하여 두 변인 간의 관련성 여부를 검정하는 방법이 카이제곱 검정이다. </li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>논문/보고서에서 교차 분할표 해석<ul>
+<li>부모의 학력 수준에 따른 자녀의 대학진학 여부를 설문 조사한 결과 부모의 학력 수준에 상관없이 대학진학 합격률이 평균 60%로 학력 수준별로 유사한 결과가 나타났다.</li>
+<li>대졸 부모의 대학진학 합격율이 평균보다 조금 높고, 고졸 부모의 대학진학 합격율이 평균보다 조금 낮은 것으로 분석된다. </li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr />
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>카이제곱 검정<ul>
+<li>범주별로 관측빈도와 기대빈도의 차이를 통해서 확률 모형이 데이터를 얼마나 잘 설명하는지를 검정하는 통계적 방법이다.</li>
+<li>일반적으로 교차분석으로 얻어진 분할표를 대상으로 유의확률을 적용하여 변수 간의 독립성(관련성)여부를 검정하는 분석 방법으로 사용된다. </li>
+<li>교차분석은 카이제곱 검정 통계량을 사용하기 때문에 교차 분석을 카이제곱 검정이라고도 한다.<ul>
+<li>카이제곱 검정의 유형에는 적합도 검정, 독립성 검정, 동질성 검정으로 분류한다.</li>
+<li>주의 1. 카이제곱 검정은 교차분석과 동일하게 <code>범주형 변수</code>를 대상으로 한다.</li>
+<li>주의 2. 집단별로 비율이 같은지를 검정(비율에 대한 검정)하여 <code>독립성 여부를 검정</code>한다. </li>
+<li>주의 3. 유의확률에 의해서 집단 간의 차이가 있는지 없느지를 가설 검정한다.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="c1"># CrossTable() 함수에 chisq = T 속성을 통해 카이제곱 검정의 결과를 볼 수 있다. </span>
+<span class="nf">CrossTable</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">chisq</span><span class="o">=</span><span class="bp">T</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+ 
+   Cell Contents
+|-------------------------|
+|                       N |
+| Chi-square contribution |
+|           N / Row Total |
+|           N / Col Total |
+|         N / Table Total |
+|-------------------------|
+
+ 
+Total Observations in Table:  225 
+
+ 
+             | y 
+           x |      실패 |      합격 | Row Total | 
+-------------|-----------|-----------|-----------|
+        고졸 |        40 |        49 |        89 | 
+             |     0.544 |     0.363 |           | 
+             |     0.449 |     0.551 |     0.396 | 
+             |     0.444 |     0.363 |           | 
+             |     0.178 |     0.218 |           | 
+-------------|-----------|-----------|-----------|
+        대졸 |        27 |        55 |        82 | 
+             |     1.026 |     0.684 |           | 
+             |     0.329 |     0.671 |     0.364 | 
+             |     0.300 |     0.407 |           | 
+             |     0.120 |     0.244 |           | 
+-------------|-----------|-----------|-----------|
+    대학원졸 |        23 |        31 |        54 | 
+             |     0.091 |     0.060 |           | 
+             |     0.426 |     0.574 |     0.240 | 
+             |     0.256 |     0.230 |           | 
+             |     0.102 |     0.138 |           | 
+-------------|-----------|-----------|-----------|
+Column Total |        90 |       135 |       225 | 
+             |     0.400 |     0.600 |           | 
+-------------|-----------|-----------|-----------|
+
+ 
+Statistics for All Table Factors
+
+
+Pearson&#39;s Chi-squared test 
+------------------------------------------------------------
+Chi^2 =  2.766951     d.f. =  2     p =  0.2507057 
+
+
+ 
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>p값이 0.05보다 작지 않다. 이는 유의확률이 유의수준보다 작지 않다는 의미로 두 변인은 서로 독립적이다(여기서 독립적이다라는 의미는 두 변인은 서로 관련성이 없다라는 의미로 해석할 수 있겠다)라는 귀무가설을 기각할 수 없다. </li>
+<li>따라서 두 변인은 서로 독립적이지 않다라는 대립가설을 채택할 수 없다.</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr />
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>카이제곱 검정 절차와 기본 가정<ul>
+<li>카이제곱 검정은 유의수준과 유의확률 값에 의해서 가설을 검정해야 한다. </li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><code>단계 1)</code> 가설을 설정한다</p>
+<ul>
+<li>귀무가설($H_0$) : ~같다. ~다르지 않다. ~차이가 없다. ~효과가 없다.</li>
+<li>대립가설($H_1$) : ~같지 않다. ~다르자. ~차이가 있다. ~효과가 있다.</li>
+</ul>
+<p><code>단계 2)</code> 유의수준($\alpha$)을 결정한다.</p>
+<ul>
+<li>일반 사회과학 분야 : 0.05</li>
+<li>의,생명과학 분야 : 0.01</li>
+</ul>
+<p><code>단계 3)</code> 자유도(df)와 유의수준($\alpha$)에 따른 $x^2$ 분포표에 의해 기각값을 결정한다.</p>
+<p><code>단계 4)</code> 관찰도수에 대한 기대도수를 구한다.</p>
+<p><code>단계 5)</code> 검정 통계량 $x^2$의 값을 구한다.</p>
+<ul>
+<li>$x^2=$ 시그마(관측값-기대값)^2/기대값</li>
+</ul>
+<p><code>단계 6)</code> $x^2$검정 통계량과 기각값을 비교하여 귀무가설 채택 여부를 판정한다.</p>
+<p><code>단계 7)</code> 카이제곱 검정 결과를 진술한다.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr />
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>카이제곱 검정 유형<ul>
+<li>카이제곱 검정 유형은 교차 분할표 이용 여부에 따라서 크게 일원 카이제곱 검정과 이원 카이제곱 검정으로 분류된다. </li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>일원 카이제곱 검정<ul>
+<li>교차 분할표를 이용하지 않는 카이제곱 검정으로 한 개의 변인(집단 또는 범주)을 대상으로 검정을 수행한다. </li>
+<li>관찰도수가 기대도수와 일치하는지를 검정하는 적합도 검정이 여기에 속한다. </li>
+</ul>
+</li>
+<li>이원 카이제곱 검정<ul>
+<li>교차 분할표를 이용하는 카이제곱 검정으로 한 개 이상의 변인(집단 또는 범주)을 대상으로 검정을 수행한다. </li>
+<li>분석대상의 집단 수에 의해서 독립성 검정과 동질성 검정으로 나누어진다. </li>
+<li>독립성 검정<ul>
+<li>한 집단 내에서 두 변인의 관계가 독립인지를 검정하는 방법이다. (귀무가설 : 두 사건은 관련성이 없다.)<ul>
+<li>동질성 검정</li>
+</ul>
+</li>
+<li>두 집단 이상에서 각 범주간의 비율이 서로 동일한지를 검정하는 방법이다. 즉, 두 개 이상의 범주형 자료가 동일한 분포를 가지는 모집단에서 춫룰된 것인지 검정하는 방법이다. (귀무가설 : 모든 표본의 비율을 동일하다.)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr />
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>일원 카이제곱 검정<ul>
+<li>한 개의 변인을 대상으로 검정을 수행하기 때문에 교차 분할표를 이용하지 않고 검정을 수행한다. 일원 카이제곱 검정은 적합도 검정과 선호도 분석에서 주로 이용한다. </li>
+<li>적합도 검정<ul>
+<li>chisq.test() 함수를 이용하여 관찰빈도와 기대빈도의 일치 여부를 검정한다. </li>
+<li>귀무가설 : 기대치와 관찰치는 차이가 없다. </li>
+<li>대립가설 : 기대치와 관찰치는 차이가 있다. </li>
+<li>예를 들면, 주사위 60회를 던져서 나온 관측도수와 기대도수가 다음과 같이 나올 때 이 주사위는 게임에 적합한 주사위인지를 일원 카이제곱 검정 방법으로 분석해보자</li>
+<li>관측도구 : 4,6,17,16,8,9</li>
+<li>기대도구 : 10,10,10,10,10,10</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">chisq.test</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="m">4</span><span class="p">,</span><span class="m">6</span><span class="p">,</span><span class="m">17</span><span class="p">,</span><span class="m">16</span><span class="p">,</span><span class="m">8</span><span class="p">,</span><span class="m">9</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea ">
+<pre>
+	Chi-squared test for given probabilities
+
+data:  c(4, 6, 17, 16, 8, 9)
+X-squared = 14.2, df = 5, p-value = 0.01439
+</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>카이제곱 검정 결과를 해석하는 방법은 다음과 같이 유희확률로 해석하는 방법과 검정 통계량으로 해석하는 방법이 있다.<ul>
+<li>유의확률 해석하는 방법<ul>
+<li>유의확률이 0.05 미만이기 때문에 유의미한 수준($\alpha=0.05$)에서 귀무가설을 기각할 수 있다. 따라서 주사위는 게임에 적합하다라는 귀무가설을 기가하고 주사위는 게임에 적합하지 않다라는 대립가설을 채택할 수 있다. </li>
+</ul>
+</li>
+<li>검정통계량 해석하는 방법<ul>
+<li>검정 통계량: X-squared = 14.2, df = 5일 때, 카이제곱(X-squared)은 관측값과 기대값을 이용하여 다음과 같은 수식으로 계산할 수 있다. </li>
+<li>시그마(관측값-기대값)^2/기대값</li>
+<li>자유도 : 검정을 위해서 n개의 표본(관측치)을 선정한 경우 n번째 표본은 나머지 표본이 정해지면 자동으로 결정되는 변인의 수를 의미하기 때문에 자유도는 N-1로 표현된다. 교차 분할표에서 자유도(df) = (행수 - 1) *(열수 - 1)로 구해진다. </li>
+<li>검정 통계량의 자유도가 5이고, 유의수준이 0.05인 경우 chi-square 분포표에 의하면 임계겂아 11.071에 해당한다. </li>
+<li>그러므로 X-squared 기각값(역)은 $x^2$값이 11.071이상이면 귀무가설을 기각할 수 있다는 의미이다. 따라서 X-squared 검정 통계량이 14.2이기 때문에 기각역에 해당하여 귀무가설을 기각하고 대립가설을 채택할 수 있다. </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>선호도 분석<ul>
+<li>적합도 검정과 마찬가지로 관측빈도와 기대빈도의 차이를 통해서 확률 모형이 주어진 자료를 얼마나 잘 설명하는지를 검정하는 통계적 방법이다. 차이점은 분석에 필요한 연구 환경과 자료라고 볼 수 있다. </li>
+<li>귀무가설 : 기대치와 관찰치는 차이가 없다.</li>
+<li>대립가설 : 기대치와 관찰치는 차이가 있다. </li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="nf">textConnection</span><span class="p">(</span>
+<span class="s">&#39;스포츠음료종류 관측도수</span>
+<span class="s">1 41</span>
+<span class="s">2 30</span>
+<span class="s">3 51</span>
+<span class="s">4 71</span>
+<span class="s">5 61</span>
+<span class="s">&#39;</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="nf">read.table</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="n">header</span><span class="o">=</span><span class="bp">T</span><span class="p">)</span>
+<span class="n">x</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A data.frame: 5 × 2</caption>
+<thead>
+	<tr><th scope="col">스포츠음료종류</th><th scope="col">관측도수</th></tr>
+	<tr><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><td>1</td><td>41</td></tr>
+	<tr><td>2</td><td>30</td></tr>
+	<tr><td>3</td><td>51</td></tr>
+	<tr><td>4</td><td>71</td></tr>
+	<tr><td>5</td><td>61</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">chisq.test</span><span class="p">(</span><span class="n">x</span><span class="o">$</span>관측도수<span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea ">
+<pre>
+	Chi-squared test for given probabilities
+
+data:  x$관측도수
+X-squared = 20.488, df = 4, p-value = 0.0003999
+</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>유의확률이 0.05 미만이기 때문에 유의수준에서 귀무가설을 기각할 수 있다. 따라서 스포츠음료에 대한 선호도에 차이가 없다라는 귀무가설을 기각하고, 스포츠음료에 대한 선호도에 차이가 있다라는 대립가설을 채택할 수 있다.</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr />
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>이원 카이제곱 검정<ul>
+<li>두 개 이상의 변인(집단 또는 범주)을 대상으로 교차 분할표를 이용하는 카이제곱 검정방법으로 분석대상의 집단 수에 의해서 독립성 검정과 동질성 검정으로 나누어진다. </li>
+<li>독립성 검정의 예</li>
+<li>귀무가설 : 경제력과 대학진학 합격률과 독립성이 있다.(관련성이 없다)</li>
+<li>대립가설 : 경제력과 대학진학 합격률과 독립성이 없다.(관련성이 있다)</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="nf">read.csv</span><span class="p">(</span><span class="s">&#39;cleanDescriptive.csv&#39;</span><span class="p">,</span><span class="n">header</span><span class="o">=</span><span class="bp">T</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">data</span><span class="o">$</span><span class="n">level2</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="o">$</span><span class="n">pass</span>
+<span class="nf">CrossTable</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">chisq</span><span class="o">=</span><span class="bp">T</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+ 
+   Cell Contents
+|-------------------------|
+|                       N |
+| Chi-square contribution |
+|           N / Row Total |
+|           N / Col Total |
+|         N / Table Total |
+|-------------------------|
+
+ 
+Total Observations in Table:  225 
+
+ 
+             | y 
+           x |         1 |         2 | Row Total | 
+-------------|-----------|-----------|-----------|
+        고졸 |        49 |        40 |        89 | 
+             |     0.363 |     0.544 |           | 
+             |     0.551 |     0.449 |     0.396 | 
+             |     0.363 |     0.444 |           | 
+             |     0.218 |     0.178 |           | 
+-------------|-----------|-----------|-----------|
+        대졸 |        55 |        27 |        82 | 
+             |     0.684 |     1.026 |           | 
+             |     0.671 |     0.329 |     0.364 | 
+             |     0.407 |     0.300 |           | 
+             |     0.244 |     0.120 |           | 
+-------------|-----------|-----------|-----------|
+    대학원졸 |        31 |        23 |        54 | 
+             |     0.060 |     0.091 |           | 
+             |     0.574 |     0.426 |     0.240 | 
+             |     0.230 |     0.256 |           | 
+             |     0.138 |     0.102 |           | 
+-------------|-----------|-----------|-----------|
+Column Total |       135 |        90 |       225 | 
+             |     0.600 |     0.400 |           | 
+-------------|-----------|-----------|-----------|
+
+ 
+Statistics for All Table Factors
+
+
+Pearson&#39;s Chi-squared test 
+------------------------------------------------------------
+Chi^2 =  2.766951     d.f. =  2     p =  0.2507057 
+
+
+ 
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>유의수준이 0.05 이상이기 때문에 유의미한 수준에서 귀무가설을 기각할 수 없다. 따라서 부모의 학력수준과 자녀의 대학 진학여부는 독립적이다라는 귀무가설을 기각할 수 없기 때문에 두 변인간에 관련성이 없는 것으로 해석할 수 있다. </li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr />
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>동질성 검정<ul>
+<li>두 집단의 분포가 동일한가? 또는 분포가 동일하지 않은가?를 검정하는 방법이다. 즉, 동일한 분포를 가지는 모집단에서 추출된 것인지를 검정하는 방법이다.</li>
+<li>귀무가설 : 직업 유형에 따라 만족도에 차이가 없다.</li>
+<li>대립가설 : 직업 유형에 따라 만족도에 차이가 있다.</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="nf">read.csv</span><span class="p">(</span><span class="s">&#39;homogenity.csv&#39;</span><span class="p">)</span>
+<span class="nf">head</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="m">3</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A data.frame: 3 × 3</caption>
+<thead>
+	<tr><th></th><th scope="col">no</th><th scope="col">method</th><th scope="col">survey</th></tr>
+	<tr><th></th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><th scope="row">1</th><td>1</td><td>1</td><td>1</td></tr>
+	<tr><th scope="row">2</th><td>2</td><td>2</td><td>2</td></tr>
+	<tr><th scope="row">3</th><td>3</td><td>3</td><td>3</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="nf">subset</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="o">!</span><span class="nf">is.na</span><span class="p">(</span><span class="n">survey</span><span class="p">),</span> <span class="nf">c</span><span class="p">(</span><span class="n">method</span><span class="p">,</span><span class="n">survey</span><span class="p">))</span>
+<span class="nf">head</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="m">3</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A data.frame: 3 × 2</caption>
+<thead>
+	<tr><th></th><th scope="col">method</th><th scope="col">survey</th></tr>
+	<tr><th></th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><th scope="row">1</th><td>1</td><td>1</td></tr>
+	<tr><th scope="row">2</th><td>2</td><td>2</td></tr>
+	<tr><th scope="row">3</th><td>3</td><td>3</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">data</span><span class="o">$</span><span class="n">method2</span><span class="p">[</span><span class="n">data</span><span class="o">$</span><span class="n">method</span> <span class="o">==</span><span class="m">1</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;방법1&#39;</span>
+<span class="n">data</span><span class="o">$</span><span class="n">method2</span><span class="p">[</span><span class="n">data</span><span class="o">$</span><span class="n">method</span> <span class="o">==</span><span class="m">2</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;방법2&#39;</span>
+<span class="n">data</span><span class="o">$</span><span class="n">method2</span><span class="p">[</span><span class="n">data</span><span class="o">$</span><span class="n">method</span> <span class="o">==</span><span class="m">3</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;방법3&#39;</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">data</span><span class="o">$</span><span class="n">survey2</span><span class="p">[</span><span class="n">data</span><span class="o">$</span><span class="n">survey</span> <span class="o">==</span> <span class="m">1</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;1.매우만족&#39;</span>
+<span class="n">data</span><span class="o">$</span><span class="n">survey2</span><span class="p">[</span><span class="n">data</span><span class="o">$</span><span class="n">survey</span> <span class="o">==</span> <span class="m">2</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;2.만족&#39;</span>
+<span class="n">data</span><span class="o">$</span><span class="n">survey2</span><span class="p">[</span><span class="n">data</span><span class="o">$</span><span class="n">survey</span> <span class="o">==</span> <span class="m">3</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;3.보통&#39;</span>
+<span class="n">data</span><span class="o">$</span><span class="n">survey2</span><span class="p">[</span><span class="n">data</span><span class="o">$</span><span class="n">survey</span> <span class="o">==</span> <span class="m">4</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;4.불만족&#39;</span>
+<span class="n">data</span><span class="o">$</span><span class="n">survey2</span><span class="p">[</span><span class="n">data</span><span class="o">$</span><span class="n">survey</span> <span class="o">==</span> <span class="m">5</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;5.매우불만족&#39;</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">table</span><span class="p">(</span><span class="n">data</span><span class="o">$</span><span class="n">method2</span><span class="p">,</span><span class="n">data</span><span class="o">$</span><span class="n">survey2</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea ">
+<pre>       
+        1.매우만족 2.만족 3.보통 4.불만족 5.매우불만족
+  방법1          5      8     15       16            6
+  방법2          8     14     11       11            6
+  방법3          8      7     11       15            9</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>이처럼 교차분할표를 작성할 때는 반드시 각 집단의 길이가 같아야 함에 주의하자</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">chisq.test</span><span class="p">(</span><span class="n">data</span><span class="o">$</span><span class="n">method2</span><span class="p">,</span><span class="n">data</span><span class="o">$</span><span class="n">survey2</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea ">
+<pre>
+	Pearson&#39;s Chi-squared test
+
+data:  data$method2 and data$survey2
+X-squared = 6.5447, df = 8, p-value = 0.5865
+</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>유의수준 0.05에서 $x^2$값이 6.545, 자유도 8 그리고 유의확률 0.586을 보인다. 즉 6.545 이상의 카이제곱값이 얻어질 확률이 0.586이라는 것을 보여주고 있다. 이 값은 유의수준보다 크기 때문에 귀무가설을 기각할 수 없다.</li>
+<li>따라서 교육방법에 따른 만족도에 차이가 없다라고 말할 수 있다. </li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr />
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>카이제곱 검정은 교차분석으로 얻어진 교차분할표를 대상으로 유의확률을 적용하여 변수 간의 독립성(관련성)여부를 검정하기 때문에 논문이나 보고서에서는 교차 분할표와 카이제곱 검정 통계량을 함께 제시해야 한다. </li>
+<li>관찰빈도-기대빈도 값이 작을수록 카이제곱의 값도 작아져 귀무가설이 채택될 가능성이 커진다. </li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr />
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<blockquote><p>집단 간 차이 분석</p>
+</blockquote>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>추정과 검정<ul>
+<li>모집단에서 추출된 표본으로부터 모수와 관련된 통계량들의 값을 계산하고 이것을 이용하여 모집단의 특성(모수)을 알아내는 과정을 추론통계분석이라고 한다.</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>점 추정과 구간 추정<ul>
+<li>추론통계분석 과정은 모집단에서 추출한 표본으로부터 얻은 정보를 이용하여 모집단의 특성을 나타내는 값을 확률적으로 추측하는 추정과 유의수준과 표본의 검정 통계량을 비교하여 통계적 가설의 진위를 입증하는 가설 검정으로 나눌 수 있다. </li>
+<li>추정 방법<ul>
+<li>점 추정은 하나의 값을 제시하여 모수의 참값을 추측. 귀무가설의 기각률이 낮다. 오차범위를 확인할 수 없다.</li>
+<li>구간 추정은 하한값과 상한값의 신뢰구간을 지정하여 모수의 참값을 추정하는 방식이다. 일반적으로 추론통계분석에서는 구간 추정 방식을 많이 이용한다. 오차범위는 모표준편차가 알려지지 않은 경우 표본표준편차를 이용할 수 있다. </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>모평균의 구간 추정<ul>
+<li>예를 들어, 표본 평균을 이용하여 모평균에 대한 신뢰도 95% 신뢰구간을 추정한다고 할 때, 모평균의 추정 구간이 구해졌다면, 이 의미는 모집단으로부터 크기가 n인 표본을 임의추출하는 일을 반복할 경우 이들 중 95%는 모평균을 포함한다는 의미이다.</li>
+<li>이때 모표준편차가 알려지지 않는 경우 표본의 크기가 충분히 클 때(n&gt;=30)는 표본표준편차를 이용할 수 있다. </li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>표본오차<ul>
+<li>표본이 모집단의 특성과 정확히 일치하지 않아서 발생하는 확률의 차이를 의미한다. </li>
+<li>신뢰구간의 하한값에서 평균을 빼고, 상한값에서 평균을 뺀 값을 백분율로 적용하면 된다. </li>
+<li>만약 표본오차가 +-3.52%라면 다음과 같이 해석할 수 있다. <ul>
+<li>우리나라 중학교 2학년 남학생 평균 신장이 95% 신뢰수준에서 표본오차 +-3.52% 범위에서 165.1로 조사되었다면, 실제 평균 키는 165.1을 기준으로 3.52를 가감해주면 된다. </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr />
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<blockquote><p>단일 집단 검정</p>
+<ul>
+<li>한 개의 집단과 기존 집단간의 비율 차이 검정과 평균 차이 검정에 대해서 알아보자</li>
+<li>비율 차이 검정은 기술통계량으로 빈도수에 대한 비율에 의미가 있으며, 평균 차이 검정은 표본 평균에 의미가 있다.</li>
+</ul>
+</blockquote>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>단일 집단 비율 검정<ul>
+<li>단일 집단의 비율이 어떤 특정한 값과 같은지를 검정해보자</li>
+<li>분석할 데이터를 대상으로 결측치와 이상치를 제거하는 전처리 과정을 거친 후 기술통계량으로 빈도분석을 계산하고, 이를 binom.test() 함수의 인수로 사용하여 비율 차이 검정을 수행한다. 비율 차이 검정 통계량을 바탕으로 귀무가설의 기각 여부를 결정한다. </li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>귀무가설 : 기존 2019년도 고객 불만율과 2020년도 CS교육 후 불만율에 차이가 없다.</li>
+<li>대립가설 : 차이가 있다.</li>
+<li>연구환경 : 2019년도, 불만을 갖는 고객은 20%였다. 개선하기 위해 CS교육을 실시하였고 150명중 14명이 불만이 있었다. 이때, 기존 20%보다 불만율이 낮아졌다고 할 수 있는가?</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>(1) 단일 표본 대상 기술통계량<ul>
+<li>분석대상의 단일 표본을 대상으로 빈도분석을 통해서 불만율에 대한 비율을 계산한다.</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="nf">read.csv</span><span class="p">(</span><span class="s">&#39;one_sample.csv&#39;</span><span class="p">,</span><span class="n">header</span><span class="o">=</span><span class="bp">T</span><span class="p">)</span>
+<span class="nf">head</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="m">3</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A data.frame: 3 × 4</caption>
+<thead>
+	<tr><th></th><th scope="col">no</th><th scope="col">gender</th><th scope="col">survey</th><th scope="col">time</th></tr>
+	<tr><th></th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><th scope="row">1</th><td>1</td><td>2</td><td>1</td><td>5.1</td></tr>
+	<tr><th scope="row">2</th><td>2</td><td>2</td><td>0</td><td>5.2</td></tr>
+	<tr><th scope="row">3</th><td>3</td><td>2</td><td>1</td><td>4.7</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">data</span><span class="o">$</span><span class="n">survey</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">summary</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="c1"># 결측치 없음을 알 수 있다. </span>
+
+<span class="nf">length</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="nf">table</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea ">
+<pre>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.0000  1.0000  1.0000  0.9067  1.0000  1.0000 </pre>
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+150
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea ">
+<pre>x
+  0   1 
+ 14 136 </pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">install.packages</span><span class="p">(</span><span class="s">&#39;prettyR&#39;</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">prettyR</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>package &#39;prettyR&#39; successfully unpacked and MD5 sums checked
+
+The downloaded binary packages are in
+	C:\Users\ehfus\AppData\Local\Temp\RtmpUBsNIL\downloaded_packages
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">freq</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea ">
+<pre>
+Frequencies for x 
+        1    0   NA
+      136   14    0
+%    90.7  9.3    0 
+%!NA 90.7  9.3 
+</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>이항분포 비율 검정<ul>
+<li>명목척도의 비율을 바탕으로 binom.test() 함수를 이용하여 이항분포의 양측 검정을 통해서 검정 통계량을 구한 후 이를 이용하여 가설을 검정한다. </li>
+</ul>
+</li>
+<li>기존 불만율 20%와 차이가 있는지를 알아보기 위해서 양측 검정을 수행한다.</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">binom.test</span><span class="p">(</span><span class="m">14</span><span class="p">,</span><span class="m">150</span><span class="p">,</span><span class="n">p</span><span class="o">=</span><span class="m">0.2</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea ">
+<pre>
+	Exact binomial test
+
+data:  14 and 150
+number of successes = 14, number of trials = 150, p-value = 0.0006735
+alternative hypothesis: true probability of success is not equal to 0.2
+95 percent confidence interval:
+ 0.05197017 0.15163853
+sample estimates:
+probability of success 
+            0.09333333 
+</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">binom.test</span><span class="p">(</span><span class="m">14</span><span class="p">,</span><span class="m">150</span><span class="p">,</span><span class="n">p</span><span class="o">=</span><span class="m">0.2</span><span class="p">,</span><span class="n">alternative</span> <span class="o">=</span> <span class="s">&#39;two.sided&#39;</span><span class="p">,</span><span class="n">conf.level</span> <span class="o">=</span> <span class="m">0.95</span> <span class="p">)</span>
+<span class="c1"># alternative = &#39;two.sided&#39;   : 양측 검정을 수행한다. </span>
+<span class="c1"># conf.level = 0.95        : 신뢰수준을 의미한다.</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea ">
+<pre>
+	Exact binomial test
+
+data:  14 and 150
+number of successes = 14, number of trials = 150, p-value = 0.0006735
+alternative hypothesis: true probability of success is not equal to 0.2
+95 percent confidence interval:
+ 0.05197017 0.15163853
+sample estimates:
+probability of success 
+            0.09333333 
+</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>불만족 고객 14명을 대상으로 95% 신뢰수준에서 양측 검정을 수행한 결과 검정 통계량 p-value 값은 유의수준 0.05보다 작아 기존 불만율 20%과 차이가 있다고 볼 수 있다. 즉, 기존 2019년도 고객 불만율과 2020년도 CS 교육 후 불만율에 차이가 있다고 볼 수 있다.</li>
+<li>하지만 양측 검정 결과에서는 기존 불만율보다 크다 혹은 작다는 방향성은 제시되지 않는다. 따라서 방향성을 갖는 단측 가설 검정을 통해서 기존 집단과 비교하여 신규 집단의 불만율이 개선되었는지를 확인해야 한다.</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>다음은 방향성을 갖는 단측 가설 검정이다. </li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">binom.test</span><span class="p">(</span><span class="m">14</span><span class="p">,</span><span class="m">150</span><span class="p">,</span><span class="n">p</span><span class="o">=</span><span class="m">0.2</span><span class="p">,</span><span class="n">alternative</span> <span class="o">=</span> <span class="s">&#39;greater&#39;</span><span class="p">,</span><span class="n">conf.level</span> <span class="o">=</span> <span class="m">0.95</span> <span class="p">)</span> 
+<span class="c1"># conf.level = 0.95        : 신뢰수준을 의미한다.</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea ">
+<pre>
+	Exact binomial test
+
+data:  14 and 150
+number of successes = 14, number of trials = 150, p-value = 0.9999
+alternative hypothesis: true probability of success is greater than 0.2
+95 percent confidence interval:
+ 0.05731076 1.00000000
+sample estimates:
+probability of success 
+            0.09333333 
+</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">binom.test</span><span class="p">(</span><span class="m">14</span><span class="p">,</span><span class="m">150</span><span class="p">,</span><span class="n">p</span><span class="o">=</span><span class="m">0.2</span><span class="p">,</span><span class="n">alternative</span> <span class="o">=</span> <span class="s">&#39;less&#39;</span><span class="p">,</span><span class="n">conf.level</span> <span class="o">=</span> <span class="m">0.95</span> <span class="p">)</span> 
+<span class="c1"># conf.level = 0.95        : 신뢰수준을 의미한다.</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea ">
+<pre>
+	Exact binomial test
+
+data:  14 and 150
+number of successes = 14, number of trials = 150, p-value = 0.0003179
+alternative hypothesis: true probability of success is less than 0.2
+95 percent confidence interval:
+ 0.0000000 0.1420574
+sample estimates:
+probability of success 
+            0.09333333 
+</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>alternative = 'greater' : 방향성을 갖는 연구가설을 검정할 경우 이용한다. </li>
+<li>95% 신뢰수준에서 전체 150명 중에서 14명의 불만족 고객이 전체비율의 20%보다 더 큰 비율인가를 검정하기 위한 속성이다.</li>
+<li>만약 greater 대신 less를 입력한다면 20%보다 더 적은 비율인가를 검정하기 위한 속성이다.</li>
+<li>하지만 이땐 2020년도가 더 낮은지를 봐야하기 때문에 alternative=less를 입력해서 유의확률이 유의수준보다 작은지를 큰지를 보자</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>기존 2019년도 고객 불만율에 비해서 2020년도 CS 교육 후 불만율이 더 낮다라는 방향성이 있는 연구가설을 검정한 결과 검정 통계량 p-value 값이 0.05보다 작은 경우의 가설을 채택한다. 따라서 alternative=less 속성을 지정한 단측 가설이 채택된다. </li>
+<li>결과적으로 기존 2019년도 고객 불만율 20%에 비해서 2020년도 CS 교육 후 고객 불만율이 낮아졌다고 할 수 있다. </li>
+<li>따라서 CS 교육이 효과있다고 할 수 있다.</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr />
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>단일 집단 검정 中 단일 집단 평균 검정(단일 표본 T-검정)에 대해 알아보자<ul>
+<li>단일 집단의 평균이 어떤 특정한 집단의 평균과 차이가 있는지를 검정하는 것이다. </li>
+<li>분석할 데이터를 대상으로 전처리 후 평균 차이 검정을 위해서 기술통계량으로 평균을 구한다. 평균 차이 검정은 정규분포 여부를 판정한 후 결과에 따라서 T-검정 또는 웰콕스 검정을 시행한다.<ul>
+<li>만약 정규분포이면, 모수 검정인 T-검정을 수행하지만, 정규분포가 아닌 경우엔 비모수검정인 웰콕스 검정으로 평균 차이 검정을 시행하여 귀무가설의 기각 여부를 결정한다. </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>귀무가설 : 국내에서 생상된 노트북과 A사에서 생산된 노트북의 평균 사용시간에 차이가 없다.</li>
+<li>대립가설 : 있다. </li>
+<li>연구환경 : 국내에서 생산된 노트북 평균 사용시간이 5.2시간으로 파악된 상황에서, A사에서 생산된 노트북 평균 사용시간과 차이가 있는지를 검정하기 위해서 A사의 노트북 150대를 랜덤으로 선정하여 검정을 시행한다.</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>(1) 단일 표본평균 계산</p>
+<ul>
+<li>데이터 전처리 : outlier 처리, 변수에 대한 대표값의 성격을 갖는 평균을 계산한다. </li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">data</span><span class="o">=</span> <span class="nf">read.csv</span><span class="p">(</span><span class="s">&#39;one_sample.csv&#39;</span><span class="p">,</span><span class="n">header</span><span class="o">=</span><span class="bp">T</span><span class="p">)</span>
+<span class="nf">head</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="m">3</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A data.frame: 3 × 4</caption>
+<thead>
+	<tr><th></th><th scope="col">no</th><th scope="col">gender</th><th scope="col">survey</th><th scope="col">time</th></tr>
+	<tr><th></th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><th scope="row">1</th><td>1</td><td>2</td><td>1</td><td>5.1</td></tr>
+	<tr><th scope="row">2</th><td>2</td><td>2</td><td>0</td><td>5.2</td></tr>
+	<tr><th scope="row">3</th><td>3</td><td>2</td><td>1</td><td>4.7</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">data</span><span class="o">$</span><span class="n">time</span>
+<span class="nf">head</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="m">3</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>5.1</li><li>5.2</li><li>4.7</li>&lt;/ol&gt;
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">summary</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea ">
+<pre>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
+  3.000   5.000   5.500   5.557   6.200   7.900      41 </pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">mean</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">na.rm</span><span class="o">=</span><span class="bp">T</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+5.55688073394495
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">x_</span> <span class="o">=</span> <span class="nf">na.omit</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="nf">mean</span><span class="p">(</span><span class="n">x_</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+5.55688073394495
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>이렇게 단일 집단 평균 차이 검정을 수행하기 전에 단일 집단을 대상으로 평균에 관한 통계량을 계산한다.</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>정규분포 검정<ul>
+<li>단일 표본평균 차이 검정을 수행하기 전에 데이터의분포 형태가 정규분포 인지를 먼저 검정해야 한다.</li>
+<li>귀무가설 : x의 데이터 분포는 정규분포이다.</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">shapiro.test</span><span class="p">(</span><span class="n">x_</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea ">
+<pre>
+	Shapiro-Wilk normality test
+
+data:  x_
+W = 0.99137, p-value = 0.7242
+</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>검정 결과 유의수준보다 크기때문에 귀무가설을 기각하지 않는다.</li>
+<li>즉 해당 데이터의 분포는 정규분포이다.</li>
+<li>따라서 모수 검정인 T-검정으로 평균 차이 검정을 수행한다.</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">par</span><span class="p">(</span><span class="n">mfrow</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">2</span><span class="p">))</span> <span class="c1">#행,열</span>
+<span class="nf">hist</span><span class="p">(</span><span class="n">x_</span><span class="p">)</span>
+<span class="nf">qqnorm</span><span class="p">(</span><span class="n">x_</span><span class="p">)</span>
+<span class="nf">qqline</span><span class="p">(</span><span class="n">x_</span><span class="p">,</span><span class="n">lty</span><span class="o">=</span><span class="m">1</span><span class="p">,</span><span class="n">col</span><span class="o">=</span><span class="s">&#39;blue&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+/94+wS9r+PEVAAAAAElFTkSuQmCC" width="420" height="420" />
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>모집단에서 추출한 표본 데이터의 분포 형태가 정규분포 형태를 가지기 때문에 T-검정을 통해 평균차이 검정을 수행해보자</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="c1"># 양측 검정, x_객체와 기존 모집단의 평균 5.2시간 비교</span>
+<span class="nf">t.test</span><span class="p">(</span><span class="n">x_</span><span class="p">,</span><span class="n">mu</span><span class="o">=</span><span class="m">5.2</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea ">
+<pre>
+	One Sample t-test
+
+data:  x_
+t = 3.9461, df = 108, p-value = 0.0001417
+alternative hypothesis: true mean is not equal to 5.2
+95 percent confidence interval:
+ 5.377613 5.736148
+sample estimates:
+mean of x 
+ 5.556881 
+</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">t.test</span><span class="p">(</span><span class="n">x_</span><span class="p">,</span><span class="n">mu</span><span class="o">=</span><span class="m">5.2</span><span class="p">,</span><span class="n">alter</span><span class="o">=</span><span class="s">&#39;two.side&#39;</span><span class="p">,</span><span class="n">conf.level</span><span class="o">=</span><span class="m">0.95</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea ">
+<pre>
+	One Sample t-test
+
+data:  x_
+t = 3.9461, df = 108, p-value = 0.0001417
+alternative hypothesis: true mean is not equal to 5.2
+95 percent confidence interval:
+ 5.377613 5.736148
+sample estimates:
+mean of x 
+ 5.556881 
+</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>~위 둘다 양측검정인 것으로 보임....~</li>
+<li>유의확률은 유의수준보다 작기 때문에, 국내에서 생산된 노트북과 A사에서 생산된 노트북의 평균 사용시간에 차이가 있다고 볼 수 있다. </li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">t.test</span><span class="p">(</span><span class="n">x_</span><span class="p">,</span><span class="n">mu</span><span class="o">=</span><span class="m">5.2</span><span class="p">,</span><span class="n">alter</span><span class="o">=</span><span class="s">&#39;greater&#39;</span><span class="p">,</span><span class="n">conf.level</span> <span class="o">=</span> <span class="n">.</span><span class="m">95</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea ">
+<pre>
+	One Sample t-test
+
+data:  x_
+t = 3.9461, df = 108, p-value = 7.083e-05
+alternative hypothesis: true mean is greater than 5.2
+95 percent confidence interval:
+ 5.406833      Inf
+sample estimates:
+mean of x 
+ 5.556881 
+</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>A사에서 생산된 노트북의 평균 사용시간이 더 길다는 방향성을 갖는 연구가설을 검정한 결과 p-value 값은 유의수준보다 매우 작기 때문에(차이가 없다라는 귀무가설을 기각하고) A사에서 생산된 노트북의 평균 사용시간이 국내에서 생산된 노브툭 평균 사용시간보다 길다고 할 수 있다.</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">qt</span><span class="p">(</span><span class="m">7.083e-05</span><span class="p">,</span> <span class="m">108</span><span class="p">)</span> <span class="c1"># p-value,df</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+-3.94607295510053
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>T-검정 통계량이 3.946 이상이면 귀무가설을 기각할 수 있다.</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+
+
+
+  </div><a class="u-url" href="/INTROr/2022/02/24/r.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/INTROr/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/INTROr/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/INTROr/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>An easy to use blogging platform with support for Jupyter Notebooks.</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/rhkrehtjd" target="_blank" title="rhkrehtjd"><svg class="svg-icon grey"><use xlink:href="/INTROr/assets/minima-social-icons.svg#github"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
