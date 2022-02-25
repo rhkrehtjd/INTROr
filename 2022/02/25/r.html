@@ -1,0 +1,2847 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>두 집단 검정 | INTROr</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="두 집단 검정" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="An easy to use blogging platform with support for Jupyter Notebooks." />
+<meta property="og:description" content="An easy to use blogging platform with support for Jupyter Notebooks." />
+<link rel="canonical" href="https://rhkrehtjd.github.io/INTROr/2022/02/25/r.html" />
+<meta property="og:url" content="https://rhkrehtjd.github.io/INTROr/2022/02/25/r.html" />
+<meta property="og:site_name" content="INTROr" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-02-25T00:00:00-06:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="두 집단 검정" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2022-02-25T00:00:00-06:00","datePublished":"2022-02-25T00:00:00-06:00","description":"An easy to use blogging platform with support for Jupyter Notebooks.","headline":"두 집단 검정","mainEntityOfPage":{"@type":"WebPage","@id":"https://rhkrehtjd.github.io/INTROr/2022/02/25/r.html"},"url":"https://rhkrehtjd.github.io/INTROr/2022/02/25/r.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/INTROr/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://rhkrehtjd.github.io/INTROr/feed.xml" title="INTROr" /><link rel="shortcut icon" type="image/x-icon" href="/INTROr/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.css" integrity="sha512-h7nl+xz8wgDlNM4NqKEM4F1NkIRS17M9+uJwIGwuo8vGqIl4BhuCKdxjWEINm+xyrUjNCnK5dCrhM0sj+wTIXw==" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.js" integrity="sha512-/CMIhXiDA3m2c9kzRyd97MTb3MC6OVnx4TElQ7fkkoRghwDf6gi41gaT1PwF270W6+J60uTmwgeRpNpJdRV6sg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/contrib/auto-render.min.js" integrity="sha512-Do7uJAaHZm5OLrIv/yN4w0iG1dbu01kzdMNnFfu/mAqgUk6Nniv2JYHcwH+cNwjqgLcqcuBBk+JRvprLVI8azg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha512-0doc9hKxR3PYwso42RD1p5ySZpzzuDiOwMrdCEh2WdJZCjcmFKc/wEnL+z8fBQrnHoiNWbo+3fiGkOYXBdQp4A==" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/INTROr/">INTROr</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/INTROr/about/">About Me</a><a class="page-link" href="/INTROr/search/">Search</a><a class="page-link" href="/INTROr/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">두 집단 검정</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2022-02-25T00:00:00-06:00" itemprop="datePublished">
+        Feb 25, 2022
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      11 min read
+    
+</span></p>
+
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-justify-center">
+          <div class="px-2">
+
+    <a href="https://github.com/rhkrehtjd/INTROr/tree/master/_notebooks/2022-02-25-r.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/INTROr/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://mybinder.org/v2/gh/rhkrehtjd/INTROr/master?filepath=_notebooks%2F2022-02-25-r.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/INTROr/assets/badges/binder.svg" alt="Open In Binder"/>
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://colab.research.google.com/github/rhkrehtjd/INTROr/blob/master/_notebooks/2022-02-25-r.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/INTROr/assets/badges/colab.svg" alt="Open In Colab"/>
+    </a>
+</div>
+          <div class="px-2">
+  <a href="https://deepnote.com/launch?url=https%3A%2F%2Fgithub.com%2Frhkrehtjd%2FINTROr%2Fblob%2Fmaster%2F_notebooks%2F2022-02-25-r.ipynb" target="_blank">
+      <img class="notebook-badge-image" src="/INTROr/assets/badges/deepnote.svg" alt="Launch in Deepnote"/>
+  </a>
+</div>
+
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2022-02-25-r.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>독립된 두 집단 간의 비율 차이 검정과 평균 차이 검정에 대해서 알아보자</li>
+<li>비율 차이 검정은 기술통계량으로 빈도수에 대한 비율에 의미가 있으며, 평균 차이 검정은 표본 평균에 의미가 있다. </li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<blockquote><p>두 집단 비율 검정</p>
+</blockquote>
+
+<pre><code>두 집단을 대상으로 비율 차이 검정을 통해서 두 집단의 비율이 같은지 또는 다른지를 검정한다.
+분석할 데이터를 대상으로 전처리 과정을 거친 후 비교 대상의 두 집단을 분류하고 비율 차이 검정을 수행한다. 단일 표본 이항 분포 비율 검정은 binom.test() 함수를 이용하지만 독립 표본 이항분포 비율은 검정은 prop.test()함수를 이용한다. </code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>귀무가설 : 두 가지 교육 방법에 따라 교육생의 만족율에 차이가 없다.</li>
+<li>대립가설 : 차이가 있다. </li>
+<li>집단별 subset 작성과 교차 분석<ul>
+<li>교육 방법에 따라서 두 집단으로 subset을 작성한 후 전처리 과정을 통해서 데이터를 정제한다. </li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="nf">read.csv</span><span class="p">(</span><span class="s">&#39;two_sample.csv&#39;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="bp">T</span><span class="p">)</span>
+<span class="nf">head</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="m">3</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A data.frame: 3 × 5</caption>
+<thead>
+	<tr><th></th><th scope="col">no</th><th scope="col">gender</th><th scope="col">method</th><th scope="col">survey</th><th scope="col">score</th></tr>
+	<tr><th></th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><th scope="row">1</th><td>1</td><td>1</td><td>1</td><td>1</td><td>5.1</td></tr>
+	<tr><th scope="row">2</th><td>2</td><td>1</td><td>1</td><td>0</td><td>5.2</td></tr>
+	<tr><th scope="row">3</th><td>3</td><td>1</td><td>1</td><td>1</td><td>4.7</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">data</span><span class="o">$</span><span class="n">method</span> <span class="c1"># 교육방법 = 1,2</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="o">$</span><span class="n">survey</span> <span class="c1"># 만족도 = 0,1 (불만족,만족)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">table</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="nf">table</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea ">
+<pre>x
+  1   2 
+150 150 </pre>
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea ">
+<pre>y
+  0   1 
+ 55 245 </pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">table</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span> <span class="n">useNA</span> <span class="o">=</span> <span class="s">&#39;ifany&#39;</span><span class="p">)</span>
+<span class="c1"># useNA = &#39;ifany&#39; : 결측치까지 출력</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea ">
+<pre>   y
+x     0   1
+  1  40 110
+  2  15 135</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>명목척도의 비율을 바탕으로 prop.test() 함수를 이용하여 두 집단 간 이항분포의 양측 검정을 통해서 검정 통계량을 구한 후 이를 이용하여 가설을 검정한다. </li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">prop.test</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="m">110</span><span class="p">,</span><span class="m">135</span><span class="p">),</span><span class="nf">c</span><span class="p">(</span><span class="m">150</span><span class="p">,</span><span class="m">150</span><span class="p">),</span><span class="n">alternative</span> <span class="o">=</span> <span class="s">&#39;two.sided&#39;</span><span class="p">,</span> <span class="n">conf.level</span> <span class="o">=</span> <span class="m">0.95</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea ">
+<pre>
+	2-sample test for equality of proportions with continuity correction
+
+data:  c(110, 135) out of c(150, 150)
+X-squared = 12.824, df = 1, p-value = 0.0003422
+alternative hypothesis: two.sided
+95 percent confidence interval:
+ -0.25884941 -0.07448392
+sample estimates:
+   prop 1    prop 2 
+0.7333333 0.9000000 
+</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>p-value 값은 유의수준보다 작기 때문에 두 교육 방법 간의 만족도 차이가 있다고 볼 수 있다.</li>
+<li>즉, 차이가 없다는 귀무가설을 기각하고 차이가 있다는 연구가설, 대립가설을 채택한다. </li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>이제 첫 번째 교육 방법과 두 번째 교육 방법을 대상으로 방향성을 갖는 연구가설을 검증해보자</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">prop.test</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="m">110</span><span class="p">,</span><span class="m">135</span><span class="p">),</span><span class="nf">c</span><span class="p">(</span><span class="m">150</span><span class="p">,</span><span class="m">150</span><span class="p">),</span><span class="n">alternative</span> <span class="o">=</span> <span class="s">&#39;greater&#39;</span><span class="p">,</span> <span class="n">conf.level</span> <span class="o">=</span> <span class="m">0.95</span><span class="p">)</span>
+<span class="nf">prop.test</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="m">110</span><span class="p">,</span><span class="m">135</span><span class="p">),</span><span class="nf">c</span><span class="p">(</span><span class="m">150</span><span class="p">,</span><span class="m">150</span><span class="p">),</span><span class="n">alternative</span> <span class="o">=</span> <span class="s">&#39;less&#39;</span><span class="p">,</span> <span class="n">conf.level</span> <span class="o">=</span> <span class="m">0.95</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea ">
+<pre>
+	2-sample test for equality of proportions with continuity correction
+
+data:  c(110, 135) out of c(150, 150)
+X-squared = 12.824, df = 1, p-value = 0.9998
+alternative hypothesis: greater
+95 percent confidence interval:
+ -0.2451007  1.0000000
+sample estimates:
+   prop 1    prop 2 
+0.7333333 0.9000000 
+</pre>
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea ">
+<pre>
+	2-sample test for equality of proportions with continuity correction
+
+data:  c(110, 135) out of c(150, 150)
+X-squared = 12.824, df = 1, p-value = 0.0001711
+alternative hypothesis: less
+95 percent confidence interval:
+ -1.00000000 -0.08823265
+sample estimates:
+   prop 1    prop 2 
+0.7333333 0.9000000 
+</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>greater는 p-value 값이 0.9998이고(귀무가설 채택) less는 p-value 값이 유의수준보다 작으므로(귀무가설 기각) 두 번째 교육 방법이 만족도가 더 크다고 할 수 있다. </li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<blockquote><p>두 집단 평균 검정(독립 표본 T-검정)</p>
+</blockquote>
+
+<pre><code>두 집단을 대상으로 평균 차이 검정을 통해서 두 집단의 평균이 같은지 또는 다른지를 검정하는 방법.
+분석할 데이터를 전처리 과정을 거친 후 비교 대상의 두 집단을 분류하고, 평균 차이 검정을 위해서 기술통계량으로 평균을 구한다. 독립 표본평균 검정은 두 집단 간 분산의 동질성 검증(정규분포 검정) 여부를 판정한 후 결과에 따라서 T-검정 또는 웰콕스 검정을 수행한다.
+
+두 검정 방법의 선택은 단일 표본평균 검정과 동일하다.</code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>귀무가설 : 교육방법에 따른 두 집단 간 실기시험의 평균차이가 없다. </li>
+<li>대립가설 : 차이가 있다.</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">head</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="m">3</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A data.frame: 3 × 5</caption>
+<thead>
+	<tr><th></th><th scope="col">no</th><th scope="col">gender</th><th scope="col">method</th><th scope="col">survey</th><th scope="col">score</th></tr>
+	<tr><th></th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><th scope="row">1</th><td>1</td><td>1</td><td>1</td><td>1</td><td>5.1</td></tr>
+	<tr><th scope="row">2</th><td>2</td><td>1</td><td>1</td><td>0</td><td>5.2</td></tr>
+	<tr><th scope="row">3</th><td>3</td><td>1</td><td>1</td><td>1</td><td>4.7</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">summary</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea ">
+<pre>       no             gender         method        survey           score      
+ Min.   :  1.00   Min.   :1.00   Min.   :1.0   Min.   :0.0000   Min.   :3.000  
+ 1st Qu.: 75.75   1st Qu.:1.00   1st Qu.:1.0   1st Qu.:1.0000   1st Qu.:5.100  
+ Median :150.50   Median :1.00   Median :1.5   Median :1.0000   Median :5.600  
+ Mean   :150.50   Mean   :1.42   Mean   :1.5   Mean   :0.8167   Mean   :5.685  
+ 3rd Qu.:225.25   3rd Qu.:2.00   3rd Qu.:2.0   3rd Qu.:1.0000   3rd Qu.:6.300  
+ Max.   :300.00   Max.   :2.00   Max.   :2.0   Max.   :1.0000   Max.   :8.000  
+                                                                NA&#39;s   :73     </pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>NA = 73개 존재</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="nf">subset</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="o">!</span><span class="nf">is.na</span><span class="p">(</span><span class="n">score</span><span class="p">),</span> <span class="nf">c</span><span class="p">(</span><span class="n">method</span><span class="p">,</span><span class="n">score</span><span class="p">))</span>
+<span class="nf">head</span><span class="p">(</span><span class="n">result</span><span class="p">,</span><span class="m">3</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A data.frame: 3 × 2</caption>
+<thead>
+	<tr><th></th><th scope="col">method</th><th scope="col">score</th></tr>
+	<tr><th></th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><th scope="row">1</th><td>1</td><td>5.1</td></tr>
+	<tr><th scope="row">2</th><td>1</td><td>5.2</td></tr>
+	<tr><th scope="row">3</th><td>1</td><td>4.7</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="nf">subset</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">method</span> <span class="o">==</span> <span class="m">1</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="nf">subset</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">method</span> <span class="o">==</span> <span class="m">2</span><span class="p">)</span>
+<span class="n">a1</span> <span class="o">=</span> <span class="n">a</span><span class="o">$</span><span class="n">score</span>
+<span class="n">b1</span> <span class="o">=</span> <span class="n">b</span><span class="o">$</span><span class="n">score</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">length</span><span class="p">(</span><span class="n">a1</span><span class="p">)</span>
+<span class="nf">length</span><span class="p">(</span><span class="n">b1</span><span class="p">)</span>
+<span class="nf">mean</span><span class="p">(</span><span class="n">a1</span><span class="p">)</span>
+<span class="nf">mean</span><span class="p">(</span><span class="n">b1</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+109
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+118
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+5.55688073394495
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+5.80338983050847
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr />
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>동질성 검정<ul>
+<li>모집단에서 추출된 표본을 대상으로 분산의 동질성 검정(정규분포 검정)은 var.test()함수를 이용한다. </li>
+<li>검정결과가 유의수준 0.05보다 큰 경우(귀무가설을 채택한다. 이때, 동직성 검정의 귀무가설은 두 집단 간 분포의 모양이 동질적이다라는 것이다.) 두 집단 간 간 분포의 모양이 동질하다고 할 수 있다.</li>
+<li>분산의 동질성 검정<ul>
+<li>분산의 동질성 검정은 등분산 가정과 등분산 가정되지 않음(이분산)에 따라서 결과가 달라진다. 등분산은 모집단에서 추출된 표본이 균등하게 추출된 것이고, 이분산은 추출된 표본이 특정 계층으로 편중되어 추출되는 경우이다. </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">var.test</span><span class="p">(</span><span class="n">a1</span><span class="p">,</span><span class="n">b1</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea ">
+<pre>
+	F test to compare two variances
+
+data:  a1 and b1
+F = 1.2158, num df = 108, denom df = 117, p-value = 0.3002
+alternative hypothesis: true ratio of variances is not equal to 1
+95 percent confidence interval:
+ 0.8394729 1.7656728
+sample estimates:
+ratio of variances 
+          1.215768 
+</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>p-value 값이 유의수준보다 크기 때문에 귀무가설을 채택한다. </li>
+<li>즉, 두 집단 간의 분포 형태가 동질하다고 볼 수 있다. </li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr />
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>두 집단 평균 차이 검정<ul>
+<li>두 집단 간의 동질성 검정에서 분포 형태가 동질하다고 분석되었기 때문에 t.test() 함수(만약 동질하지 않았다면 웰콕스 검정)를 이용하여 두 집단 간 평균 차이 검정을 수행한다. </li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">t.test</span><span class="p">(</span><span class="n">a1</span><span class="p">,</span><span class="n">b1</span><span class="p">,</span><span class="n">alter</span> <span class="o">=</span> <span class="s">&#39;two.sided&#39;</span><span class="p">,</span> <span class="n">conf.int</span> <span class="o">=</span> <span class="bp">T</span><span class="p">,</span> <span class="n">conf.level</span> <span class="o">=</span> <span class="m">0.95</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea ">
+<pre>
+	Welch Two Sample t-test
+
+data:  a1 and b1
+t = -2.0547, df = 218.19, p-value = 0.0411
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ -0.48296687 -0.01005133
+sample estimates:
+mean of x mean of y 
+ 5.556881  5.803390 
+</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>귀무가설 기각, 연구가설 채택</li>
+<li>즉 차이가 있음을 알 수 있다. </li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">t.test</span><span class="p">(</span><span class="n">a1</span><span class="p">,</span><span class="n">b1</span><span class="p">,</span><span class="n">alter</span> <span class="o">=</span> <span class="s">&#39;greater&#39;</span><span class="p">,</span> <span class="n">conf.int</span> <span class="o">=</span> <span class="bp">T</span><span class="p">,</span> <span class="n">conf.level</span> <span class="o">=</span> <span class="m">0.95</span><span class="p">)</span>
+<span class="nf">t.test</span><span class="p">(</span><span class="n">a1</span><span class="p">,</span><span class="n">b1</span><span class="p">,</span><span class="n">alter</span> <span class="o">=</span> <span class="s">&#39;less&#39;</span><span class="p">,</span> <span class="n">conf.int</span> <span class="o">=</span> <span class="bp">T</span><span class="p">,</span> <span class="n">conf.level</span> <span class="o">=</span> <span class="m">0.95</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea ">
+<pre>
+	Welch Two Sample t-test
+
+data:  a1 and b1
+t = -2.0547, df = 218.19, p-value = 0.9794
+alternative hypothesis: true difference in means is greater than 0
+95 percent confidence interval:
+ -0.4446915        Inf
+sample estimates:
+mean of x mean of y 
+ 5.556881  5.803390 
+</pre>
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea ">
+<pre>
+	Welch Two Sample t-test
+
+data:  a1 and b1
+t = -2.0547, df = 218.19, p-value = 0.02055
+alternative hypothesis: true difference in means is less than 0
+95 percent confidence interval:
+        -Inf -0.04832672
+sample estimates:
+mean of x mean of y 
+ 5.556881  5.803390 
+</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>b1 집단의 평균이 더 큰 것을 알 수 있다. </li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr />
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>대응 두 집단 평균 검정(대응 표본 T-검정)<ul>
+<li>동일한 표본을 대상으로 측정된 두 변수의 평균 차이를 검정하는 분석 방법이다. </li>
+<li>일반적으로 사전검사와 사후검사의 평균 차이를 검증할 때 많이 이용한다. </li>
+<li>예를 들면, 교수법 프로그램을 적용하기 전 학생들의 학습력과 교수법 프로그램 적용 후 학생들의 학습력에 차이가 있는지를 검정한다. </li>
+<li>분석할 데이터를 전처리 과정을 거친 후, 전과 후로 두 집단을 분류하고, 평균 차이 검정을 위해서 기술통계량으로 평균을 구한다. </li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>귀무가설 : 교수법 적용 여부와 관련 없이 학생들의 학습력에는 차이가 없다.</li>
+<li>대립가설 : 차이가 있다. </li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="nf">read.csv</span><span class="p">(</span><span class="s">&#39;paired_sample.csv&#39;</span><span class="p">,</span><span class="n">header</span><span class="o">=</span><span class="bp">T</span><span class="p">)</span>
+<span class="nf">head</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="m">3</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A data.frame: 3 × 3</caption>
+<thead>
+	<tr><th></th><th scope="col">no</th><th scope="col">before</th><th scope="col">after</th></tr>
+	<tr><th></th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><th scope="row">1</th><td>1</td><td>5.1</td><td>6.3</td></tr>
+	<tr><th scope="row">2</th><td>2</td><td>5.2</td><td>6.3</td></tr>
+	<tr><th scope="row">3</th><td>3</td><td>4.7</td><td>6.5</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="nf">subset</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="o">!</span><span class="nf">is.na</span><span class="p">(</span><span class="n">after</span><span class="p">),</span> <span class="nf">c</span><span class="p">(</span><span class="n">before</span><span class="p">,</span><span class="n">after</span><span class="p">))</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">result</span><span class="o">$</span><span class="n">before</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">result</span><span class="o">$</span><span class="n">after</span>
+<span class="nf">head</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="m">3</span><span class="p">);</span><span class="nf">head</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="m">3</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>5.1</li><li>5.2</li><li>4.7</li>&lt;/ol&gt;
+
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>6.3</li><li>6.3</li><li>6.5</li>&lt;/ol&gt;
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">length</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="nf">length</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="c1"># 기술통계량을 계산할 때, 대응표본이면 서로 짝을 이루고 있기 때문에 표본 수가 서로 동일해야 한다. </span>
+<span class="nf">mean</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="nf">mean</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+96
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+96
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+5.16875
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+6.22083333333333
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>동질성 검정 <ul>
+<li>독립 표본의 동질성 검정과 동일하게 var.test() 함수를 이용한다. </li>
+<li>이때 '귀무가설은 차이가 없다'이기 때문에, 유의확률이 유의수준보다 크면 두 집단 간 분포의 몽양이 동질하다고 할 수 있다. </li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">var.test</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">paired</span><span class="o">=</span><span class="bp">T</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea ">
+<pre>
+	F test to compare two variances
+
+data:  x and y
+F = 1.0718, num df = 95, denom df = 95, p-value = 0.7361
+alternative hypothesis: true ratio of variances is not equal to 1
+95 percent confidence interval:
+ 0.7151477 1.6062992
+sample estimates:
+ratio of variances 
+          1.071793 
+</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>귀무가설을 채택한다. </li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>대응 두 집단 평균 차이 검정<ul>
+<li>대응되는 두 집단 간의 동질성 검정에서 분포 형태가 동질하다고 분석되었다. </li>
+<li>따라서 윌콕스 검정이 아닌 T-검정을 통해 대응 두 집단 간 평균 차이 검정을 수행한다. </li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">t.test</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">paired</span> <span class="o">=</span> <span class="bp">T</span><span class="p">,</span> <span class="n">alter</span> <span class="o">=</span> <span class="s">&#39;two.sided&#39;</span><span class="p">,</span> <span class="n">conf.int</span><span class="o">=</span><span class="bp">T</span><span class="p">,</span> <span class="n">conf.level</span> <span class="o">=</span> <span class="m">0.95</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea ">
+<pre>
+	Paired t-test
+
+data:  x and y
+t = -13.642, df = 95, p-value &lt; 2.2e-16
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ -1.205184 -0.898983
+sample estimates:
+mean of the differences 
+              -1.052083 
+</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>귀무가설 기각</li>
+<li>차이가 있음을 알 수 있다. </li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">t.test</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">paired</span> <span class="o">=</span> <span class="bp">T</span><span class="p">,</span> <span class="n">alter</span> <span class="o">=</span> <span class="s">&#39;greater&#39;</span><span class="p">,</span> <span class="n">conf.int</span><span class="o">=</span><span class="bp">T</span><span class="p">,</span> <span class="n">conf.level</span> <span class="o">=</span> <span class="m">0.95</span><span class="p">)</span>
+<span class="nf">t.test</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">paired</span> <span class="o">=</span> <span class="bp">T</span><span class="p">,</span> <span class="n">alter</span> <span class="o">=</span> <span class="s">&#39;less&#39;</span><span class="p">,</span> <span class="n">conf.int</span><span class="o">=</span><span class="bp">T</span><span class="p">,</span> <span class="n">conf.level</span> <span class="o">=</span> <span class="m">0.95</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea ">
+<pre>
+	Paired t-test
+
+data:  x and y
+t = -13.642, df = 95, p-value = 1
+alternative hypothesis: true difference in means is greater than 0
+95 percent confidence interval:
+ -1.180182       Inf
+sample estimates:
+mean of the differences 
+              -1.052083 
+</pre>
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea ">
+<pre>
+	Paired t-test
+
+data:  x and y
+t = -13.642, df = 95, p-value &lt; 2.2e-16
+alternative hypothesis: true difference in means is less than 0
+95 percent confidence interval:
+       -Inf -0.9239849
+sample estimates:
+mean of the differences 
+              -1.052083 
+</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>y집단의 평균이 더 큰 것을 알 수 있다. </li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr />
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>세 집단 검정<ul>
+<li>독립된 세 집단 이상의 집단 간 비율 차이 검정과 평균 차이 검정에 대해 알아보자</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>세 집단 비율 검정</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="nf">read.csv</span><span class="p">(</span><span class="s">&#39;three_sample.csv&#39;</span><span class="p">,</span><span class="n">header</span><span class="o">=</span><span class="bp">T</span><span class="p">)</span>
+<span class="nf">head</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="m">4</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A data.frame: 4 × 4</caption>
+<thead>
+	<tr><th></th><th scope="col">no</th><th scope="col">method</th><th scope="col">survey</th><th scope="col">score</th></tr>
+	<tr><th></th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><th scope="row">1</th><td>1</td><td>1</td><td>1</td><td>3.2</td></tr>
+	<tr><th scope="row">2</th><td>2</td><td>2</td><td>0</td><td> NA</td></tr>
+	<tr><th scope="row">3</th><td>3</td><td>3</td><td>1</td><td>4.7</td></tr>
+	<tr><th scope="row">4</th><td>4</td><td>1</td><td>0</td><td> NA</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">method</span> <span class="o">=</span> <span class="n">data</span><span class="o">$</span><span class="n">method</span>
+<span class="n">survey</span> <span class="o">=</span> <span class="n">data</span><span class="o">$</span><span class="n">survey</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">table</span><span class="p">(</span><span class="n">method</span><span class="p">,</span><span class="n">useNA</span> <span class="o">=</span> <span class="s">&#39;ifany&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea ">
+<pre>method
+ 1  2  3 
+50 50 50 </pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">table</span><span class="p">(</span><span class="n">method</span><span class="p">,</span><span class="n">survey</span><span class="p">,</span> <span class="n">useNA</span> <span class="o">=</span> <span class="s">&#39;ifany&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea ">
+<pre>      survey
+method  0  1
+     1 16 34
+     2 13 37
+     3 11 39</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>세 집단 비율 차이 검정<ul>
+<li>명목척도의 비율을 바탕으로 prop.test() 함수를 이용하여 세 집단 간 이항분포의 양측 검정을 통해서 검정 통계량을 구한 후 이를 이용하여 가설을 검정한다. </li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">prop.test</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="m">34</span><span class="p">,</span><span class="m">37</span><span class="p">,</span><span class="m">39</span><span class="p">),</span><span class="nf">c</span><span class="p">(</span><span class="m">50</span><span class="p">,</span><span class="m">50</span><span class="p">,</span><span class="m">50</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea ">
+<pre>
+	3-sample test for equality of proportions without continuity
+	correction
+
+data:  c(34, 37, 39) out of c(50, 50, 50)
+X-squared = 1.2955, df = 2, p-value = 0.5232
+alternative hypothesis: two.sided
+sample estimates:
+prop 1 prop 2 prop 3 
+  0.68   0.74   0.78 
+</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>귀무가설을 채택한다. </li>
+<li>즉, 세 가지 교육 방법에 따른 집단 간 만족율에 차이가 없다. </li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr />
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>분산분석(F-검정)<ul>
+<li>분산분석 (ANOVA Analysis)은 T-검정과 동일하게 평균에 의한 차이 검정 방법이다.</li>
+<li>차이점은 T-검정이 두 집단 간의 평균 차이를 검정했다면, 분산분석(F-검정)은 두 집단 이상의 평균 차이를 검정한다. </li>
+<li>분산분석은 가설 검정을 위해 F 분포를 따르는 F 통계량을 검정 통계량으로 사용하기 때문에 F-검정이라고 한다. </li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>분산분석 시행 시 주의사항<ul>
+<li>1개의 범주형 독립변수와 종속변수 간의 관계를 분석하는 일원 분산분석과 두 개 이상의 독립변수가 종속변수에 미치는 효과를 분석하는 이원 분산분석으로 분류한다. </li>
+<li>독립변수는 명목척도(성별), 종속변수는 등간척도나 비율척도로 구성되어야 한다. </li>
+<li>마케팅전략의 효과, 소비자 집단의 반응 차이 등과 같이 기업의 의사결정에 도움을 주는 비계량적인 독립변수와 계량적인 종속변수 간의 관계를 파악할 때 이용한다. </li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>분산분석에서 집단 간의 동질성 여부를 검정하기 위해서는 bartlett.test() 함수를 이용한다. <ul>
+<li>집단 간의 분포가 동질한 경우 분산분석을 수행하는 aov() 함수를 이용하며 그렇지 않은 경우는 비모수 검정 방법인 kruskal.test() 함수를 이용하여 분석을 수행한다. </li>
+<li>마지막으로 TurkeyHSD() 함수를 이용하여 사후검정을 수행한다. </li>
+</ul>
+</li>
+<li>이때, 두 집단은 var.test() 함수를 이용하고, 분산분석은 bartlett.test() 함수를 이용한다. </li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>귀무가설 : 교육방법에 따른 세 집단 간 실기시험의 평균에 차이가 없다. </li>
+<li>대립가설 : 차이가 있다. </li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">str</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>&#39;data.frame&#39;:	150 obs. of  4 variables:
+ $ no    : int  1 2 3 4 5 6 7 8 9 10 ...
+ $ method: int  1 2 3 1 2 3 1 2 3 1 ...
+ $ survey: int  1 0 1 0 1 1 0 0 1 0 ...
+ $ score : num  3.2 NA 4.7 NA 7.8 5.4 NA 8.4 4.4 2.8 ...
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>score에만 NA가 포함되어 있으니 NA는 제거하자</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="nf">subset</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="o">!</span><span class="nf">is.na</span><span class="p">(</span><span class="n">score</span><span class="p">),</span> <span class="nf">c</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="n">score</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">par</span><span class="p">(</span><span class="n">mfrow</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">2</span><span class="p">))</span> <span class="c1"># 행,열</span>
+<span class="nf">plot</span><span class="p">(</span><span class="n">data</span><span class="o">$</span><span class="n">score</span><span class="p">)</span> <span class="c1"># 산점도 이용 outlier 확인 (50이상 발견)</span>
+<span class="nf">barplot</span><span class="p">(</span><span class="n">data</span><span class="o">$</span><span class="n">score</span><span class="p">)</span> <span class="c1"># 막대 차트 이용 outlier 확인 (50이상 발견)</span>
+<span class="nf">mean</span><span class="p">(</span><span class="n">data</span><span class="o">$</span><span class="n">score</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+14.4472527472527
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA0gAAANICAMAAADKOT/pAAAAM1BMVEUAAABNTU1oaGh8fHyM
+jIyampqnp6eysrK9vb2+vr7Hx8fQ0NDZ2dnh4eHp6enw8PD////ojgWfAAAACXBIWXMAABJ0
+AAASdAHeZh94AAAgAElEQVR4nO2di3qizBJFGzUmE6Py/k87EZWLuVlQ3ezuXus7J6P5oauy
+YQECamgBYDFh7QYASgCRABxAJAAHEAnAAUQCcACRABxAJAAHEAnAAUQCcACRABxAJAAHEAnA
+AUQCcACRABxAJAAHEAnAAUQCcACRABxAJAAHEAnAAUQCcACRABxAJAAHEAnAAUQCcACRABxA
+JAAHEAnAAUQCcACRABxAJAAHEAnAAUQCcACRABxAJAAHEAnAAUQCcACRABxAJAAHEAnAAUQC
+cACRABxAJAAHEAnAAUQCcACRABxAJAAHEAnAAUQCcACRABxAJAAHEAnAAUQCcACRABxAJAAH
+EAnAAUQCcACRABxAJAAHEAnAAUQCcACRABxAJAAHEAnAAUQCcACRABxAJAAHEAnAAUQCcACR
+ABxAJAAHEAnAAUQCcACRABxAJAAHEAnAAUQCcACRABxAJAAHEAnAAUQCcACRABxAJAAHEAnA
+AUQCcACRABxAJAAHEAnAAUQCcACRABxAJAAHEAnAAUQCcACRABxAJAAHEAnAAUQCcCCBSAEm
+xE8cviNu9ilEil8iJ4hjJcK/f4hUEMSxEohUFsSxEohUFsSxEohUFsSxEohUFsSxEohUFsSx
+EohUFsSxEohUFsSxEohUFsSxEohUFsSxEohUFsSxEohUFsSxEohUFsSxEohUFsSxEohUFsSx
+EohUFsSxEohUFsSxEoiUA8+/jbmKOBRBJH06i55UqYI4NEEkfcLo53PTQnIQSZ7w8O9TE0Ni
+EEkeRMoBRJIHkXIAkfThNVIGIJI+nLXLAETKAa4jyYNIZUEcK4FIZUEcK4FIZUEcK4FIZUEc
+K4FIZUEcK4FIZUEcK4FIZUEcK4FIZUEcK4FIZUEcK4FIZUEcK4FIZUEcK4FIZUEcK4FIZUEc
+K4FIZUEcK4FIZUEcK4FIZUEcK4FIZUEcK4FIZUEcK4FIZUEcK4FIZUEcK4FIZUEcK4FIZUEc
+K4FIZUEcK4FIZUEcK4FIZUEcK4FIZUEcK4FIZUEcK4FIZUEcK4FIZUEcK4FIZUEcK4FIZUEc
+K4FIZUEcK4FIZUEcK4FIZUEcK4FIZUEcK4FIZUEcK4FIZUEcK4FIZUEcK4FIZUEcK4FIZUEc
+K4FIZUEcK4FIZUEcK4FIZUEcK4FIZUEcK4FIZUEcK4FIZUEcK4FIZUEcK4FIZUEcK4FIZUEc
+K4FIZUEcK4FIZUEcK4FIZUEcK4FIZUEcK4FIZUEcK4FIZUEcK4FIZUEcK4FIZUEcK4FIZZEy
+jo/XXbiw238krCoKIpVFujjOmzCwTVZWFUQqi3Rx7EPzfuwenQ5N2CerKwoilUW6OJpw7B8f
+Q5OsriiIVBbp4gjhpydVgkhlwR5pJRCpLJK+Rjqcuke8RmoRqTQSxrEdnbXbnNPV1QSRyiLp
+daR9dx2p2b1yHQmRCoM4VgKRyoI4VgKRyoJbhFYCkcqCW4RWApHKgluEVgKRyoILsiuBSGUh
+c4tQGJOsqfVApLKQ3CPVsIxURXr6jFANC8mA5C1CNSwjTZEMZ4RqWEgGJG8RqmEZaYpkOCNU
+w0IyIHmLUA3LSFMkjr/nIhmHZFPOaIpkeNNYDQvJgGQckk05oykSe6S5rBHHn6e3a1hGmiJx
+RmguiLQSmiJxRmguKS/IPn3NtYZlJCoSZ4Rmki6OjwaRRqiKpFQiJxLGcd6FbXf8zaFdi0il
+kTSO9xDeW0TqUBWJW4TmkTaO0zbszoh0QVMkbhGaS+o4XkNzQKRWVSRuEZpL8jiOm7/fJlHD
+MtIUiQuyc1khjhdEalVF4k1jc5GMQ7IpZzRFYo80F8k4JJtyRlMkbhGai2Qckk05oykStwjN
+RTIOyaacERWJW4RmIhmHZFPOqIqkVCInJOOQbMoZRCoLyTgkm3JGXSSuUdiQjEOyKWcQqSwk
+45BsyhlNkXjT2Fwk45BsyhlNkXjT2Fwk45BsyhlNkXjT2Fwk45BsyhlRkXjT2Ewk45BsyhlZ
+kXjT2Cwk45BsyhldkXjT2Bwk45BsyhllkXjTmB3JOCSbckZaJN40ZkYyDsmmnBEXSaJETkjG
+IdmUM4hUFpJxSDblDCKVhWQckk05g0hlIRmHZFPOIFJZSMYh2ZQziFQWknFINuUMIpWFZByS
+TTmDSGUhGYdkU84gUllIxiHZlDOIVBaScUg25QwilYVkHJJNOYNIZSEZh2RTziBSWUjGIdmU
+M4hUFpJxSDblDCKVhWQckk05g0hlIRmHZFPOIFJZSMYh2ZQziFQWknFINuUMIpWFZBySTTmD
+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
+kQAc+A8KKHAdgU6CiwAAAABJRU5ErkJggg==" width="420" height="420" />
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">length</span><span class="p">(</span><span class="n">data</span><span class="o">$</span><span class="n">score</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+91
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">data2</span> <span class="o">=</span> <span class="nf">subset</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="n">score</span><span class="o">&lt;=</span><span class="m">14</span><span class="p">)</span>
+<span class="nf">length</span><span class="p">(</span><span class="n">data2</span><span class="o">$</span><span class="n">score</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+88
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">data2</span><span class="o">$</span><span class="n">score</span>
+<span class="nf">par</span><span class="p">(</span><span class="n">mfrow</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">1</span><span class="p">))</span> <span class="c1"># 행,열</span>
+<span class="nf">barplot</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+m9ol0vTNlimseEMiXT/XP5fhxbZ1hyVEmp4jkTogUvP0m9ol0vTNlimseEMiXT/XP5fhxbZ1
+hyVEmp4jkTogUvP0m9ol0vTNlimseEMiXT/XP5fhxbZ1hyVEmp4jkTogUvP0m9ol0vTNlims
+eEMiXT/XP5fhxbZ1hyVEmp4jkTogUvP0m9ol0vTNlimseEMiXT/XP5fhxbZ1hyVEmp4jkTog
+UvP0m9ol0vTNlimseEMiXT/XP5fhxbZ1hyVEmp5jWqSWT0Ra8YZEun6ufy7Di23rDkuIND3H
+uEjbvCGRrp/rn8vwYtu6wxIiTc+RSB0QqXn6Te0SaWULRIpFEGmLY0ak5SEnIFLz9JvaJdLK
+FogUiyDSFseMSMtDTlBBpOGXRTcWafxj2edLWjoh0vS7EGmfiPVzGV7sWZ5IIx0RaT1Eap7+
+fCdEWhwykTaOINKGx4xIy0NOQKTm6c93QqTFIRNp4wgibXjMiLQ85AREap7+fCdEWhwykTaO
+INKGx4xIy0NOQKTm6c93QqTFIRNp4wgibXjMiLQ85AREap7+fCdEWhwykTaOINKGx4xIy0NO
+QKTm6c93QqTFIRNp4wgibXjMiLQ85AREap7+fCfzzzZ87AeRVr4hkd4fWD2X4cWe5XcWqf2w
+EKn3DYn0/sDquQwv9ixPpJHJEWk9RGqe/nwnRFocMpE2jiDShseMSMtDTkCk5unPd0KkxSET
+aeMIIm14zIi0POQERGqe/nwnRFocMpE2jpgf2j+MPzu82LM8kUYmR6T11BepYexEmj5mRFoe
+cgIiNU9/9hkiLQ+ZSBtHEGnDY0ak5SEnIFLz9GefIdLykIm0cQSRNjxmRFoecgIiNU9/9hki
+LQ+ZSBtHrBdp/D9PaFmeSP9daPRXBxVp9vslRJp9lkjTx+z5ROofcgIijZUSafomkUYh0lgp
+kaZvEmkUIo2VEmn6JpFGIdJYKZGmbxJpFCKNlRJp+iaRRiHSWCmRpm8SaRQijZUSafomkUYh
+0lgpkaZvEmkUIo2VEmn6JpFGIdJYKZGmbxJpFCKNlRJp+iaRRiHSWCmRpm8SaZRHFKnnz/9e
+HZY/lSmRxtfrepdbjxmRloec4CFF6ijpOSxzXU+IlHoXIvWm9Aw5AZHaD8tc10RaHjKR5ldY
+WoJIRNryDYn0/kB4LkRavjo6KiKtZ+1ipyE3RRBp8V2I1JvSM+QEaxf73wuRltslUnMLzyrS
+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
+SJcb5/uPUsni1cFuVWqMSJcb5/uPUsni1cFuVWqMSJcb5/uPUsni1cFuVWqMSJcb5/uPUsni
+1cFuVWqMSJcb5/uPUsni1cFuVWqMSJcb5/uPUsni1cFuVWrsMUR6/Xw6ffz2Z5HZVYh07JLB
+blVq7CFEen35/Zmmn/5ZhEgPXDLYrUqNPYRIX05//bTpr5ePvxch0gOXDHarUmMPIdLLP4U/
+Xj78INJjlwx2q1JjDyHSxZ3Xjx/HRDr9l8k1zvcfpZLlq4O/mqBSYzeXBFm72IfT6+VnH/2O
+pOSYJUHWLvbX6fOfn/04fSSSkkOWBFm92Jd3e77N/NPbbASRlBDp7funy89+fCaSkiOWBPEn
+G5Q8b8kep3yHCCIpIVIggkhKiBSIIJISIgUiiKSESIEIIikhUiCCSEqIFIggkhIiBSKIpIRI
+gQgiKSFSIIJISogUiCCSEiIFIoikhEiBCCIpIVIggkhKiBSIIJISIgUiiKSESIEIIikhUiCC
+SEqIFIggkhIiBSKIpIRIgQgiKSFSIIJISogUiCCSEiIFIoikhEiBCCIpIVIggkhKiBSIIJIS
+IgUiiKSESIEIIikhUiCCSEqIFIggkhIiBSKIpIRIgQgiKSFSIIJISogUiCCSEiIFIoikhEiB
+CCIpIVIggkhKiBSIIJISIgUiiKSESIEIIikhUiCCSEqIFIggkhIiBSKIpIRIgQgiKSFSIIJI
+SogUiCCSEiIFIoikhEiBCCIpIVIggkhKiBSIIJISIgUiiKSESIEIIikhUiCCSEqIFIggkhIi
+BSKIpIRIgQgiKSFSIIJISogUiCCSEiIFIoikhEiBCCIpIVIggkhKiBSIIJISIgUiiKSESIEI
+IikhUiCCSEqIFIggkhIiBSKIpIRIgQgiKSFSIIJISogUiCCSEiIFIoikhEiBCCIpIVIggkhK
+iBSIIJISIgUiiKSESIEIIikhUiCCSEqIFIggkhIiBSKIpIRIgQgiKSFSIIJISogUiCCSEiIF
+IoikhEiBCCIpIVIggkhKiBSIIJISIgUiiKSESIEIIikhUiCCSEqIFIggkhIiBSKIpIRIgQgi
+KSFSIIJISogUiCCSEiIFIoikhEiBCCIpIVIggkhKiBSIIJISIgUiiKSESIEIIikhUiCCSEqI
+FIggkhIiBSKIpIRIgQgiKSFSIIJISogUiCCSEiIFIoikhEiBCCIpIVIggkhKiBSIIJISIgUi
+iKSESIEIIikhUiCCSEqIFIggkhIiBSKIpIRIgQgiKSFSIIJISogUiCCSEiIFIoikhEiBCCIp
+IVIggkhKiBSIIJISIgUiiKSESIEIIikhUiCCSEqIFIggkhIiBSKIpIRIgQgiKSFSIIJISogU
+iCCSEiIFIoikhEiBCCIpIVIggkhKiPT2v6+fTr/49OV/KyOIpOTpRXr9cPqXj+siiKTk6UX6
+cnr5+/vvn/349nL6siqCSEqeXqSX0/f3n38/vayKIJKSpxfpdJr6xZ8r/2F6jRnG787WKFHS
+VxJkh9+RgMfnhn9H+vbj988W/x0JeHxW//b28T+/RX54TbYEHI8bvo/05ff3kV4+fV34PhLw
++OzwJxuAx4dIQAAiAQGIBAQgEhCASEAAIgEBiAQEIBIQgEhAACIBAYgEBCASEIBIQAAiAQGI
+BAQgEhCASEAAIgEBiAQEIBIQgEhAACIBAYgEBCASEIBIQAAiAQGIBAQgEhCASEAAIgEBiAQE
+IBIQgEhAACIBAYgEBCASEIBIQAAiAQGIBAQgEhCASEAAIgEBiAQEIBIQgEhAACIBAYgEBCAS
+EIBIQAAiAQGIBAQgEhCASEAAIgEBiAQEIBIQgEhAACIBAYgEBCASEIBIQAAiAQGIBAQgEhCA
+SEAAIgEBiAQEIBIQgEhAACIBAYgEBCASEIBIQAAiAQGIBAQgEhCASEAAIgEBiAQEIBIQgEhA
+ACIBAYgEBCASEIBIQAAiAQGIBAQgEhCASEAAIgEBiAQEIBIQgEhAACIBAYgEBCASEIBIQAAi
+AQGIBAQgEhCASEAAIgEBiAQEIBIQgEhAACIBAYgEBCASEIBIQAAiAQGIBAQgEhCASEAAIgEB
+iAQEIBIQgEhAACIBAYgEBCASEIBIQAAiAQGIBAT4P7z+ThlJXfsmAAAAAElFTkSuQmCC" width="420" height="420" />
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>세 집단 subset 작성과 기술통계량</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">data2</span><span class="o">$</span><span class="n">method2</span><span class="p">[</span><span class="n">data2</span><span class="o">$</span><span class="n">method</span> <span class="o">==</span> <span class="m">1</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;방법1&#39;</span>
+<span class="n">data2</span><span class="o">$</span><span class="n">method2</span><span class="p">[</span><span class="n">data2</span><span class="o">$</span><span class="n">method</span> <span class="o">==</span> <span class="m">2</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;방법2&#39;</span>
+<span class="n">data2</span><span class="o">$</span><span class="n">method2</span><span class="p">[</span><span class="n">data2</span><span class="o">$</span><span class="n">method</span> <span class="o">==</span> <span class="m">3</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;방법3&#39;</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">table</span><span class="p">(</span><span class="n">data2</span><span class="o">$</span><span class="n">method2</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea ">
+<pre>
+방법1 방법2 방법3 
+   31    27    30 </pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="nf">table</span><span class="p">(</span><span class="n">data2</span><span class="o">$</span><span class="n">method2</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">y</span> <span class="o">=</span> <span class="nf">tapply</span><span class="p">(</span><span class="n">data2</span><span class="o">$</span><span class="n">score</span><span class="p">,</span><span class="n">data2</span><span class="o">$</span><span class="n">method2</span><span class="p">,</span><span class="n">mean</span><span class="p">)</span>
+<span class="n">y</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<style>
+.dl-inline {width: auto; margin:0; padding: 0}
+.dl-inline>dt, .dl-inline>dd {float: none; width: auto; display: inline-block}
+.dl-inline>dt::after {content: ":\0020"; padding-right: .5ex}
+.dl-inline>dt:not(:first-of-type) {padding-left: .5ex}
+</style>&lt;dl class=dl-inline&gt;<dt>방법1</dt><dd>4.18709677419355</dd><dt>방법2</dt><dd>6.8</dd><dt>방법3</dt><dd>5.61</dd>&lt;/dl&gt;
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="nf">data.frame</span><span class="p">(</span>교육방법 <span class="o">=</span> <span class="n">x</span><span class="p">,</span> 성적 <span class="o">=</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">df</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A data.frame: 3 × 3</caption>
+<thead>
+	<tr><th></th><th scope="col">교육방법.Var1</th><th scope="col">교육방법.Freq</th><th scope="col">성적</th></tr>
+	<tr><th></th><th scope="col">&lt;fct&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><th scope="row">방법1</th><td>방법1</td><td>31</td><td>4.187097</td></tr>
+	<tr><th scope="row">방법2</th><td>방법2</td><td>27</td><td>6.800000</td></tr>
+	<tr><th scope="row">방법3</th><td>방법3</td><td>30</td><td>5.610000</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>세 집단 간의 동질성 검정<ul>
+<li>분산분석의 동질성 검정은 bartlett.test() 함수를 이용한다. </li>
+<li>검정결과가 유의수준보다 큰 경우 귀무가설(세 집단 간 분포의 모양이 차이가 없다)을 채택한다. </li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">head</span><span class="p">(</span><span class="n">data2</span><span class="p">,</span><span class="m">3</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A data.frame: 3 × 3</caption>
+<thead>
+	<tr><th></th><th scope="col">method</th><th scope="col">score</th><th scope="col">method2</th></tr>
+	<tr><th></th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;chr&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><th scope="row">1</th><td>1</td><td>3.2</td><td>방법1</td></tr>
+	<tr><th scope="row">3</th><td>3</td><td>4.7</td><td>방법3</td></tr>
+	<tr><th scope="row">5</th><td>2</td><td>7.8</td><td>방법2</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">bartlett.test</span><span class="p">(</span><span class="n">score</span><span class="o">~</span><span class="n">method</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span> <span class="n">data2</span><span class="p">)</span> <span class="c1"># 종속변수~독립변수</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea ">
+<pre>
+	Bartlett test of homogeneity of variances
+
+data:  score by method
+Bartlett&#39;s K-squared = 3.3157, df = 2, p-value = 0.1905
+</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>귀무가설을 채택한다. 즉, 세 집단 간의 분포 형태가 동질하다고 할 수 있다. </li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>분산분석<ul>
+<li>세 집단 간의 동질성 검정에서 분포 형태가 동질하다고 분석되었기 때문에 aov() 함수를 이용하여 세 집단 간 평균 차이 검정을 수행한다. 만약 동질하지 않은 경우 kruskal.test() 함수를 이용하여 비모수 검정을 수행한다.</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="nf">aov</span><span class="p">(</span><span class="n">score</span><span class="o">~</span><span class="n">method2</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span><span class="n">data2</span><span class="p">)</span>
+<span class="n">result</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea ">
+<pre>Call:
+   aov(formula = score ~ method2, data = data2)
+
+Terms:
+                 method2 Residuals
+Sum of Squares  99.36805  96.90184
+Deg. of Freedom        2        85
+
+Residual standard error: 1.067718
+Estimated effects may be unbalanced</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>aov()의 결과값은 summary() 함수를 사용해야 p-value 확인 가능</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">summary</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea ">
+<pre>            Df Sum Sq Mean Sq F value   Pr(&gt;F)    
+method2      2  99.37   49.68   43.58 9.39e-14 ***
+Residuals   85  96.90    1.14                     
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>검정 통계량 p-value 값은 9.39e-14로 유의수준보다 매우 작기 때문에 귀무 가설 기각. 즉, 세 가지 교육 방법 간의 평균에 차이가 있다고 볼 수 있다. </li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>분산분석의 결과를 대상으로 집단별로 평균의 차에 대한 비교를 통해서 사후검정을 수행할 수 있다. </li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">TukeyHSD</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea ">
+<pre>  Tukey multiple comparisons of means
+    95% family-wise confidence level
+
+Fit: aov(formula = score ~ method2, data = data2)
+
+$method2
+                 diff        lwr        upr     p adj
+방법2-방법1  2.612903  1.9424342  3.2833723 0.0000000
+방법3-방법1  1.422903  0.7705979  2.0752085 0.0000040
+방법3-방법2 -1.190000 -1.8656509 -0.5143491 0.0001911
+</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>diff : 집단 간 평균 차이의 크기</li>
+<li>lwr,upr : 신뢰구간의 하한값과 상한값.</li>
+<li>이때 신뢰구간에 0이 포함되면 차이가 통계적으로 유의하지 않다. 즉 집단 간의 평균 차이가 없다고 볼 수 있따는 것이다. 따라서 지금 이 상황에선 유의미한 수준에서 세 집단 간 분산의 차이가 있다고 볼 수 있다. </li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">plot</span><span class="p">(</span><span class="nf">TukeyHSD</span><span class="p">(</span><span class="n">result</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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" width="420" height="420" />
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>분산분석에서 3가지 교육방법에 따른 실기시험의 평균에 차이가 있다라는 결론을 내렸다면, 분산분석의 사후검정은 구체적으로 어떤 교육 방법 간에 차이가 있는지를 보여주는 부분이다.</li>
+<li>여기서 방법2와 방법1의 집단 간 평균의 차(diff)가 가장 큰것으로 나타났다. </li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+
+
+
+  </div><a class="u-url" href="/INTROr/2022/02/25/r.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/INTROr/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/INTROr/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/INTROr/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>An easy to use blogging platform with support for Jupyter Notebooks.</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/rhkrehtjd" target="_blank" title="rhkrehtjd"><svg class="svg-icon grey"><use xlink:href="/INTROr/assets/minima-social-icons.svg#github"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
