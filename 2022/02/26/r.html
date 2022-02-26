@@ -1,0 +1,2098 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>요인 분석 | INTROr</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="요인 분석" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="An easy to use blogging platform with support for Jupyter Notebooks." />
+<meta property="og:description" content="An easy to use blogging platform with support for Jupyter Notebooks." />
+<link rel="canonical" href="https://rhkrehtjd.github.io/INTROr/2022/02/26/r.html" />
+<meta property="og:url" content="https://rhkrehtjd.github.io/INTROr/2022/02/26/r.html" />
+<meta property="og:site_name" content="INTROr" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-02-26T00:00:00-06:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="요인 분석" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2022-02-26T00:00:00-06:00","datePublished":"2022-02-26T00:00:00-06:00","description":"An easy to use blogging platform with support for Jupyter Notebooks.","headline":"요인 분석","mainEntityOfPage":{"@type":"WebPage","@id":"https://rhkrehtjd.github.io/INTROr/2022/02/26/r.html"},"url":"https://rhkrehtjd.github.io/INTROr/2022/02/26/r.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/INTROr/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://rhkrehtjd.github.io/INTROr/feed.xml" title="INTROr" /><link rel="shortcut icon" type="image/x-icon" href="/INTROr/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.css" integrity="sha512-h7nl+xz8wgDlNM4NqKEM4F1NkIRS17M9+uJwIGwuo8vGqIl4BhuCKdxjWEINm+xyrUjNCnK5dCrhM0sj+wTIXw==" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.js" integrity="sha512-/CMIhXiDA3m2c9kzRyd97MTb3MC6OVnx4TElQ7fkkoRghwDf6gi41gaT1PwF270W6+J60uTmwgeRpNpJdRV6sg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/contrib/auto-render.min.js" integrity="sha512-Do7uJAaHZm5OLrIv/yN4w0iG1dbu01kzdMNnFfu/mAqgUk6Nniv2JYHcwH+cNwjqgLcqcuBBk+JRvprLVI8azg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha512-0doc9hKxR3PYwso42RD1p5ySZpzzuDiOwMrdCEh2WdJZCjcmFKc/wEnL+z8fBQrnHoiNWbo+3fiGkOYXBdQp4A==" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/INTROr/">INTROr</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/INTROr/about/">About Me</a><a class="page-link" href="/INTROr/search/">Search</a><a class="page-link" href="/INTROr/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">요인 분석</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2022-02-26T00:00:00-06:00" itemprop="datePublished">
+        Feb 26, 2022
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      9 min read
+    
+</span></p>
+
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-justify-center">
+          <div class="px-2">
+
+    <a href="https://github.com/rhkrehtjd/INTROr/tree/master/_notebooks/2022-02-26-r.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/INTROr/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://mybinder.org/v2/gh/rhkrehtjd/INTROr/master?filepath=_notebooks%2F2022-02-26-r.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/INTROr/assets/badges/binder.svg" alt="Open In Binder"/>
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://colab.research.google.com/github/rhkrehtjd/INTROr/blob/master/_notebooks/2022-02-26-r.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/INTROr/assets/badges/colab.svg" alt="Open In Colab"/>
+    </a>
+</div>
+          <div class="px-2">
+  <a href="https://deepnote.com/launch?url=https%3A%2F%2Fgithub.com%2Frhkrehtjd%2FINTROr%2Fblob%2Fmaster%2F_notebooks%2F2022-02-26-r.ipynb" target="_blank">
+      <img class="notebook-badge-image" src="/INTROr/assets/badges/deepnote.svg" alt="Launch in Deepnote"/>
+  </a>
+</div>
+
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2022-02-26-r.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>요인 분석<ul>
+<li>다수의 변수를 대상으로 변수 간의 관계를 분석하여 공통 차원으로 축약하는 통계기법이다. </li>
+<li>탐색적 요인 분석, 확인적 요인 분석</li>
+<li>탐색적 요인 분석과 확인적 요인 분석에서 요인 분석은 데이터를 축소하는 변수의 정제 과정이라고 볼 수 있다. 즉, 여러 가지 항목들을 비슷한 항목으로 묶는 것으로 여러 변수 사이에 존재하는 상호관계를 분석하여 타당성을 검정하고 공통으로 속해있는 차원이나 요인들을 밝혀냄으로써 변수를 축소하는 작업이다. </li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>공통요인으로 변수 정제<ul>
+<li>사전에 묶일 것을오 기대되는 항목끼리 묶이는지를 조사하는 확인적 요인 분석 방법에 대해 알아보자</li>
+<li>예를 들면, 과목 수를 줄여서 변수를 정제하는 방법에 대해서 알아보자</li>
+<li>특히, 실습 과정에서 특정 항목으로 묶이는데 사용되는 요인 수 결정은 분석 방법과 상관계수 행렬을 이용한 초기 고유값을 이용한다. </li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">s1</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="m">1</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="m">3</span><span class="p">,</span><span class="m">4</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="m">3</span><span class="p">,</span><span class="m">4</span><span class="p">,</span><span class="m">5</span><span class="p">)</span>
+<span class="n">s2</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">3</span><span class="p">,</span><span class="m">1</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="m">3</span><span class="p">,</span><span class="m">4</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="m">4</span><span class="p">,</span><span class="m">3</span><span class="p">,</span><span class="m">4</span><span class="p">)</span>
+<span class="n">s3</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="m">2</span><span class="p">,</span><span class="m">3</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="m">3</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="m">3</span><span class="p">,</span><span class="m">5</span><span class="p">,</span><span class="m">3</span><span class="p">,</span><span class="m">4</span><span class="p">,</span><span class="m">2</span><span class="p">)</span>
+<span class="n">s4</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="m">2</span><span class="p">,</span><span class="m">4</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="m">3</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="m">3</span><span class="p">,</span><span class="m">5</span><span class="p">,</span><span class="m">3</span><span class="p">,</span><span class="m">4</span><span class="p">,</span><span class="m">1</span><span class="p">)</span>
+<span class="n">s5</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="m">4</span><span class="p">,</span><span class="m">5</span><span class="p">,</span><span class="m">4</span><span class="p">,</span><span class="m">5</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="m">1</span><span class="p">,</span><span class="m">5</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="m">4</span><span class="p">,</span><span class="m">3</span><span class="p">)</span>
+<span class="n">s6</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="m">4</span><span class="p">,</span><span class="m">3</span><span class="p">,</span><span class="m">4</span><span class="p">,</span><span class="m">4</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="m">1</span><span class="p">,</span><span class="m">5</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="m">4</span><span class="p">,</span><span class="m">2</span><span class="p">)</span>
+<span class="n">name</span> <span class="o">=</span> <span class="m">1</span><span class="o">:</span><span class="m">10</span> <span class="c1"># 각 과목의 문제에 대한 문항 번호</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">subject</span> <span class="o">=</span> <span class="nf">data.frame</span><span class="p">(</span><span class="n">s1</span><span class="p">,</span><span class="n">s2</span><span class="p">,</span><span class="n">s3</span><span class="p">,</span><span class="n">s4</span><span class="p">,</span><span class="n">s5</span><span class="p">,</span><span class="n">s6</span><span class="p">)</span>
+<span class="nf">str</span><span class="p">(</span><span class="n">subject</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>&#39;data.frame&#39;:	10 obs. of  6 variables:
+ $ s1: num  1 2 1 2 3 4 2 3 4 5
+ $ s2: num  1 3 1 2 3 4 2 4 3 4
+ $ s3: num  2 3 2 3 2 3 5 3 4 2
+ $ s4: num  2 4 2 3 2 3 5 3 4 1
+ $ s5: num  4 5 4 5 2 1 5 2 4 3
+ $ s6: num  4 3 4 4 2 1 5 2 4 2
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>만약 각 변수의 값이 일정하지 않으면 표준화 작업이 필요하다. 여기서는 모든 변수가 5점 척도로 일정하기 때문에 표준화 작업이 필요하진 않다. </li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>변수의 주성분 분석<ul>
+<li>주성분 분석은 변동량(분산)에 영향을 주는 주요 성분을 분석하는 방법으로 요인 분석에서 사용될 요인의 개수를 결정하는 데 주로 이용된다. 주성분 분석의 결과는 첫 차원이 대부분의 변동량을 담고 있는 것으로 나타난다. </li>
+</ul>
+</li>
+<li>요인 분석에서 공통요인으로 묶일 요인 수를 알아보자</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">pc</span> <span class="o">=</span> <span class="nf">prcomp</span><span class="p">(</span><span class="n">subject</span><span class="p">)</span> <span class="c1"># 주성분 분석 수행 함수</span>
+<span class="nf">summary</span><span class="p">(</span><span class="n">pc</span><span class="p">)</span> <span class="c1"># 요약통계량</span>
+<span class="nf">plot</span><span class="p">(</span><span class="n">pc</span><span class="p">)</span> <span class="c1"># 주성분 분석 결과 시각화</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea ">
+<pre>Importance of components:
+                         PC1    PC2     PC3     PC4     PC5     PC6
+Standard deviation     2.389 1.5532 0.87727 0.56907 0.19315 0.12434
+Proportion of Variance 0.616 0.2603 0.08305 0.03495 0.00403 0.00167
+Cumulative Proportion  0.616 0.8763 0.95936 0.99431 0.99833 1.00000</pre>
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+QhpuTUhLJKTh1oS0REIabk1ISySk4daEtERCGm5NSEskpOHWhLREQhpuTUhLJKTh1oS0REIa
+bk1ISySk4daEtERCGm5NSEskpOHWhLREQhpuTUhLJKTh1oS0REIabk1ISySk4daEtERCGm5N
+SEskpOHWhLREQhpuTUhLJKTh1oS0REIabk1ISySk4daEtERCGm5NSEskpOHWhLREQhpuTUhL
+JKTh1oS0REIabk1ISySk4daEtERCGm5NSEskpOHWhLREQhpuTUhLJKTh1oS0REIabk1ISySk
+4daEtERCGm5NSEskpOHWhLREQhpuTUhLJKTh1oS0REIabk1ISySk4daEtERCGm7tnT/PqdDn
+vvltCGm4tfdC+qdrvENIw60JaYmENNyakJZISMOtCWmJhDTcmpCWSEjDrQlpiYQ03JqQlkhI
+w60JaYmENNyakJZISMOtCWmJhDTcmpCWSEjDrQlpiYQ03JqQlkhIw60JaYmENNyakJZISMOt
+CWmJhDTcmpCWSEjDrQlpiYQ03JqQlkhIw60JaYmENNyakJZISMOtCWmJhDTcmpCWSEjDrQlp
+iYQ03JqQlkhIw60JaYmENNyakJZISMOtCWmJhDTcmpCWSEjDrQlpieb/OX273b/8tR/7w7eZ
+E6s52r1Cqvw7ZMbNdu5Xftxe/Nvv5k2s5mg3C6lubODrv7lf+WHa3D++vPX0sJkOsyZWc7SF
+VLg2yNXf3E+2mR5/vP04bWZNrOZoC2nItUWEdJXzr21/KPzK/7P56h/t/+nYv12rHPvqP8j5
+/sE1EqzfJ24jPTy9vPXH20iwfrOv3nYXV5HbY/JLgvF84nGkw8vjSJv97R8eR4L1G/eOe1gQ
+IUGAkCBASBAgJAgQEgQICQKEBAFCggAhQYCQIEBIECAkCBASBAgJAoQEAUKCACFBgJAgQEgQ
+ICQIEBIECAkChAQBQoIAIUGAkCBASBAgJAgQEgQICQKEBAFCggAhQYCQIEBIECAkCBASBAgJ
+AoQEAUKCACFBgJAgQEgQICQIEBIECAkChAQBQoIAIUGAkCBASBAgJAgQEgQICQKEBAFCggAh
+QYCQIEBIECAkCBASBAgJAoQEAUKCACFBgJAgQEgQICQIEBIECAkChAQBQoIAIUGAkCBASBAg
+JAgQEgQICQKEBAFCggAhQYCQIEBIECAkCBASBAgJAoQEAUKCACFBgJAgQEgQICQIEBIECAkC
+hAQBQoIAIUGAkCBASBAgJAgQEgQICQKEBAFCggAhQYCQIEBIECAkCBASBAgJAoQEAUKCACFB
+gJAgQEgQICQIEBIECAkChAQBQoIAIUGAkCBASBDw/+rGjoro9JcBAAAAAElFTkSuQmCC" width="420" height="420" />
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>첫 번째 성분이 변동량 62%, 두 번째 성분이 26%를 차지하여 전체 88%를 차지.</li>
+<li>따라서 전체 6개 성분 중에서 일단 주성분 변수를 2개로 가정할 수 있다. </li>
+<li>주성분 분석에서 결정된 주성분의 수를 반드시 요인 분석에서 요인의 수로 사용되지는 않는다. </li>
+<li>고유값 : 어떤 행렬로부터 유도되는 실수값. 일반적으로 변화량의 합(총분산)을 기준으로 요인의 수를 결정하는 데 이용된다. </li>
+<li>상관계수 행렬을 대상으로 초기 고유값으로 요인 수를 알아보자</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">cor</span><span class="p">(</span><span class="n">subject</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A matrix: 6 × 6 of type dbl</caption>
+<thead>
+	<tr><th></th><th scope="col">s1</th><th scope="col">s2</th><th scope="col">s3</th><th scope="col">s4</th><th scope="col">s5</th><th scope="col">s6</th></tr>
+</thead>
+<tbody>
+	<tr><th scope="row">s1</th><td> 1.00000000</td><td> 0.86692145</td><td>0.05847768</td><td>-0.1595953</td><td>-0.5504588</td><td>-0.6262758</td></tr>
+	<tr><th scope="row">s2</th><td> 0.86692145</td><td> 1.00000000</td><td>0.06745441</td><td>-0.0240123</td><td>-0.6349581</td><td>-0.7968892</td></tr>
+	<tr><th scope="row">s3</th><td> 0.05847768</td><td> 0.06745441</td><td>1.00000000</td><td> 0.9239433</td><td> 0.3506967</td><td> 0.4428759</td></tr>
+	<tr><th scope="row">s4</th><td>-0.15959528</td><td>-0.02401230</td><td>0.92394333</td><td> 1.0000000</td><td> 0.4207582</td><td> 0.4399890</td></tr>
+	<tr><th scope="row">s5</th><td>-0.55045878</td><td>-0.63495808</td><td>0.35069667</td><td> 0.4207582</td><td> 1.0000000</td><td> 0.8733514</td></tr>
+	<tr><th scope="row">s6</th><td>-0.62627585</td><td>-0.79688923</td><td>0.44287589</td><td> 0.4399890</td><td> 0.8733514</td><td> 1.0000000</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">en</span> <span class="o">=</span> <span class="nf">eigen</span><span class="p">(</span><span class="nf">cor</span><span class="p">(</span><span class="n">subject</span><span class="p">))</span>
+<span class="n">en</span> <span class="c1"># 이때 values는 고유값, vectors는 고유벡터이다.</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea ">
+<pre>eigen() decomposition
+$values
+[1] 3.44393944 1.88761725 0.43123968 0.19932073 0.02624961 0.01163331
+
+$vectors
+           [,1]         [,2]        [,3]       [,4]        [,5]        [,6]
+[1,] -0.4062499 -0.351093036  0.63460534  0.3149622  0.45699508  0.03041553
+[2,] -0.4319311 -0.400526644  0.11564711 -0.4422216 -0.57042232  0.34452594
+[3,]  0.2542077 -0.628807884 -0.06984072  0.3339036 -0.35389906 -0.54622817
+[4,]  0.3017115 -0.566028650 -0.37734321 -0.2468016  0.50326085  0.36333366
+[5,]  0.4763815  0.008436692  0.58035475 -0.6016209  0.05643527 -0.26654314
+[6,]  0.5155637  0.021286661  0.31595023  0.4133867 -0.28995329  0.61559319
+</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">plot</span><span class="p">(</span><span class="n">en</span><span class="o">$</span><span class="n">values</span><span class="p">,</span> <span class="n">type</span><span class="o">=</span><span class="s">&#39;o&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+8qons/EAAAAASUVORK5CYII=" width="420" height="420" />
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>1~3까지의 고유값을 급격하게 감소하다가 4번째 고유값에서 완만하게 감소한다는 측면에서 주성분 변수를 3개로 가정할 수 있다.</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">cor</span><span class="p">(</span><span class="n">subject</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A matrix: 6 × 6 of type dbl</caption>
+<thead>
+	<tr><th></th><th scope="col">s1</th><th scope="col">s2</th><th scope="col">s3</th><th scope="col">s4</th><th scope="col">s5</th><th scope="col">s6</th></tr>
+</thead>
+<tbody>
+	<tr><th scope="row">s1</th><td> 1.00000000</td><td> 0.86692145</td><td>0.05847768</td><td>-0.1595953</td><td>-0.5504588</td><td>-0.6262758</td></tr>
+	<tr><th scope="row">s2</th><td> 0.86692145</td><td> 1.00000000</td><td>0.06745441</td><td>-0.0240123</td><td>-0.6349581</td><td>-0.7968892</td></tr>
+	<tr><th scope="row">s3</th><td> 0.05847768</td><td> 0.06745441</td><td>1.00000000</td><td> 0.9239433</td><td> 0.3506967</td><td> 0.4428759</td></tr>
+	<tr><th scope="row">s4</th><td>-0.15959528</td><td>-0.02401230</td><td>0.92394333</td><td> 1.0000000</td><td> 0.4207582</td><td> 0.4399890</td></tr>
+	<tr><th scope="row">s5</th><td>-0.55045878</td><td>-0.63495808</td><td>0.35069667</td><td> 0.4207582</td><td> 1.0000000</td><td> 0.8733514</td></tr>
+	<tr><th scope="row">s6</th><td>-0.62627585</td><td>-0.79688923</td><td>0.44287589</td><td> 0.4399890</td><td> 0.8733514</td><td> 1.0000000</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>s1,s2 // s3,s4 // s5,s6 즉, 동일 계열의 과목점수에 대한 상관계수가 높은 것으로 나타난다. 요인 분석은 기본적으로 상관계수를 토대로 공통요인을 추출한다.</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr />
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>요인 분석에서 요인 회전법은 요인 해석이 어려운 경우 요인축을 회전시켜서 요인 해석을 용이하게 하는 방법이다. 베리멕스 회전법이 있다. </li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="nf">factanal</span><span class="p">(</span><span class="n">subject</span><span class="p">,</span> <span class="n">factors</span><span class="o">=</span><span class="m">2</span><span class="p">,</span> <span class="n">rotation</span> <span class="o">=</span> <span class="s">&#39;varimax&#39;</span><span class="p">)</span>
+<span class="n">result</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea ">
+<pre>
+Call:
+factanal(x = subject, factors = 2, rotation = &#34;varimax&#34;)
+
+Uniquenesses:
+   s1    s2    s3    s4    s5    s6 
+0.250 0.015 0.005 0.136 0.407 0.107 
+
+Loadings:
+   Factor1 Factor2
+s1  0.862         
+s2  0.988         
+s3          0.997 
+s4 -0.115   0.923 
+s5 -0.692   0.338 
+s6 -0.846   0.421 
+
+               Factor1 Factor2
+SS loadings      2.928   2.152
+Proportion Var   0.488   0.359
+Cumulative Var   0.488   0.847
+
+Test of the hypothesis that 2 factors are sufficient.
+The chi square statistic is 11.32 on 4 degrees of freedom.
+The p-value is 0.0232 </pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>p-value 값이 0.05미만이면 요인수가 부족하다는 의미이기 때문에 요인수를 늘려서 다시 분석해야한다. </li>
+<li>요인수를 늘려보자</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="nf">factanal</span><span class="p">(</span><span class="n">subject</span><span class="p">,</span> <span class="n">factors</span><span class="o">=</span><span class="m">3</span><span class="p">,</span> <span class="n">rotation</span> <span class="o">=</span> <span class="s">&#39;varimax&#39;</span><span class="p">,</span> <span class="n">scores</span> <span class="o">=</span> <span class="s">&#39;regression&#39;</span><span class="p">)</span> <span class="c1"># scores = 요인점수 계산방법</span>
+<span class="n">result</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea ">
+<pre>
+Call:
+factanal(x = subject, factors = 3, scores = &#34;regression&#34;, rotation = &#34;varimax&#34;)
+
+Uniquenesses:
+   s1    s2    s3    s4    s5    s6 
+0.005 0.056 0.051 0.005 0.240 0.005 
+
+Loadings:
+   Factor1 Factor2 Factor3
+s1 -0.379           0.923 
+s2 -0.710   0.140   0.649 
+s3  0.236   0.931   0.166 
+s4  0.120   0.983  -0.118 
+s5  0.771   0.297  -0.278 
+s6  0.900   0.301  -0.307 
+
+               Factor1 Factor2 Factor3
+SS loadings      2.122   2.031   1.486
+Proportion Var   0.354   0.339   0.248
+Cumulative Var   0.354   0.692   0.940
+
+The degrees of freedom for the model is 0 and the fit was 0.7745 </pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">attributes</span><span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="c1"># 결과변수 속성 보기</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<dl>
+	<dt>$names</dt>
+		<dd><style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>'converged'</li><li>'loadings'</li><li>'uniquenesses'</li><li>'correlation'</li><li>'criteria'</li><li>'factors'</li><li>'dof'</li><li>'method'</li><li>'rotmat'</li><li>'scores'</li><li>'n.obs'</li><li>'call'</li>&lt;/ol&gt;
+</dd>
+	<dt>$class</dt>
+		<dd>'factanal'</dd>
+</dl>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">result</span><span class="o">$</span><span class="n">loadings</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea ">
+<pre>
+Loadings:
+   Factor1 Factor2 Factor3
+s1 -0.379           0.923 
+s2 -0.710   0.140   0.649 
+s3  0.236   0.931   0.166 
+s4  0.120   0.983  -0.118 
+s5  0.771   0.297  -0.278 
+s6  0.900   0.301  -0.307 
+
+               Factor1 Factor2 Factor3
+SS loadings      2.122   2.031   1.486
+Proportion Var   0.354   0.339   0.248
+Cumulative Var   0.354   0.692   0.940</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">print</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">digits</span><span class="o">=</span><span class="m">2</span><span class="p">,</span> <span class="n">cutoff</span><span class="o">=</span><span class="m">0.5</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+Call:
+factanal(x = subject, factors = 3, scores = &#34;regression&#34;, rotation = &#34;varimax&#34;)
+
+Uniquenesses:
+  s1   s2   s3   s4   s5   s6 
+0.00 0.06 0.05 0.00 0.24 0.00 
+
+Loadings:
+   Factor1 Factor2 Factor3
+s1                  0.92  
+s2 -0.71            0.65  
+s3          0.93          
+s4          0.98          
+s5  0.77                  
+s6  0.90                  
+
+               Factor1 Factor2 Factor3
+SS loadings       2.12    2.03    1.49
+Proportion Var    0.35    0.34    0.25
+Cumulative Var    0.35    0.69    0.94
+
+The degrees of freedom for the model is 0 and the fit was 0.7745 
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">print</span><span class="p">(</span><span class="n">result</span><span class="o">$</span><span class="n">loadings</span><span class="p">,</span> <span class="n">cutoff</span> <span class="o">=</span> <span class="m">0</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+Loadings:
+   Factor1 Factor2 Factor3
+s1 -0.379  -0.005   0.923 
+s2 -0.710   0.140   0.649 
+s3  0.236   0.931   0.166 
+s4  0.120   0.983  -0.118 
+s5  0.771   0.297  -0.278 
+s6  0.900   0.301  -0.307 
+
+               Factor1 Factor2 Factor3
+SS loadings      2.122   2.031   1.486
+Proportion Var   0.354   0.339   0.248
+Cumulative Var   0.354   0.692   0.940
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>요인 분석에서 요인점수(요인 분석에서 요인의 추정된 값)를 얻기 위해서는 scores 속성 (scores = 'regression')을 지정해야 한다. </li>
+<li>요인 점수를 통해서 요인적재량을 시각화해보자</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">plot</span><span class="p">(</span><span class="n">result</span><span class="o">$</span><span class="n">scores</span><span class="p">[,</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">2</span><span class="p">)],</span> <span class="n">main</span> <span class="o">=</span> <span class="s">&#39;Factor1 과 Factor2 요인점수 행렬&#39;</span><span class="p">)</span>
+<span class="c1"># 산점도에 레이블 표시</span>
+<span class="nf">text</span><span class="p">(</span><span class="n">result</span><span class="o">$</span><span class="n">scores</span><span class="p">[,</span><span class="m">1</span><span class="p">],</span><span class="n">result</span><span class="o">$</span><span class="n">scores</span><span class="p">[,</span><span class="m">2</span><span class="p">],</span> <span class="n">labels</span> <span class="o">=</span> <span class="n">name</span><span class="p">,</span> <span class="n">cex</span> <span class="o">=</span> <span class="m">0.7</span><span class="p">,</span> <span class="n">pos</span> <span class="o">=</span> <span class="m">3</span><span class="p">,</span> <span class="n">col</span> <span class="o">=</span> <span class="s">&#39;blue&#39;</span><span class="p">)</span>
+
+<span class="c1"># 요인 적재량 추가</span>
+<span class="nf">points</span><span class="p">(</span><span class="n">result</span><span class="o">$</span><span class="n">loadings</span><span class="p">[,</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">2</span><span class="p">)],</span><span class="n">pch</span> <span class="o">=</span> <span class="m">19</span><span class="p">,</span> <span class="n">col</span> <span class="o">=</span> <span class="s">&#39;red&#39;</span><span class="p">)</span>
+<span class="nf">text</span><span class="p">(</span><span class="n">result</span><span class="o">$</span><span class="n">loadings</span><span class="p">[,</span><span class="m">1</span><span class="p">],</span> <span class="n">result</span><span class="o">$</span><span class="n">loadings</span><span class="p">[,</span><span class="m">2</span><span class="p">],</span> <span class="n">labels</span> <span class="o">=</span> <span class="nf">rownames</span><span class="p">(</span><span class="n">result</span><span class="o">$</span><span class="n">loadings</span><span class="p">),</span> <span class="n">cex</span> <span class="o">=</span>  <span class="m">0.8</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="m">3</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s">&#39;red&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA0gAAANICAMAAADKOT/pAAAANlBMVEUAAAAAAP9NTU1oaGh8
+fHyMjIyampqnp6eysrK9vb3Hx8fQ0NDZ2dnh4eHp6enw8PD/AAD////xw1/KAAAACXBIWXMA
+ABJ0AAASdAHeZh94AAAa3UlEQVR4nO3dC3vpShiA0WlQVUX9/z97iMsORXv4ZpJhrefZrV6S
+qcq7IxM0rYGHpb5/AHgGQoIAQoIAQoIAQoIAQoIAQoIAQoIAQoIAQoIAQoIAQoIAQoIAQoIA
+QoIAQoIAQoIAQoIAQoIAQoIAQoIAQoIAQoIAQoIAQoIAQoIAQoIAQoIAQoIAQoIAQoIAQoIA
+QoIAQoIAQoIAQoIAQoIAQoIAQoIAQoIAQoIAQrosdfzyre+/rmzy6zrih11Om5Qm8z+Oy6OE
+dNmft+iv5tdf4fz3KsKHne9XMv3jwDxISJf9eYv+PZL5rXXMTr8UNezquJbZLz9dd5WL809N
+uotP0uTCUvsrsFl49vPrk/8xfOWEdNmfdyK/feNycrOKnyGFDPuR0nixXr2nNDr9wuf2x5l8
+dn6AUWqmq90qtyEtugneE9KkU7CQXt75htpugKPpsv1gNR1tNtT5+rgHaT8732y26X1+XH45
+2t6x2lwYn69s8m9b/SWke4fdDPl1YX3LZr/kaLn/zLj9sFmufw+pSc2F39LO4kJIs/+3Q6yc
+kC472wLHhy1mu3keNsfpyRZ9+JbJYfntVr+9MPmRx59DunvYySRdWt+mhW1x82MT09Rsdlzj
+7Q/auWs3az9en4b0nn4ecV0K6bikkDjfAjfbxHi13ezabeXw33qad7boYxy7zWl3cXMXarsH
+OQ9pb/JbSA8Mu/OVTu6OfW72V+2F5eF7titrP1x2Q9oMuNrvmo4hTNNoE9zVuQt37fr+AQYq
+/bP5aLTfAtuPNpv37r/x9vhjv+lvZxRmq/XqI+22zbRr4LiyS2OML4YUN2y7gu4E+Psxq8ku
+iUU67Lg+OyEtt2s5CWk1a9J4uf2JR2cT6tt7m5Ov/Q8uJM6dbtGdz7ZbynZrWo0+luvjFv1+
+2OY2/5u/7z49P13s0hiL2yE9OOz2bt+4u/Y/hjROk2ZXzD6E7d3Hj/ZL22C7J7Cawy6wG9I+
+HnftuLBFLz+n491HFzby9t1uT7DcfeL4ced7Oma7Ff0e0iPDbhZsOrun63ftVt27dovNzme9
+3O349lEs9/N622/9GHUmyefbneT2Xt+Fu3aNkPix7X+O/m3f17bok0+cfNPtkLrHMYHDti0s
+1yf+MNkw3e/FZtu7cr/dNbsV0u4ITkgv7nSz3fxXnkbvs8Xfdg3N+fL3hvTIsKvm7H5d+12H
+CYvm6vT3evzx7/sn+yOdU535i/36ZldOyL4QIV12utkeDtrbz44vHaxMfh6sXFvZ1jak1X4K
+Ic+w44sPD5qk7abfdDb58xOyF9wIqTPZ8C+kRed77ZFe3MX//3e7hp/TZ6uL02fXVrZ17Odm
+SA8M+35hf7Q+PDrh8mMUjiFdCeHyUt3rJCTOnW7Ru//e583us013K9l+MF13zp3uZrVCQrp/
+2M62fDLuz5AWx++4N6RFOx3SdB939G8RIb240y3wa79ZNe1jDL7+PcRgd8K//b//sEm//1z+
+dGWfne20uRnS/cO+3xFS91OLw7f/HtL035VZHpe3R2LnbAtcbLbM5n2x3B0grLrP9ZkcNuL5
+e3PyoLdrK+tuZ+n2Q4TuHrb5N8JxZZcPdR4NafPNszagr/HhDJOQKG72czvOpWRIV6YtnpiQ
++lUwpMsu7D7+3zHS7bt2L7N9vcwVHaj6Q/o52SAk4D5CggBCggBCggBCggBCggBCggBCggBC
+ggBCggBCggBCggBCggBCggBCggBCggBCggBCggBCggBCggBCggBCggBCggBCggBCggBCggBC
+ggBCggBCggBCggBCggBCggBCggBCggBCggBCggAFQkpQmTu28vhwehgCIgkJ/uatdeWLQoL/
+QUjwuGsdCQn+ByHB4652JCT4OyFBACHB4653JCT4MyFBACFBXkKCAEKCAEKCAEKCAEKCAEKC
+AEKCv7rxjHIhwd+0FV1LSUjwN6nz9soX71hfVkJicNLZ+8tfvWOFGQmJwRESBBASRHCMBAHM
+2kEI55EgLyFBACFBACFBACFBACFBACFBACFBACFBACFBACFBACFBACFBgPIhzUYpTeZZh4DS
+Coa0ewj6OLWmWYaAnpQOaZqmq/V6OU2zHENAT0qH1KTV9vIqjXIMAT0pHdLhKYbXn2r4yBDQ
+k9IhvR9CanIMAT0pGtLkYzZPn5uLq+nt2QYhUZmiIe20F5tVjiGgJyXPIy0Ws9lk0k45TG92
+JCRq45ENEEBIEEBIEKCvkJxH4qkMJ6TUFTEElOOuHQQQEgQQEgQQEgQQEgQQEgTo4UGrf5jh
+FhKVKRjSTEg8raKP/m7GuYeAfhQ9Rlr88uJBAUNAL8pONszSIvcQ0AezdhBASBBASBBASBBA
+SBBASBBASBBASBBASBBASBBASBBASBBASBBASBBASBBASBBASBBASBBASBBASBBASBBASBBA
+SBBASBBASBBASBBASBBASBBASBBASBBASBBASBBASBBASBBASBBASBBASBBASBBASBBASBBA
+SBBASBBASBBASBBASBBASBBASBBASBBASBBASBBASBBASBBASBBASBBASBBASBBASBBASBBA
+SBBASBBASBBASBBASGT23fcPUISQyOtbSHGLDHAIyvi2RwpcZIBDkNP3935H9O2uXeQiAxyC
+jL67b4QUt8gAhyCj7+6FukJ627hnOSER77v7vqqQ3o5v/qeiIX19TNLWZPqVawgGYXeMdDxM
+qkcNIa1G6Z9xliEYkO82p+O0Qx1qCGmams9Fe2k5b9I0xxAMyPfZ+ypsG7rrIKlgSE1aHC8v
+UpNjCIbh5NjoWkjD3FVt5xoGHlJK1z4IG4KB6N6hu5LLgCf0Bh6SPRL/DHlCb+AhbY6R5sv2
+kmOkF/aHnVWP3tb3dVR0+nvcmbUbrbIMwdB190RDPEi683xs4fNI0/Y8UjP5cB7pVf1rZ5iT
+DffyyAaK+r76Qd2ERFknZ2ifpyQhUd6AZxvu1VdIziO9gKtHQXU+Du+m4YSUuiKGoF+XH2h3
+fJbSgE/I3sNdu2rc+0yZvlx5xOq/J8+atctOSD/d/bjknnxX+NjvrTvvDwmpFkIqoa3onpSE
+VBUhZZY6b+9YMPciAxyiThWFdO0YadDS2fv/v2TeRQY4RJVq6khIGRbZLZf+PMMtpIuq6mhd
+47xcFSHNhPSY2jqqURXHSIvm9kueBAzxzJ6qo6HurOqYtVvcfjpfxBDP6+2ttjOy1w358KmK
+80izzrPNMw1BBYYc0p3M2lFcnaeYbhMSxQnp3kUGOAT9EdK9iwxwCHr0fB0JiR4I6c5FBjgE
+vXqyjIRUE88cHjAh1eLuc+6UIKRa3P0oMEoQUiXuf1wyJQipEkIaNiFVQkjDJqRaOEYaNCHV
+wqzdoAmpHs4jDZiQIICQIICQIICQIICQIICQIICQIICQIICQIICQIICQIICQIICQIICQIICQ
+IICQIICQIICQIICQIICQIICQIICQIICQIICQIICQIICQIICQIICQIICQIICQIICQIICQIICQ
+IICQIICQIICQIICQIICQIICQIICQIICQIICQIICQIICQIICQIICQIICQIICQIICQIICQIICQ
+IICQIICQIICQIED5kGajlCbzrENAaQVDSu2C49SaZhkCelI6pGmartbr5TTNcgwBPSkdUpNW
+28urNMoxBPSkdEgpdT4IHwJ6Ujqk90NITY4hoCdFQ5p8zObpc3NxNb092yAkKlM0pJ32YrPK
+MQT0pOR5pMViNptM2imH6c2OhERtPLIBAggJAggJAvQVkvNIPJXhhJS6IoaActy1gwBCggBC
+ggBFQ/r6mLRHQJPpV64hoBcFQ1qNOrMJ4yxDQE8KhjRNzeeivbScNx60ylMpGFKTFsfLC0+j
+4KkUf82GSx+EDQE9qWuP9Pb2dufgkFXZY6T5sr107zHS2/4fDE3J6e9xZ9ZudMcT+zTEYJU9
+jzRtzyM1k4+7ziMJicGq6ZENb46RGKqqQnKMRG7f3993LVdVSMc3cLfv1rUv7v/9b0Lixdzq
+5PvX77hGSLyYi5nsd1L33a3bqimk7VyDjrjTrVa+92++X+IYCe53bOXSEdLhE/fvloTEa/ju
+vj9v5eSLT3+MBPf7vvHR2f0+IcFVJ3fpLrXyLST4k+8fF06/KCT4g2utHA+cTDbATbdbOd7v
+e43pb6/Byt0ebuWmmkI6+SO0MCRVhVRqePi/Kgop3foi9EpIEEBIQTyg9rVVFNKgj5E8xePF
+VRXSgGfthPQMHpgYfySk1XtK4/n+k6Hbd33nkYRUiRutfN98EvovHghp1ez+Rsvuk0VCGjDH
+SDW42UpfIU3TbFPTrGn/Qsurh2SPVIVbrXx/P1LSAyE1uwvLZrQUkpBqcLOV3kI6tLMaj4Uk
+pBoMM6RROrx+92gspOMbhut2K30dI83S+/7SMo1fPSSTDVUY5GTDenqsZx48L11hSNTgl1Z6
+Oo+0XkwOl5bvQqIGWZ6MtK7rkQ0wWA+GNLn5h/fuJqQT999zp5QHQ8r0kB0hdT32otQU8WBI
+/6bAQwmp4/6XiKKcB0NaTca//BXLuwhp69dXNGQ4Hr5rdxT2I63rDCn8kemnL1ItpGETUowM
+z5X6vvoBw2P6O0aGZ+8KqSZCCpHl9SQ6x0g6GrqHQ/ocb5/c9xn041wcogLZXpjFlF0lHg1p
+vD9CGkf9QD+HqEHekHQ0fA+GNEvN9kUb5s322bJxqgsp2zGSk7GVePiE7KJ9v0ijmJ/n5xB1
+yPEKR4e/IvfIo/spJOohQq8+/T3kVziigLA9UhPz8/wcAirgGAkCmLWDAI+fR5o4jwQe2QAB
+hAQBoqa/G7N2mTiFVIWgkJbOI+XhbGwlHghpnrpe/JENuQipEo/skUbdjkKfcS6kvcdej5py
+vIrQoAmpFmbtBk1ItXg0pNV0O13XTGNflUtIBzqqxIMhLZv98weaZdRPdD7EaxNSJR4MaZze
+t/ui1TRNrn37PYT0j4yq4PlIr0aWWTwYUrN/yeKVkCph/5bHgyFNU/uSxV/jFPpnKYSUy7c9
+Uh6ej/QSDhMW3+7aZRLzfKRx6PNjhRSt+6JeQsrCCdlX8H3lMmGE9ApeOKRSf2o+KqQv55GG
+7GVfRvytlpCm/qxLLV7xGOmtlj3Sv47mf1jy62PSfu9k+suTLoSUwQuG9FbNXbsmfa7Habkc
+p9+fj7TqPn/p9nS5kGK96qxdPSFt79F9bPZGiz+cSJqm5nP3uqzLeXP7BK6Qgr3mMdLbuqqQ
+5ttXWf3DMVKzf3njrV9e4lhIPO7t+KaAB0OabO7aLdNo/fWHkNJ5gaE/FZx52ykz2IMhzbdB
+tA8Tev91OXskyqtkj7Q5QNq8eU9/eczq5hhpvnv6n2MkSqklpP9j3Jm1G918brqQqEzRhwh9
+TdvzSM3kw3kknssDIWX8C3VCojIPh5QlJyFl4eUf8hHSy/CCRDn1FZLzSMUJKafhhHTykvx3
+rZNbvGhrVu7avYqXDKnc/8lCehUvGNL+VYDLjHX/IilluzcmpAxerqP9ZvSEIXliX59eLqR0
+9r7IYHkXaXliX99eKqPnDckT+yjqWUPyNArKquQY6X8v54l9FFXJrN3/ZY9EaVWcR/q/PLGP
+5+WJfRDAE/sgQNGQhjQERBISBBASBBASBBASBBASBBASBBASBBASBBASBBASBBASBBASBBAS
+BBASBBASBBASBBASBBASBBASBBASBBASBBASBBASBBASBBASBBASBBASBBASBBASBBASBBAS
+BBASBBASBBASBBASBBASBBASBBASBBASBBASBBASBBASBBASBBASBBASBBASBBASBBASBBAS
+BBASBBASBBASBBASBBASBBASBBASBBASBBASBBASBBASBBASBBASBBASBBASBCgf0myU0mSe
+dQgorWBIqV1wnFrTLENAT0qHNE3T1Xq9nKZZjiGgJ6VDatJqe3mVRjmGgJ6UDimlzgfhQ0BP
+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
+5j+zJo3ynhz/OWDOE4id9Re4hhdHe56rt+4MlO8aVhoSDIuQIICQIICQIICQIICQIICQIICQ
+IICQIICQIICQIICQIICQIICQIICQIICQIICQIICQIICQIICQIICQIICQIICQIICQIICQIICQ
+IICQIICQIICQIICQIICQIICQIICQIICQhisdXPuGG39zdeaGLcvve7h+C2l0/cZbXK+PLPy+
+h+u3GK5/fdEIqTC/7+G6O6RZGgupML/v4erGMJ+k45/hnjZpvNzf89t+PBvt/yR4SqtRmmze
+T3+NkGB+38PVieFjd7DUljTeXmpWx5Daj9O4XWDSfs/i970Zwfy+h6sz15DS53r92V78TOPV
++n3byy6Wz9QstgdFn9tPbL50WLa3H/s1+X0P149Ju/biJH2t16vUHGKZpO0s+Hy7S0rbL3W+
+lXL8vofrJIbl/GO83zmdfn3/8fbdeXOU4/c9XN0Yxp17eadfF9Ig+H0PVyeG9zSazZdCGi6/
+7+E672K5n6S7fIw0EVKf/L6H66SLr/Vid4w0207NTXezdsv12azdpWUpwe97uDoxTPcTeNtZ
+ucN5pPUobfdLJ+eRLi1LCX7fw9WN4X2Tyld7/62tarLdF32N2pDWs+b4yIaLy1KA3zcEEBIE
+EBIEEBIEEBIEEBIEEBIEEBIEEBIEEBIEEBIEEBIEEBIEEBIEEBIEEBIEEBIEEBIEEBIEEBIE
+EBIEEBIEEBIEEBIEEBIEEBIEEBIEEBIEEBIEEBIEEBIE+A+3OCLuKjRS2wAAAABJRU5ErkJg
+gg==" width="420" height="420" />
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">plot</span><span class="p">(</span><span class="n">result</span><span class="o">$</span><span class="n">scores</span><span class="p">[,</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">3</span><span class="p">)],</span> <span class="n">main</span> <span class="o">=</span> <span class="s">&#39;Factor1과 Factor3 요인점수 행렬&#39;</span><span class="p">)</span>
+<span class="c1"># 산점도에 레이블 표시</span>
+<span class="nf">text</span><span class="p">(</span><span class="n">result</span><span class="o">$</span><span class="n">scores</span><span class="p">[,</span><span class="m">1</span><span class="p">],</span> <span class="n">result</span><span class="o">$</span><span class="n">scores</span><span class="p">[,</span><span class="m">3</span><span class="p">],</span> <span class="n">labels</span> <span class="o">=</span> <span class="n">name</span><span class="p">,</span> <span class="n">cex</span> <span class="o">=</span> <span class="m">0.7</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="m">3</span><span class="p">,</span> <span class="n">col</span> <span class="o">=</span> <span class="s">&#39;blue&#39;</span><span class="p">)</span>
+<span class="c1"># 요인적재량 추가</span>
+<span class="nf">points</span><span class="p">(</span><span class="n">result</span><span class="o">$</span><span class="n">loadings</span><span class="p">[,</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">3</span><span class="p">)],</span><span class="n">pch</span> <span class="o">=</span> <span class="m">19</span><span class="p">,</span> <span class="n">col</span> <span class="o">=</span> <span class="s">&#39;red&#39;</span><span class="p">)</span>
+<span class="c1"># 요인적재량 레이블 표시</span>
+<span class="nf">text</span><span class="p">(</span><span class="n">result</span><span class="o">$</span><span class="n">loadings</span><span class="p">[,</span><span class="m">1</span><span class="p">],</span> <span class="n">result</span><span class="o">$</span><span class="n">loadings</span><span class="p">[,</span><span class="m">3</span><span class="p">],</span> <span class="n">labels</span> <span class="o">=</span> <span class="nf">rownames</span><span class="p">(</span><span class="n">result</span><span class="o">$</span><span class="n">loadings</span><span class="p">),</span> <span class="n">cex</span> <span class="o">=</span> <span class="m">0.8</span><span class="p">,</span> <span class="n">pos</span> <span class="o">=</span><span class="m">3</span><span class="p">,</span> <span class="n">col</span> <span class="o">=</span> <span class="s">&#39;red&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA0gAAANICAMAAADKOT/pAAAANlBMVEUAAAAAAP9NTU1oaGh8
+fHyMjIyampqnp6eysrK9vb3Hx8fQ0NDZ2dnh4eHp6enw8PD/AAD////xw1/KAAAACXBIWXMA
+ABJ0AAASdAHeZh94AAAbLUlEQVR4nO3dh1biWhiA0WMAIyLt/V92IBRDd+DPSWHvta6DJTmg
++W4qkNbAy1LbdwCGQEgQQEgQQEgQQEgQQEgQQEgQQEgQQEgQQEgQQEgQQEgQQEgQQEgQQEgQ
+QEgQQEgQQEgQQEgQQEgQQEgQQEgQQEgQQEgQQEgQQEgQQEgQQEgQQEgQQEgQQEgQQEgQQEgQ
+QEgQQEgQQEgQQEgQQEgQQEgQQEgQQEgQQEg3pZoHP/r5cGaTh/MIHG82Tmk0fXifCCSkm/68
+YP8UD3+Ls8dxxI1X7uYxfjQggYR0058X7MeRzK7OY3r6tajxZoeZlA/u1cks5+dfmqRp/ZPJ
+lan2D2Az8fTy+yfTD5+QbvrDSuRvP7iYXI/jMqSQ8T5TmizX3ykVZ9/43t6PyXftDoxSUS53
+s9yGND+GPH0upMnv5EJi73x5rZbDUbmoPlmWo83G02x9XJFUX51tFuL0OTtOvxhtVwvbzazj
+zCa/y+qDkJ4dr5wUyyuzWxT7KUeL/VfG1afFYv04pOKiyt8V6PxKSNNDTm9DSDedLYnjw4Lz
+s/5dKsuTBfvwI5PD9KNqT2X7hf8P6fnxKpsdpdNDEpsWtsXNjk2UqZivl+Nqit9Nu+lhDvWQ
+Pq9sKF4L6TilkDg6XbA3i8Z4WS2f20Xm8H/3NKst2MdGdkvV7uZmS2q7IjlfP0wehfTCePtv
+Veulo82m3m5NtDj8zHZm1aeLekibAZf7VdMxhDKNNsHd3OWyabcW0h3p1+az0X5BrD7bLOW7
+/5un0fpYwHYnf7pcL7/SbhFNuxSOMzuZ+fhqSGHjTfZf+/V5XGdMdknM96NXXR1DWmznchLS
+clqk8WJ7j0enc1xvtzYnP/s7LiRuOF2wa1+tFpjtQrUcfS3WxwX787Do7beqTpbl85C2S+7d
+kF4b73fZPvhjSOM0KXbF7EPYbj5+Vd/aBlvfWiwOq8B6SPt4bNpxdLFgL77L8e6zK8t69c9u
+hbDYfeH4ee1ntqa7OTwO6YXxltXqq74k39q0W9Y37eablc96sVvx7aNY7I/rbX/0a1Q7SD7b
+riS3W31XNu0KIXF0thL5Hv0u5rcW7JMvnPzQjZDqq43Q8apCRvXP/3Cwodwfq5huN+UebZrd
+C2m3Bycktk4XzM3/0dPoczr/2xqiOJ/+v0N6frxyUlyZ3+/h7+Lm4e/1+Ov35yf7PZ1Ttc3F
+/fymN07Ivhkh3XS6II72eyDVV8fX9lkml/ssV2e2DWm5P4TQxHjj4+G403M/k7Rd9IvaIn9+
+QvaKOyHVDjb8hjSv/aw1EltXVwO7NcTlUbTl1aNoV2d27OduSM+P91X98HZP5/SA9e7qhOvX
+KBxDuhHC9al+CUlIN50u2LvlclbsvlrUF5btJ+W6dgp1d3DrtZBeGO/4wycnkq6END+O+GxI
+8+pwSFG/7uh3EiGxdbpg/+yXrqK61ODn90qD3Xn/aif9sGR/Xk6//+S7tpwWd0N6YbzD3tDZ
+aZ97IdW/ND/8+OOQyt8HszhOb43EidMFez3fLL/F53yx209YlpuldbJfVCeHZXn2WZxc+3Yx
+s/pylu5fIvTCeNsf/j1qvZ/ixC6LV0Pa/PC0CuhnfDjDJCSym14ux03JGdKNwxYDJ6T2ZAzp
+uiurj//bR7q/afdWy9ZbPdiO6X9IlwcbhAQ8T0gQQEgQQEgQQEgQQEgQQEgQQEgQQEgQQEgQ
+QEgQQEgQQEgQQEgQQEgQQEgQQEgQQEgQQEgQQEgQQEgQQEgQQEgQQEgQQEgQQEgQQEgQQEgQ
+QEgQQEgQ4PmQfr527141KX8C7w/00rMhLUe198EZh94l6J9nQypT8b17j8PFrDh7H3p4O8+G
+VNTeKnSeipg7A331bEgn72v4Xm9yCJeskSDAC/tIs90bWT/cR0rQM/8fxNMbZePasKNlI0NA
+O3KGtP4pq/NIxeTrwXkkIQ3Jx+7jRst3pElZQ+rSEOSy6+f3wzAJiWZ9rIUUNkkHhyAbIYVN
+cmUmd+cipCERUtgkV2ZyMZcXjyXSWUIKm6SDQ5CNkMIm6eAQZCOksEk6OATZCClskp3lZ0rj
+2X4mDja8DSdkwyapLIvqOMJkNxMhMSQZQyrTdFPTtKieHCskBiVjSMVuwkUxWgiJgckY0qGd
+5XgsJAYmY0ijdHjqxGgsJIYlY0jT9Lm/tUhjITEoOQ9/l8d6Zg+uAhISPZP1hOx8cri1+BTS
+Oxn+5ZOubKBxVUUDT0lINC7VPg6VkGhaOvt3kIRE04QUNkkHhyAbIYVN0sEhyMc+UtQkHRyC
+fBy1i5qkg0OQk/NIMZN0cAiIJCQIICQIICQIICQIICQIICQIICQIICQIICQIICQIICQIICQI
+ICQIICQIICQIICQIICQIICQIICQIICQIICQIICQIICQIICQIICQIICQIICQIICQIICQIICQI
+ICQIICQIICQIICQIICQIICQIICQIICQIICQIICQIICQIICQIICQIICQIICQIICQIICQIICQI
+ICQIICQIICQIICQIICQIICQIICQIICQIICQIICQIICQIICQIICQIkD+k6SilyazRISC3jCGl
+asJxqpSNDAEtyR1Smcrler0o07SJIaAluUMq0nJ7e5lGTQwBLckdUkq1T8KHgJbkDunzEFLR
+xBDQkqwhTb6ms/S9ubks7x9tEBI9kzWknepmsWxiCGhJzvNI8/l0OplUhxzKux0Jib5xZQME
+EBLUfGw8M52Q4NfH8cN/aisk55HoogGElOoihoD/1ruQWh8Crtg29NROkpCgZnusQUgQQEgQ
+QEjwmo/1cx0JCeqePB/bxkWrfzjCLSR6JmNIUyExWFmv/i7GTQ8B7ci6jzR/8OJBAUNAK/Ie
+bJimedNDQBsctYMAQoIAQoK6J597ICT4dfLii/81YZZJOjgEXJFqH5+YsOlJOjgEXEpn//7/
+lM1O0sEh4JKQIICQIIJ9JAjgqB2EcB4J2iMkCCAkCCAkCCAkCCAkCCAkCCAkCCAkCCAkCCAk
+CCAkCCAkCCAkCCAkCCAkCCAkCCAkCCAkCCAkCCAkCCAkCCAkCCAkCCAkCCAkCCAkCCAkCCAk
+CCAkCCAkCCAkCCAkCCAkCCAkCCAkCCAkCCAkCCAkCCAkCCAkCCAkCCAkCCAkCCAkCCAkCCAk
+CCAkCCAkCCAkCCAkCCAkCCAkCCAkCCAkCCAkCCAkCCAkCCAkCCAkCJA1pJ+vSdqalD9NDQGt
+yBjScpR+jRsZAlqSMaQyFd/z6tZiVqSyiSGgJRlDKtL8eHueiiaGgJZkDCmlW5+EDcFjq7bv
+wDBZI72ZlZAakXcfabaobtlHas3KGqkZOQ9/j2tH7UbLRobgutVqtyZa2bRrSN7zSGV1HqmY
+fDmPlNXq+EFIDXFlwztY3bhNGCG9AyE1Tkhv4bCPtBZSQ9oKyXmk7OwjNak7IaW6iCE4JaQm
+2bR7B47aNU5Ib8E+UtOEBAGEBAGEBAGEBAGyPh/pz0e4hUTPZAxpKiQGK+em3by4/5InAUNA
+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
+U8eZLubf6CO8GG1YD2+v6T/gEEIqt7+Q5e4kW5YBs5/6b/QRtn9lwxD+gD0Pqfp3WVSbRA2e
+hzgbcD1q+HBtbf4ZHuH5aAN7eDtN/wGHENLmf2ZFGjV7cvxywCZPINbmn+ERXh1tOA9vXRuo
+uUfY05CgW4QEAYQEAYQEAYQEAYQEAYQEAYQEAYQEAYQEAYQEAYQEAYQEAYQEAYQEAYQEAYQE
+AYQEAYQEAYQEAYQEAYQEAYQEAYQEAYQEAYQEAYQEAYQEAYQEAYQEAYQEAYQEAYQEAYTUXeng
+1g/cec/VqT9sXn7f3fUopNHtP978dn00wu+7ux7FcPv780JImfl9d9fTIU3TWEiZ+X13Vz2G
+2SQd34a7LNJ4sd/y234+He3fEjyl5ShNNv+WDyMkmN93d9Vi+NrtLFUljbe3iuUxpOrzNK4m
+mFQ/M3+8NiOY33d31Y41pPS9Xn9XN7/TeLn+3Payi+U7FfPtTtH39gubbx2mbe1uvye/7+66
+OGhX3Zykn/V6mYpDLJO0PQo+266S0vZbtR8lH7/v7jqJYTH7Gu9XTqff33++/ee8OfLx++6u
+egzj2lbe6feF1Al+391Vi+EzjaazhZC6y++7u867WOwP0l3fR5oIqU1+39110sXPer7bR5pu
+D82Vu6N2i/XZUbtr05KD33d31WIo9wfwtkflDueR1qO0XS+dnEe6Ni05+H13Vz2Gz00qP9X2
+W1XVZLsu+hlVIa2nxfHKhqvTkoHfNwQQEgQQEgQQEgQQEgQQEgQQEgQQEgQQEgQQEgQQEgQQ
+EgQQEgQQEgQQEgQQEgQQEgQQEgQQEgQQEgQQEgQQEgQQEgQQEgQQEgQQEgQQEgQQEgQQEgQQ
+EgQQEgT4Bx52InyBRMh+AAAAAElFTkSuQmCC" width="420" height="420" />
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>3차원 산점도로 요인적재량 시각화</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">library</span><span class="p">(</span><span class="n">scatterplot3d</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">Factor1</span> <span class="o">=</span> <span class="n">result</span><span class="o">$</span><span class="n">scores</span><span class="p">[,</span><span class="m">1</span><span class="p">]</span>
+<span class="n">Factor2</span> <span class="o">=</span> <span class="n">result</span><span class="o">$</span><span class="n">scores</span><span class="p">[,</span><span class="m">2</span><span class="p">]</span>
+<span class="n">Factor3</span> <span class="o">=</span> <span class="n">result</span><span class="o">$</span><span class="n">scores</span><span class="p">[,</span><span class="m">3</span><span class="p">]</span>
+
+<span class="n">d3</span> <span class="o">=</span> <span class="nf">scatterplot3d</span><span class="p">(</span><span class="n">Factor1</span><span class="p">,</span><span class="n">Factor2</span><span class="p">,</span><span class="n">Factor3</span><span class="p">,</span> <span class="n">type</span> <span class="o">=</span> <span class="s">&#39;p&#39;</span><span class="p">)</span>
+
+<span class="c1"># 요인적재량 표시</span>
+<span class="n">loadings1</span> <span class="o">=</span> <span class="n">result</span><span class="o">$</span><span class="n">loadings</span><span class="p">[,</span><span class="m">1</span><span class="p">]</span>
+<span class="n">loadings2</span> <span class="o">=</span> <span class="n">result</span><span class="o">$</span><span class="n">loadings</span><span class="p">[,</span><span class="m">2</span><span class="p">]</span>
+<span class="n">loadings3</span> <span class="o">=</span> <span class="n">result</span><span class="o">$</span><span class="n">loadings</span><span class="p">[,</span><span class="m">3</span><span class="p">]</span>
+<span class="n">d3</span><span class="o">$</span><span class="nf">points3d</span><span class="p">(</span><span class="n">loadings1</span><span class="p">,</span><span class="n">loadings2</span><span class="p">,</span><span class="n">loadings3</span><span class="p">,</span> <span class="n">bg</span> <span class="o">=</span> <span class="s">&#39;red&#39;</span><span class="p">,</span> <span class="n">pch</span><span class="o">=</span> <span class="m">21</span><span class="p">,</span> <span class="n">cex</span><span class="o">=</span> <span class="m">2</span><span class="p">,</span> <span class="n">type</span> <span class="o">=</span> <span class="s">&#39;h&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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" width="420" height="420" />
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>요인별 변수 묶기<ul>
+<li>요인 분석을 통해서 각 요인에 속하는 입력변수들을 묶어서 파생변수를 생성할 수 있는데 이러한 파생변수는 상관분석이나 회귀분석에서 독립변수로 사용할 수 있다. 파생변수는 가독성과 석득력이 가장 높은 산술평균 방식을 적용하여 생성할 수 있다. </li>
+</ul>
+</li>
+<li>Factor1,Factor2,Factor3은 각각 응용과학, 응용수학, 자연과학이라는 과목명이다.</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">app</span> <span class="o">=</span> <span class="nf">data.frame</span><span class="p">(</span><span class="n">subject</span><span class="o">$</span><span class="n">s5</span><span class="p">,</span> <span class="n">subject</span><span class="o">$</span><span class="n">s6</span><span class="p">)</span>
+<span class="n">soc</span> <span class="o">=</span> <span class="nf">data.frame</span><span class="p">(</span><span class="n">subject</span><span class="o">$</span><span class="n">s3</span><span class="p">,</span> <span class="n">subject</span><span class="o">$</span><span class="n">s4</span><span class="p">)</span>
+<span class="n">nat</span> <span class="o">=</span> <span class="nf">data.frame</span><span class="p">(</span><span class="n">subject</span><span class="o">$</span><span class="n">s1</span><span class="p">,</span> <span class="n">subject</span><span class="o">$</span><span class="n">s2</span><span class="p">)</span>
+
+<span class="c1"># 2단계 : 요인별 산술평균 계산</span>
+<span class="n">app_science</span> <span class="o">=</span> <span class="nf">round</span><span class="p">((</span><span class="n">app</span><span class="o">$</span><span class="n">subject.s5</span> <span class="o">+</span> <span class="n">app</span><span class="o">$</span><span class="n">subject.s6</span><span class="p">)</span><span class="o">/</span><span class="nf">ncol</span><span class="p">(</span><span class="n">app</span><span class="p">),</span><span class="m">2</span><span class="p">)</span>
+<span class="n">soc_science</span> <span class="o">=</span> <span class="nf">round</span><span class="p">((</span><span class="n">soc</span><span class="o">$</span><span class="n">subject.s3</span> <span class="o">+</span> <span class="n">soc</span><span class="o">$</span><span class="n">subject.s4</span><span class="p">)</span><span class="o">/</span><span class="nf">ncol</span><span class="p">(</span><span class="n">soc</span><span class="p">),</span><span class="m">2</span><span class="p">)</span>
+<span class="n">nat_science</span> <span class="o">=</span> <span class="nf">round</span><span class="p">((</span><span class="n">nat</span><span class="o">$</span><span class="n">subject.s1</span> <span class="o">+</span> <span class="n">nat</span><span class="o">$</span><span class="n">subject.s2</span><span class="p">)</span><span class="o">/</span><span class="nf">ncol</span><span class="p">(</span><span class="n">nat</span><span class="p">),</span><span class="m">2</span><span class="p">)</span>
+
+<span class="c1"># 3단계 : 상관관계 분석</span>
+<span class="n">subject_factor_df</span> <span class="o">=</span> <span class="nf">data.frame</span><span class="p">(</span><span class="n">app_science</span><span class="p">,</span><span class="n">soc_science</span><span class="p">,</span><span class="n">nat_science</span><span class="p">)</span>
+<span class="nf">cor</span><span class="p">(</span><span class="n">subject_factor_df</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A matrix: 3 × 3 of type dbl</caption>
+<thead>
+	<tr><th></th><th scope="col">app_science</th><th scope="col">soc_science</th><th scope="col">nat_science</th></tr>
+</thead>
+<tbody>
+	<tr><th scope="row">app_science</th><td> 1.0000000</td><td> 0.43572654</td><td>-0.68903024</td></tr>
+	<tr><th scope="row">soc_science</th><td> 0.4357265</td><td> 1.00000000</td><td>-0.02570212</td></tr>
+	<tr><th scope="row">nat_science</th><td>-0.6890302</td><td>-0.02570212</td><td> 1.00000000</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>요인 분석을 통해서 만들어진 파생변수는 상관분석이나 회귀분석에서 독립변수로 사용할 수 있다.</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr />
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>잘못 분류된 요인 제거로 변수 정제<ul>
+<li>음료수 제품을 대상으로 3가지 영역(친밀도, 적절성, 만족도)으로 작성된 11개 변수를 대상으로 요인 분석을 실습한다.</li>
+<li>특히 특정 변수가 묶여질 것으로 예상되는 요인으로 묶이지 않는 경우 해당 변수를 제거하여 변수를 정제하는 방법에 대해서 알아본다. </li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">install.packages</span><span class="p">(</span><span class="s">&#39;memisc&#39;</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">memisc</span><span class="p">)</span>
+<span class="n">data.spss</span> <span class="o">=</span> <span class="nf">as.data.set</span><span class="p">(</span><span class="nf">spss.system.file</span><span class="p">(</span><span class="s">&#39;drinking_water.sav&#39;</span><span class="p">))</span>
+<span class="n">data.spss</span><span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">11</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>package &#39;memisc&#39; successfully unpacked and MD5 sums checked
+
+The downloaded binary packages are in
+	C:\Users\ehfus\AppData\Local\Temp\Rtmp0kM9mA\downloaded_packages
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>Loading required package: lattice
+
+Loading required package: MASS
+
+
+Attaching package: &#39;memisc&#39;
+
+
+The following objects are masked from &#39;package:stats&#39;:
+
+    contr.sum, contr.treatment, contrasts
+
+
+The following object is masked from &#39;package:base&#39;:
+
+    as.array
+
+
+File character set is &#39;ASCII&#39;.
+
+Converting character set to the local &#39;cp949&#39;.
+
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<dl>
+	<dt>$Q1</dt>
+		<dd><style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>1</li><li>2</li><li>2</li><li>2</li><li>4</li><li>3</li><li>2</li><li>1</li><li>2</li><li>1</li><li>3</li><li>3</li><li>3</li><li>3</li><li>4</li><li>3</li><li>4</li><li>3</li><li>2</li><li>2</li><li>2</li><li>2</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>4</li><li>1</li><li>4</li><li>3</li><li>1</li><li>3</li><li>3</li><li>3</li><li>3</li><li>2</li><li>1</li><li>3</li><li>1</li><li>3</li><li>2</li><li>2</li><li>1</li><li>4</li><li>3</li><li>3</li><li>3</li><li>1</li><li>2</li><li>2</li><li>3</li><li>5</li><li>3</li><li>3</li><li>3</li><li>2</li><li>3</li><li>3</li><li>3</li><li>1</li><li>1</li><li>3</li><li>2</li><li>2</li><li>3</li><li>3</li><li>1</li><li>3</li><li>1</li><li>1</li><li>2</li><li>1</li><li>2</li><li>2</li><li>2</li><li>2</li><li>2</li><li>4</li><li>3</li><li>4</li><li>2</li><li>2</li><li>4</li><li>2</li><li>3</li><li>4</li><li>3</li><li>4</li><li>3</li><li>3</li><li>3</li><li>3</li><li>2</li><li>4</li><li>3</li><li>3</li><li>3</li><li>2</li><li>4</li><li>3</li><li>2</li><li>4</li><li>3</li><li>2</li><li>2</li><li>3</li><li>3</li><li>2</li><li>2</li><li>2</li><li>3</li><li>3</li><li>5</li><li>3</li><li>3</li><li>2</li><li>2</li><li>3</li><li>2</li><li>3</li><li>4</li><li>3</li><li>4</li><li>3</li><li>3</li><li>4</li><li>3</li><li>2</li><li>2</li><li>2</li><li>4</li><li>2</li><li>2</li><li>2</li><li>2</li><li>3</li><li>2</li><li>3</li><li>2</li><li>3</li><li>4</li><li>3</li><li>3</li><li>2</li><li>4</li><li>4</li><li>2</li><li>3</li><li>4</li><li>3</li><li>2</li><li>4</li><li>3</li><li>2</li><li>2</li><li>1</li><li>3</li><li>3</li><li>3</li><li>1</li><li>3</li><li>2</li><li>2</li><li>2</li><li>3</li><li>3</li><li>2</li><li>3</li><li>2</li><li>3</li><li>2</li><li>2</li><li>4</li><li>2</li><li>3</li><li>3</li><li>3</li><li>2</li><li>2</li><li>3</li><li>2</li><li>4</li><li>2</li><li>4</li><li>3</li><li>2</li><li>3</li><li>1</li><li>2</li><li>3</li><li>4</li><li>3</li><li>3</li><li>4</li><li>3</li><li>3</li><li>3</li><li>2</li><li>3</li><li>2</li><li>4</li><li>3</li><li>5</li><li>1</li><li>4</li><li>4</li><li>5</li><li>3</li><li>4</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>4</li><li>2</li><li>3</li><li>3</li><li>4</li><li>3</li><li>3</li><li>3</li><li>3</li><li>4</li><li>2</li><li>3</li><li>3</li><li>4</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>4</li><li>4</li><li>4</li><li>2</li><li>5</li><li>1</li><li>4</li><li>2</li><li>3</li><li>3</li><li>3</li><li>3</li><li>1</li><li>3</li><li>2</li><li>4</li><li>1</li><li>3</li><li>3</li><li>3</li><li>3</li><li>2</li><li>2</li><li>2</li><li>3</li><li>1</li><li>3</li><li>2</li><li>3</li><li>4</li><li>2</li><li>1</li><li>3</li><li>3</li><li>4</li><li>3</li><li>3</li><li>3</li><li>2</li><li>1</li><li>2</li><li>2</li><li>2</li><li>3</li><li>4</li><li>3</li><li>3</li><li>3</li><li>3</li><li>4</li><li>2</li><li>3</li><li>2</li><li>2</li><li>3</li><li>4</li><li>3</li><li>1</li><li>5</li><li>4</li><li>3</li><li>3</li><li>3</li><li>3</li><li>2</li><li>4</li><li>3</li><li>3</li><li>3</li><li>3</li><li>2</li><li>3</li><li>1</li><li>3</li><li>1</li><li>1</li><li>3</li><li>3</li><li>1</li><li>2</li><li>3</li><li>2</li><li>5</li><li>1</li><li>3</li><li>2</li><li>1</li><li>3</li><li>2</li><li>3</li><li>3</li><li>3</li><li>3</li><li>2</li><li>3</li><li>2</li><li>2</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>1</li><li>2</li><li>2</li><li>2</li><li>4</li><li>3</li><li>2</li><li>1</li><li>2</li><li>1</li><li>3</li><li>3</li><li>3</li><li>3</li><li>4</li><li>3</li><li>4</li><li>3</li><li>2</li><li>2</li><li>2</li><li>2</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>4</li><li>1</li><li>4</li><li>3</li><li>1</li><li>3</li><li>3</li>&lt;/ol&gt;
+</dd>
+	<dt>$Q2</dt>
+		<dd><style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>2</li><li>3</li><li>3</li><li>3</li><li>3</li><li>1</li><li>2</li><li>2</li><li>2</li><li>3</li><li>4</li><li>1</li><li>1</li><li>3</li><li>2</li><li>2</li><li>3</li><li>3</li><li>3</li><li>4</li><li>4</li><li>2</li><li>3</li><li>2</li><li>2</li><li>3</li><li>3</li><li>3</li><li>2</li><li>2</li><li>2</li><li>3</li><li>3</li><li>4</li><li>2</li><li>4</li><li>3</li><li>1</li><li>2</li><li>3</li><li>3</li><li>3</li><li>1</li><li>1</li><li>2</li><li>2</li><li>4</li><li>2</li><li>2</li><li>2</li><li>3</li><li>4</li><li>2</li><li>3</li><li>1</li><li>2</li><li>3</li><li>2</li><li>5</li><li>3</li><li>2</li><li>3</li><li>2</li><li>3</li><li>2</li><li>3</li><li>1</li><li>2</li><li>2</li><li>2</li><li>3</li><li>3</li><li>1</li><li>1</li><li>2</li><li>1</li><li>1</li><li>2</li><li>1</li><li>1</li><li>2</li><li>2</li><li>2</li><li>2</li><li>4</li><li>3</li><li>3</li><li>3</li><li>2</li><li>4</li><li>2</li><li>4</li><li>4</li><li>3</li><li>4</li><li>3</li><li>3</li><li>4</li><li>3</li><li>2</li><li>4</li><li>3</li><li>4</li><li>4</li><li>2</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>2</li><li>3</li><li>4</li><li>3</li><li>2</li><li>2</li><li>2</li><li>3</li><li>3</li><li>5</li><li>3</li><li>3</li><li>3</li><li>2</li><li>2</li><li>2</li><li>3</li><li>4</li><li>3</li><li>4</li><li>3</li><li>3</li><li>5</li><li>3</li><li>2</li><li>2</li><li>2</li><li>4</li><li>2</li><li>2</li><li>3</li><li>1</li><li>3</li><li>2</li><li>3</li><li>2</li><li>3</li><li>4</li><li>2</li><li>3</li><li>2</li><li>3</li><li>3</li><li>2</li><li>3</li><li>3</li><li>1</li><li>3</li><li>4</li><li>3</li><li>3</li><li>2</li><li>1</li><li>3</li><li>3</li><li>3</li><li>3</li><li>2</li><li>3</li><li>1</li><li>2</li><li>3</li><li>3</li><li>2</li><li>2</li><li>2</li><li>3</li><li>3</li><li>2</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>2</li><li>3</li><li>4</li><li>2</li><li>3</li><li>3</li><li>3</li><li>2</li><li>3</li><li>3</li><li>2</li><li>2</li><li>3</li><li>3</li><li>3</li><li>2</li><li>3</li><li>2</li><li>2</li><li>3</li><li>2</li><li>3</li><li>2</li><li>4</li><li>3</li><li>4</li><li>1</li><li>4</li><li>2</li><li>4</li><li>3</li><li>3</li><li>2</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>4</li><li>3</li><li>3</li><li>3</li><li>4</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>2</li><li>3</li><li>4</li><li>4</li><li>4</li><li>3</li><li>2</li><li>2</li><li>3</li><li>4</li><li>4</li><li>3</li><li>3</li><li>5</li><li>1</li><li>4</li><li>2</li><li>3</li><li>3</li><li>3</li><li>2</li><li>2</li><li>3</li><li>2</li><li>4</li><li>1</li><li>3</li><li>4</li><li>3</li><li>3</li><li>3</li><li>3</li><li>2</li><li>3</li><li>2</li><li>1</li><li>2</li><li>4</li><li>4</li><li>2</li><li>1</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>4</li><li>2</li><li>2</li><li>2</li><li>3</li><li>3</li><li>3</li><li>4</li><li>3</li><li>4</li><li>3</li><li>3</li><li>4</li><li>3</li><li>3</li><li>2</li><li>3</li><li>2</li><li>3</li><li>4</li><li>2</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>2</li><li>4</li><li>3</li><li>4</li><li>3</li><li>3</li><li>2</li><li>3</li><li>1</li><li>3</li><li>2</li><li>1</li><li>2</li><li>1</li><li>1</li><li>2</li><li>3</li><li>2</li><li>5</li><li>1</li><li>3</li><li>2</li><li>1</li><li>2</li><li>2</li><li>3</li><li>3</li><li>3</li><li>3</li><li>2</li><li>2</li><li>2</li><li>2</li><li>3</li><li>2</li><li>3</li><li>3</li><li>3</li><li>3</li><li>1</li><li>2</li><li>2</li><li>2</li><li>3</li><li>4</li><li>1</li><li>1</li><li>3</li><li>2</li><li>2</li><li>3</li><li>3</li><li>3</li><li>4</li><li>4</li><li>2</li><li>3</li><li>2</li><li>2</li><li>3</li><li>3</li><li>3</li><li>2</li><li>2</li><li>2</li><li>3</li><li>3</li><li>4</li><li>2</li><li>4</li><li>3</li><li>1</li><li>2</li><li>3</li>&lt;/ol&gt;
+</dd>
+	<dt>$Q3</dt>
+		<dd><style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>3</li><li>3</li><li>3</li><li>3</li><li>2</li><li>1</li><li>2</li><li>1</li><li>1</li><li>3</li><li>4</li><li>1</li><li>1</li><li>2</li><li>2</li><li>2</li><li>3</li><li>3</li><li>2</li><li>4</li><li>2</li><li>2</li><li>2</li><li>2</li><li>2</li><li>2</li><li>2</li><li>3</li><li>2</li><li>3</li><li>3</li><li>2</li><li>2</li><li>4</li><li>1</li><li>4</li><li>2</li><li>1</li><li>3</li><li>4</li><li>3</li><li>3</li><li>1</li><li>1</li><li>2</li><li>1</li><li>3</li><li>2</li><li>2</li><li>2</li><li>2</li><li>3</li><li>2</li><li>2</li><li>1</li><li>3</li><li>3</li><li>3</li><li>4</li><li>2</li><li>3</li><li>2</li><li>2</li><li>3</li><li>3</li><li>3</li><li>1</li><li>1</li><li>1</li><li>2</li><li>3</li><li>2</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>2</li><li>1</li><li>2</li><li>1</li><li>2</li><li>1</li><li>1</li><li>4</li><li>3</li><li>4</li><li>2</li><li>1</li><li>4</li><li>1</li><li>4</li><li>3</li><li>4</li><li>3</li><li>3</li><li>4</li><li>4</li><li>3</li><li>2</li><li>4</li><li>3</li><li>3</li><li>3</li><li>2</li><li>4</li><li>3</li><li>2</li><li>3</li><li>4</li><li>2</li><li>3</li><li>4</li><li>4</li><li>2</li><li>3</li><li>2</li><li>4</li><li>2</li><li>3</li><li>2</li><li>2</li><li>3</li><li>2</li><li>2</li><li>2</li><li>4</li><li>4</li><li>2</li><li>3</li><li>2</li><li>3</li><li>4</li><li>4</li><li>2</li><li>2</li><li>2</li><li>4</li><li>2</li><li>3</li><li>2</li><li>2</li><li>4</li><li>1</li><li>2</li><li>1</li><li>3</li><li>3</li><li>1</li><li>2</li><li>2</li><li>2</li><li>3</li><li>1</li><li>3</li><li>2</li><li>1</li><li>3</li><li>3</li><li>3</li><li>2</li><li>2</li><li>1</li><li>3</li><li>2</li><li>3</li><li>2</li><li>3</li><li>3</li><li>1</li><li>2</li><li>2</li><li>3</li><li>2</li><li>2</li><li>2</li><li>2</li><li>2</li><li>2</li><li>1</li><li>2</li><li>3</li><li>2</li><li>3</li><li>2</li><li>2</li><li>3</li><li>2</li><li>4</li><li>2</li><li>4</li><li>4</li><li>2</li><li>2</li><li>2</li><li>3</li><li>2</li><li>3</li><li>3</li><li>3</li><li>3</li><li>2</li><li>3</li><li>3</li><li>1</li><li>4</li><li>2</li><li>3</li><li>3</li><li>4</li><li>1</li><li>4</li><li>2</li><li>4</li><li>3</li><li>3</li><li>2</li><li>3</li><li>3</li><li>2</li><li>3</li><li>3</li><li>3</li><li>4</li><li>3</li><li>2</li><li>2</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>1</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>2</li><li>3</li><li>3</li><li>4</li><li>4</li><li>2</li><li>2</li><li>5</li><li>1</li><li>4</li><li>1</li><li>3</li><li>4</li><li>2</li><li>2</li><li>1</li><li>3</li><li>2</li><li>4</li><li>1</li><li>3</li><li>4</li><li>3</li><li>3</li><li>3</li><li>2</li><li>1</li><li>3</li><li>2</li><li>1</li><li>3</li><li>4</li><li>4</li><li>2</li><li>1</li><li>3</li><li>3</li><li>3</li><li>4</li><li>3</li><li>4</li><li>1</li><li>2</li><li>2</li><li>3</li><li>2</li><li>4</li><li>4</li><li>2</li><li>4</li><li>3</li><li>4</li><li>3</li><li>2</li><li>3</li><li>1</li><li>3</li><li>3</li><li>3</li><li>3</li><li>2</li><li>4</li><li>4</li><li>2</li><li>3</li><li>4</li><li>3</li><li>3</li><li>5</li><li>4</li><li>3</li><li>4</li><li>3</li><li>2</li><li>3</li><li>1</li><li>2</li><li>2</li><li>1</li><li>2</li><li>1</li><li>1</li><li>2</li><li>3</li><li>1</li><li>5</li><li>1</li><li>3</li><li>1</li><li>1</li><li>2</li><li>2</li><li>4</li><li>3</li><li>2</li><li>3</li><li>2</li><li>2</li><li>2</li><li>2</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>2</li><li>1</li><li>2</li><li>1</li><li>1</li><li>3</li><li>4</li><li>1</li><li>1</li><li>2</li><li>2</li><li>2</li><li>3</li><li>3</li><li>2</li><li>4</li><li>2</li><li>2</li><li>2</li><li>2</li><li>2</li><li>2</li><li>2</li><li>3</li><li>2</li><li>3</li><li>3</li><li>2</li><li>2</li><li>4</li><li>1</li><li>4</li><li>2</li><li>1</li><li>3</li><li>4</li>&lt;/ol&gt;
+</dd>
+	<dt>$Q4</dt>
+		<dd><style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>3</li><li>3</li><li>4</li><li>1</li><li>2</li><li>1</li><li>3</li><li>2</li><li>2</li><li>3</li><li>3</li><li>2</li><li>2</li><li>2</li><li>1</li><li>2</li><li>3</li><li>3</li><li>2</li><li>4</li><li>1</li><li>1</li><li>2</li><li>2</li><li>2</li><li>3</li><li>2</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>2</li><li>2</li><li>3</li><li>1</li><li>3</li><li>1</li><li>3</li><li>2</li><li>2</li><li>2</li><li>2</li><li>1</li><li>3</li><li>1</li><li>3</li><li>2</li><li>3</li><li>2</li><li>3</li><li>4</li><li>4</li><li>2</li><li>1</li><li>2</li><li>3</li><li>2</li><li>3</li><li>2</li><li>2</li><li>3</li><li>1</li><li>3</li><li>3</li><li>3</li><li>2</li><li>2</li><li>3</li><li>2</li><li>2</li><li>2</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>2</li><li>3</li><li>4</li><li>1</li><li>2</li><li>2</li><li>3</li><li>4</li><li>3</li><li>1</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>4</li><li>3</li><li>4</li><li>3</li><li>2</li><li>4</li><li>2</li><li>3</li><li>3</li><li>1</li><li>4</li><li>2</li><li>3</li><li>3</li><li>4</li><li>2</li><li>2</li><li>3</li><li>3</li><li>2</li><li>2</li><li>2</li><li>3</li><li>3</li><li>5</li><li>3</li><li>3</li><li>3</li><li>2</li><li>2</li><li>3</li><li>3</li><li>4</li><li>3</li><li>3</li><li>4</li><li>2</li><li>4</li><li>4</li><li>1</li><li>2</li><li>2</li><li>2</li><li>2</li><li>4</li><li>3</li><li>2</li><li>2</li><li>3</li><li>3</li><li>3</li><li>2</li><li>2</li><li>3</li><li>2</li><li>2</li><li>1</li><li>3</li><li>2</li><li>4</li><li>3</li><li>3</li><li>2</li><li>3</li><li>4</li><li>3</li><li>2</li><li>3</li><li>2</li><li>2</li><li>3</li><li>3</li><li>1</li><li>2</li><li>3</li><li>3</li><li>2</li><li>3</li><li>3</li><li>3</li><li>2</li><li>2</li><li>2</li><li>4</li><li>2</li><li>3</li><li>2</li><li>3</li><li>2</li><li>3</li><li>2</li><li>3</li><li>3</li><li>4</li><li>1</li><li>3</li><li>4</li><li>3</li><li>2</li><li>2</li><li>2</li><li>2</li><li>3</li><li>2</li><li>4</li><li>3</li><li>4</li><li>2</li><li>3</li><li>2</li><li>2</li><li>2</li><li>5</li><li>3</li><li>5</li><li>1</li><li>3</li><li>3</li><li>5</li><li>4</li><li>3</li><li>2</li><li>2</li><li>4</li><li>2</li><li>2</li><li>2</li><li>3</li><li>2</li><li>4</li><li>2</li><li>4</li><li>3</li><li>2</li><li>3</li><li>2</li><li>3</li><li>4</li><li>3</li><li>3</li><li>4</li><li>5</li><li>3</li><li>3</li><li>3</li><li>2</li><li>2</li><li>4</li><li>3</li><li>3</li><li>3</li><li>5</li><li>1</li><li>4</li><li>3</li><li>4</li><li>3</li><li>3</li><li>3</li><li>1</li><li>3</li><li>3</li><li>4</li><li>1</li><li>3</li><li>3</li><li>3</li><li>3</li><li>2</li><li>2</li><li>3</li><li>3</li><li>3</li><li>2</li><li>3</li><li>3</li><li>4</li><li>5</li><li>1</li><li>3</li><li>2</li><li>4</li><li>1</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>2</li><li>2</li><li>2</li><li>3</li><li>3</li><li>3</li><li>3</li><li>1</li><li>3</li><li>2</li><li>4</li><li>2</li><li>4</li><li>3</li><li>4</li><li>3</li><li>4</li><li>5</li><li>3</li><li>4</li><li>4</li><li>4</li><li>3</li><li>3</li><li>2</li><li>5</li><li>3</li><li>4</li><li>4</li><li>5</li><li>3</li><li>1</li><li>3</li><li>2</li><li>1</li><li>3</li><li>2</li><li>1</li><li>3</li><li>4</li><li>2</li><li>5</li><li>1</li><li>3</li><li>2</li><li>2</li><li>1</li><li>2</li><li>3</li><li>3</li><li>2</li><li>3</li><li>3</li><li>2</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>4</li><li>1</li><li>2</li><li>1</li><li>3</li><li>2</li><li>2</li><li>3</li><li>3</li><li>2</li><li>2</li><li>2</li><li>1</li><li>2</li><li>3</li><li>3</li><li>2</li><li>4</li><li>1</li><li>1</li><li>2</li><li>2</li><li>2</li><li>3</li><li>2</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>2</li><li>2</li><li>3</li><li>1</li><li>3</li><li>1</li><li>3</li><li>2</li>&lt;/ol&gt;
+</dd>
+	<dt>$Q5</dt>
+		<dd><style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>4</li><li>3</li><li>3</li><li>3</li><li>3</li><li>1</li><li>2</li><li>1</li><li>3</li><li>4</li><li>4</li><li>2</li><li>1</li><li>3</li><li>1</li><li>3</li><li>2</li><li>2</li><li>3</li><li>4</li><li>1</li><li>1</li><li>2</li><li>2</li><li>2</li><li>2</li><li>2</li><li>3</li><li>3</li><li>2</li><li>3</li><li>1</li><li>2</li><li>1</li><li>3</li><li>5</li><li>3</li><li>1</li><li>3</li><li>3</li><li>3</li><li>2</li><li>1</li><li>1</li><li>3</li><li>2</li><li>3</li><li>3</li><li>2</li><li>1</li><li>3</li><li>2</li><li>2</li><li>2</li><li>2</li><li>2</li><li>2</li><li>3</li><li>3</li><li>2</li><li>2</li><li>2</li><li>2</li><li>2</li><li>3</li><li>3</li><li>1</li><li>2</li><li>1</li><li>2</li><li>2</li><li>2</li><li>1</li><li>1</li><li>2</li><li>1</li><li>2</li><li>2</li><li>1</li><li>2</li><li>3</li><li>2</li><li>1</li><li>4</li><li>3</li><li>3</li><li>4</li><li>2</li><li>1</li><li>4</li><li>2</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>4</li><li>3</li><li>2</li><li>4</li><li>3</li><li>3</li><li>3</li><li>1</li><li>3</li><li>3</li><li>2</li><li>3</li><li>4</li><li>1</li><li>2</li><li>4</li><li>4</li><li>2</li><li>3</li><li>2</li><li>3</li><li>2</li><li>5</li><li>3</li><li>2</li><li>2</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>4</li><li>3</li><li>3</li><li>3</li><li>4</li><li>3</li><li>3</li><li>2</li><li>2</li><li>3</li><li>1</li><li>3</li><li>3</li><li>3</li><li>3</li><li>2</li><li>4</li><li>2</li><li>3</li><li>3</li><li>2</li><li>2</li><li>2</li><li>1</li><li>2</li><li>1</li><li>4</li><li>3</li><li>2</li><li>2</li><li>3</li><li>4</li><li>2</li><li>3</li><li>1</li><li>2</li><li>3</li><li>3</li><li>2</li><li>3</li><li>3</li><li>1</li><li>1</li><li>2</li><li>3</li><li>3</li><li>2</li><li>2</li><li>1</li><li>1</li><li>2</li><li>2</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>1</li><li>4</li><li>3</li><li>4</li><li>3</li><li>4</li><li>4</li><li>1</li><li>3</li><li>3</li><li>2</li><li>2</li><li>3</li><li>3</li><li>3</li><li>3</li><li>2</li><li>3</li><li>3</li><li>2</li><li>3</li><li>1</li><li>2</li><li>2</li><li>5</li><li>1</li><li>4</li><li>3</li><li>5</li><li>3</li><li>2</li><li>3</li><li>3</li><li>3</li><li>2</li><li>2</li><li>3</li><li>3</li><li>3</li><li>3</li><li>4</li><li>2</li><li>4</li><li>3</li><li>2</li><li>4</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>4</li><li>3</li><li>3</li><li>3</li><li>2</li><li>2</li><li>4</li><li>3</li><li>2</li><li>2</li><li>5</li><li>1</li><li>4</li><li>1</li><li>4</li><li>2</li><li>3</li><li>2</li><li>1</li><li>2</li><li>3</li><li>5</li><li>2</li><li>3</li><li>4</li><li>2</li><li>2</li><li>3</li><li>3</li><li>3</li><li>3</li><li>2</li><li>2</li><li>2</li><li>3</li><li>5</li><li>2</li><li>2</li><li>2</li><li>4</li><li>3</li><li>1</li><li>3</li><li>4</li><li>3</li><li>1</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>2</li><li>1</li><li>2</li><li>3</li><li>4</li><li>2</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>4</li><li>4</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>4</li><li>4</li><li>4</li><li>4</li><li>4</li><li>2</li><li>3</li><li>1</li><li>3</li><li>2</li><li>1</li><li>3</li><li>2</li><li>1</li><li>2</li><li>3</li><li>3</li><li>5</li><li>1</li><li>3</li><li>3</li><li>1</li><li>1</li><li>2</li><li>2</li><li>2</li><li>3</li><li>2</li><li>2</li><li>2</li><li>3</li><li>3</li><li>2</li><li>4</li><li>3</li><li>3</li><li>3</li><li>3</li><li>1</li><li>2</li><li>1</li><li>3</li><li>4</li><li>4</li><li>2</li><li>1</li><li>3</li><li>1</li><li>3</li><li>2</li><li>2</li><li>3</li><li>4</li><li>1</li><li>1</li><li>2</li><li>2</li><li>2</li><li>2</li><li>2</li><li>3</li><li>3</li><li>2</li><li>3</li><li>1</li><li>2</li><li>1</li><li>3</li><li>5</li><li>3</li><li>1</li><li>3</li><li>3</li>&lt;/ol&gt;
+</dd>
+	<dt>$Q6</dt>
+		<dd><style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>3</li><li>3</li><li>4</li><li>2</li><li>3</li><li>1</li><li>3</li><li>2</li><li>3</li><li>3</li><li>4</li><li>2</li><li>1</li><li>1</li><li>1</li><li>2</li><li>3</li><li>2</li><li>2</li><li>4</li><li>1</li><li>1</li><li>2</li><li>3</li><li>2</li><li>3</li><li>2</li><li>4</li><li>3</li><li>3</li><li>2</li><li>1</li><li>3</li><li>1</li><li>1</li><li>1</li><li>5</li><li>1</li><li>2</li><li>3</li><li>2</li><li>2</li><li>1</li><li>1</li><li>2</li><li>1</li><li>3</li><li>2</li><li>2</li><li>1</li><li>3</li><li>4</li><li>2</li><li>2</li><li>1</li><li>2</li><li>2</li><li>2</li><li>5</li><li>2</li><li>1</li><li>2</li><li>1</li><li>2</li><li>2</li><li>2</li><li>1</li><li>2</li><li>3</li><li>2</li><li>2</li><li>2</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>3</li><li>1</li><li>2</li><li>3</li><li>3</li><li>1</li><li>5</li><li>2</li><li>3</li><li>4</li><li>3</li><li>1</li><li>4</li><li>3</li><li>3</li><li>3</li><li>3</li><li>4</li><li>2</li><li>4</li><li>3</li><li>3</li><li>3</li><li>3</li><li>2</li><li>4</li><li>3</li><li>2</li><li>3</li><li>3</li><li>2</li><li>4</li><li>5</li><li>2</li><li>2</li><li>4</li><li>4</li><li>2</li><li>3</li><li>3</li><li>4</li><li>3</li><li>3</li><li>1</li><li>1</li><li>2</li><li>3</li><li>2</li><li>2</li><li>4</li><li>4</li><li>3</li><li>2</li><li>3</li><li>2</li><li>5</li><li>3</li><li>4</li><li>3</li><li>3</li><li>3</li><li>1</li><li>3</li><li>3</li><li>2</li><li>3</li><li>2</li><li>3</li><li>2</li><li>2</li><li>3</li><li>1</li><li>2</li><li>2</li><li>1</li><li>2</li><li>3</li><li>4</li><li>2</li><li>3</li><li>3</li><li>3</li><li>4</li><li>3</li><li>3</li><li>2</li><li>2</li><li>3</li><li>2</li><li>2</li><li>1</li><li>3</li><li>1</li><li>1</li><li>2</li><li>3</li><li>3</li><li>2</li><li>2</li><li>3</li><li>2</li><li>3</li><li>1</li><li>3</li><li>3</li><li>3</li><li>2</li><li>2</li><li>1</li><li>4</li><li>3</li><li>3</li><li>3</li><li>3</li><li>4</li><li>3</li><li>2</li><li>2</li><li>2</li><li>2</li><li>4</li><li>3</li><li>3</li><li>2</li><li>3</li><li>1</li><li>4</li><li>2</li><li>3</li><li>1</li><li>2</li><li>2</li><li>4</li><li>1</li><li>3</li><li>3</li><li>3</li><li>4</li><li>2</li><li>2</li><li>2</li><li>4</li><li>3</li><li>2</li><li>3</li><li>3</li><li>2</li><li>4</li><li>3</li><li>3</li><li>4</li><li>3</li><li>2</li><li>2</li><li>3</li><li>4</li><li>3</li><li>3</li><li>3</li><li>4</li><li>2</li><li>3</li><li>2</li><li>2</li><li>2</li><li>3</li><li>3</li><li>3</li><li>2</li><li>4</li><li>3</li><li>4</li><li>1</li><li>4</li><li>3</li><li>2</li><li>3</li><li>1</li><li>3</li><li>2</li><li>5</li><li>1</li><li>4</li><li>3</li><li>2</li><li>2</li><li>2</li><li>3</li><li>3</li><li>3</li><li>2</li><li>3</li><li>2</li><li>4</li><li>5</li><li>3</li><li>1</li><li>3</li><li>2</li><li>4</li><li>3</li><li>4</li><li>3</li><li>3</li><li>3</li><li>2</li><li>2</li><li>3</li><li>2</li><li>4</li><li>3</li><li>4</li><li>2</li><li>3</li><li>3</li><li>3</li><li>4</li><li>1</li><li>4</li><li>2</li><li>3</li><li>2</li><li>4</li><li>3</li><li>4</li><li>4</li><li>4</li><li>3</li><li>4</li><li>3</li><li>5</li><li>3</li><li>3</li><li>4</li><li>3</li><li>3</li><li>2</li><li>1</li><li>1</li><li>2</li><li>1</li><li>2</li><li>3</li><li>1</li><li>1</li><li>3</li><li>2</li><li>5</li><li>1</li><li>3</li><li>2</li><li>1</li><li>1</li><li>2</li><li>1</li><li>2</li><li>2</li><li>2</li><li>2</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>4</li><li>2</li><li>3</li><li>1</li><li>3</li><li>2</li><li>3</li><li>3</li><li>4</li><li>2</li><li>1</li><li>1</li><li>1</li><li>2</li><li>3</li><li>2</li><li>2</li><li>4</li><li>1</li><li>1</li><li>2</li><li>3</li><li>2</li><li>3</li><li>2</li><li>4</li><li>3</li><li>3</li><li>2</li><li>1</li><li>3</li><li>1</li><li>1</li><li>1</li><li>5</li><li>1</li><li>2</li><li>3</li>&lt;/ol&gt;
+</dd>
+	<dt>$Q7</dt>
+		<dd><style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>4</li><li>2</li><li>3</li><li>3</li><li>2</li><li>1</li><li>5</li><li>1</li><li>1</li><li>3</li><li>4</li><li>1</li><li>1</li><li>2</li><li>1</li><li>2</li><li>2</li><li>2</li><li>2</li><li>3</li><li>1</li><li>1</li><li>3</li><li>1</li><li>3</li><li>4</li><li>2</li><li>3</li><li>3</li><li>2</li><li>1</li><li>1</li><li>3</li><li>1</li><li>1</li><li>1</li><li>2</li><li>1</li><li>3</li><li>2</li><li>2</li><li>2</li><li>2</li><li>1</li><li>3</li><li>1</li><li>2</li><li>2</li><li>2</li><li>2</li><li>2</li><li>2</li><li>2</li><li>2</li><li>1</li><li>2</li><li>3</li><li>2</li><li>4</li><li>2</li><li>1</li><li>3</li><li>1</li><li>2</li><li>2</li><li>2</li><li>1</li><li>2</li><li>1</li><li>2</li><li>3</li><li>2</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>2</li><li>3</li><li>3</li><li>4</li><li>3</li><li>1</li><li>4</li><li>3</li><li>3</li><li>1</li><li>2</li><li>2</li><li>4</li><li>3</li><li>4</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>2</li><li>4</li><li>2</li><li>3</li><li>4</li><li>1</li><li>3</li><li>2</li><li>2</li><li>3</li><li>5</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>2</li><li>3</li><li>4</li><li>3</li><li>4</li><li>3</li><li>3</li><li>2</li><li>2</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>4</li><li>3</li><li>4</li><li>3</li><li>2</li><li>3</li><li>2</li><li>3</li><li>1</li><li>4</li><li>3</li><li>3</li><li>3</li><li>3</li><li>2</li><li>3</li><li>3</li><li>4</li><li>2</li><li>3</li><li>2</li><li>1</li><li>3</li><li>2</li><li>4</li><li>2</li><li>3</li><li>3</li><li>3</li><li>4</li><li>3</li><li>2</li><li>4</li><li>2</li><li>3</li><li>2</li><li>3</li><li>2</li><li>2</li><li>3</li><li>2</li><li>3</li><li>3</li><li>3</li><li>2</li><li>2</li><li>3</li><li>3</li><li>3</li><li>2</li><li>2</li><li>3</li><li>2</li><li>2</li><li>3</li><li>2</li><li>4</li><li>3</li><li>3</li><li>3</li><li>4</li><li>3</li><li>2</li><li>2</li><li>3</li><li>3</li><li>3</li><li>4</li><li>3</li><li>4</li><li>3</li><li>4</li><li>2</li><li>4</li><li>2</li><li>4</li><li>2</li><li>5</li><li>2</li><li>4</li><li>1</li><li>4</li><li>4</li><li>4</li><li>3</li><li>2</li><li>3</li><li>2</li><li>3</li><li>2</li><li>2</li><li>4</li><li>2</li><li>2</li><li>3</li><li>3</li><li>3</li><li>3</li><li>2</li><li>3</li><li>4</li><li>3</li><li>4</li><li>3</li><li>3</li><li>4</li><li>4</li><li>1</li><li>3</li><li>2</li><li>2</li><li>2</li><li>3</li><li>2</li><li>4</li><li>4</li><li>4</li><li>2</li><li>5</li><li>1</li><li>4</li><li>2</li><li>4</li><li>2</li><li>1</li><li>3</li><li>3</li><li>4</li><li>1</li><li>4</li><li>3</li><li>3</li><li>3</li><li>2</li><li>3</li><li>3</li><li>3</li><li>3</li><li>2</li><li>3</li><li>3</li><li>4</li><li>3</li><li>1</li><li>3</li><li>4</li><li>4</li><li>2</li><li>4</li><li>3</li><li>3</li><li>2</li><li>3</li><li>2</li><li>3</li><li>3</li><li>4</li><li>2</li><li>3</li><li>3</li><li>2</li><li>3</li><li>3</li><li>4</li><li>2</li><li>4</li><li>2</li><li>2</li><li>3</li><li>4</li><li>4</li><li>4</li><li>3</li><li>4</li><li>2</li><li>3</li><li>3</li><li>4</li><li>4</li><li>4</li><li>3</li><li>3</li><li>3</li><li>1</li><li>1</li><li>1</li><li>2</li><li>1</li><li>2</li><li>2</li><li>1</li><li>3</li><li>4</li><li>1</li><li>3</li><li>1</li><li>3</li><li>4</li><li>2</li><li>1</li><li>3</li><li>2</li><li>3</li><li>2</li><li>4</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>4</li><li>2</li><li>3</li><li>3</li><li>2</li><li>1</li><li>5</li><li>1</li><li>1</li><li>3</li><li>4</li><li>1</li><li>1</li><li>2</li><li>1</li><li>2</li><li>2</li><li>2</li><li>2</li><li>3</li><li>1</li><li>1</li><li>3</li><li>1</li><li>3</li><li>4</li><li>2</li><li>3</li><li>3</li><li>2</li><li>1</li><li>1</li><li>3</li><li>1</li><li>1</li><li>1</li><li>2</li><li>1</li><li>3</li><li>2</li>&lt;/ol&gt;
+</dd>
+	<dt>$Q8</dt>
+		<dd><style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>3</li><li>3</li><li>4</li><li>2</li><li>2</li><li>3</li><li>4</li><li>2</li><li>3</li><li>4</li><li>5</li><li>4</li><li>1</li><li>3</li><li>2</li><li>2</li><li>3</li><li>2</li><li>3</li><li>4</li><li>3</li><li>3</li><li>2</li><li>4</li><li>4</li><li>3</li><li>2</li><li>4</li><li>3</li><li>3</li><li>3</li><li>2</li><li>3</li><li>3</li><li>3</li><li>3</li><li>2</li><li>3</li><li>4</li><li>3</li><li>3</li><li>3</li><li>2</li><li>3</li><li>3</li><li>3</li><li>4</li><li>3</li><li>3</li><li>3</li><li>2</li><li>4</li><li>3</li><li>3</li><li>2</li><li>4</li><li>3</li><li>3</li><li>4</li><li>3</li><li>2</li><li>4</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>2</li><li>3</li><li>3</li><li>3</li><li>3</li><li>4</li><li>3</li><li>3</li><li>1</li><li>2</li><li>1</li><li>4</li><li>3</li><li>4</li><li>4</li><li>2</li><li>3</li><li>4</li><li>4</li><li>4</li><li>2</li><li>3</li><li>4</li><li>3</li><li>4</li><li>4</li><li>4</li><li>4</li><li>2</li><li>4</li><li>4</li><li>4</li><li>4</li><li>5</li><li>3</li><li>4</li><li>3</li><li>2</li><li>4</li><li>2</li><li>3</li><li>4</li><li>3</li><li>3</li><li>2</li><li>4</li><li>4</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>5</li><li>1</li><li>3</li><li>3</li><li>3</li><li>2</li><li>1</li><li>4</li><li>4</li><li>4</li><li>3</li><li>4</li><li>3</li><li>5</li><li>3</li><li>3</li><li>3</li><li>2</li><li>4</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>4</li><li>2</li><li>3</li><li>3</li><li>4</li><li>3</li><li>3</li><li>1</li><li>2</li><li>4</li><li>3</li><li>4</li><li>2</li><li>2</li><li>4</li><li>4</li><li>3</li><li>4</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>2</li><li>1</li><li>3</li><li>3</li><li>3</li><li>2</li><li>2</li><li>3</li><li>2</li><li>3</li><li>2</li><li>2</li><li>3</li><li>4</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>4</li><li>3</li><li>4</li><li>4</li><li>3</li><li>3</li><li>2</li><li>3</li><li>3</li><li>3</li><li>3</li><li>4</li><li>4</li><li>3</li><li>5</li><li>4</li><li>1</li><li>3</li><li>1</li><li>5</li><li>3</li><li>5</li><li>1</li><li>4</li><li>3</li><li>5</li><li>4</li><li>3</li><li>3</li><li>4</li><li>4</li><li>3</li><li>3</li><li>4</li><li>3</li><li>1</li><li>4</li><li>3</li><li>3</li><li>4</li><li>3</li><li>4</li><li>3</li><li>4</li><li>3</li><li>4</li><li>3</li><li>3</li><li>4</li><li>3</li><li>3</li><li>4</li><li>1</li><li>3</li><li>4</li><li>4</li><li>3</li><li>3</li><li>4</li><li>4</li><li>4</li><li>2</li><li>4</li><li>3</li><li>4</li><li>3</li><li>2</li><li>3</li><li>3</li><li>3</li><li>1</li><li>3</li><li>3</li><li>4</li><li>4</li><li>2</li><li>4</li><li>4</li><li>2</li><li>4</li><li>3</li><li>4</li><li>4</li><li>3</li><li>3</li><li>1</li><li>4</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>4</li><li>2</li><li>3</li><li>2</li><li>4</li><li>4</li><li>4</li><li>3</li><li>4</li><li>4</li><li>3</li><li>4</li><li>3</li><li>2</li><li>4</li><li>4</li><li>3</li><li>3</li><li>4</li><li>4</li><li>5</li><li>4</li><li>4</li><li>4</li><li>3</li><li>4</li><li>3</li><li>3</li><li>4</li><li>5</li><li>4</li><li>3</li><li>3</li><li>2</li><li>3</li><li>3</li><li>2</li><li>1</li><li>3</li><li>3</li><li>1</li><li>3</li><li>4</li><li>3</li><li>3</li><li>2</li><li>2</li><li>3</li><li>2</li><li>3</li><li>3</li><li>4</li><li>2</li><li>2</li><li>3</li><li>2</li><li>3</li><li>3</li><li>4</li><li>4</li><li>3</li><li>3</li><li>4</li><li>2</li><li>2</li><li>3</li><li>4</li><li>2</li><li>3</li><li>4</li><li>5</li><li>4</li><li>1</li><li>3</li><li>2</li><li>2</li><li>3</li><li>2</li><li>3</li><li>4</li><li>3</li><li>3</li><li>2</li><li>4</li><li>4</li><li>3</li><li>2</li><li>4</li><li>3</li><li>3</li><li>3</li><li>2</li><li>3</li><li>3</li><li>3</li><li>3</li><li>2</li><li>3</li><li>4</li><li>3</li>&lt;/ol&gt;
+</dd>
+	<dt>$Q9</dt>
+		<dd><style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>4</li><li>3</li><li>4</li><li>2</li><li>2</li><li>3</li><li>4</li><li>2</li><li>2</li><li>2</li><li>5</li><li>4</li><li>1</li><li>2</li><li>2</li><li>2</li><li>3</li><li>3</li><li>3</li><li>4</li><li>2</li><li>4</li><li>3</li><li>4</li><li>3</li><li>2</li><li>3</li><li>3</li><li>2</li><li>2</li><li>3</li><li>3</li><li>4</li><li>2</li><li>4</li><li>1</li><li>3</li><li>3</li><li>4</li><li>3</li><li>3</li><li>3</li><li>3</li><li>2</li><li>3</li><li>4</li><li>3</li><li>3</li><li>3</li><li>2</li><li>3</li><li>3</li><li>3</li><li>3</li><li>1</li><li>3</li><li>4</li><li>4</li><li>5</li><li>3</li><li>3</li><li>4</li><li>3</li><li>3</li><li>3</li><li>3</li><li>2</li><li>3</li><li>4</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>2</li><li>1</li><li>4</li><li>3</li><li>5</li><li>4</li><li>2</li><li>3</li><li>4</li><li>4</li><li>3</li><li>3</li><li>4</li><li>4</li><li>2</li><li>4</li><li>4</li><li>4</li><li>4</li><li>2</li><li>4</li><li>3</li><li>4</li><li>4</li><li>5</li><li>3</li><li>3</li><li>3</li><li>2</li><li>3</li><li>3</li><li>2</li><li>3</li><li>3</li><li>3</li><li>2</li><li>3</li><li>4</li><li>2</li><li>2</li><li>3</li><li>3</li><li>3</li><li>5</li><li>2</li><li>3</li><li>2</li><li>3</li><li>3</li><li>2</li><li>4</li><li>4</li><li>5</li><li>4</li><li>3</li><li>3</li><li>5</li><li>4</li><li>3</li><li>4</li><li>3</li><li>4</li><li>3</li><li>3</li><li>4</li><li>4</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>4</li><li>3</li><li>2</li><li>1</li><li>3</li><li>4</li><li>3</li><li>4</li><li>3</li><li>3</li><li>4</li><li>4</li><li>4</li><li>4</li><li>4</li><li>3</li><li>3</li><li>2</li><li>3</li><li>2</li><li>2</li><li>2</li><li>2</li><li>3</li><li>3</li><li>2</li><li>3</li><li>2</li><li>3</li><li>2</li><li>2</li><li>3</li><li>4</li><li>2</li><li>2</li><li>3</li><li>3</li><li>3</li><li>3</li><li>4</li><li>3</li><li>3</li><li>2</li><li>4</li><li>4</li><li>2</li><li>2</li><li>3</li><li>3</li><li>3</li><li>2</li><li>3</li><li>4</li><li>4</li><li>4</li><li>5</li><li>4</li><li>2</li><li>3</li><li>1</li><li>5</li><li>2</li><li>4</li><li>1</li><li>4</li><li>3</li><li>5</li><li>4</li><li>3</li><li>4</li><li>4</li><li>4</li><li>3</li><li>3</li><li>4</li><li>3</li><li>1</li><li>4</li><li>3</li><li>4</li><li>4</li><li>3</li><li>4</li><li>3</li><li>4</li><li>3</li><li>4</li><li>3</li><li>4</li><li>3</li><li>4</li><li>4</li><li>3</li><li>2</li><li>3</li><li>4</li><li>4</li><li>3</li><li>3</li><li>4</li><li>3</li><li>4</li><li>3</li><li>3</li><li>3</li><li>4</li><li>3</li><li>4</li><li>3</li><li>3</li><li>3</li><li>2</li><li>4</li><li>4</li><li>4</li><li>4</li><li>3</li><li>4</li><li>4</li><li>3</li><li>3</li><li>3</li><li>4</li><li>4</li><li>3</li><li>2</li><li>2</li><li>4</li><li>3</li><li>3</li><li>4</li><li>4</li><li>4</li><li>4</li><li>3</li><li>3</li><li>3</li><li>4</li><li>3</li><li>4</li><li>4</li><li>4</li><li>4</li><li>4</li><li>4</li><li>2</li><li>1</li><li>4</li><li>4</li><li>3</li><li>3</li><li>5</li><li>4</li><li>5</li><li>4</li><li>4</li><li>4</li><li>3</li><li>4</li><li>3</li><li>3</li><li>5</li><li>4</li><li>4</li><li>3</li><li>2</li><li>3</li><li>4</li><li>3</li><li>2</li><li>3</li><li>3</li><li>3</li><li>1</li><li>3</li><li>4</li><li>5</li><li>4</li><li>3</li><li>3</li><li>3</li><li>3</li><li>5</li><li>3</li><li>4</li><li>2</li><li>3</li><li>3</li><li>2</li><li>2</li><li>3</li><li>4</li><li>4</li><li>4</li><li>3</li><li>4</li><li>2</li><li>2</li><li>3</li><li>4</li><li>2</li><li>2</li><li>2</li><li>5</li><li>4</li><li>1</li><li>2</li><li>2</li><li>2</li><li>3</li><li>3</li><li>3</li><li>4</li><li>2</li><li>4</li><li>3</li><li>4</li><li>3</li><li>2</li><li>3</li><li>3</li><li>2</li><li>2</li><li>3</li><li>3</li><li>4</li><li>2</li><li>4</li><li>1</li><li>3</li><li>3</li><li>4</li><li>3</li>&lt;/ol&gt;
+</dd>
+	<dt>$Q10</dt>
+		<dd><style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>3</li><li>2</li><li>4</li><li>2</li><li>2</li><li>3</li><li>4</li><li>2</li><li>3</li><li>3</li><li>5</li><li>5</li><li>1</li><li>2</li><li>2</li><li>2</li><li>3</li><li>3</li><li>3</li><li>4</li><li>3</li><li>4</li><li>3</li><li>4</li><li>3</li><li>3</li><li>3</li><li>3</li><li>2</li><li>3</li><li>2</li><li>3</li><li>4</li><li>2</li><li>4</li><li>1</li><li>3</li><li>3</li><li>4</li><li>3</li><li>3</li><li>3</li><li>3</li><li>1</li><li>2</li><li>3</li><li>4</li><li>3</li><li>2</li><li>2</li><li>2</li><li>4</li><li>3</li><li>3</li><li>1</li><li>3</li><li>3</li><li>3</li><li>5</li><li>3</li><li>3</li><li>4</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>4</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>2</li><li>1</li><li>4</li><li>3</li><li>4</li><li>4</li><li>2</li><li>3</li><li>4</li><li>4</li><li>4</li><li>3</li><li>2</li><li>4</li><li>3</li><li>4</li><li>4</li><li>3</li><li>4</li><li>2</li><li>3</li><li>4</li><li>4</li><li>4</li><li>4</li><li>3</li><li>4</li><li>3</li><li>2</li><li>4</li><li>3</li><li>2</li><li>3</li><li>4</li><li>3</li><li>2</li><li>4</li><li>4</li><li>3</li><li>2</li><li>2</li><li>3</li><li>3</li><li>5</li><li>2</li><li>3</li><li>2</li><li>1</li><li>3</li><li>2</li><li>4</li><li>4</li><li>4</li><li>4</li><li>3</li><li>3</li><li>5</li><li>3</li><li>3</li><li>4</li><li>3</li><li>4</li><li>3</li><li>3</li><li>3</li><li>4</li><li>3</li><li>3</li><li>4</li><li>3</li><li>3</li><li>4</li><li>3</li><li>2</li><li>1</li><li>3</li><li>3</li><li>3</li><li>4</li><li>3</li><li>3</li><li>4</li><li>4</li><li>4</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>2</li><li>2</li><li>3</li><li>2</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>2</li><li>4</li><li>4</li><li>2</li><li>2</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>2</li><li>4</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>2</li><li>3</li><li>3</li><li>3</li><li>3</li><li>4</li><li>4</li><li>3</li><li>4</li><li>4</li><li>2</li><li>2</li><li>2</li><li>4</li><li>2</li><li>5</li><li>1</li><li>3</li><li>3</li><li>4</li><li>4</li><li>3</li><li>4</li><li>4</li><li>4</li><li>3</li><li>2</li><li>4</li><li>3</li><li>1</li><li>4</li><li>3</li><li>3</li><li>4</li><li>3</li><li>3</li><li>4</li><li>4</li><li>3</li><li>4</li><li>3</li><li>2</li><li>4</li><li>3</li><li>4</li><li>3</li><li>2</li><li>3</li><li>3</li><li>4</li><li>4</li><li>2</li><li>5</li><li>3</li><li>4</li><li>3</li><li>3</li><li>4</li><li>4</li><li>2</li><li>4</li><li>3</li><li>3</li><li>3</li><li>2</li><li>4</li><li>3</li><li>4</li><li>4</li><li>3</li><li>4</li><li>4</li><li>3</li><li>3</li><li>3</li><li>3</li><li>4</li><li>3</li><li>2</li><li>2</li><li>4</li><li>4</li><li>3</li><li>3</li><li>4</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>4</li><li>4</li><li>4</li><li>4</li><li>4</li><li>4</li><li>3</li><li>4</li><li>3</li><li>2</li><li>4</li><li>4</li><li>3</li><li>2</li><li>5</li><li>3</li><li>5</li><li>4</li><li>5</li><li>4</li><li>4</li><li>4</li><li>3</li><li>3</li><li>3</li><li>4</li><li>4</li><li>3</li><li>2</li><li>3</li><li>4</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>1</li><li>3</li><li>4</li><li>5</li><li>4</li><li>3</li><li>3</li><li>3</li><li>3</li><li>5</li><li>3</li><li>3</li><li>2</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>4</li><li>3</li><li>2</li><li>4</li><li>2</li><li>2</li><li>3</li><li>4</li><li>2</li><li>3</li><li>3</li><li>5</li><li>5</li><li>1</li><li>2</li><li>2</li><li>2</li><li>3</li><li>3</li><li>3</li><li>4</li><li>3</li><li>4</li><li>3</li><li>4</li><li>3</li><li>3</li><li>3</li><li>3</li><li>2</li><li>3</li><li>2</li><li>3</li><li>4</li><li>2</li><li>4</li><li>1</li><li>3</li><li>3</li><li>4</li><li>3</li>&lt;/ol&gt;
+</dd>
+	<dt>$Q11</dt>
+		<dd><style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>4</li><li>3</li><li>4</li><li>2</li><li>2</li><li>3</li><li>4</li><li>2</li><li>1</li><li>4</li><li>5</li><li>5</li><li>1</li><li>2</li><li>2</li><li>1</li><li>3</li><li>2</li><li>3</li><li>4</li><li>1</li><li>1</li><li>3</li><li>2</li><li>3</li><li>3</li><li>3</li><li>3</li><li>2</li><li>2</li><li>2</li><li>2</li><li>4</li><li>3</li><li>4</li><li>3</li><li>2</li><li>3</li><li>4</li><li>3</li><li>3</li><li>3</li><li>1</li><li>2</li><li>3</li><li>3</li><li>4</li><li>3</li><li>3</li><li>1</li><li>3</li><li>2</li><li>3</li><li>3</li><li>2</li><li>2</li><li>3</li><li>5</li><li>5</li><li>2</li><li>2</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>4</li><li>3</li><li>3</li><li>2</li><li>3</li><li>3</li><li>2</li><li>3</li><li>2</li><li>3</li><li>4</li><li>3</li><li>4</li><li>4</li><li>1</li><li>2</li><li>4</li><li>4</li><li>4</li><li>3</li><li>2</li><li>4</li><li>3</li><li>3</li><li>4</li><li>3</li><li>4</li><li>2</li><li>4</li><li>3</li><li>4</li><li>5</li><li>4</li><li>3</li><li>3</li><li>4</li><li>2</li><li>3</li><li>3</li><li>3</li><li>4</li><li>3</li><li>3</li><li>2</li><li>4</li><li>4</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>5</li><li>2</li><li>3</li><li>2</li><li>2</li><li>3</li><li>2</li><li>4</li><li>4</li><li>5</li><li>4</li><li>3</li><li>3</li><li>5</li><li>3</li><li>3</li><li>3</li><li>3</li><li>4</li><li>2</li><li>3</li><li>3</li><li>4</li><li>4</li><li>4</li><li>3</li><li>3</li><li>3</li><li>4</li><li>3</li><li>2</li><li>1</li><li>2</li><li>4</li><li>3</li><li>4</li><li>3</li><li>2</li><li>4</li><li>4</li><li>4</li><li>3</li><li>3</li><li>2</li><li>3</li><li>4</li><li>3</li><li>2</li><li>2</li><li>4</li><li>3</li><li>4</li><li>3</li><li>3</li><li>2</li><li>3</li><li>3</li><li>3</li><li>2</li><li>4</li><li>4</li><li>2</li><li>2</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>4</li><li>4</li><li>4</li><li>3</li><li>2</li><li>3</li><li>1</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>4</li><li>4</li><li>4</li><li>1</li><li>2</li><li>2</li><li>5</li><li>3</li><li>4</li><li>1</li><li>4</li><li>3</li><li>3</li><li>4</li><li>3</li><li>3</li><li>4</li><li>4</li><li>4</li><li>3</li><li>4</li><li>3</li><li>1</li><li>4</li><li>4</li><li>3</li><li>4</li><li>2</li><li>4</li><li>2</li><li>4</li><li>3</li><li>4</li><li>3</li><li>2</li><li>4</li><li>3</li><li>3</li><li>2</li><li>1</li><li>3</li><li>4</li><li>4</li><li>4</li><li>3</li><li>5</li><li>2</li><li>5</li><li>2</li><li>4</li><li>3</li><li>1</li><li>3</li><li>4</li><li>3</li><li>3</li><li>4</li><li>2</li><li>4</li><li>3</li><li>4</li><li>4</li><li>3</li><li>4</li><li>4</li><li>3</li><li>2</li><li>4</li><li>4</li><li>4</li><li>4</li><li>1</li><li>2</li><li>4</li><li>2</li><li>3</li><li>3</li><li>4</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>4</li><li>2</li><li>4</li><li>4</li><li>4</li><li>4</li><li>3</li><li>3</li><li>3</li><li>1</li><li>4</li><li>3</li><li>3</li><li>3</li><li>5</li><li>4</li><li>5</li><li>4</li><li>3</li><li>4</li><li>3</li><li>5</li><li>3</li><li>2</li><li>4</li><li>4</li><li>3</li><li>3</li><li>1</li><li>3</li><li>4</li><li>3</li><li>2</li><li>3</li><li>3</li><li>4</li><li>1</li><li>3</li><li>4</li><li>5</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>5</li><li>3</li><li>3</li><li>2</li><li>3</li><li>3</li><li>3</li><li>2</li><li>4</li><li>4</li><li>4</li><li>4</li><li>3</li><li>4</li><li>2</li><li>2</li><li>3</li><li>4</li><li>2</li><li>1</li><li>4</li><li>5</li><li>5</li><li>1</li><li>2</li><li>2</li><li>1</li><li>3</li><li>2</li><li>3</li><li>4</li><li>1</li><li>1</li><li>3</li><li>2</li><li>3</li><li>3</li><li>3</li><li>3</li><li>2</li><li>2</li><li>2</li><li>2</li><li>4</li><li>3</li><li>4</li><li>3</li><li>2</li><li>3</li><li>4</li><li>3</li>&lt;/ol&gt;
+</dd>
+</dl>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">drinking_water</span> <span class="o">=</span> <span class="n">data.spss</span><span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">11</span><span class="p">]</span>
+<span class="n">drinking_water_df</span> <span class="o">=</span> <span class="nf">as.data.frame</span><span class="p">(</span><span class="n">data.spss</span><span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">11</span><span class="p">])</span>
+<span class="nf">str</span><span class="p">(</span><span class="n">drinking_water_df</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>&#39;data.frame&#39;:	380 obs. of  11 variables:
+ $ Q1 : num  3 3 3 3 3 1 2 2 2 4 ...
+  ..- attr(*, &#34;label&#34;)= chr &#34;A&amp;G0 D#9P551&#34;
+ $ Q2 : num  2 3 3 3 3 1 2 2 2 3 ...
+  ..- attr(*, &#34;label&#34;)= chr &#34;A&amp;G0 D#9P552&#34;
+ $ Q3 : num  3 3 3 3 2 1 2 1 1 3 ...
+  ..- attr(*, &#34;label&#34;)= chr &#34;A&amp;G0 D#9P553&#34;
+ $ Q4 : num  3 3 4 1 2 1 3 2 2 3 ...
+  ..- attr(*, &#34;label&#34;)= chr &#34;A&amp;G0 D#9P554&#34;
+ $ Q5 : num  4 3 3 3 3 1 2 1 3 4 ...
+  ..- attr(*, &#34;label&#34;)= chr &#34;A&amp;G0 @{@}&lt;:1&#34;
+ $ Q6 : num  3 3 4 2 3 1 3 2 3 3 ...
+  ..- attr(*, &#34;label&#34;)= chr &#34;A&amp;G0 @{@}&lt;:2&#34;
+ $ Q7 : num  4 2 3 3 2 1 5 1 1 3 ...
+  ..- attr(*, &#34;label&#34;)= chr &#34;A&amp;G0 @{@}&lt;:3&#34;
+ $ Q8 : num  3 3 4 2 2 3 4 2 3 4 ...
+  ..- attr(*, &#34;label&#34;)= chr &#34;A&amp;G0 88A7551&#34;
+ $ Q9 : num  4 3 4 2 2 3 4 2 2 2 ...
+  ..- attr(*, &#34;label&#34;)= chr &#34;A&amp;G0 88A7552&#34;
+ $ Q10: num  3 2 4 2 2 3 4 2 3 3 ...
+  ..- attr(*, &#34;label&#34;)= chr &#34;A&amp;G0 88A7553&#34;
+ $ Q11: num  4 3 4 2 2 3 4 2 1 4 ...
+  ..- attr(*, &#34;label&#34;)= chr &#34;A&amp;G0 88A7554&#34;
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>요인 수를 3개로 지정하여 요인 분석 수행</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">result2</span> <span class="o">=</span> <span class="nf">factanal</span><span class="p">(</span><span class="n">drinking_water_df</span><span class="p">,</span> <span class="n">factor</span> <span class="o">=</span> <span class="m">3</span><span class="p">,</span> <span class="n">rotation</span> <span class="o">=</span> <span class="s">&#39;varimax&#39;</span><span class="p">)</span>
+<span class="n">result2</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea ">
+<pre>
+Call:
+factanal(x = drinking_water_df, factors = 3, rotation = &#34;varimax&#34;)
+
+Uniquenesses:
+   Q1    Q2    Q3    Q4    Q5    Q6    Q7    Q8    Q9   Q10   Q11 
+0.321 0.238 0.284 0.447 0.425 0.373 0.403 0.375 0.199 0.227 0.409 
+
+Loadings:
+    Factor1 Factor2 Factor3
+Q1  0.201   0.762   0.240  
+Q2  0.172   0.813   0.266  
+Q3  0.141   0.762   0.340  
+Q4  0.250   0.281   0.641  
+Q5  0.162   0.488   0.557  
+Q6  0.224   0.312   0.693  
+Q7  0.235   0.219   0.703  
+Q8  0.695   0.225   0.304  
+Q9  0.873   0.122   0.155  
+Q10 0.852   0.144   0.161  
+Q11 0.719   0.152   0.225  
+
+               Factor1 Factor2 Factor3
+SS loadings      2.772   2.394   2.133
+Proportion Var   0.252   0.218   0.194
+Cumulative Var   0.252   0.470   0.664
+
+Test of the hypothesis that 3 factors are sufficient.
+The chi square statistic is 40.57 on 25 degrees of freedom.
+The p-value is 0.0255 </pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+</div>
+
+
+
+  </div><a class="u-url" href="/INTROr/2022/02/26/r.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/INTROr/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/INTROr/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/INTROr/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>An easy to use blogging platform with support for Jupyter Notebooks.</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/rhkrehtjd" target="_blank" title="rhkrehtjd"><svg class="svg-icon grey"><use xlink:href="/INTROr/assets/minima-social-icons.svg#github"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
