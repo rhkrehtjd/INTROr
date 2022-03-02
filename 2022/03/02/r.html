@@ -1,0 +1,1579 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>랜덤 포레스트, XGBoost, 인공신경망 | INTROr</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="랜덤 포레스트, XGBoost, 인공신경망" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="An easy to use blogging platform with support for Jupyter Notebooks." />
+<meta property="og:description" content="An easy to use blogging platform with support for Jupyter Notebooks." />
+<link rel="canonical" href="https://rhkrehtjd.github.io/INTROr/2022/03/02/r.html" />
+<meta property="og:url" content="https://rhkrehtjd.github.io/INTROr/2022/03/02/r.html" />
+<meta property="og:site_name" content="INTROr" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-03-02T00:00:00-06:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="랜덤 포레스트, XGBoost, 인공신경망" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2022-03-02T00:00:00-06:00","datePublished":"2022-03-02T00:00:00-06:00","description":"An easy to use blogging platform with support for Jupyter Notebooks.","headline":"랜덤 포레스트, XGBoost, 인공신경망","mainEntityOfPage":{"@type":"WebPage","@id":"https://rhkrehtjd.github.io/INTROr/2022/03/02/r.html"},"url":"https://rhkrehtjd.github.io/INTROr/2022/03/02/r.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/INTROr/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://rhkrehtjd.github.io/INTROr/feed.xml" title="INTROr" /><link rel="shortcut icon" type="image/x-icon" href="/INTROr/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.css" integrity="sha512-h7nl+xz8wgDlNM4NqKEM4F1NkIRS17M9+uJwIGwuo8vGqIl4BhuCKdxjWEINm+xyrUjNCnK5dCrhM0sj+wTIXw==" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.js" integrity="sha512-/CMIhXiDA3m2c9kzRyd97MTb3MC6OVnx4TElQ7fkkoRghwDf6gi41gaT1PwF270W6+J60uTmwgeRpNpJdRV6sg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/contrib/auto-render.min.js" integrity="sha512-Do7uJAaHZm5OLrIv/yN4w0iG1dbu01kzdMNnFfu/mAqgUk6Nniv2JYHcwH+cNwjqgLcqcuBBk+JRvprLVI8azg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha512-0doc9hKxR3PYwso42RD1p5ySZpzzuDiOwMrdCEh2WdJZCjcmFKc/wEnL+z8fBQrnHoiNWbo+3fiGkOYXBdQp4A==" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/INTROr/">INTROr</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/INTROr/about/">About Me</a><a class="page-link" href="/INTROr/search/">Search</a><a class="page-link" href="/INTROr/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">랜덤 포레스트, XGBoost, 인공신경망</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2022-03-02T00:00:00-06:00" itemprop="datePublished">
+        Mar 2, 2022
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      11 min read
+    
+</span></p>
+
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-justify-center">
+          <div class="px-2">
+
+    <a href="https://github.com/rhkrehtjd/INTROr/tree/master/_notebooks/2022-03-02-r.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/INTROr/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://mybinder.org/v2/gh/rhkrehtjd/INTROr/master?filepath=_notebooks%2F2022-03-02-r.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/INTROr/assets/badges/binder.svg" alt="Open In Binder"/>
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://colab.research.google.com/github/rhkrehtjd/INTROr/blob/master/_notebooks/2022-03-02-r.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/INTROr/assets/badges/colab.svg" alt="Open In Colab"/>
+    </a>
+</div>
+          <div class="px-2">
+  <a href="https://deepnote.com/launch?url=https%3A%2F%2Fgithub.com%2Frhkrehtjd%2FINTROr%2Fblob%2Fmaster%2F_notebooks%2F2022-03-02-r.ipynb" target="_blank">
+      <img class="notebook-badge-image" src="/INTROr/assets/badges/deepnote.svg" alt="Launch in Deepnote"/>
+  </a>
+</div>
+
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2022-03-02-r.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>의사결정 트리에서 파생된 모델로 앙상블 학습기법을 적용한 모델이다.</li>
+<li>앙상블 학습기법이란 새로운 데이터에 대해서 여러 개의 트리로 학습을 수행한 후 학습 결과들을 종합해서 예측하는 모델이다.</li>
+<li>기존의 의사결정 트리 방식에 비해서 많은 데이터를 이용하여 학습을 수행하기 때문에 비교적 예측력이 뛰어나고, 과적합 문제를 해결할 수 있다. </li>
+<li>과적합 문제? 학습 데이터 셋에서는 높은 정확도가 나타나지만 새로운 데이터에서는 정확도가 떨어지는 현상을 의미한다. </li>
+<li>랜덤 포레스트 모델은 기본적으로 raw data를 대상으로 복원추출 방식으로 데이터의 양을 증가시킨 후 모델을 생성하기 때문에 데이터의 양이 부족해서 발생하는 과적합 문제를 해결할 수 있다. </li>
+<li>구성된 학습데이터를 이용하여 학습한 결과를 종합하여 예측 모델을 생성한다. 즉, 각각의 분류모델에서 예측된 결과를 토대로 투표방식으로 최적의 예측치를 선택하게 된다.</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr />
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>랜덤 포레스트 학습데이터 구성방법<ul>
+<li>표본에서 일부분만 복원추출 방법으로 랜덤하게 샘플링하는 방식인 부트스트랩 표본 방식으로 학습데이터를 추출하여 트리를 생성한다. </li>
+<li>입력 변수 중에서 일부 변수만 적용하여 트리의 자식 노드를 분류한다.</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">install.packages</span><span class="p">(</span><span class="s">&#39;randomForest&#39;</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">randomForest</span><span class="p">)</span>
+<span class="nf">data</span><span class="p">(</span><span class="n">iris</span><span class="p">)</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="nf">randomForest</span><span class="p">(</span><span class="n">Species</span><span class="o">~</span><span class="n">.</span> <span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">iris</span><span class="p">)</span>
+<span class="n">model</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>Warning message:
+&#34;package &#39;randomForest&#39; is not available for this version of R
+
+A version of this package for your version of R might be available elsewhere,
+see the ideas at
+https://cran.r-project.org/doc/manuals/r-patched/R-admin.html#Installing-packages&#34;
+randomForest 4.6-14
+
+Type rfNews() to see new features/changes/bug fixes.
+
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea ">
+<pre>
+Call:
+ randomForest(formula = Species ~ ., data = iris) 
+               Type of random forest: classification
+                     Number of trees: 500
+No. of variables tried at each split: 2
+
+        OOB estimate of  error rate: 4.67%
+Confusion matrix:
+           setosa versicolor virginica class.error
+setosa         50          0         0        0.00
+versicolor      0         46         4        0.08
+virginica       0          3        47        0.06</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Number of trees: 500 $\to$  학습데이터로 500개의 포레스트가 복원 추출방식으로 생성되었다는 의미.</li>
+<li>No. of variables tried at each split: 2 $\to$ 두 개의 변수를 이용하여 트리의 자식 노드가 분류되었다는 의미이다. </li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">model2</span> <span class="o">=</span> <span class="nf">randomForest</span><span class="p">(</span><span class="n">Species</span><span class="o">~</span><span class="n">.</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span> <span class="n">iris</span><span class="p">,</span> <span class="n">ntree</span> <span class="o">=</span> <span class="m">300</span><span class="p">,</span> <span class="n">mtry</span> <span class="o">=</span> <span class="m">4</span><span class="p">,</span> <span class="n">na.action</span> <span class="o">=</span> <span class="n">na.omit</span><span class="p">)</span>
+<span class="n">model2</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea ">
+<pre>
+Call:
+ randomForest(formula = Species ~ ., data = iris, ntree = 300,      mtry = 4, na.action = na.omit) 
+               Type of random forest: classification
+                     Number of trees: 300
+No. of variables tried at each split: 4
+
+        OOB estimate of  error rate: 4.67%
+Confusion matrix:
+           setosa versicolor virginica class.error
+setosa         50          0         0        0.00
+versicolor      0         47         3        0.06
+virginica       0          4        46        0.08</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>랜덤 포레스트의 수를 300개, 자식 노드를 분류하는 변수를 4개로 지정하여 모델을 생성.</li>
+<li>na.action 속성은 결측치가 있는 경우 처리할 방법을 지정하는 속성이다. 여기서는 na.omit() 생략 함수를 이용하여 결측치를 제거한다.</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">model3</span> <span class="o">=</span> <span class="nf">randomForest</span><span class="p">(</span><span class="n">Species</span><span class="o">~</span><span class="n">.</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">iris</span><span class="p">,</span> <span class="n">importance</span> <span class="o">=</span> <span class="bp">T</span><span class="p">,</span> <span class="n">na.action</span> <span class="o">=</span> <span class="n">na.omit</span><span class="p">)</span>
+
+<span class="c1"># 중요 변수 보기</span>
+<span class="nf">importance</span><span class="p">(</span><span class="n">model3</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A matrix: 4 × 5 of type dbl</caption>
+<thead>
+	<tr><th></th><th scope="col">setosa</th><th scope="col">versicolor</th><th scope="col">virginica</th><th scope="col">MeanDecreaseAccuracy</th><th scope="col">MeanDecreaseGini</th></tr>
+</thead>
+<tbody>
+	<tr><th scope="row">Sepal.Length</th><td> 6.752026</td><td> 8.355323</td><td> 8.285698</td><td>11.169422</td><td>10.524725</td></tr>
+	<tr><th scope="row">Sepal.Width</th><td> 4.743311</td><td> 1.838934</td><td> 5.823679</td><td> 6.199311</td><td> 2.333197</td></tr>
+	<tr><th scope="row">Petal.Length</th><td>24.292547</td><td>35.441244</td><td>27.683566</td><td>35.102816</td><td>44.848427</td></tr>
+	<tr><th scope="row">Petal.Width</th><td>20.224071</td><td>31.827480</td><td>27.702492</td><td>30.544380</td><td>41.554505</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>importance 속성은 분류모델을 생성하는 과정에서 입력 변수 중 가장 중요한 변수가 어떤 변수인지를 알려주는 역할을 한다. </li>
+<li>MeanDeceaseAccuracy는 분류정확도를 개선하는 데 기여한 변수를 수치로 제공</li>
+<li>MeanDecreaseGini는 노드 불순도(불확실성)를 개선하는 데 기여한 변수를 수치로 제공</li>
+<li>따라서 iris의 꽃의 종류를 분류하는 데 있어 4개의 x 변수 중에서 가장 크게 기여하는 변수(즉, 중요변수)는 Petal.Length로 나타난다. </li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">varImpPlot</span><span class="p">(</span><span class="n">model3</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+KEVn9CeMC2mRyn1V7cu0vOdLHTe5Tutu5WW3Xn9+uFx6eEjproWZjDKb0IwuNvBm4xoX0ulx
+/669eVxomxbNp/rooT5eqJppba+Xe3RI7ZLvNpsTo7wmM6PrL/Ne4xob0vDcepaKdX/xMhXd
+PeBmnvqTp4UPaVZ/3NcHC/NU31nWxwiH/splUd//1SfbY5HjdlZ3GKT7bzOQkSENz71wRt/O
+v9W4xoW0TIv96cy83bVls25aHU+uugP0ZTWcaNGcag4WugOG5j6vvbJsFp0Ph9Ru89/Pk9Pg
+xr7VaM6M0prKjG6cfadxjXzVrt6ts2X3oL9J5aE6lM1z0/r+bVftivTVnKw/fF09lM/Trmrv
+6Zp7vGrXfGiu/OpXGxw21Jtct/eN/zD4bzCZ+vR/7/dv3DfcRGZ0wydNYN/++ozuHN5m0bwg
+tGn3fHMsfuj2+Kad2vy0scshrZo7sPbYu7nfW6dVd2X3StFmOKTtxXo/3tB3vIsbMFJrGjO6
+cfadxjU2pJrtqmh2Zjpy2q3dp/1mVV4NaVM/k+2ezTbPYRfdHeTFasMnsvcM6Q0PugeM95rC
+jL6df6txZQipeeCf/Tik8njhYGfv60PzVX+PuKqX2I8P6f1eBhqQw+v1Mxqef79xjQrptCsG
+u3hwefNpkWbrzf56x9UnZ/1Rxuy8V0cN6e3emBgwxmxKM7q4WW82rlEhzfsXa9r3GubdW+Dt
+uv2B9KLfw9+GVC/bPz2dpe4wvTv+brawHT2kt2OMojP6G0aFVO/PdX2ftS2bYbWv59TPStsn
+st1LO5tuXrvr4+9qmcrUvfWwSuXpddfN8BWhfeWQjoxRdEZ/w7jnSMv+kLt5N6I/0i7ag+nu
+3YbBEtuLA+Ov7pKqnXPz4mt3efuOxKI5OUunNy4c0tj3kZzRHzDyxYbdor5zKr+6M+t61y76
+e6l5fdzdXljv83K7Ob4N0e/x3fkQuT61O12+6t81r7Yzh3RmnKIz+gtGhvTDun+54z55SGO2
+6YyyYkgADGn6GBIAQ5o+hgTAkKbPr4T0p2Bu6PPgFfECMYYEAK+IF4gxJAB4RbxAjCEBwCvi
+BWIMCQBeES8QY0gA8Ip4gRhDAoBXxAvEGBIAvCJeIMaQAOAV8QIxhgQAr4gXiDEkAHhFvECM
+IQHAK+IFYgwJAF4RLxBjSADwiniBGEMCgFfEC8QYEgC8Il4gxpAA4BXxAjGGBACviBeIMSQA
+eEW8QIwhAcAr4gViDAkAXhEvEGNIAPCKeIEYQwKAV8QLxBgSALwiXiDGkADgFfECMYYEAK+I
+F4gxJAB4RbxAjCEBwCviBWIMCQBeES8QY0gA8Ip4gRhDAoBXxAvEGBIAvCJeIMaQAOAV8QIx
+hgQAr4gXiDEkAHhFvECMIQHAK+IFYgwJAF4RLxBjSADwiniBGEMCgFfEC8QYEgC8Il4gxpAA
+4BXxAjGGBACviBeIMSQAeEW8QIwhAcAr4gViDAkAXhEvEGNIAPCKeIEYQwKAV8QLxBgSALwi
+XiDGkADgFfECMYYEAK+IF4gxJAB4RbxAjCEBwCviBWIMCQBeES8QY0gA8Ip4gRhDAoBXxAvE
+GBIAvCJeIMaQAOAV8QIxhgQAr4gXiDEkAHhFvECMIQHAK+IFYgwJAF4RLxBjSADwiniBGEMC
+gFfEC8QYEgC8Il4gxpAA4BXxAjGGBACviBeIMSQAeEW8QIwhAcAr4gViDAkAXhEvEGNIAPCK
+eIEYQwKAV8QLxBgSALwiXiDGkADgFfECMYYEAK+IF4gxJAB4RbxAjCEBwCviBWIMCQBeES8Q
+Y0gA8Ip4gRhDAoBXxAvEGBIAvCJeIMaQAOAV8QIxhgQAr4gXiDEkAHhFvECMIQHAK+IFYgwJ
+AF4RLxBjSADwiniBGEMCgFfEC8QYEgC8Il4gxpAA4BXxAjGGBACviBeIMSQAeEW8QIwhAcAr
+4gViDAkAXhEvEGNIAPCKeIEYQwKAV8QLxBgSALwiXiDGkADgFfECMYYEAK+IF4gxJAB4RbxA
+jCEBwCviBWIMCQBeES8QY0gA8Ip4gRhDAoBXxAvEGBIAvCJeIMaQAOAV8QIxhgQAr4gXiDEk
+AHhFvEDMG4T0Abx6H4/l1fvvL/jR/S939G9zj8xdwtPbEIoHjciLj15vkkzv+9+Q3nzx0etN
+kul9/xvSmy8+er1JMr3vf0N688VHrzdJpvf9b0hvvvjo9SbJ9L7/DenNFx+93iSZ3ve/Ib35
+4qPXmyTT+/43pDdffPR6k2R63/+G9OaLj15vkkzv+9+Q3nzx0etNkul9/xvSmy8+er1JMr3v
+f0N688VHryciAwxJJAOGJJIBQxLJgCGJZMCQRDJgSCIZMCSRDBiSSAYMSSQDhiSSAUMSycCb
+hLQ+eiyLVCwPT29mdlp71IYOi5QWuxy3iMcjvg+N7bHhPDGCbXpo8UveI6Td8Tdglu1vw5w9
+uZllu3ZxGL2hol17N/4W8XjE96GxPTicx0dwKNLdN+Y7bxHSrugnsk3Frjm3fW4zaXFo7iUX
+Y4kw+2kAAAa0SURBVDe0bDaxTPPRt4jHI74Pje3B4Twxgnl3a56c2DuEtE5lP5Fl2tQfv9Lq
+qe3Mu4002xq3oSId+u2M3BCPB3wfG9uDw3l8BF/9L/Z+cmLvEFJaVv1E5mlfNXde81GbS3k2
+lIpctwjEA75Pje2x4Twwgv0x6ycn9g4h7arjRC4/PcchlVk2tEzrTLeIxAO+z4ztseE8MoIy
+7bslnpzYmww4Y0jr5qF99IbqA4VlrltE4jHfh8f2yHAeGsEqfVWGlDOkfTHPsaH1vGiPsg3p
+/qXjlR4aziMjaI/kDCljSIeizLOhqlo0BxaGdP/S4UoPD+fuEcyal9UN6aRdjP62LWeZNtQc
+zxd5NkTiMd8Hx/bwcO4dwaJ9pa5b4smJvcmAL17+2T/9Gtl+Vu6zbOh0o7JsCMRjvg+N7Znh
+3DmC4V+2fHJi7xXSqr1n2XRPMh9nk8r+1LgNdW9i7Jt3x0feIhyP+T4ytseG89gIhiE9ObH3
+CmnczxHsT6PK8ZMNh3lzgO5PNvyLB8b24HCeGcHH/2RDdT6inbV3K+W/F/6JxeAvV4/aUP+D
+XuXoWwTkId8HxvbocJ4YQX9rnpvYm4V0aH9y9+mNnGc1akPtDxDP1uNvEZCHfB8Y28PDeXwE
+/a15bmJvEpLIazEkkQwYkkgGDEkkA4YkkgFDEsmAIYlkwJBEMmBIIhkwJJEMGJJIBgxJJAOG
+JJIBQxLJAC6kYr7u/sPxfj0v7lmh++H7WfbfY1+ku768nJnK7A7reb3Z+br/Gpdf8clt4kKq
+98CiPbFI90kf/x9Lsc96Ozb1JjdZt/j+TGR2m2K42c8NadbdmRWze4fRfNyXmf+X6iIt++8K
+uZdpzK6+C1w0/498O895TAEMadn+sY5d/fmBYTT/gzjrA0g9hAK3817MNGZXnDbW/tq7TOC+
+F+oDqlZ/nb763dz8Aapuh2zqQ9+i/zW1+/r+ZtWd7FbcdA8g56Wb/4xcdg/uh1n725dubana
+lCmVm6uvVH2lZbVMX5cbGm7y+KWPGx9ssV/q0P8NnsPH/PWkSczu6/yLtvbL7XFIxy/5SYd2
+h3ZPzI+/9Hx++l0Vq+7Id9ku1R4HD3dN9/16Xrr7g1Ldb9ict2vd3NK6O7m+XLdeeVttT6fT
+8C9gXf7Szn7jgy2elpp3v6nmc/7myyRmN7/6/UDdkI5f8pNCqh/oq/bQqpXepPJQHcrul6t/
+tb86vV2qvnTd7v7TrmlODJb+ak4umh3eLvzTlormYOSr2dLg+u5XePa/PO28oeEmj1+x3/hg
+i6el+vvZRcr7Msh0mcTsrlM5Dan9kh8V0rJ9NFh00vP2m/lwfrzuh7E9nxxcMVi6vWdqg+gW
+/nFLxyPq4fVf7T1ed2x33tBwk8cNpOEdYH+Lj0vNur+G9SlHdtOY3el3e/e/k+g8pOO559ye
+XO9l1KbNsdDpz3AMf01Ttd+sysEEvg9jsPR5l13u2qst1U+L57vd9fWzds/vLu82v526+DJX
+t61h3RxMbD/myG4as7sd0vmLPOv25HovozZtfulmWR8PfRtGeTp1Yxj77m9U3TeM85aqVXP4
+3LzjMLh+fzq9vzek69vW0N6nrj7myG4asxs+R/rwkJrnJqfjp4H5Is3Wm/1Pw/g6P3c5beji
+1O0t1WyWs6vD59VpMKsbG6puTObbbWtp/l7p7GOO7KYxu6/B23+fHlL/ZmgrPT+/xdCe/3EY
+7dHYYOny6gnND1s6XzC4ftY/irS/pP28oatNbi+OJE5bPC9VHxuWu885spvG7AbvIx0+PaTm
+D1B/9dJfze88r59ttE8jt9Xuh+Ps/t3xwdLr5pWa5eCu7vaWZt2LQLPh9ee/1Fum3WBD51Oz
+tG5eJBqGdNriealmueJzjuwmMbv2Jxvm7U821E+his8OaT98ctIdEjcHwsv+cGt7NYx0WmK4
+9PWbPj9s6et06nz98nSf1v71jxvvI7XvYMwHkxlscbB8M9TPObKbxOxqtseftWsP8j45pP4n
+r3vp9azeI+0eWqRUbjdXfw6022Xl8QDqvHT7os7Fjy3e2lL37vj24vri/DNa7cnjhgan6qe5
+i4vJDLY4WP6QPujIbhKza/maF81m98cv9IkhvReb9EFHdm+NIb2UMuOPTcorMaQXkj7pL5C9
+OYb0QoqP+RvN748hiWTAkEQyYEgiGTAkkQwYkkgGDEkkA4YkkgFDEsmAIYlkwJBEMmBIIhkw
+JJEMGJJIBgxJJAOGJJIBQxLJgCGJZMCQRDJgSCIZMCSRDBiSSAYMSSQDhiSSAUMSycD/qHFm
+13mgW0UAAAAASUVORK5CYII=" width="420" height="420" />
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>참고) <ul>
+<li>엔트로피 = 불확실성 척도<ul>
+<li>엔트로피가 작으면 불확실성이 낮아진다. 즉, 불확실성이 낮아지면 그만큼 분류정확도가 향상된다고 볼 수 있다. </li>
+<li>예를 들어, 앞면과 뒷면이 나올 확률이 동일한 경우 엔트로피 결과는 1이라면, 앞면이 나올 확률이 더 높은 경우엔 엔트로피는 0.88로 낮아진다. 이유는 앞면이 나올 확률이 높아졌기 때문에 그만큼 불확실성이 낮아진 것이다. </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>최적의 파라미터(ntree, mtry) 찾기</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">ntree</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="m">400</span><span class="p">,</span> <span class="m">500</span><span class="p">,</span> <span class="m">600</span><span class="p">)</span> <span class="c1"># 랜덤 포레스트 수</span>
+<span class="n">mtry</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="m">2</span><span class="o">:</span><span class="m">4</span><span class="p">)</span> <span class="c1"># 자식 노드를 분류하는 변수의 수</span>
+<span class="n">param</span> <span class="o">=</span> <span class="nf">data.frame</span><span class="p">(</span><span class="n">n</span> <span class="o">=</span> <span class="n">ntree</span><span class="p">,</span> <span class="n">m</span> <span class="o">=</span> <span class="n">mtry</span><span class="p">)</span>
+<span class="n">param</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A data.frame: 3 × 2</caption>
+<thead>
+	<tr><th scope="col">n</th><th scope="col">m</th></tr>
+	<tr><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;int&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><td>400</td><td>2</td></tr>
+	<tr><td>500</td><td>3</td></tr>
+	<tr><td>600</td><td>4</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">for</span><span class="p">(</span><span class="n">i</span> <span class="n">in</span> <span class="n">param</span><span class="o">$</span><span class="n">n</span><span class="p">){</span>
+    <span class="nf">cat</span><span class="p">(</span><span class="s">&#39;ntree=&#39;</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="s">&#39;\n&#39;</span><span class="p">)</span>
+    <span class="nf">for</span><span class="p">(</span><span class="n">j</span> <span class="n">in</span> <span class="n">param</span><span class="o">$</span><span class="n">m</span><span class="p">){</span>
+        <span class="nf">cat</span><span class="p">(</span><span class="s">&#39;mtry=&#39;</span><span class="p">,</span><span class="n">j</span><span class="p">,</span><span class="s">&#39;\n&#39;</span><span class="p">)</span>
+        <span class="n">model_iris</span> <span class="o">=</span> <span class="nf">randomForest</span><span class="p">(</span><span class="n">Species</span><span class="o">~</span><span class="n">.</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">iris</span><span class="p">,</span> <span class="n">ntree</span> <span class="o">=</span> <span class="n">i</span><span class="p">,</span> <span class="n">mtry</span> <span class="o">=</span> <span class="n">j</span><span class="p">,</span> <span class="n">na.action</span> <span class="o">=</span> <span class="n">na.omit</span><span class="p">)</span>
+        <span class="nf">print</span><span class="p">(</span><span class="n">model_iris</span><span class="p">)}}</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>ntree= 400 
+mtry= 2 
+
+Call:
+ randomForest(formula = Species ~ ., data = iris, ntree = i, mtry = j,      na.action = na.omit) 
+               Type of random forest: classification
+                     Number of trees: 400
+No. of variables tried at each split: 2
+
+        OOB estimate of  error rate: 4.67%
+Confusion matrix:
+           setosa versicolor virginica class.error
+setosa         50          0         0        0.00
+versicolor      0         47         3        0.06
+virginica       0          4        46        0.08
+mtry= 3 
+
+Call:
+ randomForest(formula = Species ~ ., data = iris, ntree = i, mtry = j,      na.action = na.omit) 
+               Type of random forest: classification
+                     Number of trees: 400
+No. of variables tried at each split: 3
+
+        OOB estimate of  error rate: 4.67%
+Confusion matrix:
+           setosa versicolor virginica class.error
+setosa         50          0         0        0.00
+versicolor      0         47         3        0.06
+virginica       0          4        46        0.08
+mtry= 4 
+
+Call:
+ randomForest(formula = Species ~ ., data = iris, ntree = i, mtry = j,      na.action = na.omit) 
+               Type of random forest: classification
+                     Number of trees: 400
+No. of variables tried at each split: 4
+
+        OOB estimate of  error rate: 4.67%
+Confusion matrix:
+           setosa versicolor virginica class.error
+setosa         50          0         0        0.00
+versicolor      0         47         3        0.06
+virginica       0          4        46        0.08
+ntree= 500 
+mtry= 2 
+
+Call:
+ randomForest(formula = Species ~ ., data = iris, ntree = i, mtry = j,      na.action = na.omit) 
+               Type of random forest: classification
+                     Number of trees: 500
+No. of variables tried at each split: 2
+
+        OOB estimate of  error rate: 4%
+Confusion matrix:
+           setosa versicolor virginica class.error
+setosa         50          0         0        0.00
+versicolor      0         47         3        0.06
+virginica       0          3        47        0.06
+mtry= 3 
+
+Call:
+ randomForest(formula = Species ~ ., data = iris, ntree = i, mtry = j,      na.action = na.omit) 
+               Type of random forest: classification
+                     Number of trees: 500
+No. of variables tried at each split: 3
+
+        OOB estimate of  error rate: 4.67%
+Confusion matrix:
+           setosa versicolor virginica class.error
+setosa         50          0         0        0.00
+versicolor      0         47         3        0.06
+virginica       0          4        46        0.08
+mtry= 4 
+
+Call:
+ randomForest(formula = Species ~ ., data = iris, ntree = i, mtry = j,      na.action = na.omit) 
+               Type of random forest: classification
+                     Number of trees: 500
+No. of variables tried at each split: 4
+
+        OOB estimate of  error rate: 4%
+Confusion matrix:
+           setosa versicolor virginica class.error
+setosa         50          0         0        0.00
+versicolor      0         47         3        0.06
+virginica       0          3        47        0.06
+ntree= 600 
+mtry= 2 
+
+Call:
+ randomForest(formula = Species ~ ., data = iris, ntree = i, mtry = j,      na.action = na.omit) 
+               Type of random forest: classification
+                     Number of trees: 600
+No. of variables tried at each split: 2
+
+        OOB estimate of  error rate: 4.67%
+Confusion matrix:
+           setosa versicolor virginica class.error
+setosa         50          0         0        0.00
+versicolor      0         47         3        0.06
+virginica       0          4        46        0.08
+mtry= 3 
+
+Call:
+ randomForest(formula = Species ~ ., data = iris, ntree = i, mtry = j,      na.action = na.omit) 
+               Type of random forest: classification
+                     Number of trees: 600
+No. of variables tried at each split: 3
+
+        OOB estimate of  error rate: 4%
+Confusion matrix:
+           setosa versicolor virginica class.error
+setosa         50          0         0        0.00
+versicolor      0         47         3        0.06
+virginica       0          3        47        0.06
+mtry= 4 
+
+Call:
+ randomForest(formula = Species ~ ., data = iris, ntree = i, mtry = j,      na.action = na.omit) 
+               Type of random forest: classification
+                     Number of trees: 600
+No. of variables tried at each split: 4
+
+        OOB estimate of  error rate: 4%
+Confusion matrix:
+           setosa versicolor virginica class.error
+setosa         50          0         0        0.00
+versicolor      0         47         3        0.06
+virginica       0          3        47        0.06
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>이중 for() 함수는 트리 3개와 변수 3이 곱해져서 전체 9회를 반복.</li>
+<li>9개의 모델이 생성된 결과에서 오차 비율(OOB)을 비교하여 최적의 트리와 변수를 결정한다. </li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr />
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>xgboost<ul>
+<li>랜덤 포레스트와 같은 앙상블 학습 기법으로 모델을 생성하는 분류모델이다. </li>
+<li>부스팅 방식으로 기반으로 만들어진 모델이기 때문에 분류하기 어려운 특정 영역에 초점을 두고 정확도를 높이는 알고리즘으로 구현되었다.</li>
+<li>따라서 높은 정확도가 가장 큰 강점이다. </li>
+<li>배깅 방식과 동일하게 복원 추출방식으로 첫 번째 학습 데이터 셋을 생성하는 방법은 동일하지만, 두 번째부터는 학습된 트리 모델의 결과를 바탕으로 정확도가 낮은 영역에 높은 가중치를 적용하여 해당 영역을 학습 데이터 셋으로 구성되게 한다. <ul>
+<li>결론적으로 기계학습이 안 되는 데이터 셋을 집중적으로 학습하여 트리 모델의 정확도를 높이는 방식이다. </li>
+<li>이상치에 취약할 수 있다. </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">install.packages</span><span class="p">(</span><span class="s">&#39;xgboost&#39;</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">xgboost</span><span class="p">)</span>
+
+<span class="c1"># ifelse함수를 이용하여 y변수를 재정의하기</span>
+<span class="n">iris_label</span> <span class="o">=</span> <span class="nf">ifelse</span><span class="p">(</span><span class="n">iris</span><span class="o">$</span><span class="n">Species</span> <span class="o">==</span> <span class="s">&#39;setosa&#39;</span><span class="p">,</span> <span class="m">0</span> <span class="p">,</span> <span class="nf">ifelse</span><span class="p">(</span><span class="n">iris</span><span class="o">$</span><span class="n">Species</span> <span class="o">==</span> <span class="s">&#39;versicolor&#39;</span><span class="p">,</span><span class="m">1</span><span class="p">,</span><span class="m">2</span><span class="p">))</span>
+<span class="nf">table</span><span class="p">(</span><span class="n">iris_label</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>package &#39;xgboost&#39; successfully unpacked and MD5 sums checked
+
+The downloaded binary packages are in
+	C:\Users\ehfus\AppData\Local\Temp\RtmpELAtJz\downloaded_packages
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea ">
+<pre>iris_label
+ 0  1  2 
+50 50 50 </pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">head</span><span class="p">(</span><span class="n">iris</span><span class="p">,</span><span class="m">3</span><span class="p">)</span> <span class="c1"># 칼럼추가 전</span>
+
+<span class="c1"># 칼럼 추가 후</span>
+<span class="n">iris</span><span class="o">$</span><span class="n">label</span> <span class="o">=</span> <span class="n">iris_label</span>
+<span class="nf">head</span><span class="p">(</span><span class="n">iris</span><span class="p">,</span><span class="m">3</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A data.frame: 3 × 5</caption>
+<thead>
+	<tr><th></th><th scope="col">Sepal.Length</th><th scope="col">Sepal.Width</th><th scope="col">Petal.Length</th><th scope="col">Petal.Width</th><th scope="col">Species</th></tr>
+	<tr><th></th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;fct&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><th scope="row">1</th><td>5.1</td><td>3.5</td><td>1.4</td><td>0.2</td><td>setosa</td></tr>
+	<tr><th scope="row">2</th><td>4.9</td><td>3.0</td><td>1.4</td><td>0.2</td><td>setosa</td></tr>
+	<tr><th scope="row">3</th><td>4.7</td><td>3.2</td><td>1.3</td><td>0.2</td><td>setosa</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A data.frame: 3 × 6</caption>
+<thead>
+	<tr><th></th><th scope="col">Sepal.Length</th><th scope="col">Sepal.Width</th><th scope="col">Petal.Length</th><th scope="col">Petal.Width</th><th scope="col">Species</th><th scope="col">label</th></tr>
+	<tr><th></th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;fct&gt;</th><th scope="col">&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><th scope="row">1</th><td>5.1</td><td>3.5</td><td>1.4</td><td>0.2</td><td>setosa</td><td>0</td></tr>
+	<tr><th scope="row">2</th><td>4.9</td><td>3.0</td><td>1.4</td><td>0.2</td><td>setosa</td><td>0</td></tr>
+	<tr><th scope="row">3</th><td>4.7</td><td>3.2</td><td>1.3</td><td>0.2</td><td>setosa</td><td>0</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">idx</span> <span class="o">=</span> <span class="nf">sample</span><span class="p">(</span><span class="nf">nrow</span><span class="p">(</span><span class="n">iris</span><span class="p">),</span>  <span class="m">0.7</span><span class="o">*</span><span class="nf">nrow</span><span class="p">(</span><span class="n">iris</span><span class="p">))</span>
+<span class="n">train</span> <span class="o">=</span> <span class="n">iris</span><span class="p">[</span><span class="n">idx</span><span class="p">,]</span>
+<span class="n">test</span> <span class="o">=</span> <span class="n">iris</span><span class="p">[</span><span class="o">-</span><span class="n">idx</span><span class="p">,]</span>
+
+<span class="c1"># matrix 객체 변환</span>
+<span class="n">train_mat</span> <span class="o">=</span> <span class="nf">as.matrix</span><span class="p">(</span><span class="n">train</span><span class="p">[</span><span class="o">-</span><span class="nf">c</span><span class="p">(</span><span class="m">5</span><span class="o">:</span><span class="m">6</span><span class="p">)])</span> <span class="c1"># 다섯번째와 여섯번째는 정답레이블이기 때문에 제외</span>
+<span class="c1"># 정답 레이블 따로 추출</span>
+<span class="n">train_lab</span> <span class="o">=</span> <span class="n">train</span><span class="o">$</span><span class="n">label</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">dtrain</span> <span class="o">=</span> <span class="nf">xgb.DMatrix</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">train_mat</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="n">train_lab</span><span class="p">)</span>
+<span class="n">dtrain</span>
+
+<span class="c1"># model 생성 - xgboost matrix 객체를 이용</span>
+<span class="n">xgb_model</span> <span class="o">=</span> <span class="nf">xgboost</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">dtrain</span><span class="p">,</span> <span class="n">max_depth</span> <span class="o">=</span> <span class="m">2</span><span class="p">,</span> <span class="n">eta</span> <span class="o">=</span> <span class="m">1</span><span class="p">,</span> <span class="n">nthread</span> <span class="o">=</span> <span class="m">2</span><span class="p">,</span><span class="n">nrounds</span> <span class="o">=</span> <span class="m">2</span><span class="p">,</span>
+                   <span class="n">objective</span> <span class="o">=</span> <span class="s">&#39;multi:softmax&#39;</span><span class="p">,</span>
+                   <span class="n">num_class</span> <span class="o">=</span> <span class="m">3</span><span class="p">,</span>
+                   <span class="n">verbose</span> <span class="o">=</span> <span class="m">0</span><span class="p">)</span>
+<span class="n">xgb_model</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea ">
+<pre>xgb.DMatrix  dim: 105 x 4  info: label  colnames: yes</pre>
+</div>
+
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[14:11:36] WARNING: amalgamation/../src/learner.cc:1115: Starting in XGBoost 1.3.0, the default evaluation metric used with the objective &#39;multi:softmax&#39; was changed from &#39;merror&#39; to &#39;mlogloss&#39;. Explicitly set eval_metric if you&#39;d like to restore the old behavior.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea ">
+<pre>##### xgb.Booster
+raw: 6.3 Kb 
+call:
+  xgb.train(params = params, data = dtrain, nrounds = nrounds, 
+    watchlist = watchlist, verbose = verbose, print_every_n = print_every_n, 
+    early_stopping_rounds = early_stopping_rounds, maximize = maximize, 
+    save_period = save_period, save_name = save_name, xgb_model = xgb_model, 
+    callbacks = callbacks, max_depth = 2, eta = 1, nthread = 2, 
+    objective = &#34;multi:softmax&#34;, num_class = 3)
+params (as set within xgb.train):
+  max_depth = &#34;2&#34;, eta = &#34;1&#34;, nthread = &#34;2&#34;, objective = &#34;multi:softmax&#34;, num_class = &#34;3&#34;, validate_parameters = &#34;TRUE&#34;
+xgb.attributes:
+  niter
+callbacks:
+  cb.evaluation.log()
+# of features: 4 
+niter: 2
+nfeatures : 4 
+evaluation_log:
+ iter train_mlogloss
+    1       0.285526
+    2       0.138916</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>xgboost 전용 xg.DMatrix() 함수를 이용하여 학습 데이터 셋을 생성한다.</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">test_mat</span> <span class="o">=</span> <span class="nf">as.matrix</span><span class="p">(</span><span class="n">test</span><span class="p">[</span><span class="o">-</span><span class="nf">c</span><span class="p">(</span><span class="m">5</span><span class="o">:</span><span class="m">6</span><span class="p">)])</span>
+<span class="n">test_lab</span> <span class="o">=</span> <span class="n">test</span><span class="o">$</span><span class="n">label</span>
+
+<span class="c1"># model prediction</span>
+<span class="n">pred_iris</span> <span class="o">=</span> <span class="nf">predict</span><span class="p">(</span><span class="n">xgb_model</span><span class="p">,</span> <span class="n">test_mat</span><span class="p">)</span>
+<span class="n">pred_iris</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>0</li><li>0</li><li>0</li><li>0</li><li>0</li><li>0</li><li>0</li><li>0</li><li>0</li><li>0</li><li>0</li><li>0</li><li>0</li><li>0</li><li>0</li><li>0</li><li>0</li><li>0</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>2</li><li>2</li><li>2</li><li>2</li><li>1</li><li>2</li><li>2</li><li>2</li><li>2</li><li>2</li><li>1</li><li>2</li><li>2</li><li>2</li><li>2</li><li>2</li>&lt;/ol&gt;
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>트리 모델을 평가하기 위해서 검정 데이터 셋을 생성하고 predict() 함수를 이용하여 트리 모델에 검정 데이터 셋을 적용하여 예측치를 생성한다.</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">table</span><span class="p">(</span><span class="n">pred_iris</span><span class="p">,</span> <span class="n">test_lab</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea ">
+<pre>         test_lab
+pred_iris  0  1  2
+        0 18  0  0
+        1  0 11  2
+        2  0  0 14</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="p">(</span><span class="m">18</span> <span class="o">+</span> <span class="m">11</span> <span class="o">+</span> <span class="m">14</span><span class="p">)</span><span class="o">/</span><span class="nf">length</span><span class="p">(</span><span class="n">test_lab</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+0.955555555555556
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>다른 모델에 비해서 분류정확도가 매우 높게 나타난 것을 확인할 수 있다.</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">importance_matrix</span> <span class="o">=</span> <span class="nf">xgb.importance</span><span class="p">(</span><span class="nf">colnames</span><span class="p">(</span><span class="n">train_mat</span><span class="p">),</span> <span class="n">model</span> <span class="o">=</span> <span class="n">xgb_model</span><span class="p">)</span>
+<span class="n">importance_matrix</span>
+
+<span class="c1"># 중요변수 시각화</span>
+<span class="nf">xgb.plot.importance</span><span class="p">(</span><span class="n">importance_matrix</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A data.table: 3 × 4</caption>
+<thead>
+	<tr><th scope="col">Feature</th><th scope="col">Gain</th><th scope="col">Cover</th><th scope="col">Frequency</th></tr>
+	<tr><th scope="col">&lt;chr&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><td>Petal.Length</td><td>0.540131985</td><td>0.67957146</td><td>0.63636364</td></tr>
+	<tr><td>Petal.Width </td><td>0.458853590</td><td>0.28951761</td><td>0.27272727</td></tr>
+	<tr><td>Sepal.Length</td><td>0.001014426</td><td>0.03091093</td><td>0.09090909</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA0gAAANICAMAAADKOT/pAAAAM1BMVEUAAABNTU1oaGh8fHyM
+jIyampqnp6eysrK9vb2+vr7Hx8fQ0NDZ2dnh4eHp6enw8PD////ojgWfAAAACXBIWXMAABJ0
+AAASdAHeZh94AAAYk0lEQVR4nO3djVYiu7qG0QIR2So/93+1GwIqBmzbrJeO0TnHOKsFqYrK
+9zQQ6bOnHfCfTb2/APgJhAQBQoIAIUGAkCBASBAgJAgQEgQICQKEBAFCggAhQYCQIEBIECAk
+CBASBAgJAoQEAUKCACFBgJAgQEgQICQIEBIECAkChAQBQoIAIUGAkCBASBAgJAgQEgQICQKE
+BAFCggAhQYCQIEBIECAkCBASBAgJAoQEAUKCACFBgJAgQEgQICQIEBIECAkChAQBQoIAIUGA
+kCBASBAgJAgQEgQICQKEBAFCggAhQYCQIEBIECAkCBASBAgJAoQEAUKCACFBgJAgQEgQICQI
+EBIECAkChAQBQoIAIUGAkCBASBAgJAgQEgQICQKEBAFCggAhQYCQIEBIECAkCBASBAgJAoQE
+AUKCACFBgJAgQEgQICQIEBIECAkChAQBQoIAIUGAkCBASBAgJAgQEgQICQKEBAFCggAhQYCQ
+IEBIECAkCBASBAgJAoQEAUKCACFBgJAgQEgQICQIEBIE/M6Q/gd/0DBSQoJaw0gJCWoNIyUk
+qDWMlJCg1jBSQoJaw0gJCWoNIyUkqDWMlJCg1jBSQoJaw0gJCWoNIyUkqDWMlJCg1jBSQoJa
+w0gJCWoNIyUkqDWMlJCg1jBSQoJaw0gJCWoNIyUkqDWMlJCg1jBSQoJaw0gJCWoNIyUkqDWM
+lJCg1jBSQoJaw0gJCWoNIyUkqDWMlJCg1jBSQoJaw0gJCWoNIyUkqDWMlJCg1jBSQoJaw0gJ
+CWoNIyUkqDWMlJCg1jBSQoJaw0gJCWoNIyUkqDWMlJCg1jBSQoJaw0gJCWoNIyUkqDWMlJCg
+1jBSQoJaw0gJCWoNIyUkqDWMlJCg1jBSQoJaw0gJCWoNIyUkqDWMlJCg1jBSQoJaw0gJCWoN
+IyUkqDWMlJCg1jBSQoJaw0gJCWoNIyUkqDWMlJCg1jBSQoJaw0gJCWoNIyUkqDWMlJCg1jBS
+QoJaw0gJCWoNIyUkqDWMlJCg1jBSQoJaw0gJCWoNIyUkqDWMlJCg1jBSQoJaw0gJCWoNIyUk
+qDWMlJCg1jBS0ZCmF/Pl+trnN1eP+ejCV2y+dnjvO4rvrWECbxPS3ury06tri0VCOp1ZSEQ0
+jGA4pNMH29U0XT4mXZ3zSEiTkAhqGcGGYz4+2dvZVtP9nz79wZVC4jtoGcGGYz4+2dvZtleG
+WkiMoWUEG475+GTTxceru2maPxyvKPYfPd3PDvsRVzYI6hLeji6fe95fvD89ZdzsT7L/+HDE
+65lfbnJtU+Od3ncU31vL7Dcc8/HJzh+RZvv/bubHGZ9tzsZ98bIfsa6OqUM6P/rwudXZYc+z
+45ZGFdLT8cPPSup9R/G9tcx+wzEfn+ztbMtpuf/vvDw6bJalqtOnV9P8ef/H/qHjrjqmDqk+
++nBxfXd88bV/ONrutvfHh7i3p3az1fb1Jn/Q+47ie2uZ/YZjPj7Zy9nW99Nsu9s9lpp2h3hW
+r5+en/bztu8aqE5wcHF02VFfl9s8TovyqUUV0ukms0++0N53FN/bVwd/d7vfI82edocxf/3M
+3e7iFdBnIV0cffaiajE9lwvPVUjby9Nc0/uO4nv724E/H92GYz4+2YvFw/bd5eMzsLf5Xj89
+LGafhfTB0e9PVYV05TTX9L6j+N5aZr/hmI9PNtWXr6WwXpxdJyS+ny9N/WnmGo75+GQXIV25
+uH82NlssH9efPrW7erSQuL1Pxueam4Z0d3ol8+7T8+mxXPp0s+Hq0Z+8Rrr+dVzofUfxvX0y
+PtfcNKTVcYd7t3sqm2zvy1l+FtLVo09/Pp52uO+FRN7fDHvlpiHtZtPd89tbWKfyMDKfltv9
+Q8nhhdK2Pub9Ceqjz29T/x7peXdxkz/ofUfxvbXMfsMxH5+sPttmdtosOGyGH9/ScHg2drxq
+Xqa/ekg53154f/T7Sk6fezxeWry8s+GDr6PW+47ie2uZ/YZjPj7Z5dkO75abnd4ft9k/gMzK
+b2un2XKzL+ri+d77kN4fXVWyWb6+1+71zEIiomX2G475RrbTvOWw3ncU31vDSA0a0st7GK79
+s6e/0PuO4ntrmciWOexv8W4f4st631F8bw0jNWhIr/sQj02H976j+N4aRmrQkHbbh/nbPsSX
+9b6j+N4aRmrUkP6b3ncU31vDSAkJag0jJSSoNYyUkKDWMFJCglrDSAkJag0jJSSoNYyUkKDW
+MFJCglrDSAkJag0jJSSoNYyUkKDWMFJCglrDSAkJag0jJSSoNYyUkKDWMFJCglrDSAkJag0j
+JSSoNYyUkKDWMFJCglrDSAkJag0jJSSoNYyUkKDWMFJCglrDSAkJag0jJSSoNYyUkKDWMFJC
+glrDSAkJag0jJSSoNYyUkKDWMFJCglrDSAkJag0jJSSoNYyUkKDWMFJCglrDSAkJag0jJSSo
+NYyUkKDWMFJCglrDSAkJag0jJSSoNYyUkKDWMFJCglrDSAkJag0jJSSoNYyUkKDWMFJCglrD
+SAkJag0jJSSoNYyUkKDWMFJCglrDSAkJag0jJSSoNYyUkKDWMFJCglrDSAkJag0jJSSoNYyU
+kKDWMFJCglrDSAkJag0jJSSoNYyUkKDWMFJCglrDSAkJag0jJSSoNYyUkKDWMFK/MyQIExIE
+CAkChAQBQoIAIUGAkCBASBAgJAgQEgQICQKEBAFCggAhQYCQIEBIECAkCBASBAgJAoQEAUKC
+ACFBgJAgQEgQICQIEBIECAkChAQBQoIAIUGAkCBASBAgJAgQEgT8zpB6/08rktR7mgohMbre
+01QIidH1nqZCSIyu9zQVQmJ0vaepEBKj6z1NhZAYXe9pKoTE6HpPUyEkRtd7mgohMbre01QI
+idH1nqZCSIyu9zQVQmJ0vaepEBKj6z1NhZAYXe9pKoTE6HpPUyEkRtd7mgohMbre01QIidH1
+nqZCSIyu9zQVQmJ0vaepEBKj6z1NhZAYXe9pKoTE6HpPUyEkRtd7mgohMbre01QIidH1nqZC
+SIyu9zQVQmJ0vaepEBKj6z1NhZAYXe9pKoTE6HpPUyEkRtd7mgohMbre01QIidH1nqZCSIyu
+9zQVQmJ0vaepEBKj6z1NhZAYXe9pKoTE6HpPUyEkRtd7mgohMbre01QIidH1nqZCSIyu9zQV
+QmJ0vaepEBKj6z1NhZAYXe9pKoTE6HpPUyEkRtd7mgohMbre01QIidH1nqZCSIyu9zQVQmJ0
+vaepEBKj6z1NhZAYXe9pKoTE6HpPUyEkRtd7mgohMbre01QIidH1nqZCSIyu9zQVQmJ0vaep
+EBKj6z1NhZAYXe9pKoTE6HpPUyEkRtd7mgohMbre01QIidH1nqZCSIyu9zQVQmJ0vaepEBKj
+6z1NhZAYXe9pKoTE6HpPUyEkRtd7mgohMbre01QIidH1nqZCSIyu9zQVQmJ0vaepuFFI04v5
+cn3t85urx7x+OJ82b9e+Xr2Z5u9v9nZpU5/hz3rf9ST95Z1+W7cOaW91+enVtWXPMnh4Pehp
+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
+TkSuQmCC" width="420" height="420" />
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Petal.Length와 Petal.Width 변수가 가장 중요한 변수로 나타남을 알 수 있다.</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr />
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li><p>인공신경망</p>
+<ul>
+<li>인간의 두뇌 신경(뉴런)들이 상호작용하여 경험과 학습을 통해서 패턴을 발견하고, 이를 통해서 특정 삭너을 일반화하거나 데이터를 분류하는 데 이용되는 기계학습 방법</li>
+<li>특히, 인간의 개입 없이 컴퓨터가 스스로 인지하고, 추론하고, 판단하여 사물을 구분하거나 특정 상황의 미래를 예측하는 데 이용될 수 있는 기계학습 방법으로 문자, 음성, 이미지 인식, 증권 시장 예측, 날씨 예보 등 다양한 분야에서 활용되고 있다. </li>
+</ul>
+</li>
+<li><p>인공신경망과 생물학적 신경망의 비교</p>
+<ul>
+<li>외부 신호를 받는 <code>수상돌기</code>는 컴퓨터에서 <code>입력신호(x)</code>에 해당.</li>
+<li><code>시냅스</code>는 입력신호에 <code>가중치를 적용</code>하는 역할.</li>
+<li><code>세포핵</code>은 입력신호와 가중치를 이용하여 <code>망의 총합을 계산</code>하고 <code>활성 함수를 이용하여 망의 총합을 출력신호에 보내는 역할</code>.</li>
+</ul>
+</li>
+<li><p>망의 총합을 계산하는 수식</p>
+<ul>
+<li>입력신호와 가중치 곱의 합에 의해서 계산된다.</li>
+</ul>
+</li>
+<li><p>활성 함수는 망의 총합을 받아서 축색돌기에 출력신호를 전송하는 역할</p>
+<ul>
+<li>f(망의 총합)</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr />
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>가중치 적용<ul>
+<li>시냅스에서는 외부 신호 입력에 따라서 세기를 적용한다.</li>
+<li>가중치는 시냅스에 의해서 신호의 세기가 결정되는 부분에 해당한다.</li>
+<li>즉, 입력신호와 일대일로 가중치가 적용된다. 경계값은 활성 함수에 의해서 망의 총합을 다음 계층으로 넘길 때, 영향을 주는 값이다. </li>
+<li>한편, 입력신호의 가중치는 중요 변수에 따라서 가중치가 달라지는데 초기 가중치는 무작위로 생성되지만 출력값의 예측 결과에 따라서 가중치는 수정(중요 변수의 가중치는 높게 설정)된다.</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>활성 함수<ul>
+<li>망의 총합과 경계값을 계산하여 출력신호를 결정한다. 일반적으로 0과 1사이의 확률분포를 갖는 시그모이드 함수를 이용한다.</li>
+<li>시그모이드 함수는 가중치나 경계값이 변경된 경우 출력신호에 변화를 준다.<ul>
+<li>이에 반해 스텝 함수는 0 또는 1의 이항값으로 출력신호가 결정하므로 가중치와 경계값의 변화에 대해서 출력신호에 변화를 주지 못한다. 따라서 현재 인공신경망에서는 활성함수로 시그모이드 함수를 이용한다. </li>
+<li>sigmoid function : y = $\frac{1}{1 + e^-x}$</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>퍼셉트론<ul>
+<li>생물학적인 신경망처럼 신경과 신경이 하나의 망 형태로 나타내기 위해서 여러 개의 계층으로 다층화하여 만들어진 인공신경망을 퍼셉트론이라고 한다.</li>
+<li>주로 입력층, 은닉층, 출력층으로 구성된다.</li>
+<li>퍼셉트론 모형에서 입력과 출력은 분석자가 지정하기 때문에 이러한 측면에서는 지도학습의 범주에 해당한다. 다른 한편으로 인공신경망은 은닉층에서의 연산 과정이 공개되지 않기 때문에 이러한 측면에서는 블랙박스 모형으로 분류되기도 한다.<ul>
+<li>블랙박스 모형? 데이터 분류나 예측 결과는 제공하지만, 어떤 원인으로 결과가 도출되었는지에 대한 이유를 설명할 수 없는 모형을 의미한다.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr />
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>인공신경망 기계학습과 역전파 알고리즘<ul>
+<li>인공신경망에서 기계학습은 출력값과 실제 관측값을 비교하여 오차를 계산하고 이러한 오차를 줄이기 위해서 가중치와 경계값을 조절한다.</li>
+<li>오차(E) = 관측값(y1) - 출력값(o1)</li>
+<li>예를 들면 오차가 양수인 경우 출력값이 작다는 것이다. 출력값을 높여줄 필요가 있을 것이다.  따라서 은닉층의 출력이 양수이면 가중치를 크게 하고(왜냐하면 출력값이 예측값보다 작아서 오차가 양수였기 때문에 출력값을 높여주어야 하고, 높여주기 위해서는 은닉층의 출력값이 양수일 땐 가중치를 크게 하여 더욱 높여주고 만약 은닉층의 출력값이 음수이면 가중치를 낮추어 은닉층의 출력값이 더 작아지지 않도록 방지해주는 것이다), 은닉층의 출력이 음수이면 가중치를 더 작게 한다. 오차가 음수일 땐 반대의 과정을 거치면 된다. </li>
+<li>이러한 알고리즘을 적용하여 최적의 예측치가 구해지도록 기계학습이 수행된다.</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>한편, 인공신경망(퍼셉트론) 기본적으로 단방향 망으로 구성된다. <ul>
+<li>즉, 입력층 -&gt; 은닉층 -&gt; 출력층으로 한 방향으로만 전파된다. </li>
+<li>이러한 전파 방식을 개선하여 출력층 -&gt; 은닉층으로 역방향으로 오차를 전파하여 은닝측의 가중치와 경계값을 조정하여 분류 정확도를 높이는 역전파 알고리즘을 도입하고 있다. </li>
+<li>역전파 알고리즘은 출력에서 생긴 오차를 신경망의 역방향(입력층)으로 전파하여 순차적으로 편미분을 수행하면서 가중치와 경계값등을 수정한다. <ul>
+<li>즉, 입력값에 최적화된 가중치와 경계값이 적용되도록 구현된 인공신경망 관련된 알고리즘을 의미한다. </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+
+
+
+  </div><a class="u-url" href="/INTROr/2022/03/02/r.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/INTROr/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/INTROr/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/INTROr/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>An easy to use blogging platform with support for Jupyter Notebooks.</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/rhkrehtjd" target="_blank" title="rhkrehtjd"><svg class="svg-icon grey"><use xlink:href="/INTROr/assets/minima-social-icons.svg#github"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
