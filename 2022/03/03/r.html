@@ -1,0 +1,1852 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>인공신경망, 비지도학습 中 군집화 | INTROr</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="인공신경망, 비지도학습 中 군집화" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="An easy to use blogging platform with support for Jupyter Notebooks." />
+<meta property="og:description" content="An easy to use blogging platform with support for Jupyter Notebooks." />
+<link rel="canonical" href="https://rhkrehtjd.github.io/INTROr/2022/03/03/r.html" />
+<meta property="og:url" content="https://rhkrehtjd.github.io/INTROr/2022/03/03/r.html" />
+<meta property="og:site_name" content="INTROr" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-03-03T00:00:00-06:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="인공신경망, 비지도학습 中 군집화" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2022-03-03T00:00:00-06:00","datePublished":"2022-03-03T00:00:00-06:00","description":"An easy to use blogging platform with support for Jupyter Notebooks.","headline":"인공신경망, 비지도학습 中 군집화","mainEntityOfPage":{"@type":"WebPage","@id":"https://rhkrehtjd.github.io/INTROr/2022/03/03/r.html"},"url":"https://rhkrehtjd.github.io/INTROr/2022/03/03/r.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/INTROr/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://rhkrehtjd.github.io/INTROr/feed.xml" title="INTROr" /><link rel="shortcut icon" type="image/x-icon" href="/INTROr/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.css" integrity="sha512-h7nl+xz8wgDlNM4NqKEM4F1NkIRS17M9+uJwIGwuo8vGqIl4BhuCKdxjWEINm+xyrUjNCnK5dCrhM0sj+wTIXw==" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.js" integrity="sha512-/CMIhXiDA3m2c9kzRyd97MTb3MC6OVnx4TElQ7fkkoRghwDf6gi41gaT1PwF270W6+J60uTmwgeRpNpJdRV6sg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/contrib/auto-render.min.js" integrity="sha512-Do7uJAaHZm5OLrIv/yN4w0iG1dbu01kzdMNnFfu/mAqgUk6Nniv2JYHcwH+cNwjqgLcqcuBBk+JRvprLVI8azg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha512-0doc9hKxR3PYwso42RD1p5ySZpzzuDiOwMrdCEh2WdJZCjcmFKc/wEnL+z8fBQrnHoiNWbo+3fiGkOYXBdQp4A==" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/INTROr/">INTROr</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/INTROr/about/">About Me</a><a class="page-link" href="/INTROr/search/">Search</a><a class="page-link" href="/INTROr/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">인공신경망, 비지도학습 中 군집화</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2022-03-03T00:00:00-06:00" itemprop="datePublished">
+        Mar 3, 2022
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      8 min read
+    
+</span></p>
+
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-justify-center">
+          <div class="px-2">
+
+    <a href="https://github.com/rhkrehtjd/INTROr/tree/master/_notebooks/2022-03-03-r.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/INTROr/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://mybinder.org/v2/gh/rhkrehtjd/INTROr/master?filepath=_notebooks%2F2022-03-03-r.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/INTROr/assets/badges/binder.svg" alt="Open In Binder"/>
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://colab.research.google.com/github/rhkrehtjd/INTROr/blob/master/_notebooks/2022-03-03-r.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/INTROr/assets/badges/colab.svg" alt="Open In Colab"/>
+    </a>
+</div>
+          <div class="px-2">
+  <a href="https://deepnote.com/launch?url=https%3A%2F%2Fgithub.com%2Frhkrehtjd%2FINTROr%2Fblob%2Fmaster%2F_notebooks%2F2022-03-03-r.ipynb" target="_blank">
+      <img class="notebook-badge-image" src="/INTROr/assets/badges/deepnote.svg" alt="Launch in Deepnote"/>
+  </a>
+</div>
+
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2022-03-03-r.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>간단한 인공신경망 모델 생성</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">install.packages</span><span class="p">(</span><span class="s">&#39;nnet&#39;</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">nnet</span><span class="p">)</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="nf">data.frame</span><span class="p">(</span>
+<span class="n">x2</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">6</span><span class="p">),</span>
+<span class="n">x1</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="m">6</span><span class="o">:</span><span class="m">1</span><span class="p">),</span>
+<span class="n">y</span> <span class="o">=</span> <span class="nf">factor</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="s">&#39;no&#39;</span><span class="p">,</span><span class="s">&#39;no&#39;</span><span class="p">,</span><span class="s">&#39;no&#39;</span><span class="p">,</span><span class="s">&#39;yes&#39;</span><span class="p">,</span><span class="s">&#39;yes&#39;</span><span class="p">,</span><span class="s">&#39;yes&#39;</span><span class="p">)))</span>
+
+<span class="nf">str</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>Warning message:
+&#34;package &#39;nnet&#39; is in use and will not be installed&#34;
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>&#39;data.frame&#39;:	6 obs. of  3 variables:
+ $ x2: int  1 2 3 4 5 6
+ $ x1: int  6 5 4 3 2 1
+ $ y : Factor w/ 2 levels &#34;no&#34;,&#34;yes&#34;: 1 1 1 2 2 2
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">df</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A data.frame: 6 × 3</caption>
+<thead>
+	<tr><th scope="col">x2</th><th scope="col">x1</th><th scope="col">y</th></tr>
+	<tr><th scope="col">&lt;int&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;fct&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><td>1</td><td>6</td><td>no </td></tr>
+	<tr><td>2</td><td>5</td><td>no </td></tr>
+	<tr><td>3</td><td>4</td><td>no </td></tr>
+	<tr><td>4</td><td>3</td><td>yes</td></tr>
+	<tr><td>5</td><td>2</td><td>yes</td></tr>
+	<tr><td>6</td><td>1</td><td>yes</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">model_net</span> <span class="o">=</span> <span class="nf">nnet</span><span class="p">(</span><span class="n">y</span><span class="o">~</span><span class="n">.</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="m">1</span><span class="p">)</span> 
+<span class="c1"># size = 은닉층 수</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre># weights:  5
+initial  value 4.252524 
+iter  10 value 0.067535
+iter  20 value 0.010423
+iter  30 value 0.000107
+final  value 0.000074 
+converged
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>5개의 가중치가 생성되고, 기계학습으로 오차가 점진적으로 줄어드는 결과를 볼 수 있다.</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">model_net</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea ">
+<pre>a 2-1-1 network with 5 weights
+inputs: x2 x1 
+output(s): y 
+options were - entropy fitting </pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>위위셀에서 5개의 가중치가 생성되었다고 했는데, 모델의 결과 변수를 통해서 5개 가중치의 신경망 구조를 확인할 수 있다. </li>
+<li>신경망(a 2 - 1 - 1)은 경계값 - 입력변수 - 은닉층 - 출력변수의 망 형태로서 5개의 가중치를 보여주고 있다.</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">summary</span><span class="p">(</span><span class="n">model_net</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea ">
+<pre>a 2-1-1 network with 5 weights
+options were - entropy fitting 
+ b-&gt;h1 i1-&gt;h1 i2-&gt;h1 
+  0.53  -7.71   7.47 
+  b-&gt;o  h1-&gt;o 
+ 10.93 -22.83 </pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">model_net</span><span class="o">$</span><span class="n">fitted.values</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A matrix: 6 × 1 of type dbl</caption>
+<tbody>
+	<tr><th scope="row">1</th><td>6.792868e-06</td></tr>
+	<tr><th scope="row">2</th><td>6.792868e-06</td></tr>
+	<tr><th scope="row">3</th><td>6.901320e-06</td></tr>
+	<tr><th scope="row">4</th><td>9.999820e-01</td></tr>
+	<tr><th scope="row">5</th><td>9.999821e-01</td></tr>
+	<tr><th scope="row">6</th><td>9.999821e-01</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>1~3 번째 관측치는 0에 가까운 수, 4~6 번째 관측치는 1에 가까운 수로 예측하고 있다. </li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="nf">predict</span><span class="p">(</span><span class="n">model_net</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">type</span> <span class="o">=</span>  <span class="s">&#39;class&#39;</span><span class="p">)</span> <span class="c1"># 분류모델의 예측치 생성</span>
+<span class="nf">table</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">df</span><span class="o">$</span><span class="n">y</span><span class="p">)</span> <span class="c1"># 혼합 매트릭스 생성</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea ">
+<pre>     
+p     no yes
+  no   3   0
+  yes  0   3</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr />
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>iris 데이터 셋을 이용한 인공신경망 모델 생성</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">data</span><span class="p">(</span><span class="n">iris</span><span class="p">)</span>
+<span class="n">idx</span> <span class="o">=</span> <span class="nf">sample</span><span class="p">(</span><span class="m">1</span> <span class="o">:</span> <span class="nf">nrow</span><span class="p">(</span><span class="n">iris</span><span class="p">),</span> <span class="m">0.7</span><span class="o">*</span><span class="nf">nrow</span><span class="p">(</span><span class="n">iris</span><span class="p">))</span>
+<span class="n">training</span> <span class="o">=</span> <span class="n">iris</span><span class="p">[</span><span class="n">idx</span><span class="p">,]</span>
+<span class="n">testing</span> <span class="o">=</span> <span class="n">iris</span><span class="p">[</span><span class="o">-</span><span class="n">idx</span><span class="p">,]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">model_net_iris1</span> <span class="o">=</span> <span class="nf">nnet</span><span class="p">(</span><span class="n">Species</span><span class="o">~</span><span class="n">.</span><span class="p">,</span> <span class="n">training</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="m">1</span><span class="p">)</span> <span class="c1"># 은닉층 1개</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre># weights:  11
+initial  value 127.543486 
+iter  10 value 51.391267
+iter  20 value 47.757595
+iter  30 value 47.736376
+iter  40 value 47.436325
+iter  50 value 31.795231
+iter  60 value 9.869401
+iter  70 value 5.211545
+iter  80 value 4.766145
+iter  90 value 2.679624
+iter 100 value 2.242315
+final  value 2.242315 
+stopped after 100 iterations
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">model_net_iris1</span>
+<span class="c1"># 가중치 11개</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea ">
+<pre>a 4-1-3 network with 11 weights
+inputs: Sepal.Length Sepal.Width Petal.Length Petal.Width 
+output(s): Species 
+options were - softmax modelling </pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">model_net_iris3</span> <span class="o">=</span> <span class="nf">nnet</span><span class="p">(</span><span class="n">Species</span><span class="o">~</span><span class="n">.</span><span class="p">,</span> <span class="n">training</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="m">3</span><span class="p">)</span> <span class="c1"># 은닉층 3개</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre># weights:  27
+initial  value 116.795681 
+iter  10 value 57.411266
+iter  20 value 38.085291
+iter  30 value 10.521599
+iter  40 value 2.865933
+iter  50 value 1.763894
+iter  60 value 1.115130
+iter  70 value 0.028303
+iter  80 value 0.003758
+iter  90 value 0.003746
+iter 100 value 0.001560
+final  value 0.001560 
+stopped after 100 iterations
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">model_net_iris3</span>
+<span class="c1"># 27개의 가중치를 갖는다.</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea ">
+<pre>a 4-3-3 network with 27 weights
+inputs: Sepal.Length Sepal.Width Petal.Length Petal.Width 
+output(s): Species 
+options were - softmax modelling </pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>두 모델 모두 출력값이 3개.</li>
+<li>한편, 입력변수의 값들이 일정하지 않거나, 값이 큰 경우에는 신경망 모델이 정상적으로 만들어지지 않기 때문에, 입력 변수를 대상으로 정규화과정 필요.</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">summary</span><span class="p">(</span><span class="n">model_net_iris1</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea ">
+<pre>a 4-1-3 network with 11 weights
+options were - softmax modelling 
+  b-&gt;h1  i1-&gt;h1  i2-&gt;h1  i3-&gt;h1  i4-&gt;h1 
+  -3.50   -0.14   -0.54    0.63    1.76 
+  b-&gt;o1  h1-&gt;o1 
+  34.94 -104.75 
+  b-&gt;o2  h1-&gt;o2 
+  27.56  -29.16 
+  b-&gt;o3  h1-&gt;o3 
+ -62.20  135.59 </pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>은닉층의 노드가 1개, 11개의 가중치</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">summary</span><span class="p">(</span><span class="n">model_net_iris3</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea ">
+<pre>a 4-3-3 network with 27 weights
+options were - softmax modelling 
+   b-&gt;h1   i1-&gt;h1   i2-&gt;h1   i3-&gt;h1   i4-&gt;h1 
+   -0.34    -1.93    -1.56    -0.94     0.09 
+   b-&gt;h2   i1-&gt;h2   i2-&gt;h2   i3-&gt;h2   i4-&gt;h2 
+    6.28     0.22     0.94    -1.21    -3.30 
+   b-&gt;h3   i1-&gt;h3   i2-&gt;h3   i3-&gt;h3   i4-&gt;h3 
+   11.74    51.12    41.70     2.85    -2.75 
+   b-&gt;o1   h1-&gt;o1   h2-&gt;o1   h3-&gt;o1 
+-2476.29     0.39  4029.10   -50.20 
+   b-&gt;o2   h1-&gt;o2   h2-&gt;o2   h3-&gt;o2 
+  640.68     0.29   810.07    30.04 
+   b-&gt;o3   h1-&gt;o3   h2-&gt;o3   h3-&gt;o3 
+ 1835.62     0.36 -4838.74    20.30 </pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>은닉층의 노드가 3개, 27개의 가중치</li>
+<li>은닉층의 노드 수가 1개씩 중가할 때마다 일정한 수만큼 가중치가 증가하기 때문에 컴퓨터는 더 많은 연산을 수행하게 된다. </li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">table</span><span class="p">(</span><span class="nf">predict</span><span class="p">(</span><span class="n">model_net_iris1</span><span class="p">,</span> <span class="n">testing</span><span class="p">,</span> <span class="n">type</span> <span class="o">=</span> <span class="s">&#39;class&#39;</span><span class="p">),</span> <span class="n">testing</span><span class="o">$</span><span class="n">Species</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea ">
+<pre>            
+             setosa versicolor virginica
+  setosa         15          0         0
+  versicolor      0         16         1
+  virginica       0          0        13</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">table</span><span class="p">(</span><span class="nf">predict</span><span class="p">(</span><span class="n">model_net_iris3</span><span class="p">,</span> <span class="n">testing</span><span class="p">,</span> <span class="n">type</span> <span class="o">=</span> <span class="s">&#39;class&#39;</span><span class="p">),</span> <span class="n">testing</span><span class="o">$</span><span class="n">Species</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea ">
+<pre>            
+             setosa versicolor virginica
+  setosa         15          0         0
+  versicolor      0         16         1
+  virginica       0          0        13</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">table</span><span class="p">(</span><span class="nf">predict</span><span class="p">(</span><span class="n">model_net_iris1</span><span class="p">,</span> <span class="n">testing</span><span class="p">,</span> <span class="n">type</span> <span class="o">=</span> <span class="s">&#39;class&#39;</span><span class="p">),</span> <span class="n">testing</span><span class="o">$</span><span class="n">Species</span><span class="p">)</span>
+<span class="c1"># 분류모델 평가</span>
+<span class="nf">table</span><span class="p">(</span><span class="nf">predict</span><span class="p">(</span><span class="n">model_net_iris3</span><span class="p">,</span> <span class="n">testing</span><span class="p">,</span> <span class="n">type</span> <span class="o">=</span> <span class="s">&#39;class&#39;</span><span class="p">),</span> <span class="n">testing</span><span class="o">$</span><span class="n">Species</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea ">
+<pre>            
+             setosa versicolor virginica
+  setosa         15          0         0
+  versicolor      0         16         1
+  virginica       0          0        13</pre>
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea ">
+<pre>            
+             setosa versicolor virginica
+  setosa         15          0         0
+  versicolor      0         16         1
+  virginica       0          0        13</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>nnet 패키지에서 제공되는 인공신경망 모델은 1개의 은닉층으로 최적화되어 있기 때문에, 은닉층 노드의 수를 3개로 늘려서 연산을 늘려도 분류정확도는 크게 달라지지 않는다. </li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr />
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>역전파 알고리즘을 적용할 수 있는 모델에 대해 알아보자</li>
+<li>출력변수는 1과 0의 수치형이어야 한다. </li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">library</span><span class="p">(</span><span class="n">neuralnet</span><span class="p">)</span>
+
+<span class="nf">data</span><span class="p">(</span><span class="s">&#39;iris&#39;</span><span class="p">)</span>
+<span class="n">idx</span> <span class="o">=</span> <span class="nf">sample</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="nf">nrow</span><span class="p">(</span><span class="n">iris</span><span class="p">),</span> <span class="m">0.7</span> <span class="o">*</span> <span class="nf">nrow</span><span class="p">(</span><span class="n">iris</span><span class="p">))</span>
+<span class="n">training_iris</span> <span class="o">=</span> <span class="n">iris</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="p">]</span>
+<span class="n">testing_iris</span> <span class="o">=</span> <span class="n">iris</span><span class="p">[</span><span class="o">-</span><span class="n">idx</span><span class="p">,</span> <span class="p">]</span>
+
+<span class="c1"># 수치형으로 칼럼 생성</span>
+<span class="n">training_iris</span><span class="o">$</span><span class="n">Species2</span><span class="p">[</span><span class="n">training_iris</span><span class="o">$</span><span class="n">Species</span> <span class="o">==</span> <span class="s">&#39;setosa&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="m">1</span>
+<span class="n">training_iris</span><span class="o">$</span><span class="n">Species2</span><span class="p">[</span><span class="n">training_iris</span><span class="o">$</span><span class="n">Species</span> <span class="o">==</span> <span class="s">&#39;versicolor&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="m">2</span>
+<span class="n">training_iris</span><span class="o">$</span><span class="n">Species2</span><span class="p">[</span><span class="n">training_iris</span><span class="o">$</span><span class="n">Species</span> <span class="o">==</span> <span class="s">&#39;virginica&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="m">3</span>
+<span class="n">training_iris</span><span class="o">$</span><span class="n">Species</span> <span class="o">=</span> <span class="kc">NULL</span> <span class="c1"># 기존 칼럼 제거</span>
+<span class="nf">head</span><span class="p">(</span><span class="n">training_iris</span><span class="p">,</span><span class="m">3</span><span class="p">)</span>
+
+<span class="n">testing_iris</span><span class="o">$</span><span class="n">Species2</span><span class="p">[</span><span class="n">testing_iris</span><span class="o">$</span><span class="n">Species</span> <span class="o">==</span> <span class="s">&#39;setosa&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="m">1</span>
+<span class="n">testing_iris</span><span class="o">$</span><span class="n">Species2</span><span class="p">[</span><span class="n">testing_iris</span><span class="o">$</span><span class="n">Species</span> <span class="o">==</span> <span class="s">&#39;versicolor&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="m">2</span>
+<span class="n">testing_iris</span><span class="o">$</span><span class="n">Species2</span><span class="p">[</span><span class="n">testing_iris</span><span class="o">$</span><span class="n">Species</span> <span class="o">==</span> <span class="s">&#39;virginica&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="m">3</span>
+<span class="n">testing_iris</span><span class="o">$</span><span class="n">Species</span> <span class="o">=</span> <span class="kc">NULL</span> <span class="c1"># 기존 칼럼 제거</span>
+<span class="nf">head</span><span class="p">(</span><span class="n">testing_iris</span><span class="p">,</span><span class="m">3</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A data.frame: 3 × 5</caption>
+<thead>
+	<tr><th></th><th scope="col">Sepal.Length</th><th scope="col">Sepal.Width</th><th scope="col">Petal.Length</th><th scope="col">Petal.Width</th><th scope="col">Species2</th></tr>
+	<tr><th></th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><th scope="row">57</th><td>6.3</td><td>3.3</td><td>4.7</td><td>1.6</td><td>2</td></tr>
+	<tr><th scope="row">110</th><td>7.2</td><td>3.6</td><td>6.1</td><td>2.5</td><td>3</td></tr>
+	<tr><th scope="row">70</th><td>5.6</td><td>2.5</td><td>3.9</td><td>1.1</td><td>2</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A data.frame: 3 × 5</caption>
+<thead>
+	<tr><th></th><th scope="col">Sepal.Length</th><th scope="col">Sepal.Width</th><th scope="col">Petal.Length</th><th scope="col">Petal.Width</th><th scope="col">Species2</th></tr>
+	<tr><th></th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><th scope="row">3</th><td>4.7</td><td>3.2</td><td>1.3</td><td>0.2</td><td>1</td></tr>
+	<tr><th scope="row">7</th><td>4.6</td><td>3.4</td><td>1.4</td><td>0.3</td><td>1</td></tr>
+	<tr><th scope="row">9</th><td>4.4</td><td>2.9</td><td>1.4</td><td>0.2</td><td>1</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="c1"># 정규화 함수 정의</span>
+<span class="n">normal</span> <span class="o">=</span> <span class="nf">function</span><span class="p">(</span><span class="n">x</span><span class="p">){</span>
+    <span class="nf">return</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="nf">min</span><span class="p">(</span><span class="n">x</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="nf">max</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="nf">min</span><span class="p">(</span><span class="n">x</span><span class="p">)))}</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">training_nor</span> <span class="o">=</span> <span class="nf">as.data.frame</span><span class="p">(</span><span class="nf">lapply</span><span class="p">(</span><span class="n">training_iris</span><span class="p">,</span> <span class="n">normal</span><span class="p">))</span>
+<span class="nf">summary</span><span class="p">(</span><span class="n">training_nor</span><span class="p">)</span>
+<span class="n">testing_nor</span> <span class="o">=</span> <span class="nf">as.data.frame</span><span class="p">(</span><span class="nf">lapply</span><span class="p">(</span><span class="n">testing_iris</span><span class="p">,</span> <span class="n">normal</span><span class="p">))</span>
+<span class="nf">summary</span><span class="p">(</span><span class="n">testing_nor</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea ">
+<pre>  Sepal.Length     Sepal.Width      Petal.Length      Petal.Width     
+ Min.   :0.0000   Min.   :0.0000   Min.   :0.00000   Min.   :0.00000  
+ 1st Qu.:0.2121   1st Qu.:0.3636   1st Qu.:0.08475   1st Qu.:0.08333  
+ Median :0.4242   Median :0.4545   Median :0.57627   Median :0.54167  
+ Mean   :0.4378   Mean   :0.4844   Mean   :0.46877   Mean   :0.46548  
+ 3rd Qu.:0.6061   3rd Qu.:0.6364   3rd Qu.:0.69492   3rd Qu.:0.70833  
+ Max.   :1.0000   Max.   :1.0000   Max.   :1.00000   Max.   :1.00000  
+    Species2     
+ Min.   :0.0000  
+ 1st Qu.:0.0000  
+ Median :0.5000  
+ Mean   :0.5143  
+ 3rd Qu.:1.0000  
+ Max.   :1.0000  </pre>
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea ">
+<pre>  Sepal.Length     Sepal.Width      Petal.Length      Petal.Width    
+ Min.   :0.0000   Min.   :0.0000   Min.   :0.00000   Min.   :0.0000  
+ 1st Qu.:0.2222   1st Qu.:0.2381   1st Qu.:0.09091   1st Qu.:0.1304  
+ Median :0.4167   Median :0.3333   Median :0.58182   Median :0.5217  
+ Mean   :0.4278   Mean   :0.3513   Mean   :0.48000   Mean   :0.4599  
+ 3rd Qu.:0.5833   3rd Qu.:0.4762   3rd Qu.:0.72727   3rd Qu.:0.6522  
+ Max.   :1.0000   Max.   :1.0000   Max.   :1.00000   Max.   :1.0000  
+    Species2     
+ Min.   :0.0000  
+ 1st Qu.:0.0000  
+ Median :0.5000  
+ Mean   :0.4667  
+ 3rd Qu.:1.0000  
+ Max.   :1.0000  </pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>0 ~ 1로 정규화된 것을 알 수 있다.<ul>
+<li>정규화 : 데이터의 분포가 특정 범위 안에 들어가도록 조정하는 방법</li>
+<li>표준화 : 동일한 평균을 중심으로 관측값들이 얼마나 떨어져 있는지 나타내는 방법.</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">attributes</span><span class="p">(</span><span class="n">model_net</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<dl>
+	<dt>$names</dt>
+		<dd><style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+&lt;ol class=list-inline&gt;<li>'call'</li><li>'response'</li><li>'covariate'</li><li>'model.list'</li><li>'err.fct'</li><li>'act.fct'</li><li>'linear.output'</li><li>'data'</li><li>'exclude'</li><li>'net.result'</li><li>'weights'</li><li>'generalized.weights'</li><li>'startweights'</li><li>'result.matrix'</li>&lt;/ol&gt;
+</dd>
+	<dt>$class</dt>
+		<dd>'nn'</dd>
+</dl>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">model_net</span><span class="o">$</span><span class="n">call</span>
+<span class="c1"># 등등... 살펴볼 수 있다.</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea ">
+<pre>neuralnet(formula = Species2 ~ Sepal.Length + Sepal.Width + Petal.Length + 
+    Petal.Width, data = training_nor, hidden = 1)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">plot</span><span class="p">(</span><span class="n">model_net</span><span class="p">)</span>
+<span class="c1"># Rstudio에서 확인하면 인공신경망 구조 시각화할 수 있다.</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">model_result</span> <span class="o">=</span> <span class="nf">compute</span><span class="p">(</span><span class="n">model_net</span><span class="p">,</span> <span class="n">testing_nor</span><span class="p">[</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">4</span><span class="p">)])</span>
+<span class="n">model_result</span><span class="o">$</span><span class="n">net.result</span> <span class="c1"># 분류 예측값 보기</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A matrix: 45 × 1 of type dbl</caption>
+<tbody>
+	<tr><td> 0.009885439</td></tr>
+	<tr><td> 0.014013032</td></tr>
+	<tr><td> 0.026807983</td></tr>
+	<tr><td> 0.009358142</td></tr>
+	<tr><td>-0.010001099</td></tr>
+	<tr><td> 0.035306443</td></tr>
+	<tr><td> 0.020299006</td></tr>
+	<tr><td> 0.021133324</td></tr>
+	<tr><td> 0.001749970</td></tr>
+	<tr><td>-0.011540629</td></tr>
+	<tr><td> 0.019915231</td></tr>
+	<tr><td> 0.060096761</td></tr>
+	<tr><td> 0.015383757</td></tr>
+	<tr><td> 0.024554083</td></tr>
+	<tr><td>-0.001655595</td></tr>
+	<tr><td> 0.581084459</td></tr>
+	<tr><td> 0.649413934</td></tr>
+	<tr><td> 0.745100961</td></tr>
+	<tr><td> 0.752332192</td></tr>
+	<tr><td> 0.713556677</td></tr>
+	<tr><td> 0.488266209</td></tr>
+	<tr><td> 0.621098610</td></tr>
+	<tr><td> 0.495031616</td></tr>
+	<tr><td> 0.578108004</td></tr>
+	<tr><td> 0.858077222</td></tr>
+	<tr><td> 0.581492549</td></tr>
+	<tr><td> 0.551700870</td></tr>
+	<tr><td> 0.946808867</td></tr>
+	<tr><td> 0.692236383</td></tr>
+	<tr><td> 0.684556199</td></tr>
+	<tr><td> 0.709930562</td></tr>
+	<tr><td> 0.596167689</td></tr>
+	<tr><td> 0.684572032</td></tr>
+	<tr><td> 1.124068759</td></tr>
+	<tr><td> 1.144704308</td></tr>
+	<tr><td> 1.049614616</td></tr>
+	<tr><td> 0.941690843</td></tr>
+	<tr><td> 1.108133018</td></tr>
+	<tr><td> 0.913535092</td></tr>
+	<tr><td> 1.065738721</td></tr>
+	<tr><td> 0.962985919</td></tr>
+	<tr><td> 0.865390397</td></tr>
+	<tr><td> 1.118438610</td></tr>
+	<tr><td> 1.115327203</td></tr>
+	<tr><td> 1.052712740</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">cor</span><span class="p">(</span><span class="n">model_result</span><span class="o">$</span><span class="n">net.result</span><span class="p">,</span> <span class="n">testing_nor</span><span class="o">$</span><span class="n">Species2</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A matrix: 1 × 1 of type dbl</caption>
+<tbody>
+	<tr><td>0.9645181</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>예측된 꽃의 종과 실제 관측치 사이의 상관관계를 측정한다.</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="c1"># 인공신경망 모델 생성</span>
+<span class="n">model_net2</span> <span class="o">=</span> <span class="nf">neuralnet</span><span class="p">(</span><span class="n">Species2</span> <span class="o">~</span> <span class="n">Sepal.Length</span> <span class="o">+</span> <span class="n">Sepal.Width</span> <span class="o">+</span> <span class="n">Petal.Length</span> <span class="o">+</span> <span class="n">Petal.Width</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">training_nor</span><span class="p">,</span> 
+                      <span class="n">hidden</span> <span class="o">=</span> <span class="m">2</span><span class="p">,</span> <span class="n">algorithm</span> <span class="o">=</span> <span class="s">&#39;backprop&#39;</span><span class="p">,</span> <span class="n">learningrate</span> <span class="o">=</span> <span class="m">0.01</span><span class="p">)</span>
+<span class="c1"># algorithm = &#39;backprop&#39; =&gt; 역전파를 통해서 가중치와 경계값을 조정하여 오차를 줄이기 위해서 사용되는 속성.</span>
+<span class="c1"># 역전파 알고리즘을 적용할 경우 학습비율을 지정하는 속성으로 여기서는 1%를 지정하고 있다.</span>
+
+
+<span class="c1"># 분류모델 예측시 생성과 평가</span>
+<span class="n">model_result</span> <span class="o">=</span> <span class="nf">compute</span><span class="p">(</span><span class="n">model_net</span><span class="p">,</span> <span class="n">testing_nor</span><span class="p">[</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">4</span><span class="p">)])</span>
+<span class="nf">cor</span><span class="p">(</span><span class="n">model_result</span><span class="o">$</span><span class="n">net.result</span><span class="p">,</span> <span class="n">testing_nor</span><span class="o">$</span><span class="n">Species2</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A matrix: 1 × 1 of type dbl</caption>
+<tbody>
+	<tr><td>0.9645181</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>분류모델의 성능 향상<ul>
+<li>은닉층의 노드 증가 - 무조건 향상되진 않음.</li>
+<li>역전파 알고리즘</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr />
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>비지도 학습<ul>
+<li>데이터에 의한 학습을 통해 최적의 판단이나 예측을 가능하게 해주는 기계학습 방법의 하나로 어떤 입력에 대해서 어떤 결과가 출력되는지 사전지식이 없는 상태에서 컴퓨터 스스로 공통점과 차이점 등의 패턴을 찾아서 규칙을 생성하고 분석 결과를 도출해내는 방식.</li>
+<li>Y 변수가 없어서 검정데이터를 이용하여 모델 평가 불가</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>군집 분석<ul>
+<li>데이터 간의 유사도 정의, 그 유사도에 가까운 것부터 순서대로 합쳐 가는 방법.</li>
+<li>군집을 형성한 후 각 그룹의 성격을 파악하거나 그룹 간의 비교분석을 통해서 데이터 전체 구조에 대한 이해를 돕고자 하는 탐색적인 분석 방법.</li>
+<li>여기서 유사도는 거리를 이용하며, <strong><em>유클리디안 거리</em></strong>를 많이 사용함.</li>
+<li>분석 결과에 대한 가설검정 없음</li>
+<li>반응변수가 존재하지 않는 데이터 마이닝(대규모 데이터에 포함된 유용한 정보를 발견하는 과정) 기법이다. </li>
+<li>규칙을 기잔으로 계층적인 트리구조를 생성한다. </li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>군집 분석에서 주의할 것<ul>
+<li>1) 군집화를 위해서 거리 측정에 사용되는 변인은 비율척도나 등간척도여야 한다. </li>
+<li>2) 변수를 표준화하여 사용해야 한다.</li>
+<li>3) 계층적 군집 분석과 비계층적 군집 분석으로 분류된다. </li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr />
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>유클리디안 거리<ul>
+<li>두 점 사이의 거리를 계산하는 방법으로 이 거리를 이용하여 유클리드 공간을 정의할 수 있다.</li>
+<li>보통 알고있는 두 점 사이 공식과 동일하며, 따라서 관측대싱 $P$와 $q$의 대응하는 변량 값의 차가 작으면, 두 관측대상은 유사하다고 정의하는 식이다.</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="nf">matrix</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">9</span><span class="p">,</span> <span class="n">nrow</span> <span class="o">=</span> <span class="m">3</span><span class="p">,</span> <span class="n">by</span> <span class="o">=</span> <span class="bp">T</span> <span class="p">)</span>
+<span class="n">x</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table class="dataframe">
+<caption>A matrix: 3 × 3 of type int</caption>
+<tbody>
+	<tr><td>1</td><td>2</td><td>3</td></tr>
+	<tr><td>4</td><td>5</td><td>6</td></tr>
+	<tr><td>7</td><td>8</td><td>9</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="n">dist</span> <span class="o">=</span> <span class="nf">dist</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">method</span> <span class="o">=</span> <span class="s">&#39;euclidean&#39;</span><span class="p">)</span>
+<span class="n">dist</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea ">
+<pre>          1         2
+2  5.196152          
+3 10.392305  5.196152</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">sqrt</span><span class="p">(</span><span class="nf">sum</span><span class="p">((</span><span class="n">x</span><span class="p">[</span><span class="m">1</span><span class="p">,]</span> <span class="o">-</span> <span class="n">x</span><span class="p">[</span><span class="m">2</span><span class="p">,])</span><span class="o">^</span><span class="m">2</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+5.19615242270663
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>객체의 값이 서로 가까울수록 유클리디안 거리값이 적은 값으로 나타난다. </li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr />
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>계층적 군집 분석<ul>
+<li>개별대상 간의 거리에 의하여 가장 가까운 대상부터 결합하여 나무 모양의 계층구조를 상향식(Bottom-Up)으로 만들어가면서 군집을 형성하는 방법</li>
+<li>군집 대상 간의 거리를 산정하는 기준에 따라 단일결합기준, 완전결합기준, 평균결합기준, 중심결합기준, 그리고 ward(유클리디안 제곱 거리)방식으로 분류된다.</li>
+<li>장점 : 군집 형성 과정 파악 可</li>
+<li>단점 : 큰 자료 처리 힘듦</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">install.packages</span><span class="p">(</span><span class="s">&#39;cluster&#39;</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">cluster</span><span class="p">)</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="nf">matrix</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">9</span><span class="p">,</span> <span class="n">nrow</span> <span class="o">=</span> <span class="m">3</span><span class="p">,</span> <span class="n">by</span> <span class="o">=</span> <span class="bp">T</span><span class="p">)</span>
+
+<span class="n">dist</span> <span class="o">=</span> <span class="nf">dist</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">method</span> <span class="o">=</span> <span class="s">&#39;euclidian&#39;</span><span class="p">)</span>
+
+<span class="c1"># 유클리디안 거리 matrix를 이용한 군집화</span>
+<span class="n">hc</span> <span class="o">=</span> <span class="nf">hclust</span><span class="p">(</span><span class="n">dist</span><span class="p">)</span>
+
+<span class="nf">plot</span><span class="p">(</span><span class="n">hc</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>package &#39;cluster&#39; successfully unpacked and MD5 sums checked
+
+The downloaded binary packages are in
+	C:\Users\ehfus\AppData\Local\Temp\RtmpMjPsvI\downloaded_packages
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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" width="420" height="420" />
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>유사도가 가까운 1과 2가 하나의 군집으로 형성되고, 3은 1과 2의 군집과 거리가 동떨어져 있다. </li>
+<li>Height는 해당 군집에 대한 유클리디안 거리를 의미.</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+
+
+
+  </div><a class="u-url" href="/INTROr/2022/03/03/r.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/INTROr/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/INTROr/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/INTROr/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>An easy to use blogging platform with support for Jupyter Notebooks.</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/rhkrehtjd" target="_blank" title="rhkrehtjd"><svg class="svg-icon grey"><use xlink:href="/INTROr/assets/minima-social-icons.svg#github"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
